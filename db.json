@@ -16,5 +16,158 @@
       "status": "ativo",
       "telefone": "31988888888"
     }
+  ],
+  "fornecedores": [
+    {
+      "id": 1,
+      "nome": "Distribuidora São José",
+      "cargo": "Fornecedor",
+      "email": "contato@saojose.com.br",
+      "status": "ativo",
+      "telefone": "31998765432"
+    },
+    {
+      "id": 2,
+      "nome": "Alimentos Boa Mesa",
+      "cargo": "Fornecedor",
+      "email": "vendas@boamesa.com.br",
+      "status": "ativo",
+      "telefone": "31991234567"
+    },
+    {
+      "id": 3,
+      "nome": "Hortifruti Verde Vida",
+      "cargo": "Fornecedor",
+      "email": "horti@verdevida.com.br",
+      "status": "inativo",
+      "telefone": "31997654321"
+    },
+    {
+      "id": 4,
+      "nome": "Laticínios Serra Azul",
+      "cargo": "Fornecedor",
+      "email": "serraazul@laticinios.com.br",
+      "status": "ativo",
+      "telefone": "31995554444"
+    },
+    {
+      "id": 5,
+      "nome": "Bebidas Rio Claro",
+      "cargo": "Fornecedor",
+      "email": "comercial@rioclaro.com.br",
+      "status": "ativo",
+      "telefone": "31993332222"
+    }
+  ],
+  "produtos": [
+    {
+      "id": 1,
+      "nome": "Leite Integral",
+      "sku": "4253453",
+      "unidadeMedida": "Unidade",
+      "quantidadeProduto": "1 Litro",
+      "status": "ativo",
+      "categoria": "derivados"
+    },
+    {
+      "id": 2,
+      "nome": "Água Mineral",
+      "sku": "9876541",
+      "unidadeMedida": "Unidade",
+      "quantidadeProduto": "500 ml",
+      "status": "ativo",
+      "categoria": "natural"
+    },
+    {
+      "id": 3,
+      "nome": "Chocolate ao Leite",
+      "sku": "1122334",
+      "unidadeMedida": "Pacote",
+      "quantidadeProduto": "90 gramas",
+      "status": "ativo",
+      "categoria": "industrializado"
+    },
+    {
+      "id": 4,
+      "nome": "Arroz Branco",
+      "sku": "5566778",
+      "unidadeMedida": "Pacote",
+      "quantidadeProduto": "5 kg",
+      "status": "ativo",
+      "categoria": "grãos"
+    },
+    {
+      "id": 5,
+      "nome": "Feijão Carioca",
+      "sku": "9988776",
+      "unidadeMedida": "Pacote",
+      "quantidadeProduto": "1 kg",
+      "status": "inativo",
+      "categoria": "grãos"
+    }
+  ],
+  "deposito": [
+    {
+      "id": 1,
+      "corredor": "A",
+      "prateleira": "12",
+      "sessao": "5",
+      "quantidadeMaxima": 15
+    },
+    {
+      "id": 2,
+      "corredor": "B",
+      "prateleira": "24",
+      "sessao": "10",
+      "quantidadeMaxima": 30
+    },
+    {
+      "id": 3,
+      "corredor": "C",
+      "prateleira": "07",
+      "sessao": "3",
+      "quantidadeMaxima": 20
+    },
+    {
+      "id": 4,
+      "corredor": "D",
+      "prateleira": "15",
+      "sessao": "8",
+      "quantidadeMaxima": 50
+    }
+  ],
+  "lotes": [
+    {
+      "id": 1,
+      "codigoLote": "LT-2024-001",
+      "marca": "Itambé",
+      "produto": "Leite Integral",
+      "status": "ativo",
+      "dataValidade": "2025-03-10"
+    },
+    {
+      "id": 2,
+      "codigoLote": "LT-2024-002",
+      "marca": "Nestlé",
+      "produto": "Chocolate ao Leite",
+      "status": "ativo",
+      "dataValidade": "2025-06-20"
+    },
+    {
+      "id": 3,
+      "codigoLote": "LT-2024-003",
+      "marca": "Piracanjuba",
+      "produto": "Leite Desnatado",
+      "status": "ativo",
+      "dataValidade": "2025-01-15"
+    },
+    {
+      "id": 4,
+      "codigoLote": "LT-2024-004",
+      "marca": "Coca-Cola",
+      "produto": "Refrigerante Cola",
+      "status": "inativo",
+      "dataValidade": "2024-12-01"
+    }
   ]
 }

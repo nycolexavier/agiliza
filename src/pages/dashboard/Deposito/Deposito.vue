@@ -1,68 +1,60 @@
 <script setup>
-    import Footer from '@/components/footer/Footer.vue';
-import { ref } from 'vue';
+import Footer from '@/components/footer/Footer.vue';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import api from "@/services/api"
 
-const router = useRouter()
+const router = useRouter();
 
-function irParaODashboard(){
-    router.push("/dashboard")
+function irParaODashboard() {
+  router.push('/dashboard');
 }
 
+const tabela = ref([]);
 
-    const tabela = ref([
-        {
-            id: "1",
-            corredor: "A",
-            prateleira: "12",
-            sessao: '5',
-            quantidadeMaxima: '15'
-        },
-        {
-            id: "2",
-            corredor: "B",
-            prateleira: "24",
-            sessao: '10',
-            quantidadeMaxima: '30'
-        }
-    ])
+async function buscarDeposito(){
+    const response = await api.get("/deposito")
+
+    tabela.value = response.data;
+}
+
+onMounted(() => {
+    buscarDeposito();
+})
+
 </script>
-    
-    
-    <template>
-    <div>
-        <h1>Página de Deposito</h1>
 
-        <br>
+<template>
+  <div>
+    <h1>Página de Deposito</h1>
 
-         <button @click="irParaODashboard" >Dashboard</button>
+    <br />
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Corredor</th>
-                    <th>Prateleira</th>
-                    <th>Sessão</th>
-                    <th>Quantidade Máxima</th>
-                </tr>
-            </thead>
+    <button @click="irParaODashboard">Dashboard</button>
 
-            <tbody>
-                <tr v-for="item in tabela" :key="item.id" >
-                    <td>{{ item.corredor }}</td>
-                    <td>{{ item.prateleira }}</td>
-                    <td>{{ item.sessao }}</td>
-                    <td>{{ item.quantidadeMaxima }}</td>
+    <table>
+      <thead>
+        <tr>
+          <th>Corredor</th>
+          <th>Prateleira</th>
+          <th>Sessão</th>
+          <th>Quantidade Máxima</th>
+        </tr>
+      </thead>
 
-                    <td>
-                        <button>
-                            Ações
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <Footer/>
-    </div>
+      <tbody>
+        <tr v-for="item in tabela" :key="item.id">
+          <td>{{ item.corredor }}</td>
+          <td>{{ item.prateleira }}</td>
+          <td>{{ item.sessao }}</td>
+          <td>{{ item.quantidadeMaxima }}</td>
+
+          <td>
+            <button>Ações</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <Footer />
+  </div>
 </template>
-

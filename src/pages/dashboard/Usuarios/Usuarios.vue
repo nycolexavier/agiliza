@@ -1,95 +1,69 @@
-
-   <script setup>
-    import Footer from '@/components/footer/Footer.vue';
-    import { ref } from 'vue';
+<script setup>
+import Footer from '@/components/footer/Footer.vue';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
-    
-    const router = useRouter();
+import api from '@/services/api';
 
-    function irParaODashboard(){
-        router.push('/dashboard')
-    }
+const router = useRouter();
 
-    const tabela = ref([
-        {
-            id: 1, 
-            nome: 'Nycole',
-            cargo: 'ADMIN',
-            email: 'nycole.xavier@gmail.com',
-            status: 'inativo',
-            telefone: '31997537547'
-        },
-        {
-            id: 2, 
-            nome: 'Soraia',
-            cargo: 'Gerente',
-            email: 'soraia.xavier@gmail.com',
-            status: 'ativo',
-            telefone: '31997537547'
-        },
-            {
-            id: 3, 
-            nome: 'Gleice',
-            cargo: 'Funcionária',
-            email: 'gleice.xavier@gmail.com',
-            status: 'ativo',
-            telefone: '31997537547'
-        },
-        {
-            id: 3, 
-            nome: 'Maria',
-            cargo: 'Funcionária',
-            email: 'gleice.xavier@gmail.com',
-            status: 'ativo',
-            telefone: '31997537547'
-        }
-        
-    ])
-</script> 
-    
-    <template>
-    <div>
-        <h1>Página de Usuários</h1>
+function irParaODashboard() {
+  router.push('/dashboard');
+}
 
-        <p>(to-do) campo de busca</p>
+const tabela = ref([]);
 
-        <button>adicionar usuários</button>
+async function buscarUsuarios() {
+  const response = await api.get('/usuarios');
+  tabela.value = response.data;
+}
 
-        <br>
+onMounted(() => {
+  buscarUsuarios();
+});
+</script>
 
-        <button @click="irParaODashboard" >Dashboard</button>
+<template>
+  <div>
+    <h1>Página de Usuários</h1>
 
-        <p>Listar usuarios</p>
-        <p>Editar usuarios</p>
-        <p>Deletar usuarios</p>
+    <p>(to-do) campo de busca</p>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Cargo</th>
-                    <th>E-mail</th>
-                    <th>Status</th>
-                    <th>Telefone</th>
-                </tr>
-            </thead>
+    <button>adicionar usuários</button>
 
-            <tbody>
-                <tr v-for="item in tabela" :key="item.id">
-                    <td>{{ item.nome }}</td>
-                    <td>{{ item.cargo }}</td>
-                    <td>{{ item.email }}</td>
-                    <td>{{ item.status }}</td>
-                    <td>{{ item.telefone }}</td>
+    <br />
 
-                    <td>
-                        <button>Ações</button>
-                    </td>
-                </tr>
+    <button @click="irParaODashboard">Dashboard</button>
 
-            </tbody>
-        </table>
+    <p>Listar usuarios</p>
+    <p>Editar usuarios</p>
+    <p>Deletar usuarios</p>
 
-        <Footer/>
-    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Cargo</th>
+          <th>E-mail</th>
+          <th>Status</th>
+          <th>Telefone</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr v-for="item in tabela" :key="item.id">
+          <td>{{ item.nome }}</td>
+          <td>{{ item.cargo }}</td>
+          <td>{{ item.email }}</td>
+          <td>{{ item.status }}</td>
+          <td>{{ item.telefone }}</td>
+
+          <td>
+            <button>Ações</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <Footer />
+  </div>
 </template>
