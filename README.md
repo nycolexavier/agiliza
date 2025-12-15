@@ -1,4 +1,4 @@
-# agiliza
+# Agiliza - seu sistema de gerenciamento de estoque.
 
 This template should help get you started developing with Vue 3 in Vite.
 
