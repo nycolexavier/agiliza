@@ -1,8 +1,9 @@
-<script setup>
+<script setup lang="ts">
 import Footer from '@/components/footer/Footer.vue';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import api from '@/services/api';
+import type { Lote } from '@/interfaces/Lotes/Lote';
 
 const router = useRouter();
 
@@ -10,10 +11,10 @@ function irParaODashboard() {
   router.push('/dashboard');
 }
 
-const tabela = ref([]);
+const tabela = ref<Lote[]>([]);
 
 async function buscarLotes() {
-  const response = await api.get('/lotes');
+  const response = await api.get<Lote[]>('/lotes');
 
   tabela.value = response.data;
 }
@@ -53,7 +54,7 @@ onMounted(() => {
           <td>{{ item.dataValidade }}</td>
 
           <td>
-            <button>Ações</button>
+            <button>Editar</button>
           </td>
         </tr>
       </tbody>

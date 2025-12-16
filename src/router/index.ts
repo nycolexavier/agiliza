@@ -1,12 +1,13 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import Login from '@/pages/login/Login.vue'
-import Dashboard from '@/pages/dashboard/Dashboard.vue'
-import Produtos from '@/pages/dashboard/Produtos.vue/Produtos.vue'
-import Fornecedores from '@/pages/dashboard/Fornecedores/Fornecedores.vue'
-import Deposito from '@/pages/dashboard/Deposito/Deposito.vue'
-import Usuarios from '@/pages/dashboard/Usuarios/Usuarios.vue'
-import Lotes from '@/pages/dashboard/Lotes/Lotes.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+import Login from '@/pages/login/Login.vue';
+import Dashboard from '@/pages/dashboard/Dashboard.vue';
+import Produtos from '@/pages/dashboard/Produtos.vue/Produtos.vue';
+import Fornecedores from '@/pages/dashboard/Fornecedores/Fornecedores.vue';
+import Deposito from '@/pages/dashboard/Deposito/Deposito.vue';
+import Usuarios from '@/pages/dashboard/Usuarios/Usuarios.vue';
+import Lotes from '@/pages/dashboard/Lotes/Lotes.vue';
+import UsuarioEditar from '@/pages/dashboard/Usuarios/editar/UsuarioEditar.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,32 +20,37 @@ const router = createRouter({
     {
       path: '/dashboard',
       name: 'dashboard',
-      component: Dashboard
+      component: Dashboard,
     },
     {
       path: '/dashboard/produtos',
-      name:  'produtos',
-      component: Produtos
+      name: 'produtos',
+      component: Produtos,
     },
     {
       path: '/dashboard/fornecedores',
       name: 'fornecedores',
-      component: Fornecedores
+      component: Fornecedores,
     },
     {
       path: '/dashboard/deposito',
       name: 'deposito',
-      component: Deposito
+      component: Deposito,
     },
-        {
+    {
       path: '/dashboard/usuarios',
       name: 'usuarios',
-      component: Usuarios
+      component: Usuarios,
     },
-      {
+    {
+      path: "/usuarios/:id",
+      name: "usuario-detalhe",
+      component: UsuarioEditar
+    },
+    {
       path: '/dashboard/lotes',
       name: 'lotes',
-      component: Lotes
+      component: Lotes,
     },
     {
       path: '/',
@@ -60,6 +66,6 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue'),
     },
   ],
-})
+});
 
-export default router
+export default router;

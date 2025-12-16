@@ -1,8 +1,9 @@
-<script setup>
+<script setup lang="ts">
 import Footer from '@/components/footer/Footer.vue';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import api from '@/services/api';
+import type { Usuario } from '@/interfaces/Usuarios/Usuario';
 
 const router = useRouter();
 
@@ -10,11 +11,15 @@ function irParaODashboard() {
   router.push('/dashboard');
 }
 
-const tabela = ref([]);
+const tabela = ref<Usuario[]>([]);
 
 async function buscarUsuarios() {
   const response = await api.get('/usuarios');
   tabela.value = response.data;
+}
+
+function irParaEdicaoUsuarios(id:number) {
+  router.push(`/usuarios/${id}`);
 }
 
 onMounted(() => {
@@ -33,10 +38,6 @@ onMounted(() => {
     <br />
 
     <button @click="irParaODashboard">Dashboard</button>
-
-    <p>Listar usuarios</p>
-    <p>Editar usuarios</p>
-    <p>Deletar usuarios</p>
 
     <table>
       <thead>
@@ -58,7 +59,8 @@ onMounted(() => {
           <td>{{ item.telefone }}</td>
 
           <td>
-            <button>Ações</button>
+            <button>Ver tudo</button>
+            <button @click="irParaEdicaoUsuarios(item.id)">Editar</button>
           </td>
         </tr>
       </tbody>

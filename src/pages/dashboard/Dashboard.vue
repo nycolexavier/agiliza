@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import Footer from '@/components/footer/Footer.vue';
 import { useRouter } from 'vue-router';
 

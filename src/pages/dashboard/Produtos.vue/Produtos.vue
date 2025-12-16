@@ -1,8 +1,9 @@
-<script setup>
+<script setup lang="ts">
 import Footer from '@/components/footer/Footer.vue';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import api from "@/services/api"
+import api from '@/services/api';
+import type { Produto } from '@/interfaces/Produtos/Produto';
 
 const router = useRouter();
 
@@ -10,19 +11,19 @@ function irParaODashboard() {
   router.push('/dashboard');
 }
 
-const tabela = ref([]);
+const tabela = ref<Produto[]>([]);
 
 async function buscarProdutos() {
-  const response = await api.get('/produtos');
+  const response = await api.get<Produto[]>('/produtos');
 
   tabela.value = response.data;
 
   console.log(response.data);
 }
 
-onMounted(() =>{
-    buscarProdutos();
-})
+onMounted(() => {
+  buscarProdutos();
+});
 </script>
 
 <template>
