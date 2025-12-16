@@ -1,9 +1,9 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
 import { onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
 import api from '@/services/api';
-import { Deposito } from '@/interfaces/Deposito/Deposito';
+import type { Deposito } from '@/interfaces/Deposito/Deposito';
+import { useRouter } from 'vue-router';
 
 export default {
   setup(props, ctx) {
