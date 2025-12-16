@@ -12,6 +12,11 @@ export default {
     function irParaODashboard() {
       router.push('/dashboard');
     }
+''
+    function irParaFornecedoresEdicao(id:number){
+      router.push(`/dashboard/fornecedores/${id}`)
+    }
+
     const tabela = ref<Fornecedor[]>([]);
 
     async function buscarFornecedores() {
@@ -29,6 +34,7 @@ export default {
     return {
       irParaODashboard,
       tabela,
+      irParaFornecedoresEdicao
     };
   },
 };
@@ -64,7 +70,7 @@ export default {
           <td>{{ item.telefone }}</td>
 
           <td>
-            <button>Ações</button>
+            <button @click="irParaFornecedoresEdicao(item.id)" >Editar</button>
           </td>
         </tr>
       </tbody>

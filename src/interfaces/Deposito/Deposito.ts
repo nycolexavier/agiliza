@@ -1,5 +1,5 @@
 export interface Deposito{
-  id: string,
+  id: number,
   corredor: string,
   prateleira: string,
   sessao: string,

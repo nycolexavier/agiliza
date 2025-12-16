@@ -48,6 +48,7 @@ export default {
     <table>
       <thead>
         <tr>
+          <th>id</th>
           <th>Nome</th>
           <th>Cargo</th>
           <th>E-mail</th>
@@ -58,6 +59,7 @@ export default {
 
       <tbody>
         <tr>
+          <td>{{ usuario?.id }}</td>
           <td>{{ usuario?.nome }}</td>
           <td>{{ usuario?.cargo }}</td>
           <td>{{ usuario?.email }}</td>

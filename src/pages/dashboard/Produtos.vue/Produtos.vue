@@ -51,6 +51,7 @@ export default {
     <table>
       <thead>
         <tr>
+          <th>id</th>
           <th>nome</th>
           <th>sku</th>
           <th>unidade de medida</th>
@@ -62,6 +63,7 @@ export default {
 
       <tbody>
         <tr v-for="item in tabela" :key="item.id">
+          <td>{{ item?.id }}</td>
           <td>{{ item.nome }}</td>
           <td>{{ item.sku }}</td>
           <td>{{ item.unidadeMedida }}</td>

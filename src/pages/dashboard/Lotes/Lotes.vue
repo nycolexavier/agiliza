@@ -13,6 +13,10 @@ export default {
       router.push('/dashboard');
     }
 
+    function irParaOLotesEditar(id: number) {
+      router.push(`/dashboard/lotes/${id}`);
+    }
+
     const tabela = ref<Lote[]>([]);
 
     async function buscarLotes() {
@@ -26,8 +30,9 @@ export default {
     });
 
     return {
+      irParaOLotesEditar,
       irParaODashboard,
-      tabela
+      tabela,
     };
   },
 };
@@ -46,6 +51,7 @@ export default {
     <table>
       <thead>
         <tr>
+          <th>id</th>
           <th>Código Lote</th>
           <th>Marca</th>
           <th>Produto</th>
@@ -56,6 +62,7 @@ export default {
 
       <tbody>
         <tr v-for="item in tabela" :key="item.id">
+          <td>{{ item.id }}</td>
           <td>{{ item.codigoLote }}</td>
           <td>{{ item.marca }}</td>
           <td>{{ item.produto }}</td>
@@ -63,7 +70,7 @@ export default {
           <td>{{ item.dataValidade }}</td>
 
           <td>
-            <button>Editar</button>
+            <button @click="irParaOLotesEditar(item.id)">Editar</button>
           </td>
         </tr>
       </tbody>

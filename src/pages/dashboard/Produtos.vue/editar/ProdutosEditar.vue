@@ -45,6 +45,7 @@ export default {
   <table>
     <thead>
       <tr>
+        <th>id</th>
         <th>nome</th>
         <th>sku</th>
         <th>unidade de medida</th>
@@ -56,6 +57,7 @@ export default {
 
     <tbody>
       <tr>
+        <td>{{ produto?.id }}</td>
         <td>{{ produto?.nome }}</td>
         <td>{{ produto?.sku }}</td>
         <td>{{ produto?.unidadeMedida }}</td>

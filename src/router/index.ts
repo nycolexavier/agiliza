@@ -9,6 +9,9 @@ import Usuarios from '@/pages/dashboard/Usuarios/Usuarios.vue';
 import Lotes from '@/pages/dashboard/Lotes/Lotes.vue';
 import UsuarioEditar from '@/pages/dashboard/Usuarios/editar/UsuarioEditar.vue';
 import ProdutosEditar from '@/pages/dashboard/Produtos.vue/editar/ProdutosEditar.vue';
+import FornecedorEditar from '@/pages/dashboard/Fornecedores/editar/FornecedorEditar.vue';
+import DepositoEditar from '@/pages/dashboard/Deposito/editar/DepositoEditar.vue';
+import LotesEditar from '@/pages/dashboard/Lotes/editar/LotesEditar.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,9 +42,19 @@ const router = createRouter({
       component: Fornecedores,
     },
     {
+      path: '/dashboard/fornecedores/:id',
+      name: 'fornecedores-editar',
+      component: FornecedorEditar,
+    },
+    {
       path: '/dashboard/deposito',
       name: 'deposito',
       component: Deposito,
+    },
+    {
+      path: '/dashboard/deposito/:id',
+      name: 'deposito-editar',
+      component: DepositoEditar,
     },
     {
       path: '/dashboard/usuarios',
@@ -49,14 +62,19 @@ const router = createRouter({
       component: Usuarios,
     },
     {
-      path: "/usuarios/:id",
-      name: "usuario-detalhe",
-      component: UsuarioEditar
+      path: '/usuarios/:id',
+      name: 'usuario-detalhe',
+      component: UsuarioEditar,
     },
     {
       path: '/dashboard/lotes',
       name: 'lotes',
       component: Lotes,
+    },
+    {
+      path: '/dashboard/lotes/:id',
+      name: 'lotes-editar',
+      component: LotesEditar,
     },
     {
       path: '/',

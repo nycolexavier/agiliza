@@ -1,13 +1,17 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import api from '@/services/api';
 import type { Deposito } from '@/interfaces/Deposito/Deposito';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 export default {
   setup(props, ctx) {
     const router = useRouter();
+
+    function irParaDepositoEdicao(id: number) {
+      router.push(`/dashboard/fornecedores/${id}`);
+    }
 
     function irParaODashboard() {
       router.push('/dashboard');
@@ -21,18 +25,12 @@ export default {
       tabela.value = response.data;
     }
 
-    // try {
-    //   const response = await api.get<Usuario[]>("/usuarios");
-    // } catch (error) {
-    //   const err = error as AxiosError;
-    //   console.log(err.response?.status);
-    // } // to-do
-
     onMounted(() => {
       buscarDeposito();
     });
 
     return {
+      irParaDepositoEdicao,
       irParaODashboard,
       tabela,
     };
@@ -66,7 +64,7 @@ export default {
           <td>{{ item.quantidadeMaxima }}</td>
 
           <td>
-            <button>Ações</button>
+            <button @click="irParaDepositoEdicao(item.id)">Editar</button>
           </td>
         </tr>
       </tbody>
