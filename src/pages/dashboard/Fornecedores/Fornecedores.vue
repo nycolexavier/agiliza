@@ -1,28 +1,37 @@
-<script setup lang="ts">
+<script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import api from '@/services/api';
 import type { Fornecedor } from '@/interfaces/Fornecedores/Fornecedor';
 
-const router = useRouter();
+export default {
+  setup(props, ctx) {
+    const router = useRouter();
 
-function irParaODashboard() {
-  router.push('/dashboard');
-}
-const tabela = ref<Fornecedor[]>([]);
+    function irParaODashboard() {
+      router.push('/dashboard');
+    }
+    const tabela = ref<Fornecedor[]>([]);
 
-async function buscarFornecedores() {
-  const response = await api.get<Fornecedor[]>('/fornecedores');
+    async function buscarFornecedores() {
+      const response = await api.get<Fornecedor[]>('/fornecedores');
 
-  tabela.value = response.data;
+      tabela.value = response.data;
 
-  console.log(response.data);
-}
+      console.log(response.data);
+    }
 
-onMounted(() => {
-  buscarFornecedores();
-});
+    onMounted(() => {
+      buscarFornecedores();
+    });
+
+    return {
+      irParaODashboard,
+      tabela,
+    };
+  },
+};
 </script>
 
 <template>

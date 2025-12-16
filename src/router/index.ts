@@ -8,6 +8,7 @@ import Deposito from '@/pages/dashboard/Deposito/Deposito.vue';
 import Usuarios from '@/pages/dashboard/Usuarios/Usuarios.vue';
 import Lotes from '@/pages/dashboard/Lotes/Lotes.vue';
 import UsuarioEditar from '@/pages/dashboard/Usuarios/editar/UsuarioEditar.vue';
+import ProdutosEditar from '@/pages/dashboard/Produtos.vue/editar/ProdutosEditar.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +27,11 @@ const router = createRouter({
       path: '/dashboard/produtos',
       name: 'produtos',
       component: Produtos,
+    },
+    {
+      path: '/dashboard/produtos/:id',
+      name: 'produtos-editar',
+      component: ProdutosEditar,
     },
     {
       path: '/dashboard/fornecedores',

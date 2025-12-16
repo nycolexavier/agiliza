@@ -1,74 +1,83 @@
-<script setup lang="ts">
+<script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
 import { useRouter } from 'vue-router';
 
+export default {
+  setup(props, ctx) {
+    const router = useRouter();
 
-const router = useRouter()
+    function irParaUsuarios() {
+      router.push('/dashboard/usuarios');
+    }
 
-function irParaUsuarios(){
-    router.push("/dashboard/usuarios")
-}
+    function irParaFornecedores() {
+      router.push('dashboard/fornecedores');
+    }
 
-function irParaFornecedores(){
-    router.push("dashboard/fornecedores")
-}
+    function irParaProdutos() {
+      router.push('dashboard/produtos');
+    }
 
-function irParaProdutos(){
-    router.push("dashboard/produtos")
-}
+    function irParaDeposito() {
+      router.push('dashboard/deposito');
+    }
 
-function irParaDeposito(){
-    router.push("dashboard/deposito")
-}
+    function irParaLotes() {
+      router.push('dashboard/lotes');
+    }
 
-function irParaLotes(){
-    router.push("dashboard/lotes")
-}
-
+    return {
+      irParaUsuarios,
+      irParaFornecedores,
+      irParaProdutos,
+      irParaDeposito,
+      irParaLotes,
+    };
+  },
+};
 </script>
 
 <template>
-    <header>
-        <div>
-            <div>imagem</div> 
+  <header>
+    <div>
+      <div>imagem</div>
 
-            <br>
+      <br />
 
-            <p>menu:</p>
-            <button @click="irParaUsuarios">usuários</button>
-            <br>
-            <button @click="irParaFornecedores" >fornecedores</button>
-            <br>
-            <button @click="irParaProdutos" >produtos</button>
-            <br>
-            <button @click="irParaDeposito" >depósito</button>
-            <br>
-            <button @click="irParaLotes" >lotes</button>
-        </div>
-    </header>
+      <p>menu:</p>
+      <button @click="irParaUsuarios">usuários</button>
+      <br />
+      <button @click="irParaFornecedores">fornecedores</button>
+      <br />
+      <button @click="irParaProdutos">produtos</button>
+      <br />
+      <button @click="irParaDeposito">depósito</button>
+      <br />
+      <button @click="irParaLotes">lotes</button>
+    </div>
+  </header>
 
-    <br>
+  <br />
 
-    <section>
-        <div>geral/mês:</div>
+  <section>
+    <div>geral/mês:</div>
 
-        <br>
+    <br />
 
-        <div>Quantia total de fornecedores</div>
+    <div>Quantia total de fornecedores</div>
 
-        <br>
+    <br />
 
-        <div>Total dos produtos</div>
+    <div>Total dos produtos</div>
 
-        <br>
+    <br />
 
-        <div>Total de Itens no Estoque</div>
+    <div>Total de Itens no Estoque</div>
 
-        <div> Produtos críticos (perto do vencimento)</div>
-    </section>
+    <div>Produtos críticos (perto do vencimento)</div>
+  </section>
 
-    <br>
+  <br />
 
-    <Footer/>
+  <Footer />
 </template>
-

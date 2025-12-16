@@ -1,29 +1,43 @@
-<script setup lang="ts">
+<script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
-import { onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { computed, onMounted, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import api from '@/services/api';
 import type { Produto } from '@/interfaces/Produtos/Produto';
 
-const router = useRouter();
+export default {
+  setup(props, ctx) {
+    const router = useRouter();
 
-function irParaODashboard() {
-  router.push('/dashboard');
-}
+    function irParaODashboard() {
+      router.push('/dashboard');
+    }
 
-const tabela = ref<Produto[]>([]);
+    function irParaProdutosEdicao(id: number) {
+      router.push(`/dashboard/produtos/${id}`);
+    }
 
-async function buscarProdutos() {
-  const response = await api.get<Produto[]>('/produtos');
+    const tabela = ref<Produto[]>([]);
 
-  tabela.value = response.data;
+    async function buscarProdutos() {
+      const response = await api.get<Produto[]>('/produtos');
 
-  console.log(response.data);
-}
+      tabela.value = response.data;
 
-onMounted(() => {
-  buscarProdutos();
-});
+      console.log(response.data);
+    }
+
+    onMounted(() => {
+      buscarProdutos();
+    });
+
+    return {
+      tabela,
+      irParaODashboard,
+      irParaProdutosEdicao,
+    };
+  },
+};
 </script>
 
 <template>
@@ -56,7 +70,7 @@ onMounted(() => {
           <td>{{ item.status }}</td>
 
           <td>
-            <button>Ações</button>
+            <button @click="irParaProdutosEdicao(item.id)">Editar</button>
           </td>
         </tr>
       </tbody>

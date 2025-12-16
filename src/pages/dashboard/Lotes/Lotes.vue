@@ -1,27 +1,36 @@
-<script setup lang="ts">
+<script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import api from '@/services/api';
 import type { Lote } from '@/interfaces/Lotes/Lote';
 
-const router = useRouter();
+export default {
+  setup() {
+    const router = useRouter();
 
-function irParaODashboard() {
-  router.push('/dashboard');
-}
+    function irParaODashboard() {
+      router.push('/dashboard');
+    }
 
-const tabela = ref<Lote[]>([]);
+    const tabela = ref<Lote[]>([]);
 
-async function buscarLotes() {
-  const response = await api.get<Lote[]>('/lotes');
+    async function buscarLotes() {
+      const response = await api.get<Lote[]>('/lotes');
 
-  tabela.value = response.data;
-}
+      tabela.value = response.data;
+    }
 
-onMounted(() => {
-  buscarLotes();
-});
+    onMounted(() => {
+      buscarLotes();
+    });
+
+    return {
+      irParaODashboard,
+      tabela
+    };
+  },
+};
 </script>
 
 <template>

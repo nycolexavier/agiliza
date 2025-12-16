@@ -1,30 +1,41 @@
-<script setup lang="ts">
+<script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import api from '@/services/api';
 import type { Usuario } from '@/interfaces/Usuarios/Usuario';
 
-const router = useRouter();
+export default {
+  setup() {
+    const router = useRouter();
 
-function irParaODashboard() {
-  router.push('/dashboard');
-}
+    function irParaODashboard() {
+      router.push('/dashboard');
+    }
 
-const tabela = ref<Usuario[]>([]);
+    const tabela = ref<Usuario[]>([]);
 
-async function buscarUsuarios() {
-  const response = await api.get('/usuarios');
-  tabela.value = response.data;
-}
+    async function buscarUsuarios() {
+      const response = await api.get('/usuarios');
+      tabela.value = response.data;
+    }
 
-function irParaEdicaoUsuarios(id:number) {
-  router.push(`/usuarios/${id}`);
-}
+    function irParaEdicaoUsuarios(id: number) {
+      router.push(`/usuarios/${id}`);
+    }
 
-onMounted(() => {
-  buscarUsuarios();
-});
+    onMounted(() => {
+      buscarUsuarios();
+    });
+
+    return{
+      tabela,
+      irParaODashboard,
+      irParaEdicaoUsuarios
+    }
+
+  },
+};
 </script>
 
 <template>
