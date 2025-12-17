@@ -13,8 +13,12 @@ export default {
       router.push('/dashboard');
     }
 
-    function irParaProdutosEdicao(id: number) {
+    function irParaProdutosVer(id: number) {
       router.push(`/dashboard/produtos/${id}`);
+    }
+
+    function irParaCriarProduto(){
+      router.push(`/dashboard/produtos/new`)
     }
 
     const tabela = ref<Produto[]>([]);
@@ -34,7 +38,8 @@ export default {
     return {
       tabela,
       irParaODashboard,
-      irParaProdutosEdicao,
+      irParaProdutosVer,
+      irParaCriarProduto
     };
   },
 };
@@ -46,6 +51,7 @@ export default {
 
     <br />
 
+    <button @click="irParaCriarProduto">Adicionar produtos</button>
     <button @click="irParaODashboard">Dashboard</button>
 
     <table>
@@ -72,7 +78,7 @@ export default {
           <td>{{ item.status }}</td>
 
           <td>
-            <button @click="irParaProdutosEdicao(item.id)">Editar</button>
+            <button @click="irParaProdutosVer(item.id)">Ver</button>
           </td>
         </tr>
       </tbody>

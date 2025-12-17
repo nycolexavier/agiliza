@@ -217,6 +217,24 @@
       "quantidadeProduto": "1 kg",
       "status": "inativo",
       "categoria": "grãos"
+    },
+    {
+      "id": "c7db",
+      "nome": "Leite",
+      "sku": "46f4ds54f",
+      "quantidadeMedida": "355",
+      "quantidadeProduto": "'655",
+      "status": "ativo",
+      "categoria": "Leite"
+    },
+    {
+      "id": "269e",
+      "nome": "Leite",
+      "sku": "46f4ds54f",
+      "quantidadeMedida": "355",
+      "quantidadeProduto": "'655",
+      "status": "ativo",
+      "categoria": "Leite"
     }
   ],
   "deposito": [

@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import Login from '@/pages/login/Login.vue';
 import Dashboard from '@/pages/dashboard/Dashboard.vue';
-import Produtos from '@/pages/dashboard/Produtos.vue/Produtos.vue';
+import Produtos from '@/pages/dashboard/Produtos/Produtos.vue';
 import Fornecedores from '@/pages/dashboard/Fornecedores/Fornecedores.vue';
 import Deposito from '@/pages/dashboard/Deposito/Deposito.vue';
 import Usuarios from '@/pages/dashboard/Usuarios/Usuarios.vue';
@@ -12,8 +12,9 @@ import DepositoEditar from '@/pages/dashboard/Deposito/editar/DepositoEditar.vue
 import LotesEditar from '@/pages/dashboard/Lotes/editar/LotesEditar.vue';
 import UsuarioCriar from '@/pages/dashboard/Usuarios/criar/UsuarioCriar.vue';
 import UsuarioVer from '@/pages/dashboard/Usuarios/ver/UsuarioVer.vue';
-import ProdutosVer from '@/pages/dashboard/Produtos.vue/ver/ProdutosVer.vue';
+import ProdutosVer from '@/pages/dashboard/Produtos/ver/ProdutosVer.vue';
 import FornecedorCriar from '@/pages/dashboard/Fornecedores/criar/FornecedorCriar.vue';
+import ProdutoCriar from '@/pages/dashboard/Produtos/criar/ProdutoCriar.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -37,6 +38,11 @@ const router = createRouter({
       path: '/dashboard/produtos/:id',
       name: 'produtos-ver',
       component: ProdutosVer,
+    },
+        {
+      path: '/dashboard/produtos/new',
+      name: 'produtos-new',
+      component: ProdutoCriar,
     },
     {
       path: '/dashboard/fornecedores',
