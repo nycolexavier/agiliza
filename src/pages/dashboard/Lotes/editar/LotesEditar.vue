@@ -1,14 +1,20 @@
 <script lang="ts">
 import type { Lote } from '@/interfaces/Lotes/Lote';
+import router from '@/router';
 import api from '@/services/api';
 import { computed, onMounted, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 export default {
   setup(props, ctx) {
+    const router = useRouter();
     const route = useRoute();
 
     const id = computed(() => route.params.id);
+
+    function irParaOsLotes() {
+      router.push('/dashboard/produtos');
+    }
 
     const lote = ref<Lote | null>(null);
 
@@ -24,6 +30,7 @@ export default {
     return {
       id,
       lote,
+      irParaOsLotes,
     };
   },
 };
@@ -32,6 +39,8 @@ export default {
 <template>
   <div>
     <h1>Deu certo {{ id }}</h1>
+
+    <button @click="irParaOsLotes">Lotes</button>
 
     <table>
       <thead>

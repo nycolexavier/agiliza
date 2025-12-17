@@ -20,20 +20,24 @@ export default {
       tabela.value = response.data;
     }
 
-    function irParaEdicaoUsuarios(id: number) {
-      router.push(`/usuarios/${id}`);
+    function irParaVerUsuarios(id: number) {
+      router.push(`/dashboard/usuarios/${id}`);
+    }
+
+    function irParaCriarUsuario() {
+      router.push(`/dashboard/usuarios/new`);
     }
 
     onMounted(() => {
       buscarUsuarios();
     });
 
-    return{
+    return {
       tabela,
       irParaODashboard,
-      irParaEdicaoUsuarios
-    }
-
+      irParaVerUsuarios,
+      irParaCriarUsuario,
+    };
   },
 };
 </script>
@@ -44,7 +48,7 @@ export default {
 
     <p>(to-do) campo de busca</p>
 
-    <button>adicionar usuários</button>
+    <button @click="irParaCriarUsuario">adicionar usuários</button>
 
     <br />
 
@@ -72,8 +76,7 @@ export default {
           <td>{{ item.telefone }}</td>
 
           <td>
-            <button>Ver tudo</button>
-            <button @click="irParaEdicaoUsuarios(item.id)">Editar</button>
+            <button @click="irParaVerUsuarios(item.id)">Ver tudo</button>
           </td>
         </tr>
       </tbody>

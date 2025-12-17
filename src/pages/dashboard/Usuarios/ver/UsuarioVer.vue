@@ -41,7 +41,7 @@ export default {
 
 <template>
   <div>
-    <h1>Editar usuário {{ id }}</h1>
+    <h1>Ver usuário {{ id }}</h1>
 
     <button @click="irParaOUsuarios">Usuários</button>
 
@@ -59,7 +59,7 @@ export default {
 
       <tbody>
         <tr>
-          <td>{{ usuario?.id }}</td>
+          <td>{{ usuario?.id  }}</td>
           <td>{{ usuario?.nome }}</td>
           <td>{{ usuario?.cargo }}</td>
           <td>{{ usuario?.email }}</td>

@@ -1,7 +1,7 @@
 {
   "usuarios": [
     {
-      "id": 1,
+      "id": "1",
       "nome": "Nycole",
       "cargo": "Admin",
       "email": "nycole@gmail.com",
@@ -9,17 +9,98 @@
       "telefone": "31999999999"
     },
     {
-      "id": 2,
+      "id": "2",
       "nome": "Soraia",
       "cargo": "Gerente",
       "email": "soraia@gmail.com",
       "status": "ativo",
       "telefone": "31988888888"
+    },
+    {
+      "id": "4e35",
+      "nome": "Nycole dos Santos Xavier",
+      "cargo": "gerente",
+      "email": "nyc@gmail.com",
+      "telefone": "31997537547"
+    },
+    {
+      "id": "c640",
+      "nome": "PRISCILA DOS SANTOS MARINHO",
+      "cargo": "gerente",
+      "email": "priscila@gmail.com",
+      "telefone": "31997402013"
+    },
+    {
+      "id": "19aa",
+      "nome": "PRISCILA DOS SANTOS MARINHO",
+      "cargo": "gerente",
+      "email": "priscila@gmail.com",
+      "telefone": "31997402013"
+    },
+    {
+      "id": "d9d5",
+      "nome": "PRISCILA DOS SANTOS MARINHO",
+      "cargo": "gerente",
+      "email": "priscila@gmail.com",
+      "telefone": "31997402013"
+    },
+    {
+      "id": "3501",
+      "nome": "Fróis",
+      "cargo": "gerente",
+      "email": "frois@gmail.com",
+      "telefone": "3142342"
+    },
+    {
+      "id": "21af",
+      "nome": "josé",
+      "cargo": "funcionario",
+      "email": "jose@gmail.com",
+      "telefone": "35421"
+    },
+    {
+      "id": "d95d",
+      "nome": "",
+      "cargo": "",
+      "email": "",
+      "telefone": ""
+    },
+    {
+      "id": "474e",
+      "nome": "",
+      "cargo": "",
+      "email": "",
+      "status": "",
+      "telefone": ""
+    },
+    {
+      "id": "f716",
+      "nome": "lucas",
+      "cargo": "admin",
+      "email": "lucas@gmail.com",
+      "status": "ativo",
+      "telefone": "40923432"
+    },
+    {
+      "id": "a393",
+      "nome": "joel",
+      "cargo": "gerente",
+      "email": "joel@gmail.com",
+      "status": "ativo",
+      "telefone": "4298420984209"
+    },
+    {
+      "id": "0aa6",
+      "nome": "olá",
+      "cargo": "flsjlfs",
+      "email": "lfcjslfs@gmail.com",
+      "status": "ativo",
+      "telefone": "lfsjf"
     }
   ],
   "fornecedores": [
     {
-      "id": 1,
+      "id": "1",
       "nome": "Distribuidora São José",
       "cargo": "Fornecedor",
       "email": "contato@saojose.com.br",
@@ -27,7 +108,7 @@
       "telefone": "31998765432"
     },
     {
-      "id": 2,
+      "id": "2",
       "nome": "Alimentos Boa Mesa",
       "cargo": "Fornecedor",
       "email": "vendas@boamesa.com.br",
@@ -35,7 +116,7 @@
       "telefone": "31991234567"
     },
     {
-      "id": 3,
+      "id": "3",
       "nome": "Hortifruti Verde Vida",
       "cargo": "Fornecedor",
       "email": "horti@verdevida.com.br",
@@ -43,7 +124,7 @@
       "telefone": "31997654321"
     },
     {
-      "id": 4,
+      "id": "4",
       "nome": "Laticínios Serra Azul",
       "cargo": "Fornecedor",
       "email": "serraazul@laticinios.com.br",
@@ -51,7 +132,7 @@
       "telefone": "31995554444"
     },
     {
-      "id": 5,
+      "id": "5",
       "nome": "Bebidas Rio Claro",
       "cargo": "Fornecedor",
       "email": "comercial@rioclaro.com.br",
@@ -61,7 +142,7 @@
   ],
   "produtos": [
     {
-      "id": 1,
+      "id": "1",
       "nome": "Leite Integral",
       "sku": "4253453",
       "unidadeMedida": "Unidade",
@@ -70,7 +151,7 @@
       "categoria": "derivados"
     },
     {
-      "id": 2,
+      "id": "2",
       "nome": "Água Mineral",
       "sku": "9876541",
       "unidadeMedida": "Unidade",
@@ -79,7 +160,7 @@
       "categoria": "natural"
     },
     {
-      "id": 3,
+      "id": "3",
       "nome": "Chocolate ao Leite",
       "sku": "1122334",
       "unidadeMedida": "Pacote",
@@ -88,7 +169,7 @@
       "categoria": "industrializado"
     },
     {
-      "id": 4,
+      "id": "4",
       "nome": "Arroz Branco",
       "sku": "5566778",
       "unidadeMedida": "Pacote",
@@ -97,7 +178,7 @@
       "categoria": "grãos"
     },
     {
-      "id": 5,
+      "id": "5",
       "nome": "Feijão Carioca",
       "sku": "9988776",
       "unidadeMedida": "Pacote",
@@ -108,28 +189,28 @@
   ],
   "deposito": [
     {
-      "id": 1,
+      "id": "1",
       "corredor": "A",
       "prateleira": "12",
       "sessao": "5",
       "quantidadeMaxima": 15
     },
     {
-      "id": 2,
+      "id": "2",
       "corredor": "B",
       "prateleira": "24",
       "sessao": "10",
       "quantidadeMaxima": 30
     },
     {
-      "id": 3,
+      "id": "3",
       "corredor": "C",
       "prateleira": "07",
       "sessao": "3",
       "quantidadeMaxima": 20
     },
     {
-      "id": 4,
+      "id": "4",
       "corredor": "D",
       "prateleira": "15",
       "sessao": "8",
@@ -138,7 +219,7 @@
   ],
   "lotes": [
     {
-      "id": 1,
+      "id": "1",
       "codigoLote": "LT-2024-001",
       "marca": "Itambé",
       "produto": "Leite Integral",
@@ -146,7 +227,7 @@
       "dataValidade": "2025-03-10"
     },
     {
-      "id": 2,
+      "id": "2",
       "codigoLote": "LT-2024-002",
       "marca": "Nestlé",
       "produto": "Chocolate ao Leite",
@@ -154,7 +235,7 @@
       "dataValidade": "2025-06-20"
     },
     {
-      "id": 3,
+      "id": "3",
       "codigoLote": "LT-2024-003",
       "marca": "Piracanjuba",
       "produto": "Leite Desnatado",
@@ -162,7 +243,7 @@
       "dataValidade": "2025-01-15"
     },
     {
-      "id": 4,
+      "id": "4",
       "codigoLote": "LT-2024-004",
       "marca": "Coca-Cola",
       "produto": "Refrigerante Cola",
