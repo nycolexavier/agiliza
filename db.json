@@ -138,6 +138,38 @@
       "email": "comercial@rioclaro.com.br",
       "status": "ativo",
       "telefone": "31993332222"
+    },
+    {
+      "id": "1e89",
+      "nome": "Seu zé",
+      "cargo": "fornecedor",
+      "email": "ze@gmail.com",
+      "status": "ativo",
+      "telefone": 33333333
+    },
+    {
+      "id": "7c98",
+      "nome": "Seu zé",
+      "cargo": "fornecedor",
+      "email": "ze@gmail.com",
+      "status": "ativo",
+      "telefone": 33333333
+    },
+    {
+      "id": "6d39",
+      "nome": "Seu zé",
+      "cargo": "fornecedor",
+      "email": "ze@gmail.com",
+      "status": "ativo",
+      "telefone": 33333333
+    },
+    {
+      "id": "cb8d",
+      "nome": "Seu zé",
+      "cargo": "fornecedor",
+      "email": "ze@gmail.com",
+      "status": "ativo",
+      "telefone": 33333333
     }
   ],
   "produtos": [

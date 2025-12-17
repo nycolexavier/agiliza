@@ -38,7 +38,7 @@ export default {
 </script>
 
 <template>
-  <h1>Editar Produto {{ id }}</h1>
+  <h1>Ver Produto {{ id }}</h1>
 
   <button @click="irParaOsProdutos">Produtos</button>
 

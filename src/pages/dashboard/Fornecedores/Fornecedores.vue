@@ -12,9 +12,13 @@ export default {
     function irParaODashboard() {
       router.push('/dashboard');
     }
-''
-    function irParaFornecedoresEdicao(id:number){
-      router.push(`/dashboard/fornecedores/${id}`)
+    ('');
+    function irParaFornecedoresEdicao(id: number) {
+      router.push(`/dashboard/fornecedores/${id}`);
+    }
+
+    function irParaAddFornecedor(){
+      router.push(`/dashboard/fornecedores/new`)
     }
 
     const tabela = ref<Fornecedor[]>([]);
@@ -34,7 +38,8 @@ export default {
     return {
       irParaODashboard,
       tabela,
-      irParaFornecedoresEdicao
+      irParaFornecedoresEdicao,
+      irParaAddFornecedor
     };
   },
 };
@@ -44,6 +49,8 @@ export default {
   <div>
     <h1>Página de Fornecedores</h1>
 
+    <button @click="irParaAddFornecedor">Adicionar fornecedor</button>
+    <br />
     <button @click="irParaODashboard">Dashboard</button>
 
     <p>(to-do) campo de busca</p>
@@ -70,7 +77,7 @@ export default {
           <td>{{ item.telefone }}</td>
 
           <td>
-            <button @click="irParaFornecedoresEdicao(item.id)" >Editar</button>
+            <button @click="irParaFornecedoresEdicao(item.id)">Editar</button>
           </td>
         </tr>
       </tbody>
