@@ -9,8 +9,12 @@ export default {
   setup(props, ctx) {
     const router = useRouter();
 
-    function irParaDepositoEdicao(id: number) {
-      router.push(`/dashboard/fornecedores/${id}`);
+    function irParaDepositoVer(id: number) {
+      router.push(`/dashboard/deposito/${id}`);
+    }
+
+    function irParaDepositoCriar(){
+      router.push(`/dashboard/deposito/new`)
     }
 
     function irParaODashboard() {
@@ -30,7 +34,8 @@ export default {
     });
 
     return {
-      irParaDepositoEdicao,
+      irParaDepositoCriar,
+      irParaDepositoVer,
       irParaODashboard,
       tabela,
     };
@@ -43,6 +48,10 @@ export default {
     <h1>Página de Deposito</h1>
 
     <br />
+
+    <button @click="irParaDepositoCriar">Adicionar Deposito</button>
+    
+    <br>
 
     <button @click="irParaODashboard">Dashboard</button>
 
@@ -64,7 +73,7 @@ export default {
           <td>{{ item.quantidadeMaxima }}</td>
 
           <td>
-            <button @click="irParaDepositoEdicao(item.id)">Editar</button>
+            <button @click="irParaDepositoVer(item.id)">Ver</button>
           </td>
         </tr>
       </tbody>

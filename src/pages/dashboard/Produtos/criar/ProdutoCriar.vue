@@ -1,9 +1,16 @@
 <script lang="ts">
 import api from '@/services/api';
 import { reactive } from 'vue';
+import { useRouter } from 'vue-router';
 
 export default {
   setup(props, ctx) {
+
+    const router = useRouter();
+    function irParaOProduto(){
+      router.push(`/dashboard/produtos`)
+    }
+
     let form = reactive({
       nome: '',
       sku: '',
@@ -32,6 +39,7 @@ export default {
     return {
       form,
       enviarForm,
+      irParaOProduto
     };
   },
 };
@@ -40,6 +48,8 @@ export default {
 <template>
   <div>
     <h1>Criar um produto</h1>
+
+    <button @click="irParaOProduto" >Produto</button>
 
     <form @submit.prevent="enviarForm" action="">
       <input v-model="form.nome" type="text" placeholder="Nome" />

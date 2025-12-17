@@ -8,13 +8,14 @@ import Deposito from '@/pages/dashboard/Deposito/Deposito.vue';
 import Usuarios from '@/pages/dashboard/Usuarios/Usuarios.vue';
 import Lotes from '@/pages/dashboard/Lotes/Lotes.vue';
 import FornecedorEditar from '@/pages/dashboard/Fornecedores/editar/FornecedorEditar.vue';
-import DepositoEditar from '@/pages/dashboard/Deposito/editar/DepositoEditar.vue';
 import LotesEditar from '@/pages/dashboard/Lotes/editar/LotesEditar.vue';
 import UsuarioCriar from '@/pages/dashboard/Usuarios/criar/UsuarioCriar.vue';
 import UsuarioVer from '@/pages/dashboard/Usuarios/ver/UsuarioVer.vue';
 import ProdutosVer from '@/pages/dashboard/Produtos/ver/ProdutosVer.vue';
 import FornecedorCriar from '@/pages/dashboard/Fornecedores/criar/FornecedorCriar.vue';
 import ProdutoCriar from '@/pages/dashboard/Produtos/criar/ProdutoCriar.vue';
+import DepositoVer from '@/pages/dashboard/Deposito/ver/DepositoVer.vue';
+import DepositoCriar from '@/pages/dashboard/Deposito/criar/DepositoCriar.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,7 +40,7 @@ const router = createRouter({
       name: 'produtos-ver',
       component: ProdutosVer,
     },
-        {
+    {
       path: '/dashboard/produtos/new',
       name: 'produtos-new',
       component: ProdutoCriar,
@@ -66,8 +67,13 @@ const router = createRouter({
     },
     {
       path: '/dashboard/deposito/:id',
-      name: 'deposito-editar',
-      component: DepositoEditar,
+      name: 'deposito-ver',
+      component: DepositoVer,
+    },
+    {
+      path: '/dashboard/deposito/new',
+      name: 'deposito-criar',
+      component: DepositoCriar,
     },
     {
       path: '/dashboard/usuarios',

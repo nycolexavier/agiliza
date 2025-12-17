@@ -265,6 +265,48 @@
       "prateleira": "15",
       "sessao": "8",
       "quantidadeMaxima": 50
+    },
+    {
+      "id": "e41c",
+      "corredor": "",
+      "prateleira": "",
+      "sessao": "",
+      "quantidadeMaxima": ""
+    },
+    {
+      "id": "63db",
+      "corredor": "",
+      "prateleira": "",
+      "sessao": "",
+      "quantidadeMaxima": ""
+    },
+    {
+      "id": "2f6b",
+      "corredor": "A",
+      "prateleira": "31",
+      "sessao": "212",
+      "quantidadeMaxima": "22222"
+    },
+    {
+      "id": "aee2",
+      "corredor": "A",
+      "prateleira": "31",
+      "sessao": "212",
+      "quantidadeMaxima": "22222"
+    },
+    {
+      "id": "9c5e",
+      "corredor": "A",
+      "prateleira": "31",
+      "sessao": "212",
+      "quantidadeMaxima": "22222"
+    },
+    {
+      "id": "d8cb",
+      "corredor": "A",
+      "prateleira": "31",
+      "sessao": "212",
+      "quantidadeMaxima": "22222"
     }
   ],
   "lotes": [
