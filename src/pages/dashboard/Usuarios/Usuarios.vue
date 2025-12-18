@@ -1,45 +1,52 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
-import { onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { defineComponent } from 'vue';
 import api from '@/services/api';
 import type { Usuario } from '@/interfaces/Usuarios/Usuario';
 
-export default {
-  setup() {
-    const router = useRouter();
+export default defineComponent({
+  name: 'UsuariosPage',
 
-    function irParaODashboard() {
-      router.push('/dashboard');
-    }
+  components: {
+    Footer,
+  },
 
-    const tabela = ref<Usuario[]>([]);
-
-    async function buscarUsuarios() {
-      const response = await api.get('/usuarios');
-      tabela.value = response.data;
-    }
-
-    function irParaVerUsuarios(id: number) {
-      router.push(`/dashboard/usuarios/${id}`);
-    }
-
-    function irParaCriarUsuario() {
-      router.push(`/dashboard/usuarios/new`);
-    }
-
-    onMounted(() => {
-      buscarUsuarios();
-    });
-
+  data() {
     return {
-      tabela,
-      irParaODashboard,
-      irParaVerUsuarios,
-      irParaCriarUsuario,
+      tabela: [] as Usuario[],
     };
   },
-};
+
+  mounted() {
+    this.buscarUsuarios();
+  },
+
+  methods: {
+    irParaODashboard() {
+      this.$router.push(`/dashboard`);
+    },
+
+    async buscarUsuarios() {
+      try {
+        console.log("entrou")
+        const response = await api.get<Usuario[]>(`/usuarios`);
+        this.tabela = response.data;
+
+        console.log('response.data', response.data);
+      } catch (error) {
+        console.error('Erro ao buscar usuários', error);
+      }
+    },
+
+    irParaCriarUsuario() {
+      this.$router.push(`/dashboard/usuarios/new`);
+    },
+
+    irParaVerUsuarios(id: number) {
+      this.$router.push(`/dashboard/usuarios/${id}`);
+    },
+  },
+});
 </script>
 
 <template>
@@ -66,9 +73,9 @@ export default {
         </tr>
       </thead>
 
-      <tbody>
+      <tbody v-if="tabela.length">
         <tr v-for="item in tabela" :key="item.id">
-          <td>{{ item?.id }}</td>
+          <td>{{ item.id }}</td>
           <td>{{ item.nome }}</td>
           <td>{{ item.cargo }}</td>
           <td>{{ item.email }}</td>
@@ -78,6 +85,12 @@ export default {
           <td>
             <button @click="irParaVerUsuarios(item.id)">Ver tudo</button>
           </td>
+        </tr>
+      </tbody>
+
+      <tbody v-else>
+        <tr>
+          <td colspan="7">Nenhum usuário encontrado</td>
         </tr>
       </tbody>
     </table>
