@@ -1,33 +1,41 @@
 <script lang="ts">
+import Footer from '@/components/footer/Footer.vue';
 import api from '@/services/api';
-import { useRouter } from 'vue-router';
-export default {
-  setup(props, ctx) {
-    const router = useRouter();
+import { defineComponent } from 'vue';
 
-    function irParaODeposito() {
-      router.push(`/dashboard/deposito`);
-    }
+export default defineComponent({
+  name: 'DepositoCriarPage',
 
-    let form = {
-      corredor: '',
-      prateleira: '',
-      sessao: '',
-      quantidadeMaxima: '',
-    };
-
-    async function enviarForm() {
-      const response = await api.post(`/deposito`, {
-        corredor: form.corredor,
-        prateleira: form.prateleira,
-        sessao: form.sessao,
-        quantidadeMaxima: form.quantidadeMaxima,
-      });
-    }
-
-    return { form, enviarForm, irParaODeposito };
+  components: {
+    Footer,
   },
-};
+
+  data() {
+    return {
+      form: {
+        corredor: '',
+        prateleira: '',
+        sessao: '',
+        quantidadeMaxima: '',
+      },
+    };
+  },
+
+  methods: {
+    irParaODeposito() {
+      this.$router.push(`/dashboard/deposito`);
+    },
+
+    async enviarForm() {
+      const response = await api.post(`/deposito`, {
+        corredor: this.form.corredor,
+        prateleira: this.form.prateleira,
+        sessao: this.form.sessao,
+        quantidadeMaxima: this.form.quantidadeMaxima,
+      });
+    },
+  },
+});
 </script>
 
 <template>

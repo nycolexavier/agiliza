@@ -1,48 +1,48 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
-import { onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { defineComponent, onMounted, ref } from 'vue';
 import api from '@/services/api';
 import type { Fornecedor } from '@/interfaces/Fornecedores/Fornecedor';
 
-export default {
-  setup(props, ctx) {
-    const router = useRouter();
+export default defineComponent({
+  name: 'FornecedoresPage',
 
-    function irParaODashboard() {
-      router.push('/dashboard');
-    }
-    ('');
-    function irParaFornecedoresEdicao(id: number) {
-      router.push(`/dashboard/fornecedores/${id}`);
-    }
+  components: {
+    Footer,
+  },
 
-    function irParaAddFornecedor(){
-      router.push(`/dashboard/fornecedores/new`)
-    }
-
-    const tabela = ref<Fornecedor[]>([]);
-
-    async function buscarFornecedores() {
-      const response = await api.get<Fornecedor[]>('/fornecedores');
-
-      tabela.value = response.data;
-
-      console.log(response.data);
-    }
-
-    onMounted(() => {
-      buscarFornecedores();
-    });
-
+  data() {
     return {
-      irParaODashboard,
-      tabela,
-      irParaFornecedoresEdicao,
-      irParaAddFornecedor
+      tabela: [] as Fornecedor[],
     };
   },
-};
+
+  mounted() {
+    this.buscarFornecedores();
+  },
+
+  methods: {
+    irParaODashboard() {
+      this.$router.push('/dashboard');
+    },
+
+    irParaFornecedoresEdicao(id: number) {
+      this.$router.push(`/dashboard/fornecedores/${id}`);
+    },
+
+    irParaAddFornecedor() {
+      this.$router.push(`/dashboard/fornecedores/new`);
+    },
+
+    async buscarFornecedores() {
+      const response = await api.get<Fornecedor[]>('/fornecedores');
+
+      this.tabela = response.data;
+
+      console.log(response.data);
+    },
+  },
+});
 </script>
 
 <template>

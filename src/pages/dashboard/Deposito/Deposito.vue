@@ -1,46 +1,46 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
-import { computed, onMounted, ref } from 'vue';
+import { defineComponent } from 'vue';
 import api from '@/services/api';
 import type { Deposito } from '@/interfaces/Deposito/Deposito';
-import { useRoute, useRouter } from 'vue-router';
 
-export default {
-  setup(props, ctx) {
-    const router = useRouter();
+export default defineComponent({
+  name: 'DepositoPage',
 
-    function irParaDepositoVer(id: number) {
-      router.push(`/dashboard/deposito/${id}`);
-    }
+  components: {
+    Footer,
+  },
 
-    function irParaDepositoCriar(){
-      router.push(`/dashboard/deposito/new`)
-    }
-
-    function irParaODashboard() {
-      router.push('/dashboard');
-    }
-
-    const tabela = ref<Deposito[]>([]);
-
-    async function buscarDeposito() {
-      const response = await api.get<Deposito[]>('/deposito');
-
-      tabela.value = response.data;
-    }
-
-    onMounted(() => {
-      buscarDeposito();
-    });
-
+  data() {
     return {
-      irParaDepositoCriar,
-      irParaDepositoVer,
-      irParaODashboard,
-      tabela,
+      tabela: [] as Deposito[],
     };
   },
-};
+
+  mounted() {
+    this.buscarDeposito();
+  },
+
+  methods: {
+    irParaDepositoVer(id: number) {
+      this.$router.push(`/dashboard/deposito/${id}`);
+    },
+
+    irParaDepositoCriar() {
+      this.$router.push(`/dashboard/deposito/new`);
+    },
+
+    irParaODashboard() {
+      this.$router.push('/dashboard');
+    },
+
+    async buscarDeposito() {
+      const response = await api.get<Deposito[]>('/deposito');
+
+      this.tabela = response.data;
+    },
+  },
+});
 </script>
 
 <template>
@@ -50,8 +50,8 @@ export default {
     <br />
 
     <button @click="irParaDepositoCriar">Adicionar Deposito</button>
-    
-    <br>
+
+    <br />
 
     <button @click="irParaODashboard">Dashboard</button>
 

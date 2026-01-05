@@ -1,48 +1,48 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
-import { computed, onMounted, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { defineComponent } from 'vue';
 import api from '@/services/api';
 import type { Produto } from '@/interfaces/Produtos/Produto';
 
-export default {
-  setup(props, ctx) {
-    const router = useRouter();
+export default defineComponent({
+  name: 'ProdutosPage',
 
-    function irParaODashboard() {
-      router.push('/dashboard');
-    }
+  components: {
+    Footer,
+  },
 
-    function irParaProdutosVer(id: number) {
-      router.push(`/dashboard/produtos/${id}`);
-    }
-
-    function irParaCriarProduto(){
-      router.push(`/dashboard/produtos/new`)
-    }
-
-    const tabela = ref<Produto[]>([]);
-
-    async function buscarProdutos() {
-      const response = await api.get<Produto[]>('/produtos');
-
-      tabela.value = response.data;
-
-      console.log(response.data);
-    }
-
-    onMounted(() => {
-      buscarProdutos();
-    });
-
+  data() {
     return {
-      tabela,
-      irParaODashboard,
-      irParaProdutosVer,
-      irParaCriarProduto
+      tabela: [] as Produto[],
     };
   },
-};
+
+  mounted() {
+    this.buscarProdutos();
+  },
+
+  methods: {
+    irParaODashboard() {
+      this.$router.push('/dashboard');
+    },
+
+    irParaProdutosVer(id: number) {
+      this.$router.push(`/dashboard/produtos/${id}`);
+    },
+
+    irParaCriarProduto() {
+      this.$router.push(`/dashboard/produtos/new`);
+    },
+
+    async buscarProdutos() {
+      const response = await api.get<Produto[]>('/produtos');
+
+      this.tabela = response.data;
+
+      console.log(response.data);
+    },
+  },
+});
 </script>
 
 <template>

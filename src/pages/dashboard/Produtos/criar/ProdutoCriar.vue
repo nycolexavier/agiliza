@@ -1,55 +1,58 @@
 <script lang="ts">
+import Footer from '@/components/footer/Footer.vue';
 import api from '@/services/api';
-import { reactive } from 'vue';
-import { useRouter } from 'vue-router';
+import { defineComponent } from 'vue';
 
-export default {
-  setup(props, ctx) {
+export default defineComponent({
+  name: 'ProdutoCriarPage',
 
-    const router = useRouter();
-    function irParaOProduto(){
-      router.push(`/dashboard/produtos`)
-    }
+  components: {
+    Footer,
+  },
 
-    let form = reactive({
-      nome: '',
-      sku: '',
-      quantidadeMedida: '',
-      quantidadeProduto: '',
-      status: 'ativo',
-      categoria: '',
-    });
+  data() {
+    return {
+      form: {
+        nome: '',
+        sku: '',
+        quantidadeMedida: '',
+        quantidadeProduto: '',
+        status: 'ativo',
+        categoria: '',
+      },
+    };
+  },
 
-    async function enviarForm() {
+  methods: {
+    irParaOProduto() {
+      this.$router.push(`/dashboard/produtos`);
+    },
+
+    async enviarForm() {
       try {
         await api.post(`/produtos`, {
-          nome: form.nome,
-          sku: form.sku,
-          quantidadeMedida: form.quantidadeMedida,
-          quantidadeProduto: form.quantidadeProduto,
-          status: form.status,
-          categoria: form.categoria,
+          nome: this.form.nome,
+          sku: this.form.sku,
+          quantidadeMedida: this.form.quantidadeMedida,
+          quantidadeProduto: this.form.quantidadeProduto,
+          status: this.form.status,
+          categoria: this.form.categoria,
         });
 
         console.log('Deu certo!');
       } catch (error) {
         console.error('Erro ao criar produto', error);
       }
-    }
-    return {
-      form,
-      enviarForm,
-      irParaOProduto
-    };
+    },
   },
-};
+});
 </script>
 
 <template>
   <div>
     <h1>Criar um produto</h1>
 
-    <button @click="irParaOProduto" >Produto</button>
+    <button @click="irParaOProduto">Produto</button>
 
     <form @submit.prevent="enviarForm" action="">
       <input v-model="form.nome" type="text" placeholder="Nome" />

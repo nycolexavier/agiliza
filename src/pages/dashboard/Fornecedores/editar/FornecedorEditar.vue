@@ -1,44 +1,44 @@
 <script lang="ts">
+import Footer from '@/components/footer/Footer.vue';
 import type { Fornecedor } from '@/interfaces/Fornecedores/Fornecedor';
 import api from '@/services/api';
-import { computed, onMounted, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { defineComponent } from 'vue';
 
-export default {
-  setup() {
-    const route = useRoute();
-    const router = useRouter();
+export default defineComponent({
+  name: 'FornecedorEditarPage',
 
-    function irParaOFornecedor() {
-      router.push(`/dashboard/fornecedores`);
-    }
+  components: {
+    Footer,
+  },
 
-    const id = computed(() => route.params.id);
-
-    const fornecedorEdicao = ref<Fornecedor | null>(null);
-
-    async function buscarFornecedores() {
-      const response = await api.get(`/fornecedores/${id.value}`);
-      fornecedorEdicao.value = response.data;
-    }
-
-    onMounted(() => {
-      buscarFornecedores();
-    });
-
+  data() {
     return {
-      id,
-      buscarFornecedores,
-      fornecedorEdicao,
-      irParaOFornecedor,
+      fornecedorEdicao: null as Fornecedor | null,
     };
   },
-};
+
+  mounted() {
+    this.buscarFornecedores();
+  },
+
+  methods: {
+    irParaOFornecedor() {
+      this.$router.push(`/dashboard/fornecedores`);
+    },
+
+    async buscarFornecedores() {
+      const response = await api.get(
+        `/fornecedores/${this.fornecedorEdicao?.id}`
+      );
+      this.fornecedorEdicao = response.data;
+    },
+  },
+});
 </script>
 
 <template>
   <div>
-    <h1>Olá {{ id }}</h1>
+    <h1>Olá {{ fornecedorEdicao?.nome }}</h1>
 
     <button @click="irParaOFornecedor">Fornecedor</button>
 

@@ -1,47 +1,52 @@
 <script lang="ts">
+import Footer from '@/components/footer/Footer.vue';
+import type { Usuario } from '@/interfaces/Usuarios/Usuario';
 import api from '@/services/api';
-import { reactive } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { defineComponent } from 'vue';
 
-export default {
-  setup(props, ctx) {
-    const router = useRouter();
+export default defineComponent({
+  name: 'UsuarioCriarPage',
 
-    function irParaUsuarios() {
-      router.push(`/dashboard/usuarios`);
-    }
+  components: {
+    Footer,
+  },
 
-    let form = reactive({
-      nome: '',
-      cargo: '',
-      email: '',
-      status: 'ativo',
-      telefone: '',
-    });
+  data() {
+    return {
+      usuario: null as Usuario | null,
 
-    async function enviarForm() {
+      form: {
+        nome: '',
+        cargo: '',
+        email: '',
+        status: 'ativo',
+        telefone: '',
+      },
+    };
+  },
+
+  methods: {
+    irParaUsuarios() {
+      this.$router.push(`/dashboard/usuarios`);
+    },
+
+    async enviarForm() {
       try {
         await api.post(`/usuarios`, {
-          nome: form.nome,
-          cargo: form.cargo,
-          email: form.email,
-          status: form.status,
-          telefone: form.telefone,
+          nome: this.form.nome,
+          cargo: this.form.cargo,
+          email: this.form.email,
+          status: this.form.status,
+          telefone: this.form.telefone,
         });
 
         console.log('Deu!');
       } catch (error) {
         console.error('Erro ao criar usuário', error);
       }
-    }
-
-    return {
-      form,
-      enviarForm,
-      irParaUsuarios,
-    };
+    },
   },
-};
+});
 </script>
 
 <template>

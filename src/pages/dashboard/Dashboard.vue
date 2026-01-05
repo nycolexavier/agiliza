@@ -1,40 +1,37 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
+import { defineComponent } from 'vue';
 import { useRouter } from 'vue-router';
 
-export default {
-  setup(props, ctx) {
-    const router = useRouter();
+export default defineComponent({
+  name: 'DashboardPage',
 
-    function irParaUsuarios() {
-      router.push('/dashboard/usuarios');
-    }
-
-    function irParaFornecedores() {
-      router.push('dashboard/fornecedores');
-    }
-
-    function irParaProdutos() {
-      router.push('dashboard/produtos');
-    }
-
-    function irParaDeposito() {
-      router.push('dashboard/deposito');
-    }
-
-    function irParaLotes() {
-      router.push('dashboard/lotes');
-    }
-
-    return {
-      irParaUsuarios,
-      irParaFornecedores,
-      irParaProdutos,
-      irParaDeposito,
-      irParaLotes,
-    };
+  components: {
+    Footer,
   },
-};
+
+  methods: {
+    irParaUsuarios() {
+      this.$router.push('/dashboard/usuarios');
+    },
+
+    irParaFornecedores() {
+      this.$router.push('dashboard/fornecedores');
+    },
+
+    irParaProdutos() {
+      this.$router.push('dashboard/produtos');
+    },
+
+    irParaDeposito() {
+      this.$router.push('dashboard/deposito');
+    },
+
+    irParaLotes() {
+      this.$router.push('dashboard/lotes');
+    },
+  },
+});
 </script>
 
 <template>

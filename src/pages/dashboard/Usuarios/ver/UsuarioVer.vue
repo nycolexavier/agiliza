@@ -1,47 +1,48 @@
 <script lang="ts">
+import Footer from '@/components/footer/Footer.vue';
 import type { Usuario } from '@/interfaces/Usuarios/Usuario';
 import api from '@/services/api';
-import { computed, onMounted, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { defineComponent } from 'vue';
 
-export default {
-  setup(props, ctx) {
-    const route = useRoute();
+export default defineComponent({
+  name: 'UsuariosVerPage',
 
-    const id = computed(() => route.params.id);
-    console.log('aaaaaaaaaaa', id);
+  components: {
+    Footer,
+  },
 
-    const router = useRouter();
-
-    function irParaOUsuarios() {
-      router.push('/dashboard/usuarios');
-    }
-
-    const usuario = ref<Usuario | null>(null);
-
-    async function buscarUsuarios() {
-      const response = await api.get(`/usuarios/${id.value}`);
-      usuario.value = response.data;
-
-      console.log('usuario.data', response.data);
-    }
-
-    onMounted(() => {
-      buscarUsuarios();
-    });
-
+  data() {
     return {
-      id,
-      irParaOUsuarios,
-      usuario,
+      usuario: null as Usuario | null,
     };
   },
-};
+
+  mounted() {
+    this.buscarUsuario();
+  },
+
+  methods: {
+    irParaOUsuarios() {
+      this.$router.push(`/dashboard/usuarios`);
+    },
+
+    async buscarUsuario() {
+      try {
+        const id = this.$route.params.id;
+
+        const response = await api.get(`/usuarios/${id}`);
+        this.usuario = response.data;
+      } catch (error) {
+        console.error('Erro ao buscar usuários', error);
+      }
+    },
+  },
+});
 </script>
 
 <template>
   <div>
-    <h1>Ver usuário {{ id }}</h1>
+    <h1>Ver usuário {{ usuario?.nome }}</h1>
 
     <button @click="irParaOUsuarios">Usuários</button>
 
@@ -59,7 +60,7 @@ export default {
 
       <tbody>
         <tr>
-          <td>{{ usuario?.id  }}</td>
+          <td>{{ usuario?.id }}</td>
           <td>{{ usuario?.nome }}</td>
           <td>{{ usuario?.cargo }}</td>
           <td>{{ usuario?.email }}</td>
@@ -72,5 +73,6 @@ export default {
         </tr>
       </tbody>
     </table>
+    <Footer />
   </div>
 </template>

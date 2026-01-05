@@ -96,6 +96,126 @@
       "email": "lfcjslfs@gmail.com",
       "status": "ativo",
       "telefone": "lfsjf"
+    },
+    {
+      "id": "d3e2",
+      "nome": "Gleice",
+      "cargo": "Desenvolvedora",
+      "email": "gleice@gmail.com",
+      "status": "ativo",
+      "telefone": "30918412"
+    },
+    {
+      "id": "3789",
+      "nome": "Gleice",
+      "cargo": "Desenvolvedora",
+      "email": "gleice@gmail.com",
+      "status": "ativo",
+      "telefone": "30918412"
+    },
+    {
+      "id": "51e7",
+      "nome": "Gleice",
+      "cargo": "Desenvolvedora",
+      "email": "gleice@gmail.com",
+      "status": "ativo",
+      "telefone": "30918412"
+    },
+    {
+      "id": "aba8",
+      "nome": "Gleice",
+      "cargo": "Desenvolvedora",
+      "email": "gleice@gmail.com",
+      "status": "ativo",
+      "telefone": "30918412"
+    },
+    {
+      "id": "bcb3",
+      "nome": "Gleice",
+      "cargo": "Desenvolvedora",
+      "email": "gleice@gmail.com",
+      "status": "ativo",
+      "telefone": "30918412"
+    },
+    {
+      "id": "4591",
+      "nome": "Gleice",
+      "cargo": "Desenvolvedora",
+      "email": "gleice@gmail.com",
+      "status": "ativo",
+      "telefone": "30918412"
+    },
+    {
+      "id": "9a89",
+      "nome": "Gleice",
+      "cargo": "Desenvolvedora",
+      "email": "gleice@gmail.com",
+      "status": "ativo",
+      "telefone": "30918412"
+    },
+    {
+      "id": "f1bc",
+      "nome": "Gleice",
+      "cargo": "Desenvolvedora",
+      "email": "gleice@gmail.com",
+      "status": "ativo",
+      "telefone": "30918412"
+    },
+    {
+      "id": "f38f",
+      "nome": "Gleice",
+      "cargo": "Desenvolvedora",
+      "email": "gleice@gmail.com",
+      "status": "ativo",
+      "telefone": "30918412"
+    },
+    {
+      "id": "e93e",
+      "nome": "Gleice",
+      "cargo": "Desenvolvedora",
+      "email": "gleice@gmail.com",
+      "status": "ativo",
+      "telefone": "30918412"
+    },
+    {
+      "id": "7cbf",
+      "nome": "Gleice",
+      "cargo": "Desenvolvedora",
+      "email": "gleice@gmail.com",
+      "status": "ativo",
+      "telefone": "30918412"
+    },
+    {
+      "id": "e71e",
+      "nome": "Gleice",
+      "cargo": "Desenvolvedora",
+      "email": "gleice@gmail.com",
+      "status": "ativo",
+      "telefone": "30918412"
+    },
+    {
+      "id": "ecfc",
+      "nome": "Gleice",
+      "cargo": "Desenvolvedora",
+      "email": "gleice@gmail.com",
+      "status": "ativo",
+      "telefone": "30918412"
+    },
+    {
+      "id": "40be",
+      "nome": "Gleice",
+      "cargo": "Desenvolvedora",
+      "email": "gleice@gmail.com",
+      "status": "ativo",
+      "telefone": "30918412"
+    },
+    {
+      "id": "2464",
+      "nome": "Verdade",
+      "cargo": "monitor",
+      "email": "verdade@gmail.com",
+      "status": "ativo",
+      "telefone": "4209482"
     }
   ],
   "fornecedores": [
@@ -170,6 +290,86 @@
       "email": "ze@gmail.com",
       "status": "ativo",
       "telefone": 33333333
+    },
+    {
+      "id": "7381",
+      "nome": "noe",
+      "cargo": "gerente",
+      "email": "noe@gmail.com",
+      "status": "ativo",
+      "telefone": 492
+    },
+    {
+      "id": "7f65",
+      "nome": "noe",
+      "cargo": "gerente",
+      "email": "noe@gmail.com",
+      "status": "ativo",
+      "telefone": 492
+    },
+    {
+      "id": "eccc",
+      "nome": "noe",
+      "cargo": "gerente",
+      "email": "noe@gmail.com",
+      "status": "ativo",
+      "telefone": 492
+    },
+    {
+      "id": "924f",
+      "nome": "noe",
+      "cargo": "gerente",
+      "email": "noe@gmail.com",
+      "status": "ativo",
+      "telefone": 492
+    },
+    {
+      "id": "ec16",
+      "nome": "noe",
+      "cargo": "gerente",
+      "email": "noe@gmail.com",
+      "status": "ativo",
+      "telefone": 492
+    },
+    {
+      "id": "6b2a",
+      "nome": "noe",
+      "cargo": "gerente",
+      "email": "noe@gmail.com",
+      "status": "ativo",
+      "telefone": 492
+    },
+    {
+      "id": "e386",
+      "nome": "noe",
+      "cargo": "gerente",
+      "email": "noe@gmail.com",
+      "status": "ativo",
+      "telefone": 492
+    },
+    {
+      "id": "4832",
+      "nome": "noe",
+      "cargo": "gerente",
+      "email": "noe@gmail.com",
+      "status": "ativo",
+      "telefone": 492
+    },
+    {
+      "id": "471e",
+      "nome": "noe",
+      "cargo": "gerente",
+      "email": "noe@gmail.com",
+      "status": "ativo",
+      "telefone": 492
+    },
+    {
+      "id": "894c",
+      "nome": "Arca",
+      "cargo": "empresa",
+      "email": "arca@gmail.com",
+      "status": "ativo",
+      "telefone": 40928402
     }
   ],
   "produtos": [
@@ -235,6 +435,60 @@
       "quantidadeProduto": "'655",
       "status": "ativo",
       "categoria": "Leite"
+    },
+    {
+      "id": "c524",
+      "nome": "produto 1",
+      "sku": "3535",
+      "quantidadeMedida": "423232",
+      "quantidadeProduto": "540289420",
+      "status": "ativo",
+      "categoria": "fpwifs"
+    },
+    {
+      "id": "e95b",
+      "nome": "produto 1",
+      "sku": "3535",
+      "quantidadeMedida": "423232",
+      "quantidadeProduto": "540289420",
+      "status": "ativo",
+      "categoria": "fpwifs"
+    },
+    {
+      "id": "d79b",
+      "nome": "produto 1",
+      "sku": "3535",
+      "quantidadeMedida": "423232",
+      "quantidadeProduto": "540289420",
+      "status": "ativo",
+      "categoria": "fpwifs"
+    },
+    {
+      "id": "a899",
+      "nome": "produto 1",
+      "sku": "3535",
+      "quantidadeMedida": "423232",
+      "quantidadeProduto": "540289420",
+      "status": "ativo",
+      "categoria": "fpwifs"
+    },
+    {
+      "id": "cbcb",
+      "nome": "produto 1",
+      "sku": "3535",
+      "quantidadeMedida": "423232",
+      "quantidadeProduto": "540289420",
+      "status": "ativo",
+      "categoria": "fpwifs"
+    },
+    {
+      "id": "ae49",
+      "nome": "Garrafa",
+      "sku": "905483",
+      "quantidadeMedida": "'9487390",
+      "quantidadeProduto": "'94828'",
+      "status": "ativo",
+      "categoria": "Plástico"
     }
   ],
   "deposito": [
@@ -307,6 +561,69 @@
       "prateleira": "31",
       "sessao": "212",
       "quantidadeMaxima": "22222"
+    },
+    {
+      "id": "48b4",
+      "corredor": "",
+      "prateleira": "",
+      "sessao": "",
+      "quantidadeMaxima": ""
+    },
+    {
+      "id": "ec6d",
+      "corredor": "2",
+      "prateleira": "44",
+      "sessao": "3131",
+      "quantidadeMaxima": "4204920"
+    },
+    {
+      "id": "ad91",
+      "corredor": "2",
+      "prateleira": "44",
+      "sessao": "3131",
+      "quantidadeMaxima": "4204920"
+    },
+    {
+      "id": "a99d",
+      "corredor": "2",
+      "prateleira": "44",
+      "sessao": "3131",
+      "quantidadeMaxima": "4204920"
+    },
+    {
+      "id": "086d",
+      "corredor": "2",
+      "prateleira": "44",
+      "sessao": "3131",
+      "quantidadeMaxima": "4204920"
+    },
+    {
+      "id": "dc2c",
+      "corredor": "2",
+      "prateleira": "44",
+      "sessao": "3131",
+      "quantidadeMaxima": "4204920"
+    },
+    {
+      "id": "f575",
+      "corredor": "2",
+      "prateleira": "44",
+      "sessao": "3131",
+      "quantidadeMaxima": "4204920"
+    },
+    {
+      "id": "76b2",
+      "corredor": "2",
+      "prateleira": "44",
+      "sessao": "3131",
+      "quantidadeMaxima": "4204920"
+    },
+    {
+      "id": "6e1a",
+      "corredor": "2",
+      "prateleira": "44",
+      "sessao": "3131",
+      "quantidadeMaxima": "4204920"
     }
   ],
   "lotes": [

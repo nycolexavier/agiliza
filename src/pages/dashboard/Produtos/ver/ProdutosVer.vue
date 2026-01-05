@@ -1,44 +1,42 @@
 <script lang="ts">
+import Footer from '@/components/footer/Footer.vue';
 import type { Produto } from '@/interfaces/Produtos/Produto';
 import api from '@/services/api';
-import { computed, onMounted, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { defineComponent } from 'vue';
 
-export default {
-  setup() {
-    const route = useRoute();
-    const router = useRouter();
+export default defineComponent({
+  name: 'ProdutosVerPage',
+  components: {
+    Footer,
+  },
 
-    const id = computed(() => route.params.id);
-
-    function irParaOsProdutos() {
-      router.push('/dashboard/produtos');
-    }
-
-    const produto = ref<Produto | null>(null);
-
-    async function buscarProdutos() {
-      const response = await api.get(`/produtos/${id.value}`);
-      produto.value = response.data;
-
-      console.log('response.data', response.data);
-    }
-
-    onMounted(() => {
-      buscarProdutos();
-    });
-
+  data() {
     return {
-      id,
-      produto,
-      irParaOsProdutos,
+      produto: null as Produto | null,
     };
   },
-};
+
+  mounted() {
+    this.buscarProduto();
+  },
+
+  methods: {
+    irParaOsProdutos() {
+      this.$router.push('/dashboard/produtos');
+    },
+
+    async buscarProduto() {
+      const response = await api.get(`/produtos/${this.produto?.id}`);
+      this.produto = response.data;
+
+      console.log('response.data', response.data);
+    },
+  },
+});
 </script>
 
 <template>
-  <h1>Ver Produto {{ id }}</h1>
+  <h1>Ver Produto {{ produto?.id }}</h1>
 
   <button @click="irParaOsProdutos">Produtos</button>
 

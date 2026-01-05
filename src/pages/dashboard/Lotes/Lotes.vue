@@ -1,41 +1,42 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
-import { onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { defineComponent } from 'vue';
 import api from '@/services/api';
 import type { Lote } from '@/interfaces/Lotes/Lote';
 
-export default {
-  setup() {
-    const router = useRouter();
+export default defineComponent( {
+  name: 'ProdutosPage',
 
-    function irParaODashboard() {
-      router.push('/dashboard');
-    }
+  components: {
+    Footer,
+  },
 
-    function irParaOLotesEditar(id: number) {
-      router.push(`/dashboard/lotes/${id}`);
-    }
-
-    const tabela = ref<Lote[]>([]);
-
-    async function buscarLotes() {
-      const response = await api.get<Lote[]>('/lotes');
-
-      tabela.value = response.data;
-    }
-
-    onMounted(() => {
-      buscarLotes();
-    });
-
+  data(){
     return {
-      irParaOLotesEditar,
-      irParaODashboard,
-      tabela,
+      tabela: [] as Lote[]
     };
   },
-};
+
+  mounted(){
+    this.buscarLotes();
+  },
+
+  methods: {
+    irParaODashboard(){
+      this.$router.push(`/dashboard`)
+    },
+
+    irParaOLotesEditar(id: number){
+      this.$router.push(`/dashboard/lotes/${id}`)
+    },
+
+    async buscarLotes(){
+      const response = await api.get<Lote[]>(`/lotes`)
+
+      this.tabela = response.data;
+    }
+  }
+});
 </script>
 
 <template>
@@ -75,7 +76,5 @@ export default {
         </tr>
       </tbody>
     </table>
-
-    <Footer />
   </div>
 </template>

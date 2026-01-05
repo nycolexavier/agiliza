@@ -2,41 +2,41 @@
 import Footer from '@/components/footer/Footer.vue';
 import type { Deposito } from '@/interfaces/Deposito/Deposito';
 import api from '@/services/api';
-import { computed, onMounted, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-export default {
-  setup(props, ctx) {
-    const route = useRoute();
-    const router = useRouter();
-    const id = computed(() => route.params.id);
+import { defineComponent } from 'vue';
 
-    const deposito = ref<Deposito | null>(null);
+export default defineComponent({
+  name: 'DepositoVerPage',
 
-    function irParaoDeposito() {
-      router.push(`/dashboard/deposito`);
-    }
+  components: {
+    Footer,
+  },
 
-    async function verDeposito() {
-      const response = await api.get(`/deposito/${id.value}`);
-      deposito.value = response.data;
-    }
-
-    onMounted(() => {
-      verDeposito();
-    });
-
+  data() {
     return {
-      id,
-      deposito,
-      irParaoDeposito,
+      deposito: null as Deposito | null,
     };
   },
-};
+
+  mounted() {
+    this.verDeposito();
+  },
+
+  methods: {
+    irParaoDeposito() {
+      this.$router.push(`/dashboard/deposito`);
+    },
+
+    async verDeposito() {
+      const response = await api.get(`/deposito/${this.deposito?.id}`);
+      this.deposito = response.data;
+    },
+  },
+});
 </script>
 
 <template>
   <div>
-    <h1>Olá {{ id }}</h1>
+    <h1>Olá {{ deposito?.id }}</h1>
 
     <button @click="irParaoDeposito">Voltar pro deposito</button>
 

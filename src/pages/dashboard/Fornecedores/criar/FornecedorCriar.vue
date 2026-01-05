@@ -1,49 +1,56 @@
 <script lang="ts">
+import Footer from '@/components/footer/Footer.vue';
 import api from '@/services/api';
-import { reactive } from 'vue';
-import { useRouter } from 'vue-router';
+import { defineComponent, reactive } from 'vue';
 
-export default {
-  setup(props, ctx) {
+export default defineComponent({
+  name: 'FornecedorCriarPage',
 
-    const router = useRouter();
+  components: {
+    Footer,
+  },
 
-    let form = reactive({
-      nome: '',
-      cargo: '',
-      email: '',
-      status: 'ativo',
-      telefone: '',
-    });
+  data() {
+    return {
+      form: {
+        nome: '',
+        cargo: '',
+        email: '',
+        status: 'ativo',
+        telefone: '',
+      },
+    };
+  },
 
-    function irParaFornecedor(){
-        router.push(`/dashboard/fornecedores`)
-    }
+  methods: {
+    irParaFornecedor() {
+      this.$router.push(`/dashboard/fornecedores`);
+    },
 
-    async function enviarForm() {
+    async enviarForm() {
       try {
         await api.post(`/fornecedores`, {
-          nome: form.nome,
-          cargo: form.cargo,
-          email: form.email,
-          status: form.status,
-          telefone: form.telefone,
+          nome: this.form.nome,
+          cargo: this.form.cargo,
+          email: this.form.email,
+          status: this.form.status,
+          telefone: this.form.telefone,
         });
+
+        alert('AA');
       } catch (error) {
         console.error('Erro ao criar fornecedor', error);
       }
-    }
-
-    return { form, enviarForm, irParaFornecedor };
+    },
   },
-};
+});
 </script>
 
 <template>
   <div>
     <h1>Cadastrar um fornecedor</h1>
 
-    <button @click="irParaFornecedor">Fornecedor</button>
+    <button @click="irParaFornecedor">Fornecedores</button>
 
     <form @submit.prevent="enviarForm">
       <input v-model="form.nome" type="name" placeholder="Nome" />
