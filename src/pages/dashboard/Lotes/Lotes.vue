@@ -71,7 +71,7 @@ export default defineComponent( {
           <td>{{ item.dataValidade }}</td>
 
           <td>
-            <button @click="irParaOLotesEditar(item.id)">Editar</button>
+            <button @click="irParaOLotesEditar(item.id)">Ver</button>
           </td>
         </tr>
       </tbody>

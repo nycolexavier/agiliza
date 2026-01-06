@@ -1,69 +1,105 @@
 <script lang="ts">
+import Footer from '@/components/footer/Footer.vue';
 import type { Lote } from '@/interfaces/Lotes/Lote';
-import router from '@/router';
 import api from '@/services/api';
-import { computed, onMounted, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { defineComponent } from 'vue';
+// to-do: fazer o create do lote e colocar o quantidadeProduto nele
+export default defineComponent({
+  name: 'ProdutosEditarPage',
 
-export default {
-  setup(props, ctx) {
-    const router = useRouter();
-    const route = useRoute();
+  components: {
+    Footer,
+  },
 
-    const id = computed(() => route.params.id);
-
-    function irParaOsLotes() {
-      router.push('/dashboard/produtos');
-    }
-
-    const lote = ref<Lote | null>(null);
-
-    async function buscarLote() {
-      const response = await api.get(`/lotes/${id.value}`);
-      lote.value = response.data;
-    }
-
-    onMounted(() => {
-      buscarLote();
-    });
-
+  data(vm) {
     return {
-      id,
-      lote,
-      irParaOsLotes,
+      lote: null as Lote | null,
+      form: {
+        codigoLote: '',
+        marca: '',
+        produto: '',
+        quantidadeProduto: '',
+        status: 'ativo',
+        dataValidade: '',
+      },
     };
   },
-};
+
+  mounted() {
+    this.buscarProduto();
+  },
+
+  methods: {
+    irParaOProduto() {
+      this.$router.push(`/dashboard/lotes/${this.lote?.id}`);
+    },
+
+    async buscarProduto() {
+      try {
+        const id = this.$route.params.id;
+
+        const response = await api.get(`/lotes/${id}`);
+        this.lote = response.data;
+
+        this.form.codigoLote = response.data.codigoLote;
+        this.form.marca = response.data.marca;
+        this.form.produto = response.data.produto;
+        this.form.quantidadeProduto = response.data.quantidadeProduto;
+        this.form.status = response.data.status;
+        this.form.dataValidade = response.data.dataValidade;
+
+        console.log(response);
+      } catch (error) {
+        console.error('Erro ao buscar lote', error);
+      }
+    },
+
+    async enviarForm() {
+      try {
+        const response = await api.patch(`/lotes/${this.lote?.id}`, {
+          codigoLote: this.form.codigoLote,
+          marca: this.form.marca,
+          produto: this.form.produto,
+          quantidadeProduto: this.form.quantidadeProduto,
+          dataValidade: this.form.dataValidade,
+        });
+
+        return response;
+      } catch (error) {}
+    },
+  },
+});
 </script>
 
 <template>
   <div>
-    <h1>Deu certo {{ id }}</h1>
+    <h1>Editar lote: {{ lote?.id }}</h1>
 
-    <button @click="irParaOsLotes">Lotes</button>
+    <button @click="irParaOProduto">Voltar para ver o lote</button>
 
-    <table>
-      <thead>
-        <tr>
-          <th>id</th>
-          <th>Código Lote</th>
-          <th>Marca</th>
-          <th>Produto</th>
-          <th>Status</th>
-          <th>Data de validade</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr>
-          <td>{{ lote?.id }}</td>
-          <td>{{ lote?.codigoLote }}</td>
-          <td>{{ lote?.marca }}</td>
-          <td>{{ lote?.produto }}</td>
-          <td>{{ lote?.status }}</td>
-          <td>{{ lote?.dataValidade }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <form @submit.prevent="enviarForm">
+      <input v-model="form.codigoLote" placeholder="codigoLote" />
+      <br />
+      <input v-model="form.marca" placeholder="marca" />
+      <br />
+      <input v-model="form.produto" placeholder="produto" />
+      <br />
+      <input v-model="form.quantidadeProduto" placeholder="quantidadeProduto" />
+      <br />
+      <input v-model="form.dataValidade" placeholder="dataValidade" />
+      <button
+        type="submit"
+        :disabled="
+          !form.codigoLote ||
+          !form.marca ||
+          !form.produto ||
+          // !form.quantidadeProduto ||
+          !form.dataValidade
+        "
+      >
+        Editar
+      </button>
+    </form>
+    <Footer />
   </div>
 </template>
