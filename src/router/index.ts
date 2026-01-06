@@ -19,6 +19,7 @@ import UsuarioEditar from '@/pages/dashboard/Usuarios/ver/editar/UsuarioEditar.v
 import FornecedorVer from '@/pages/dashboard/Fornecedores/ver/FornecedorVer.vue';
 import FornecedorEditar from '@/pages/dashboard/Fornecedores/editar/FornecedorEditar.vue';
 import ProdutosEditar from '@/pages/dashboard/Produtos/editar/ProdutosEditar.vue';
+import DepositoEditar from '@/pages/dashboard/Deposito/editar/DepositoEditar.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -82,6 +83,11 @@ const router = createRouter({
       path: '/dashboard/deposito/:id',
       name: 'deposito-ver',
       component: DepositoVer,
+    },
+    {
+      path: '/dashboard/deposito/:id/editar',
+      name: 'deposito-editar',
+      component: DepositoEditar,
     },
     {
       path: '/dashboard/deposito/new',

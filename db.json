@@ -494,7 +494,7 @@
   "deposito": [
     {
       "id": "1",
-      "corredor": "A",
+      "corredor": "C",
       "prateleira": "12",
       "sessao": "5",
       "quantidadeMaxima": 15

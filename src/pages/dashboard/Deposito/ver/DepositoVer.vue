@@ -26,8 +26,13 @@ export default defineComponent({
       this.$router.push(`/dashboard/deposito`);
     },
 
+    irParaODepositoEditar(){
+      this.$router.push(`/dashboard/deposito/${this.deposito?.id}/editar`)
+    },
+
     async verDeposito() {
-      const response = await api.get(`/deposito/${this.deposito?.id}`);
+      const id = this.$route.params.id;
+      const response = await api.get(`/deposito/${id}`);
       this.deposito = response.data;
     },
   },
@@ -56,6 +61,12 @@ export default defineComponent({
           <td>{{ deposito?.prateleira }}</td>
           <td>{{ deposito?.sessao }}</td>
           <td>{{ deposito?.quantidadeMaxima }}</td>
+
+          <td>
+            <button @click="irParaODepositoEditar">
+              Editar
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
