@@ -25,18 +25,21 @@ export default defineComponent({
       this.$router.push('/dashboard/produtos');
     },
 
-    async buscarProduto() {
-      const response = await api.get(`/produtos/${this.produto?.id}`);
-      this.produto = response.data;
+    irParaProdutosEditar() {
+      this.$router.push(`/dashboard/produtos/${this.produto?.id}/editar`);
+    },
 
-      console.log('response.data', response.data);
+    async buscarProduto() {
+      const id = this.$route.params.id;
+      const response = await api.get(`/produtos/${id}`);
+      this.produto = response.data;
     },
   },
 });
 </script>
 
 <template>
-  <h1>Ver Produto {{ produto?.id }}</h1>
+  <h1>Ver produto: {{ produto?.nome }}</h1>
 
   <button @click="irParaOsProdutos">Produtos</button>
 
@@ -62,6 +65,8 @@ export default defineComponent({
         <td>{{ produto?.quantidadeProduto }}</td>
         <td>{{ produto?.categoria }}</td>
         <td>{{ produto?.status }}</td>
+
+        <td><button @click="irParaProdutosEditar">Editar</button></td>
       </tr>
     </tbody>
   </table>
