@@ -4,44 +4,70 @@ import { defineComponent } from 'vue';
 import api from '@/services/api';
 import type { Lote } from '@/interfaces/Lotes/Lote';
 
-export default defineComponent( {
+export default defineComponent({
   name: 'ProdutosPage',
 
   components: {
     Footer,
   },
 
-  data(){
+  data() {
     return {
-      tabela: [] as Lote[]
+      lotes: [] as Lote[],
+      busca: '',
     };
   },
 
-  mounted(){
+  mounted() {
     this.buscarLotes();
   },
 
+  computed: {
+    lotesFiltradoPorMarca(): Lote[] {
+      if (!this.busca) {
+        return this.lotes;
+      }
+
+      const buscaNormalizada = this.removerAcento(this.busca);
+
+      return this.lotes.filter((lote) =>
+        this.removerAcento(lote.codigoLote).includes(buscaNormalizada)
+      );
+    },
+  },
+
   methods: {
-    irParaODashboard(){
-      this.$router.push(`/dashboard`)
+    irParaODashboard() {
+      this.$router.push(`/dashboard`);
     },
 
-    irParaOLotesEditar(id: number){
-      this.$router.push(`/dashboard/lotes/${id}`)
+    irParaOLotesEditar(id: number) {
+      this.$router.push(`/dashboard/lotes/${id}`);
     },
 
-    async buscarLotes(){
-      const response = await api.get<Lote[]>(`/lotes`)
+    removerAcento(texto: string) {
+      return texto
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase();
+    },
 
-      this.tabela = response.data;
-    }
-  }
+    async buscarLotes() {
+      const response = await api.get<Lote[]>(`/lotes`);
+
+      this.lotes = response.data;
+    },
+  },
 });
 </script>
 
 <template>
   <div>
     <h1>Página de Lotes</h1>
+
+    <input type="text" v-model="busca" placeholder="Busca por Código Lote" />
+
+    <br />
 
     <button @click="irParaODashboard">Dashboard</button>
 
@@ -62,7 +88,7 @@ export default defineComponent( {
       </thead>
 
       <tbody>
-        <tr v-for="item in tabela" :key="item.id">
+        <tr v-for="item in lotesFiltradoPorMarca" :key="item.id">
           <td>{{ item.id }}</td>
           <td>{{ item.codigoLote }}</td>
           <td>{{ item.marca }}</td>

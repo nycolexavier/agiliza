@@ -13,8 +13,23 @@ export default defineComponent({
 
   data() {
     return {
-      tabela: [] as Fornecedor[],
+      fornecedores: [] as Fornecedor[],
+      busca: '',
     };
+  },
+
+  computed: {
+    fornecedorFiltradoPorNome(): Fornecedor[] {
+      if (!this.busca) {
+        return this.fornecedores;
+      }
+
+      const buscaNormalizada = this.removerAcentos(this.busca);
+
+      return this.fornecedores.filter((fornecedor) =>
+        this.removerAcentos(fornecedor.nome).includes(buscaNormalizada)
+      );
+    },
   },
 
   mounted() {
@@ -34,10 +49,18 @@ export default defineComponent({
       this.$router.push(`/dashboard/fornecedores/new`);
     },
 
+    // to-do: rever esse conceito
+    removerAcentos(texto: string) {
+      return texto
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase();
+    },
+
     async buscarFornecedores() {
       const response = await api.get<Fornecedor[]>('/fornecedores');
 
-      this.tabela = response.data;
+      this.fornecedores = response.data;
 
       console.log(response.data);
     },
@@ -49,11 +72,13 @@ export default defineComponent({
   <div>
     <h1>Página de Fornecedores</h1>
 
+    <input type="text" v-model="busca" placeholder="Buscar pelo nome" />
+
+    <br />
+
     <button @click="irParaAddFornecedor">Adicionar fornecedor</button>
     <br />
     <button @click="irParaODashboard">Dashboard</button>
-
-    <p>(to-do) campo de busca</p>
 
     <br />
 
@@ -69,7 +94,7 @@ export default defineComponent({
       </thead>
 
       <tbody>
-        <tr v-for="item in tabela" :key="item.id">
+        <tr v-for="item in fornecedorFiltradoPorNome" :key="item.id">
           <td>{{ item.nome }}</td>
           <td>{{ item.cargo }}</td>
           <td>{{ item.email }}</td>

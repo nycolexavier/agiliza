@@ -13,12 +13,27 @@ export default defineComponent({
 
   data() {
     return {
-      tabela: [] as Deposito[],
+      deposito: [] as Deposito[],
+      busca: '',
     };
   },
 
   mounted() {
     this.buscarDeposito();
+  },
+
+  computed: {
+    depositoFiltradoPorCorredor(): Deposito[] {
+      if (!this.busca) {
+        return this.deposito;
+      }
+
+      const buscaNormalizada = this.removerAcento(this.busca);
+
+      return this.deposito.filter((deposito) =>
+        this.removerAcento(deposito.corredor).includes(buscaNormalizada)
+      );
+    },
   },
 
   methods: {
@@ -34,10 +49,17 @@ export default defineComponent({
       this.$router.push('/dashboard');
     },
 
+    removerAcento(texto: string) {
+      return texto
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase();
+    },
+
     async buscarDeposito() {
       const response = await api.get<Deposito[]>('/deposito');
 
-      this.tabela = response.data;
+      this.deposito = response.data;
     },
   },
 });
@@ -46,6 +68,8 @@ export default defineComponent({
 <template>
   <div>
     <h1>Página de Deposito</h1>
+
+    <input type="text" v-model="busca" placeholder="Buscar por corredor" >
 
     <br />
 
@@ -66,7 +90,7 @@ export default defineComponent({
       </thead>
 
       <tbody>
-        <tr v-for="item in tabela" :key="item.id">
+        <tr v-for="item in depositoFiltradoPorCorredor" :key="item.id">
           <td>{{ item.corredor }}</td>
           <td>{{ item.prateleira }}</td>
           <td>{{ item.sessao }}</td>

@@ -13,8 +13,23 @@ export default defineComponent({
 
   data() {
     return {
-      tabela: [] as Usuario[],
+      usuario: [] as Usuario[],
+      busca: '',
     };
+  },
+
+  computed: {
+    usuariosFiltradosPorNome(): Usuario[] {
+      if (!this.busca) {
+        return this.usuario;
+      }
+
+      const buscaNormalizada = this.removerAcentos(this.busca);
+
+      return this.usuario.filter((usuario) =>
+        this.removerAcentos(usuario.nome).includes(buscaNormalizada)
+      );
+    },
   },
 
   mounted() {
@@ -26,11 +41,18 @@ export default defineComponent({
       this.$router.push(`/dashboard`);
     },
 
+    removerAcentos(texto: string) {
+      return texto
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase();
+    },
+
     async buscarUsuarios() {
       try {
-        console.log("entrou")
+        console.log('entrou');
         const response = await api.get<Usuario[]>(`/usuarios`);
-        this.tabela = response.data;
+        this.usuario = response.data;
 
         console.log('response.data', response.data);
       } catch (error) {
@@ -53,7 +75,9 @@ export default defineComponent({
   <div>
     <h1>Página de Usuários</h1>
 
-    <p>(to-do) campo de busca</p>
+    <input type="text" v-model="busca" placeholder="Buscar usuário pelo nome" />
+
+    <br />
 
     <button @click="irParaCriarUsuario">adicionar usuários</button>
 
@@ -73,8 +97,8 @@ export default defineComponent({
         </tr>
       </thead>
 
-      <tbody v-if="tabela.length">
-        <tr v-for="item in tabela" :key="item.id">
+      <tbody v-if="usuario.length">
+        <tr v-for="item in usuariosFiltradosPorNome" :key="item.id">
           <td>{{ item.id }}</td>
           <td>{{ item.nome }}</td>
           <td>{{ item.cargo }}</td>

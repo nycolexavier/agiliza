@@ -13,12 +13,27 @@ export default defineComponent({
 
   data() {
     return {
-      tabela: [] as Produto[],
+      produto: [] as Produto[],
+      busca: '',
     };
   },
 
   mounted() {
     this.buscarProdutos();
+  },
+
+  computed: {
+    produtoFiltradoPorNome(): Produto[] {
+      if (!this.busca) {
+        return this.produto;
+      }
+
+      const buscaNormalizada = this.removerAcento(this.busca);
+
+      return this.produto.filter((produto) =>
+        this.removerAcento(produto.nome).includes(buscaNormalizada)
+      );
+    },
   },
 
   methods: {
@@ -34,10 +49,17 @@ export default defineComponent({
       this.$router.push(`/dashboard/produtos/new`);
     },
 
+    removerAcento(texto: string) {
+      return texto
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase();
+    },
+
     async buscarProdutos() {
       const response = await api.get<Produto[]>('/produtos');
 
-      this.tabela = response.data;
+      this.produto = response.data;
 
       console.log(response.data);
     },
@@ -51,7 +73,13 @@ export default defineComponent({
 
     <br />
 
+    <input type="text" v-model="busca" placeholder="Buscar por nome" />
+
+    <br />
+
     <button @click="irParaCriarProduto">Adicionar produtos</button>
+
+    <br />
     <button @click="irParaODashboard">Dashboard</button>
 
     <table>
@@ -68,7 +96,7 @@ export default defineComponent({
       </thead>
 
       <tbody>
-        <tr v-for="item in tabela" :key="item.id">
+        <tr v-for="item in produtoFiltradoPorNome" :key="item.id">
           <td>{{ item?.id }}</td>
           <td>{{ item.nome }}</td>
           <td>{{ item.sku }}</td>
