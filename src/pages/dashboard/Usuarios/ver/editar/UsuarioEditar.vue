@@ -1,12 +1,11 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
-import type { Fornecedor } from '@/interfaces/Fornecedores/Fornecedor';
 import type { Usuario } from '@/interfaces/Usuarios/Usuario';
 import api from '@/services/api';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'FornecedorEditarPage',
+  name: 'UsuarioEditarPage',
 
   components: {
     Footer,
@@ -14,7 +13,7 @@ export default defineComponent({
 
   data(vm) {
     return {
-      fornecedor: null as Fornecedor | null,
+      usuario: null as Usuario | null,
       form: {
         nome: '',
         cargo: '',
@@ -31,16 +30,16 @@ export default defineComponent({
 
   methods: {
 
-    irParaOFornecedor(){
-        this.$router.push(`/dashboard/fornecedores/${this.fornecedor?.id}`)
+    irParaOUsuario(){
+        this.$router.push(`/dashboard/usuarios/${this.usuario?.id}`)
     },
 
     async buscarUsuario() {
       try {
         const id = this.$route.params.id;
 
-        const response = await api.get(`/fornecedores/${id}`);
-        this.fornecedor = response.data;
+        const response = await api.get(`/usuarios/${id}`);
+        this.usuario = response.data;
         
         this.form.nome = response.data.nome;
         this.form.cargo = response.data.cargo;
@@ -48,9 +47,9 @@ export default defineComponent({
         this.form.status = response.data.status;
         this.form.telefone = response.data.telefone;
 
-        console.log(this.fornecedor?.nome);
+        console.log(this.usuario?.nome);
       } catch (error) {
-        console.error('Erro ao buscar fornecedores', error);
+        console.error('Erro ao buscar usuários', error);
       }
     },
 
@@ -58,7 +57,7 @@ export default defineComponent({
       try {
         console.log("Editou?");
 
-        const response = await api.patch(`/fornecedores/${this.fornecedor?.id}`,
+        const response = await api.patch(`/usuarios/${this.usuario?.id}`,
             {
                 nome: this.form.nome,
                 cargo: this.form.cargo,
@@ -79,9 +78,9 @@ export default defineComponent({
 
 <template>
   <div>
-    <h1>Editar fornecedor {{ fornecedor?.nome }}</h1>
+    <h1>Ver usuário {{ usuario?.nome }}</h1>
 
-    <button @click="irParaOFornecedor">Voltar para ver o fornecedor</button>
+    <button @click="irParaOUsuario">Voltar para ver o usuário</button>
 
     <form @submit.prevent="enviarForm">
       <input v-model="form.nome" placeholder="Nome" />

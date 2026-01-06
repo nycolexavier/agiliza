@@ -83,7 +83,7 @@ export default defineComponent({
           <td>{{ item.telefone }}</td>
 
           <td>
-            <button @click="irParaVerUsuarios(item.id)">Ver tudo</button>
+            <button @click="irParaVerUsuarios(item.id)">Editar</button>
           </td>
         </tr>
       </tbody>

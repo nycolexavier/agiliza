@@ -26,6 +26,10 @@ export default defineComponent({
       this.$router.push(`/dashboard/usuarios`);
     },
 
+    irParaUsuarioEditar(){
+      this.$router.push(`/dashboard/usuarios/${this.usuario?.id}/editar`)
+    },
+
     async buscarUsuario() {
       try {
         const id = this.$route.params.id;
@@ -68,7 +72,7 @@ export default defineComponent({
           <td>{{ usuario?.telefone }}</td>
 
           <td>
-            <!-- <button>Ver tudo</button> -->
+            <button @click="irParaUsuarioEditar">Editar</button>
           </td>
         </tr>
       </tbody>

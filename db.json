@@ -2,8 +2,8 @@
   "usuarios": [
     {
       "id": "1",
-      "nome": "Nycole",
-      "cargo": "Admin",
+      "nome": "Nycolee",
+      "cargo": "Admine",
       "email": "nycole@gmail.com",
       "status": "ativo",
       "telefone": "31999999999"
@@ -221,7 +221,7 @@
   "fornecedores": [
     {
       "id": "1",
-      "nome": "Distribuidora São José",
+      "nome": "São José",
       "cargo": "Fornecedor",
       "email": "contato@saojose.com.br",
       "status": "ativo",
