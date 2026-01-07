@@ -1,6 +1,6 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
-import { defineComponent, onMounted, ref } from 'vue';
+import { defineComponent } from 'vue';
 import api from '@/services/api';
 import type { Fornecedor } from '@/interfaces/Fornecedores/Fornecedor';
 
@@ -15,10 +15,20 @@ export default defineComponent({
     return {
       fornecedores: [] as Fornecedor[],
       busca: '',
+
+      paginaAtual: 1,
+      itensPorPagina: 10,
     };
   },
 
   computed: {
+    fornecedoresPaginados(): Fornecedor[] {
+      const inicio = (this.paginaAtual - 1) * this.itensPorPagina;
+      const fim = inicio + this.itensPorPagina;
+
+      return this.fornecedorFiltradoPorNome.slice(inicio, fim);
+    },
+
     fornecedorFiltradoPorNome(): Fornecedor[] {
       if (!this.busca) {
         return this.fornecedores;
@@ -29,6 +39,12 @@ export default defineComponent({
       return this.fornecedores.filter((fornecedor) =>
         this.removerAcentos(fornecedor.nome).includes(buscaNormalizada)
       );
+    },
+  },
+
+  watch: {
+    busca() {
+      this.paginaAtual = 1;
     },
   },
 
@@ -61,8 +77,6 @@ export default defineComponent({
       const response = await api.get<Fornecedor[]>('/fornecedores');
 
       this.fornecedores = response.data;
-
-      console.log(response.data);
     },
   },
 });
@@ -94,7 +108,7 @@ export default defineComponent({
       </thead>
 
       <tbody>
-        <tr v-for="item in fornecedorFiltradoPorNome" :key="item.id">
+        <tr v-for="item in fornecedoresPaginados" :key="item.id">
           <td>{{ item.nome }}</td>
           <td>{{ item.cargo }}</td>
           <td>{{ item.email }}</td>
@@ -107,6 +121,23 @@ export default defineComponent({
         </tr>
       </tbody>
     </table>
+
+    <div>
+      <button @click="paginaAtual--" :disabled="paginaAtual === 1">
+        Anterior
+      </button>
+
+      <span>Página {{ paginaAtual }}</span>
+
+      <button
+        @click="paginaAtual++"
+        :disabled="
+          paginaAtual * itensPorPagina >= fornecedorFiltradoPorNome.length
+        "
+      >
+        Próximo
+      </button>
+    </div>
 
     <Footer />
   </div>

@@ -658,6 +658,70 @@
       "produto": "Refrigerante Cola",
       "status": "inativo",
       "dataValidade": "2024-12-01"
+    },
+    {
+      "id": "5",
+      "codigoLote": "LT-2024-008",
+      "marca": "Refrigerante",
+      "produto": "Refrigerante Cola",
+      "status": "inativo",
+      "dataValidade": "2024-12-01"
+    },
+    {
+      "id": "6",
+      "codigoLote": "LT-2024-004",
+      "marca": "Coca-Cola",
+      "produto": "Refrigerante Cola",
+      "status": "inativo",
+      "dataValidade": "2024-12-01"
+    },
+    {
+      "id": "7",
+      "codigoLote": "LT-2024-004",
+      "marca": "Coca-Cola",
+      "produto": "Refrigerante Cola",
+      "status": "inativo",
+      "dataValidade": "2024-12-01"
+    },
+    {
+      "id": "8",
+      "codigoLote": "LT-2024-004",
+      "marca": "Coca-Cola",
+      "produto": "Refrigerante Cola",
+      "status": "inativo",
+      "dataValidade": "2024-12-01"
+    },
+    {
+      "id": "9",
+      "codigoLote": "LT-2024-004",
+      "marca": "Coca-Cola",
+      "produto": "Refrigerante Cola",
+      "status": "inativo",
+      "dataValidade": "2024-12-01"
+    },
+    {
+      "id": "10",
+      "codigoLote": "LT-2024-004",
+      "marca": "Coca-Cola",
+      "produto": "Refrigerante Cola",
+      "status": "inativo",
+      "dataValidade": "2024-12-01"
+    },
+    {
+      "id": "11",
+      "codigoLote": "LT-2024-004",
+      "marca": "Coca-Cola",
+      "produto": "Refrigerante Cola",
+      "status": "inativo",
+      "dataValidade": "2024-12-01"
+    },
+    {
+      "id": "12",
+      "codigoLote": "LT-2024-004",
+      "marca": "Coca-Cola",
+      "produto": "Refrigerante Cola",
+      "status": "inativo",
+      "dataValidade": "2024-12-01"
     }
   ]
 }

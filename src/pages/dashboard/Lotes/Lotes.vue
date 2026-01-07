@@ -15,7 +15,16 @@ export default defineComponent({
     return {
       lotes: [] as Lote[],
       busca: '',
+
+      paginaAtual: 1,
+      itensPorPagina: 10,
     };
+  },
+
+  watch: {
+    busca() {
+      this.paginaAtual = 1;
+    },
   },
 
   mounted() {
@@ -23,6 +32,13 @@ export default defineComponent({
   },
 
   computed: {
+    lotesPaginados(): Lote[] {
+      const inicio = (this.paginaAtual - 1) * this.itensPorPagina;
+      const fim = inicio + this.itensPorPagina;
+
+      return this.lotesFiltradoPorMarca.slice(inicio, fim);
+    },
+
     lotesFiltradoPorMarca(): Lote[] {
       if (!this.busca) {
         return this.lotes;
@@ -88,7 +104,7 @@ export default defineComponent({
       </thead>
 
       <tbody>
-        <tr v-for="item in lotesFiltradoPorMarca" :key="item.id">
+        <tr v-for="item in lotesPaginados" :key="item.id">
           <td>{{ item.id }}</td>
           <td>{{ item.codigoLote }}</td>
           <td>{{ item.marca }}</td>
@@ -102,5 +118,20 @@ export default defineComponent({
         </tr>
       </tbody>
     </table>
+
+    <div>
+      <button @click="paginaAtual--" :disabled="paginaAtual === 1">
+        Anterior
+      </button>
+
+      <span>Página {{ paginaAtual }}</span>
+
+      <button
+        @click="paginaAtual++"
+        :disabled="paginaAtual * itensPorPagina >= lotesFiltradoPorMarca.length"
+      >
+        Próximo
+      </button>
+    </div>
   </div>
 </template>

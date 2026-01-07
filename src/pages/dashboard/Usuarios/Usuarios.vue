@@ -15,10 +15,20 @@ export default defineComponent({
     return {
       usuario: [] as Usuario[],
       busca: '',
+
+      paginaAtual: 1,
+      itensPorPagina: 10,
     };
   },
 
   computed: {
+    usuariosPaginados(): Usuario[] {
+      const inicio = (this.paginaAtual - 1) * this.itensPorPagina;
+      const fim = inicio + this.itensPorPagina;
+
+      return this.usuariosFiltradosPorNome.slice(inicio, fim);
+    },
+
     usuariosFiltradosPorNome(): Usuario[] {
       if (!this.busca) {
         return this.usuario;
@@ -36,6 +46,12 @@ export default defineComponent({
     this.buscarUsuarios();
   },
 
+  watch: {
+    busca() {
+      this.paginaAtual = 1;
+    },
+  },
+
   methods: {
     irParaODashboard() {
       this.$router.push(`/dashboard`);
@@ -50,11 +66,8 @@ export default defineComponent({
 
     async buscarUsuarios() {
       try {
-        console.log('entrou');
         const response = await api.get<Usuario[]>(`/usuarios`);
         this.usuario = response.data;
-
-        console.log('response.data', response.data);
       } catch (error) {
         console.error('Erro ao buscar usuários', error);
       }
@@ -98,7 +111,7 @@ export default defineComponent({
       </thead>
 
       <tbody v-if="usuario.length">
-        <tr v-for="item in usuariosFiltradosPorNome" :key="item.id">
+        <tr v-for="item in usuariosPaginados" :key="item.id">
           <td>{{ item.id }}</td>
           <td>{{ item.nome }}</td>
           <td>{{ item.cargo }}</td>
@@ -118,6 +131,23 @@ export default defineComponent({
         </tr>
       </tbody>
     </table>
+
+    <div>
+      <button @click="paginaAtual--" :disabled="paginaAtual === 1">
+        Anterior
+      </button>
+
+      <span>Página {{ paginaAtual }}</span>
+
+      <button
+        @click="paginaAtual++"
+        :disabled="
+          paginaAtual * itensPorPagina >= usuariosFiltradosPorNome.length
+        "
+      >
+        Próximo
+      </button>
+    </div>
 
     <Footer />
   </div>

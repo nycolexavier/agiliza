@@ -15,6 +15,9 @@ export default defineComponent({
     return {
       produto: [] as Produto[],
       busca: '',
+
+      paginaAtual: 1,
+      itensPorPagina: 10,
     };
   },
 
@@ -22,7 +25,20 @@ export default defineComponent({
     this.buscarProdutos();
   },
 
+  watch: {
+    busca() {
+      this.paginaAtual = 1;
+    },
+  },
+
   computed: {
+    produtosPaginados(): Produto[] {
+      const inicio = (this.paginaAtual - 1) * this.itensPorPagina;
+      const fim = inicio + this.itensPorPagina;
+
+      return this.produtoFiltradoPorNome.slice(inicio, fim);
+    },
+
     produtoFiltradoPorNome(): Produto[] {
       if (!this.busca) {
         return this.produto;
@@ -60,8 +76,6 @@ export default defineComponent({
       const response = await api.get<Produto[]>('/produtos');
 
       this.produto = response.data;
-
-      console.log(response.data);
     },
   },
 });
@@ -96,7 +110,7 @@ export default defineComponent({
       </thead>
 
       <tbody>
-        <tr v-for="item in produtoFiltradoPorNome" :key="item.id">
+        <tr v-for="item in produtosPaginados" :key="item.id">
           <td>{{ item?.id }}</td>
           <td>{{ item.nome }}</td>
           <td>{{ item.sku }}</td>
@@ -111,6 +125,23 @@ export default defineComponent({
         </tr>
       </tbody>
     </table>
+
+    <div>
+      <button @click="paginaAtual--" :disabled="paginaAtual === 1">
+        Anterior
+      </button>
+
+      <span>Página {{ paginaAtual }}</span>
+
+      <button
+        @click="paginaAtual++"
+        :disabled="
+          paginaAtual * itensPorPagina >= produtoFiltradoPorNome.length
+        "
+      >
+        Próximo
+      </button>
+    </div>
 
     <Footer />
   </div>

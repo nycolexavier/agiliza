@@ -15,6 +15,9 @@ export default defineComponent({
     return {
       deposito: [] as Deposito[],
       busca: '',
+
+      paginaAtual: 1,
+      itensPorPagina: 10,
     };
   },
 
@@ -22,7 +25,20 @@ export default defineComponent({
     this.buscarDeposito();
   },
 
+  watch: {
+    busca() {
+      this.paginaAtual = 1;
+    },
+  },
+
   computed: {
+    depositoPaginados(): Deposito[] {
+      const inicio = (this.paginaAtual - 1) * this.itensPorPagina;
+      const fim = inicio + this.itensPorPagina;
+
+      return this.depositoFiltradoPorCorredor.slice(inicio, fim);
+    },
+
     depositoFiltradoPorCorredor(): Deposito[] {
       if (!this.busca) {
         return this.deposito;
@@ -69,7 +85,7 @@ export default defineComponent({
   <div>
     <h1>Página de Deposito</h1>
 
-    <input type="text" v-model="busca" placeholder="Buscar por corredor" >
+    <input type="text" v-model="busca" placeholder="Buscar por corredor" />
 
     <br />
 
@@ -90,7 +106,7 @@ export default defineComponent({
       </thead>
 
       <tbody>
-        <tr v-for="item in depositoFiltradoPorCorredor" :key="item.id">
+        <tr v-for="item in depositoPaginados" :key="item.id">
           <td>{{ item.corredor }}</td>
           <td>{{ item.prateleira }}</td>
           <td>{{ item.sessao }}</td>
@@ -102,6 +118,24 @@ export default defineComponent({
         </tr>
       </tbody>
     </table>
+
+    <div>
+      <button @click="paginaAtual--" :disabled="paginaAtual === 1">
+        Anterior
+      </button>
+
+      <span>Página {{ paginaAtual }}</span>
+
+      <button
+        @click="paginaAtual++"
+        :disabled="
+          paginaAtual * itensPorPagina >= depositoFiltradoPorCorredor.length
+        "
+      >
+        Próximo
+      </button>
+    </div>
+
     <Footer />
   </div>
 </template>
