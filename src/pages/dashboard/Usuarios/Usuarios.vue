@@ -3,7 +3,7 @@ import Footer from '@/components/footer/Footer.vue';
 import { defineComponent } from 'vue';
 import api from '@/services/api';
 import type { Usuario } from '@/interfaces/Usuarios/Usuario';
-import { removerAcentos } from '@/utils/string';
+import { removerAcentos } from '@/utils/string/normalize';
 
 export default defineComponent({
   name: 'UsuariosPage',

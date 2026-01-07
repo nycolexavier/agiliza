@@ -3,7 +3,7 @@ import Footer from '@/components/footer/Footer.vue';
 import { defineComponent } from 'vue';
 import api from '@/services/api';
 import type { Deposito } from '@/interfaces/Deposito/Deposito';
-import { removerAcentos } from '@/utils/string';
+import { removerAcentos } from '@/utils/string/normalize';
 
 export default defineComponent({
   name: 'DepositoPage',
