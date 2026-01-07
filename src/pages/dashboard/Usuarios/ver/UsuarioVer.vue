@@ -50,7 +50,7 @@ export default defineComponent({
   <div>
     <h1>Ver usuário {{ usuario?.nome }}</h1>
 
-    <button @click="irParaOUsuarios">Usuários</button>
+    <v-btn @click="irParaOUsuarios">Usuários</v-btn>
 
     <table>
       <thead>
@@ -74,7 +74,7 @@ export default defineComponent({
           <td>{{ usuario?.telefone }}</td>
 
           <td>
-            <button @click="irParaUsuarioEditar">Editar</button>
+            <v-btn @click="irParaUsuarioEditar">Editar</v-btn>
           </td>
         </tr>
       </tbody>

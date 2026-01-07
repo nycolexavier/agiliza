@@ -80,9 +80,7 @@ export default defineComponent({
 
     <br />
 
-    <button @click="irParaODashboard">Dashboard</button>
-
-    <p>(to-do) campo de busca</p>
+    <v-btn @click="irParaODashboard">Dashboard</v-btn>
 
     <br />
 
@@ -108,25 +106,25 @@ export default defineComponent({
           <td>{{ item.dataValidade }}</td>
 
           <td>
-            <button @click="irParaOLotesEditar(item.id)">Ver</button>
+            <v-btn @click="irParaOLotesEditar(item.id)">Ver</v-btn>
           </td>
         </tr>
       </tbody>
     </table>
 
     <div>
-      <button @click="paginaAtual--" :disabled="paginaAtual === 1">
+      <v-btn @click="paginaAtual--" :disabled="paginaAtual === 1">
         Anterior
-      </button>
+      </v-btn>
 
       <span>Página {{ paginaAtual }}</span>
 
-      <button
+      <v-btn
         @click="paginaAtual++"
         :disabled="paginaAtual * itensPorPagina >= lotesFiltrado.length"
       >
         Próximo
-      </button>
+      </v-btn>
     </div>
   </div>
 </template>

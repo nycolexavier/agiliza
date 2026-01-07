@@ -53,7 +53,7 @@ export default defineComponent({
   <div>
     <h1>Criar um produto</h1>
 
-    <button @click="irParaOProduto">Produto</button>
+    <v-btn @click="irParaOProduto">Produto</v-btn>
 
     <form @submit.prevent="enviarForm" action="">
       <input v-model="form.nome" type="text" placeholder="Nome" />
@@ -82,7 +82,7 @@ export default defineComponent({
 
       <input v-model="form.categoria" type="text" placeholder="Categoria" />
 
-      <button
+      <v-btn
         type="submit"
         :disabled="
           !form.nome ||
@@ -93,7 +93,7 @@ export default defineComponent({
         "
       >
         Criar
-      </button>
+      </v-btn>
     </form>
   </div>
 </template>

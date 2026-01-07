@@ -71,7 +71,7 @@ export default defineComponent({
   <div>
     <h1>Editar deposito {{ deposito?.id }}</h1>
 
-    <button @click="irParaODeposito">Voltar para ver o deposito</button>
+    <v-btn @click="irParaODeposito">Voltar para ver o deposito</v-btn>
 
     <form @submit.prevent="enviarForm">
       <input v-model="form.corredor" placeholder="Corredor" />
@@ -82,7 +82,7 @@ export default defineComponent({
       <br />
       <input v-model="form.quantidadeMaxima" placeholder="quantidadeMaxima" />
       <br />
-      <button
+      <v-btn
         @click="enviarForm"
         type="submit"
         :disabled="
@@ -93,7 +93,7 @@ export default defineComponent({
         "
       >
         Editar
-      </button>
+      </v-btn>
     </form>
     <Footer />
   </div>

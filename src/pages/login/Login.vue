@@ -16,6 +16,6 @@
       <input type="email" name="" id="" label="Digite aqui sua senha" />
     </div>
 
-    <button>login</button>
+    <v-btn>login</v-btn>
   </div>
 </template>

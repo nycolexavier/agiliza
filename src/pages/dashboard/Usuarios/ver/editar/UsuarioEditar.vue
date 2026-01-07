@@ -78,7 +78,7 @@ export default defineComponent({
   <div>
     <h1>Ver usuário {{ usuario?.nome }}</h1>
 
-    <button @click="irParaOUsuario">Voltar para ver o usuário</button>
+    <v-btn @click="irParaOUsuario">Voltar para ver o usuário</v-btn>
 
     <form @submit.prevent="enviarForm">
       <input v-model="form.nome" placeholder="Nome" />
@@ -89,12 +89,9 @@ export default defineComponent({
       <br />
       <input v-model="form.telefone" placeholder="telefone" />
 
-      <button
-        type="submit"
-        :disabled="!form.nome || !form.email || !form.cargo"
-      >
+      <v-btn type="submit" :disabled="!form.nome || !form.email || !form.cargo">
         Editar
-      </button>
+      </v-btn>
     </form>
     <Footer />
   </div>

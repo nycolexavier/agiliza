@@ -27,10 +27,10 @@ export default defineComponent({
       this.$router.push(ROUTES.deposito.list);
     },
 
-    irParaODepositoEditar(){
-      if(!this.deposito) return
-      
-      this.$router.push(ROUTES.deposito.editar(this.deposito.id))
+    irParaODepositoEditar() {
+      if (!this.deposito) return;
+
+      this.$router.push(ROUTES.deposito.editar(this.deposito.id));
     },
 
     async verDeposito() {
@@ -46,7 +46,7 @@ export default defineComponent({
   <div>
     <h1>Olá {{ deposito?.id }}</h1>
 
-    <button @click="irParaoDeposito">Voltar pro deposito</button>
+    <v-btn @click="irParaoDeposito">Voltar pro deposito</v-btn>
 
     <table>
       <thead>
@@ -66,9 +66,7 @@ export default defineComponent({
           <td>{{ deposito?.quantidadeMaxima }}</td>
 
           <td>
-            <button @click="irParaODepositoEditar">
-              Editar
-            </button>
+            <v-btn @click="irParaODepositoEditar"> Editar </v-btn>
           </td>
         </tr>
       </tbody>

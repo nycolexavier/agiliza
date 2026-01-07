@@ -54,7 +54,7 @@ export default defineComponent({
   <div>
     <h1>Vamos criar um usuário</h1>
 
-    <button @click="irParaUsuarios">usuarios</button>
+    <v-btn @click="irParaUsuarios">usuarios</v-btn>
 
     <form @submit.prevent="enviarForm">
       <input v-model="form.nome" placeholder="Nome" />
@@ -65,12 +65,9 @@ export default defineComponent({
       <br />
       <input v-model="form.telefone" placeholder="telefone" />
 
-      <button
-        type="submit"
-        :disabled="!form.nome || !form.email || !form.cargo"
-      >
+      <v-btn type="submit" :disabled="!form.nome || !form.email || !form.cargo">
         Criar
-      </button>
+      </v-btn>
     </form>
   </div>
 </template>

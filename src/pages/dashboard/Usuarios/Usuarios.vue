@@ -87,11 +87,11 @@ export default defineComponent({
 
     <br />
 
-    <button @click="irParaCriarUsuario">adicionar usuários</button>
+    <v-btn @click="irParaCriarUsuario">adicionar usuários</v-btn>
 
     <br />
 
-    <button @click="irParaODashboard">Dashboard</button>
+    <v-btn @click="irParaODashboard">Dashboard</v-btn>
 
     <table>
       <thead>
@@ -115,7 +115,7 @@ export default defineComponent({
           <td>{{ item.telefone }}</td>
 
           <td>
-            <button @click="irParaVerUsuarios(item.id)">Editar</button>
+            <v-btn @click="irParaVerUsuarios(item.id)">Editar</v-btn>
           </td>
         </tr>
       </tbody>
@@ -128,18 +128,18 @@ export default defineComponent({
     </table>
 
     <div>
-      <button @click="paginaAtual--" :disabled="paginaAtual === 1">
+      <v-btn @click="paginaAtual--" :disabled="paginaAtual === 1">
         Anterior
-      </button>
+      </v-btn>
 
       <span>Página {{ paginaAtual }}</span>
 
-      <button
+      <v-btn
         @click="paginaAtual++"
         :disabled="paginaAtual * itensPorPagina >= usuariosFiltrados.length"
       >
         Próximo
-      </button>
+      </v-btn>
     </div>
 
     <Footer />

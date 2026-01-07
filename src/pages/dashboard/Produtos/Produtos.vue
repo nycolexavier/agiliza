@@ -86,10 +86,10 @@ export default defineComponent({
 
     <br />
 
-    <button @click="irParaCriarProduto">Adicionar produtos</button>
+    <v-btn @click="irParaCriarProduto">Adicionar produtos</v-btn>
 
     <br />
-    <button @click="irParaODashboard">Dashboard</button>
+    <v-btn @click="irParaODashboard">Dashboard</v-btn>
 
     <table>
       <thead>
@@ -115,25 +115,25 @@ export default defineComponent({
           <td>{{ item.status }}</td>
 
           <td>
-            <button @click="irParaProdutosVer(item.id)">Ver</button>
+            <v-btn @click="irParaProdutosVer(item.id)">Ver</v-btn>
           </td>
         </tr>
       </tbody>
     </table>
 
     <div>
-      <button @click="paginaAtual--" :disabled="paginaAtual === 1">
+      <v-btn @click="paginaAtual--" :disabled="paginaAtual === 1">
         Anterior
-      </button>
+      </v-btn>
 
       <span>Página {{ paginaAtual }}</span>
 
-      <button
+      <v-btn
         @click="paginaAtual++"
         :disabled="paginaAtual * itensPorPagina >= produtoFiltrado.length"
       >
         Próximo
-      </button>
+      </v-btn>
     </div>
 
     <Footer />

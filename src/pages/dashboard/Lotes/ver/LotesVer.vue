@@ -47,7 +47,7 @@ export default defineComponent({
   <div>
     <h1>Lote: {{ lote?.id }}</h1>
 
-    <button @click="irParaOsLotes">Voltar para Lotes</button>
+    <v-btn @click="irParaOsLotes">Voltar para Lotes</v-btn>
 
     <table>
       <thead>
@@ -71,7 +71,7 @@ export default defineComponent({
           <td>{{ lote?.dataValidade }}</td>
 
           <td>
-            <button @click="irParaLotesEditar">Editar</button>
+            <v-btn @click="irParaLotesEditar">Editar</v-btn>
           </td>
         </tr>
       </tbody>

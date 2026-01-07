@@ -44,7 +44,7 @@ export default defineComponent({
 <template>
   <h1>Ver produto: {{ produto?.nome }}</h1>
 
-  <button @click="irParaOsProdutos">Produtos</button>
+  <v-btn @click="irParaOsProdutos">Produtos</v-btn>
 
   <table>
     <thead>
@@ -69,7 +69,7 @@ export default defineComponent({
         <td>{{ produto?.categoria }}</td>
         <td>{{ produto?.status }}</td>
 
-        <td><button @click="irParaProdutosEditar">Editar</button></td>
+        <td><v-btn @click="irParaProdutosEditar">Editar</v-btn></td>
       </tr>
     </tbody>
   </table>

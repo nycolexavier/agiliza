@@ -64,7 +64,7 @@ export default defineComponent({
     },
 
     irParaAddFornecedor() {
-       this.$router.push(ROUTES.fornecedores.new);
+      this.$router.push(ROUTES.fornecedores.new);
     },
 
     async buscarFornecedores() {
@@ -84,9 +84,9 @@ export default defineComponent({
 
     <br />
 
-    <button @click="irParaAddFornecedor">Adicionar fornecedor</button>
+    <v-btn @click="irParaAddFornecedor">Adicionar fornecedor</v-btn>
     <br />
-    <button @click="irParaODashboard">Dashboard</button>
+    <v-btn @click="irParaODashboard">Dashboard</v-btn>
 
     <br />
 
@@ -110,25 +110,25 @@ export default defineComponent({
           <td>{{ item.telefone }}</td>
 
           <td>
-            <button @click="irParaFornecedoresEdicao(item.id)">Ver</button>
+            <v-btn @click="irParaFornecedoresEdicao(item.id)">Ver</v-btn>
           </td>
         </tr>
       </tbody>
     </table>
 
     <div>
-      <button @click="paginaAtual--" :disabled="paginaAtual === 1">
+      <v-btn @click="paginaAtual--" :disabled="paginaAtual === 1">
         Anterior
-      </button>
+      </v-btn>
 
       <span>Página {{ paginaAtual }}</span>
 
-      <button
+      <v-btn
         @click="paginaAtual++"
         :disabled="paginaAtual * itensPorPagina >= fornecedorFiltrado.length"
       >
         Próximo
-      </button>
+      </v-btn>
     </div>
 
     <Footer />

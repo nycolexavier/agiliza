@@ -4,7 +4,6 @@ import { defineComponent } from 'vue';
 import api from '@/services/api';
 import type { Deposito } from '@/interfaces/Deposito/Deposito';
 import { removerAcentos } from '@/utils/string/normalize';
-import { routes } from 'vue-router/auto-routes';
 import { ROUTES } from '@/router/utils/routes';
 
 export default defineComponent({
@@ -85,11 +84,11 @@ export default defineComponent({
 
     <br />
 
-    <button @click="irParaDepositoCriar">Adicionar Deposito</button>
+    <v-btn @click="irParaDepositoCriar">Adicionar Deposito</v-btn>
 
     <br />
 
-    <button @click="irParaODashboard">Dashboard</button>
+    <v-btn @click="irParaODashboard">Dashboard</v-btn>
 
     <table>
       <thead>
@@ -109,25 +108,25 @@ export default defineComponent({
           <td>{{ item.quantidadeMaxima }}</td>
 
           <td>
-            <button @click="irParaDepositoVer(item.id)">Ver</button>
+            <v-btn @click="irParaDepositoVer(item.id)">Ver</v-btn>
           </td>
         </tr>
       </tbody>
     </table>
 
     <div>
-      <button @click="paginaAtual--" :disabled="paginaAtual === 1">
+      <v-btn @click="paginaAtual--" :disabled="paginaAtual === 1">
         Anterior
-      </button>
+      </v-btn>
 
       <span>Página {{ paginaAtual }}</span>
 
-      <button
+      <v-btn
         @click="paginaAtual++"
         :disabled="paginaAtual * itensPorPagina >= depositoFiltrado.length"
       >
         Próximo
-      </button>
+      </v-btn>
     </div>
 
     <Footer />

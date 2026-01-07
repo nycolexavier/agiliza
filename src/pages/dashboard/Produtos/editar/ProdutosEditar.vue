@@ -75,7 +75,7 @@ export default defineComponent({
   <div>
     <h1>Editar produto {{ produto?.nome }}</h1>
 
-    <button @click="irParaOProduto">Voltar para ver o produto</button>
+    <v-btn @click="irParaOProduto">Voltar para ver o produto</v-btn>
 
     <form @submit.prevent="enviarForm">
       <input v-model="form.nome" placeholder="Nome" />
@@ -87,7 +87,7 @@ export default defineComponent({
       <input v-model="form.quantidadeProduto" placeholder="quantidadeProduto" />
       <br />
       <input v-model="form.categoria" placeholder="categoria" />
-      <button
+      <v-btn
         type="submit"
         :disabled="
           !form.nome ||
@@ -98,7 +98,7 @@ export default defineComponent({
         "
       >
         Editar
-      </button>
+      </v-btn>
     </form>
     <Footer />
   </div>

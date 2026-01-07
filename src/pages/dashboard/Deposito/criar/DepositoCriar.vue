@@ -43,7 +43,7 @@ export default defineComponent({
   <div>
     <h1>Criar um depósito</h1>
 
-    <button @click="irParaODeposito">Voltar para depósito</button>
+    <v-btn @click="irParaODeposito">Voltar para depósito</v-btn>
 
     <form @click.prevent="enviarForm">
       <input v-model="form.corredor" type="text" placeholder="Corredor" />
@@ -58,7 +58,7 @@ export default defineComponent({
         placeholder="Quantidade máxima"
       />
       <br />
-      <button>Criar</button>
+      <v-btn>Criar</v-btn>
     </form>
   </div>
 </template>

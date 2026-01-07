@@ -13,34 +13,29 @@ export default defineComponent({
 
   methods: {
     irParaUsuarios() {
-      this.$router.push('/dashboard/usuarios');
       this.$router.push(ROUTES.usuarios.list);
     },
 
     irParaFornecedores() {
-      this.$router.push('dashboard/fornecedores');
       this.$router.push(ROUTES.fornecedores.list);
     },
 
     irParaProdutos() {
-      this.$router.push('dashboard/produtos');
       this.$router.push(ROUTES.produtos.list);
     },
 
     irParaDeposito() {
-      this.$router.push('dashboard/deposito');
       this.$router.push(ROUTES.deposito.list);
     },
 
     irParaLotes() {
-      this.$router.push('dashboard/lotes');
       this.$router.push(ROUTES.lotes.list);
     },
   },
 });
 </script>
 
-<template>
+<!-- <template>
   <header>
     <div>
       <div>imagem</div>
@@ -48,15 +43,17 @@ export default defineComponent({
       <br />
 
       <p>menu:</p>
-      <button @click="irParaUsuarios">usuários</button>
+
+      <v-btn  variant="plain" @click="irParaUsuarios">usuários</v-btn>
+
       <br />
-      <button @click="irParaFornecedores">fornecedores</button>
+      <v-btn @click="irParaFornecedores">fornecedores</v-btn>
       <br />
-      <button @click="irParaProdutos">produtos</button>
+      <v-btn @click="irParaProdutos">produtos</v-btn>
       <br />
-      <button @click="irParaDeposito">depósito</button>
+      <v-btn @click="irParaDeposito">depósito</v-btn>
       <br />
-      <button @click="irParaLotes">lotes</button>
+      <v-btn @click="irParaLotes">lotes</v-btn>
     </div>
   </header>
 
@@ -83,4 +80,10 @@ export default defineComponent({
   <br />
 
   <Footer />
+</template> -->
+
+<template>
+  <VContainer fluid class="fill-height">
+    <h1>Dashboard</h1>
+  </VContainer>
 </template>

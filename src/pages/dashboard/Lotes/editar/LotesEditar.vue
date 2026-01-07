@@ -77,7 +77,7 @@ export default defineComponent({
   <div>
     <h1>Editar lote: {{ lote?.id }}</h1>
 
-    <button @click="irParaOProduto">Voltar para ver o lote</button>
+    <v-btn @click="irParaOProduto">Voltar para ver o lote</v-btn>
 
     <form @submit.prevent="enviarForm">
       <input v-model="form.codigoLote" placeholder="codigoLote" />
@@ -89,7 +89,7 @@ export default defineComponent({
       <input v-model="form.quantidadeProduto" placeholder="quantidadeProduto" />
       <br />
       <input v-model="form.dataValidade" placeholder="dataValidade" />
-      <button
+      <v-btn
         type="submit"
         :disabled="
           !form.codigoLote ||
@@ -100,7 +100,7 @@ export default defineComponent({
         "
       >
         Editar
-      </button>
+      </v-btn>
     </form>
     <Footer />
   </div>
