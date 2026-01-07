@@ -2,6 +2,7 @@
 import Footer from '@/components/footer/Footer.vue';
 import type { Fornecedor } from '@/interfaces/Fornecedores/Fornecedor';
 import type { Usuario } from '@/interfaces/Usuarios/Usuario';
+import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
 import { defineComponent } from 'vue';
 
@@ -30,9 +31,9 @@ export default defineComponent({
   },
 
   methods: {
-
-    irParaOFornecedor(){
-        this.$router.push(`/dashboard/fornecedores/${this.fornecedor?.id}`)
+    irParaOFornecedor() {
+      if (!this.fornecedor) return;
+      this.$router.push(ROUTES.fornecedores.ver(this.fornecedor?.id));
     },
 
     async buscarUsuario() {
@@ -41,7 +42,7 @@ export default defineComponent({
 
         const response = await api.get(`/fornecedores/${id}`);
         this.fornecedor = response.data;
-        
+
         this.form.nome = response.data.nome;
         this.form.cargo = response.data.cargo;
         this.form.email = response.data.email;
@@ -56,21 +57,21 @@ export default defineComponent({
 
     async enviarForm() {
       try {
-        console.log("Editou?");
+        console.log('Editou?');
 
-        const response = await api.patch(`/fornecedores/${this.fornecedor?.id}`,
-            {
-                nome: this.form.nome,
-                cargo: this.form.cargo,
-                email: this.form.email,
-                telefone: this.form.telefone
-            }
+        const response = await api.patch(
+          `/fornecedores/${this.fornecedor?.id}`,
+          {
+            nome: this.form.nome,
+            cargo: this.form.cargo,
+            email: this.form.email,
+            telefone: this.form.telefone,
+          }
         );
 
-        console.log("response", response);
+        console.log('response', response);
 
         return response;
-
       } catch (error) {}
     },
   },

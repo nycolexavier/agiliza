@@ -1,5 +1,6 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
+import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
 import { defineComponent } from 'vue';
 
@@ -25,7 +26,7 @@ export default defineComponent({
 
   methods: {
     irParaOProduto() {
-      this.$router.push(`/dashboard/produtos`);
+      this.$router.push(ROUTES.produtos.list);
     },
 
     async enviarForm() {

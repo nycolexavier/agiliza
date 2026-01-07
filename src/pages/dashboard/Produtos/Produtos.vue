@@ -4,6 +4,7 @@ import { defineComponent } from 'vue';
 import api from '@/services/api';
 import type { Produto } from '@/interfaces/Produtos/Produto';
 import { removerAcentos } from '@/utils/string/normalize';
+import { ROUTES } from '@/router/utils/routes';
 
 export default defineComponent({
   name: 'ProdutosPage',
@@ -22,25 +23,15 @@ export default defineComponent({
     };
   },
 
-  mounted() {
-    this.buscarProdutos();
-  },
-
-  watch: {
-    busca() {
-      this.paginaAtual = 1;
-    },
-  },
-
   computed: {
     produtosPaginados(): Produto[] {
       const inicio = (this.paginaAtual - 1) * this.itensPorPagina;
       const fim = inicio + this.itensPorPagina;
 
-      return this.produtoFiltradoPorNome.slice(inicio, fim);
+      return this.produtoFiltrado.slice(inicio, fim);
     },
 
-    produtoFiltradoPorNome(): Produto[] {
+    produtoFiltrado(): Produto[] {
       if (!this.busca) {
         return this.produto;
       }
@@ -53,17 +44,27 @@ export default defineComponent({
     },
   },
 
+  watch: {
+    busca() {
+      this.paginaAtual = 1;
+    },
+  },
+
+  mounted() {
+    this.buscarProdutos();
+  },
+
   methods: {
     irParaODashboard() {
-      this.$router.push('/dashboard');
+      this.$router.push(ROUTES.dashboard);
     },
 
     irParaProdutosVer(id: number) {
-      this.$router.push(`/dashboard/produtos/${id}`);
+      this.$router.push(ROUTES.produtos.list);
     },
 
     irParaCriarProduto() {
-      this.$router.push(`/dashboard/produtos/new`);
+      this.$router.push(ROUTES.produtos.new);
     },
 
     async buscarProdutos() {
@@ -129,9 +130,7 @@ export default defineComponent({
 
       <button
         @click="paginaAtual++"
-        :disabled="
-          paginaAtual * itensPorPagina >= produtoFiltradoPorNome.length
-        "
+        :disabled="paginaAtual * itensPorPagina >= produtoFiltrado.length"
       >
         Próximo
       </button>

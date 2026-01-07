@@ -1,6 +1,7 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
 import type { Usuario } from '@/interfaces/Usuarios/Usuario';
+import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
 import { defineComponent } from 'vue';
 
@@ -23,11 +24,12 @@ export default defineComponent({
 
   methods: {
     irParaOUsuarios() {
-      this.$router.push(`/dashboard/usuarios`);
+      this.$router.push(ROUTES.usuarios.list);
     },
 
-    irParaUsuarioEditar(){
-      this.$router.push(`/dashboard/usuarios/${this.usuario?.id}/editar`)
+    irParaUsuarioEditar() {
+      if (!this.usuario) return;
+      this.$router.push(ROUTES.usuarios.editar(this.usuario?.id));
     },
 
     async buscarUsuario() {

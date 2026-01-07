@@ -1,5 +1,6 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
+import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
 import { defineComponent } from 'vue';
 
@@ -23,7 +24,7 @@ export default defineComponent({
 
   methods: {
     irParaODeposito() {
-      this.$router.push(`/dashboard/deposito`);
+      this.$router.push(ROUTES.deposito.list);
     },
 
     async enviarForm() {

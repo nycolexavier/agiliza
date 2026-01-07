@@ -1,6 +1,7 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
 import type { Produto } from '@/interfaces/Produtos/Produto';
+import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
 import { defineComponent } from 'vue';
 
@@ -31,7 +32,8 @@ export default defineComponent({
 
   methods: {
     irParaOProduto() {
-      this.$router.push(`/dashboard/produtos/${this.produto?.id}`);
+      if (!this.produto) return;
+      this.$router.push(ROUTES.produtos.ver(this.produto?.id));
     },
 
     async buscarProduto() {

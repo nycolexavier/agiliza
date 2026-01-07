@@ -1,5 +1,6 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
+import { ROUTES } from '@/router/utils/routes';
 import { defineComponent } from 'vue';
 import { useRouter } from 'vue-router';
 
@@ -13,22 +14,27 @@ export default defineComponent({
   methods: {
     irParaUsuarios() {
       this.$router.push('/dashboard/usuarios');
+      this.$router.push(ROUTES.usuarios.list);
     },
 
     irParaFornecedores() {
       this.$router.push('dashboard/fornecedores');
+      this.$router.push(ROUTES.fornecedores.list);
     },
 
     irParaProdutos() {
       this.$router.push('dashboard/produtos');
+      this.$router.push(ROUTES.produtos.list);
     },
 
     irParaDeposito() {
       this.$router.push('dashboard/deposito');
+      this.$router.push(ROUTES.deposito.list);
     },
 
     irParaLotes() {
       this.$router.push('dashboard/lotes');
+      this.$router.push(ROUTES.lotes.list);
     },
   },
 });

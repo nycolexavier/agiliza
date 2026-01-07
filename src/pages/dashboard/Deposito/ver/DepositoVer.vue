@@ -1,6 +1,7 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
 import type { Deposito } from '@/interfaces/Deposito/Deposito';
+import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
 import { defineComponent } from 'vue';
 
@@ -23,11 +24,13 @@ export default defineComponent({
 
   methods: {
     irParaoDeposito() {
-      this.$router.push(`/dashboard/deposito`);
+      this.$router.push(ROUTES.deposito.list);
     },
 
     irParaODepositoEditar(){
-      this.$router.push(`/dashboard/deposito/${this.deposito?.id}/editar`)
+      if(!this.deposito) return
+      
+      this.$router.push(ROUTES.deposito.editar(this.deposito.id))
     },
 
     async verDeposito() {

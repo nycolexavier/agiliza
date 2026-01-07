@@ -1,5 +1,6 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
+import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
 import { defineComponent, reactive } from 'vue';
 
@@ -24,7 +25,7 @@ export default defineComponent({
 
   methods: {
     irParaFornecedor() {
-      this.$router.push(`/dashboard/fornecedores`);
+      this.$router.push(ROUTES.fornecedores.list);
     },
 
     async enviarForm() {

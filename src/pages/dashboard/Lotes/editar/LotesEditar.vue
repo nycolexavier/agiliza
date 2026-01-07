@@ -1,6 +1,7 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
 import type { Lote } from '@/interfaces/Lotes/Lote';
+import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
 import { defineComponent } from 'vue';
 // to-do: fazer o create do lote e colocar o quantidadeProduto nele
@@ -31,7 +32,8 @@ export default defineComponent({
 
   methods: {
     irParaOProduto() {
-      this.$router.push(`/dashboard/lotes/${this.lote?.id}`);
+      if (!this.lote) return;
+      this.$router.push(ROUTES.lotes.ver(this.lote.id));
     },
 
     async buscarProduto() {

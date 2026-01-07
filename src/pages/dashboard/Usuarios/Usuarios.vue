@@ -4,6 +4,7 @@ import { defineComponent } from 'vue';
 import api from '@/services/api';
 import type { Usuario } from '@/interfaces/Usuarios/Usuario';
 import { removerAcentos } from '@/utils/string/normalize';
+import { ROUTES } from '@/router/utils/routes';
 
 export default defineComponent({
   name: 'UsuariosPage',
@@ -27,10 +28,10 @@ export default defineComponent({
       const inicio = (this.paginaAtual - 1) * this.itensPorPagina;
       const fim = inicio + this.itensPorPagina;
 
-      return this.usuariosFiltradosPorNome.slice(inicio, fim);
+      return this.usuariosFiltrados.slice(inicio, fim);
     },
 
-    usuariosFiltradosPorNome(): Usuario[] {
+    usuariosFiltrados(): Usuario[] {
       if (!this.busca) {
         return this.usuario;
       }
@@ -43,19 +44,19 @@ export default defineComponent({
     },
   },
 
-  mounted() {
-    this.buscarUsuarios();
-  },
-
   watch: {
     busca() {
       this.paginaAtual = 1;
     },
   },
 
+  mounted() {
+    this.buscarUsuarios();
+  },
+
   methods: {
     irParaODashboard() {
-      this.$router.push(`/dashboard`);
+      this.$router.push(ROUTES.dashboard);
     },
 
     async buscarUsuarios() {
@@ -68,11 +69,11 @@ export default defineComponent({
     },
 
     irParaCriarUsuario() {
-      this.$router.push(`/dashboard/usuarios/new`);
+      this.$router.push(ROUTES.usuarios.new);
     },
 
     irParaVerUsuarios(id: number) {
-      this.$router.push(`/dashboard/usuarios/${id}`);
+      this.$router.push(ROUTES.usuarios.ver(id));
     },
   },
 });
@@ -135,9 +136,7 @@ export default defineComponent({
 
       <button
         @click="paginaAtual++"
-        :disabled="
-          paginaAtual * itensPorPagina >= usuariosFiltradosPorNome.length
-        "
+        :disabled="paginaAtual * itensPorPagina >= usuariosFiltrados.length"
       >
         Próximo
       </button>

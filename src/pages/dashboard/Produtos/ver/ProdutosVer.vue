@@ -1,11 +1,13 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
 import type { Produto } from '@/interfaces/Produtos/Produto';
+import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'ProdutosVerPage',
+
   components: {
     Footer,
   },
@@ -22,11 +24,12 @@ export default defineComponent({
 
   methods: {
     irParaOsProdutos() {
-      this.$router.push('/dashboard/produtos');
+      this.$router.push(ROUTES.produtos.list);
     },
 
     irParaProdutosEditar() {
-      this.$router.push(`/dashboard/produtos/${this.produto?.id}/editar`);
+      if (!this.produto) return;
+      this.$router.push(ROUTES.produtos.editar(this.produto.id));
     },
 
     async buscarProduto() {

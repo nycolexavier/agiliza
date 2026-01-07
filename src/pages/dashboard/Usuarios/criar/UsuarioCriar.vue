@@ -1,6 +1,7 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
 import type { Usuario } from '@/interfaces/Usuarios/Usuario';
+import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
 import { defineComponent } from 'vue';
 
@@ -27,7 +28,7 @@ export default defineComponent({
 
   methods: {
     irParaUsuarios() {
-      this.$router.push(`/dashboard/usuarios`);
+      this.$router.push(ROUTES.usuarios.list);
     },
 
     async enviarForm() {

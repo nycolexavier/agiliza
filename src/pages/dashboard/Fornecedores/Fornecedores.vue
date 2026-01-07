@@ -4,6 +4,7 @@ import { defineComponent } from 'vue';
 import api from '@/services/api';
 import type { Fornecedor } from '@/interfaces/Fornecedores/Fornecedor';
 import { removerAcentos } from '@/utils/string/normalize';
+import { ROUTES } from '@/router/utils/routes';
 
 export default defineComponent({
   name: 'FornecedoresPage',
@@ -27,10 +28,10 @@ export default defineComponent({
       const inicio = (this.paginaAtual - 1) * this.itensPorPagina;
       const fim = inicio + this.itensPorPagina;
 
-      return this.fornecedorFiltradoPorNome.slice(inicio, fim);
+      return this.fornecedorFiltrado.slice(inicio, fim);
     },
 
-    fornecedorFiltradoPorNome(): Fornecedor[] {
+    fornecedorFiltrado(): Fornecedor[] {
       if (!this.busca) {
         return this.fornecedores;
       }
@@ -55,15 +56,15 @@ export default defineComponent({
 
   methods: {
     irParaODashboard() {
-      this.$router.push('/dashboard');
+      this.$router.push(ROUTES.dashboard);
     },
 
     irParaFornecedoresEdicao(id: number) {
-      this.$router.push(`/dashboard/fornecedores/${id}`);
+      this.$router.push(ROUTES.fornecedores.ver(id));
     },
 
     irParaAddFornecedor() {
-      this.$router.push(`/dashboard/fornecedores/new`);
+       this.$router.push(ROUTES.fornecedores.new);
     },
 
     async buscarFornecedores() {
@@ -124,9 +125,7 @@ export default defineComponent({
 
       <button
         @click="paginaAtual++"
-        :disabled="
-          paginaAtual * itensPorPagina >= fornecedorFiltradoPorNome.length
-        "
+        :disabled="paginaAtual * itensPorPagina >= fornecedorFiltrado.length"
       >
         Próximo
       </button>

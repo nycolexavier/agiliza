@@ -4,6 +4,8 @@ import { defineComponent } from 'vue';
 import api from '@/services/api';
 import type { Deposito } from '@/interfaces/Deposito/Deposito';
 import { removerAcentos } from '@/utils/string/normalize';
+import { routes } from 'vue-router/auto-routes';
+import { ROUTES } from '@/router/utils/routes';
 
 export default defineComponent({
   name: 'DepositoPage',
@@ -26,21 +28,15 @@ export default defineComponent({
     this.buscarDeposito();
   },
 
-  watch: {
-    busca() {
-      this.paginaAtual = 1;
-    },
-  },
-
   computed: {
     depositoPaginados(): Deposito[] {
       const inicio = (this.paginaAtual - 1) * this.itensPorPagina;
       const fim = inicio + this.itensPorPagina;
 
-      return this.depositoFiltradoPorCorredor.slice(inicio, fim);
+      return this.depositoFiltrado.slice(inicio, fim);
     },
 
-    depositoFiltradoPorCorredor(): Deposito[] {
+    depositoFiltrado(): Deposito[] {
       if (!this.busca) {
         return this.deposito;
       }
@@ -53,17 +49,23 @@ export default defineComponent({
     },
   },
 
+  watch: {
+    busca() {
+      this.paginaAtual = 1;
+    },
+  },
+
   methods: {
     irParaDepositoVer(id: number) {
-      this.$router.push(`/dashboard/deposito/${id}`);
+      this.$router.push(ROUTES.deposito.ver(id));
     },
 
     irParaDepositoCriar() {
-      this.$router.push(`/dashboard/deposito/new`);
+      this.$router.push(ROUTES.deposito.new);
     },
 
     irParaODashboard() {
-      this.$router.push('/dashboard');
+      this.$router.push(ROUTES.dashboard);
     },
 
     async buscarDeposito() {
@@ -122,9 +124,7 @@ export default defineComponent({
 
       <button
         @click="paginaAtual++"
-        :disabled="
-          paginaAtual * itensPorPagina >= depositoFiltradoPorCorredor.length
-        "
+        :disabled="paginaAtual * itensPorPagina >= depositoFiltrado.length"
       >
         Próximo
       </button>

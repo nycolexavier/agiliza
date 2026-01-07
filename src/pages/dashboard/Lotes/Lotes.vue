@@ -4,6 +4,7 @@ import { defineComponent } from 'vue';
 import api from '@/services/api';
 import type { Lote } from '@/interfaces/Lotes/Lote';
 import { removerAcentos } from '@/utils/string/normalize';
+import { ROUTES } from '@/router/utils/routes';
 
 export default defineComponent({
   name: 'ProdutosPage',
@@ -22,25 +23,15 @@ export default defineComponent({
     };
   },
 
-  watch: {
-    busca() {
-      this.paginaAtual = 1;
-    },
-  },
-
-  mounted() {
-    this.buscarLotes();
-  },
-
   computed: {
     lotesPaginados(): Lote[] {
       const inicio = (this.paginaAtual - 1) * this.itensPorPagina;
       const fim = inicio + this.itensPorPagina;
 
-      return this.lotesFiltradoPorMarca.slice(inicio, fim);
+      return this.lotesFiltrado.slice(inicio, fim);
     },
 
-    lotesFiltradoPorMarca(): Lote[] {
+    lotesFiltrado(): Lote[] {
       if (!this.busca) {
         return this.lotes;
       }
@@ -53,13 +44,23 @@ export default defineComponent({
     },
   },
 
+  watch: {
+    busca() {
+      this.paginaAtual = 1;
+    },
+  },
+
+  mounted() {
+    this.buscarLotes();
+  },
+
   methods: {
     irParaODashboard() {
-      this.$router.push(`/dashboard`);
+      this.$router.push(ROUTES.dashboard);
     },
 
     irParaOLotesEditar(id: number) {
-      this.$router.push(`/dashboard/lotes/${id}`);
+      this.$router.push(ROUTES.lotes.ver(id));
     },
 
     async buscarLotes() {
@@ -122,7 +123,7 @@ export default defineComponent({
 
       <button
         @click="paginaAtual++"
-        :disabled="paginaAtual * itensPorPagina >= lotesFiltradoPorMarca.length"
+        :disabled="paginaAtual * itensPorPagina >= lotesFiltrado.length"
       >
         Próximo
       </button>

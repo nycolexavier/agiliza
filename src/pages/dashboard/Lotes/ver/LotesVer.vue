@@ -2,8 +2,9 @@
 import Footer from '@/components/footer/Footer.vue';
 import type { Lote } from '@/interfaces/Lotes/Lote';
 import router from '@/router';
+import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
-import { computed, defineComponent, onMounted, ref } from 'vue';
+import { computed, defineComponent } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 export default defineComponent({
@@ -25,12 +26,12 @@ export default defineComponent({
 
   methods: {
     irParaOsLotes() {
-      this.$router.push('/dashboard/lotes');
+      this.$router.push(ROUTES.lotes.list);
     },
 
-    irParaLotesEditar(){
-      console.log("clicou")
-      this.$router.push(`/dashboard/lotes/${this.lote?.id}/editar`)
+    irParaLotesEditar() {
+      if (!this.lote) return;
+      this.$router.push(ROUTES.lotes.editar(this.lote.id));
     },
 
     async buscarLote() {

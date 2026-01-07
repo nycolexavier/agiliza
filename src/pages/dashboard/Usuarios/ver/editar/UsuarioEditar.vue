@@ -1,6 +1,7 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
 import type { Usuario } from '@/interfaces/Usuarios/Usuario';
+import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
 import { defineComponent } from 'vue';
 
@@ -29,9 +30,9 @@ export default defineComponent({
   },
 
   methods: {
-
-    irParaOUsuario(){
-        this.$router.push(`/dashboard/usuarios/${this.usuario?.id}`)
+    irParaOUsuario() {
+      if (!this.usuario) return;
+      this.$router.push(ROUTES.usuarios.ver(this.usuario?.id));
     },
 
     async buscarUsuario() {
@@ -40,7 +41,7 @@ export default defineComponent({
 
         const response = await api.get(`/usuarios/${id}`);
         this.usuario = response.data;
-        
+
         this.form.nome = response.data.nome;
         this.form.cargo = response.data.cargo;
         this.form.email = response.data.email;
@@ -55,21 +56,18 @@ export default defineComponent({
 
     async enviarForm() {
       try {
-        console.log("Editou?");
+        console.log('Editou?');
 
-        const response = await api.patch(`/usuarios/${this.usuario?.id}`,
-            {
-                nome: this.form.nome,
-                cargo: this.form.cargo,
-                email: this.form.email,
-                telefone: this.form.telefone
-            }
-        );
+        const response = await api.patch(`/usuarios/${this.usuario?.id}`, {
+          nome: this.form.nome,
+          cargo: this.form.cargo,
+          email: this.form.email,
+          telefone: this.form.telefone,
+        });
 
-        console.log("response", response);
+        console.log('response', response);
 
         return response;
-
       } catch (error) {}
     },
   },
