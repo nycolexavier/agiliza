@@ -3,6 +3,7 @@ import Footer from '@/components/footer/Footer.vue';
 import { defineComponent } from 'vue';
 import api from '@/services/api';
 import type { Usuario } from '@/interfaces/Usuarios/Usuario';
+import { removerAcentos } from '@/utils/string';
 
 export default defineComponent({
   name: 'UsuariosPage',
@@ -34,10 +35,10 @@ export default defineComponent({
         return this.usuario;
       }
 
-      const buscaNormalizada = this.removerAcentos(this.busca);
+      const buscaNormalizada = removerAcentos(this.busca);
 
       return this.usuario.filter((usuario) =>
-        this.removerAcentos(usuario.nome).includes(buscaNormalizada)
+        removerAcentos(usuario.nome).includes(buscaNormalizada)
       );
     },
   },
@@ -55,13 +56,6 @@ export default defineComponent({
   methods: {
     irParaODashboard() {
       this.$router.push(`/dashboard`);
-    },
-
-    removerAcentos(texto: string) {
-      return texto
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .toLowerCase();
     },
 
     async buscarUsuarios() {

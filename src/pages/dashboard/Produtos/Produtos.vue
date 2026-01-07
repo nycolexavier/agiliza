@@ -3,6 +3,7 @@ import Footer from '@/components/footer/Footer.vue';
 import { defineComponent } from 'vue';
 import api from '@/services/api';
 import type { Produto } from '@/interfaces/Produtos/Produto';
+import { removerAcentos } from '@/utils/string';
 
 export default defineComponent({
   name: 'ProdutosPage',
@@ -44,10 +45,10 @@ export default defineComponent({
         return this.produto;
       }
 
-      const buscaNormalizada = this.removerAcento(this.busca);
+      const buscaNormalizada = removerAcentos(this.busca);
 
       return this.produto.filter((produto) =>
-        this.removerAcento(produto.nome).includes(buscaNormalizada)
+        removerAcentos(produto.nome).includes(buscaNormalizada)
       );
     },
   },
@@ -63,13 +64,6 @@ export default defineComponent({
 
     irParaCriarProduto() {
       this.$router.push(`/dashboard/produtos/new`);
-    },
-
-    removerAcento(texto: string) {
-      return texto
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .toLowerCase();
     },
 
     async buscarProdutos() {

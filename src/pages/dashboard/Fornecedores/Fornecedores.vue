@@ -3,6 +3,7 @@ import Footer from '@/components/footer/Footer.vue';
 import { defineComponent } from 'vue';
 import api from '@/services/api';
 import type { Fornecedor } from '@/interfaces/Fornecedores/Fornecedor';
+import { removerAcentos } from '@/utils/string';
 
 export default defineComponent({
   name: 'FornecedoresPage',
@@ -34,10 +35,10 @@ export default defineComponent({
         return this.fornecedores;
       }
 
-      const buscaNormalizada = this.removerAcentos(this.busca);
+      const buscaNormalizada = removerAcentos(this.busca);
 
       return this.fornecedores.filter((fornecedor) =>
-        this.removerAcentos(fornecedor.nome).includes(buscaNormalizada)
+        removerAcentos(fornecedor.nome).includes(buscaNormalizada)
       );
     },
   },
@@ -63,14 +64,6 @@ export default defineComponent({
 
     irParaAddFornecedor() {
       this.$router.push(`/dashboard/fornecedores/new`);
-    },
-
-    // to-do: rever esse conceito
-    removerAcentos(texto: string) {
-      return texto
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .toLowerCase();
     },
 
     async buscarFornecedores() {

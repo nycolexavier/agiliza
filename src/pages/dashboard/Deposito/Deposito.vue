@@ -3,6 +3,7 @@ import Footer from '@/components/footer/Footer.vue';
 import { defineComponent } from 'vue';
 import api from '@/services/api';
 import type { Deposito } from '@/interfaces/Deposito/Deposito';
+import { removerAcentos } from '@/utils/string';
 
 export default defineComponent({
   name: 'DepositoPage',
@@ -44,10 +45,10 @@ export default defineComponent({
         return this.deposito;
       }
 
-      const buscaNormalizada = this.removerAcento(this.busca);
+      const buscaNormalizada = removerAcentos(this.busca);
 
       return this.deposito.filter((deposito) =>
-        this.removerAcento(deposito.corredor).includes(buscaNormalizada)
+        removerAcentos(deposito.corredor).includes(buscaNormalizada)
       );
     },
   },
@@ -63,13 +64,6 @@ export default defineComponent({
 
     irParaODashboard() {
       this.$router.push('/dashboard');
-    },
-
-    removerAcento(texto: string) {
-      return texto
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .toLowerCase();
     },
 
     async buscarDeposito() {

@@ -3,6 +3,7 @@ import Footer from '@/components/footer/Footer.vue';
 import { defineComponent } from 'vue';
 import api from '@/services/api';
 import type { Lote } from '@/interfaces/Lotes/Lote';
+import { removerAcentos } from '@/utils/string';
 
 export default defineComponent({
   name: 'ProdutosPage',
@@ -44,10 +45,10 @@ export default defineComponent({
         return this.lotes;
       }
 
-      const buscaNormalizada = this.removerAcento(this.busca);
+      const buscaNormalizada = removerAcentos(this.busca);
 
       return this.lotes.filter((lote) =>
-        this.removerAcento(lote.codigoLote).includes(buscaNormalizada)
+        removerAcentos(lote.codigoLote).includes(buscaNormalizada)
       );
     },
   },
@@ -59,13 +60,6 @@ export default defineComponent({
 
     irParaOLotesEditar(id: number) {
       this.$router.push(`/dashboard/lotes/${id}`);
-    },
-
-    removerAcento(texto: string) {
-      return texto
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .toLowerCase();
     },
 
     async buscarLotes() {
