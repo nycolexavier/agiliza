@@ -45,35 +45,58 @@ export default defineComponent({
 </script>
 
 <template>
-  <div>
-    <h1>Oláaaaaaa {{ fornecedorEdicao?.nome }}</h1>
+  <v-container fluid>
+    <v-row>
+      <v-col>
+        <h2>Fornecedor</h2>
+        <p v-if="fornecedorEdicao" class="text-medium-emphasis">
+          {{ fornecedorEdicao?.nome }}
+        </p>
+      </v-col>
 
-    <v-btn @click="irParaOFornecedor">voltar para ver o fornecedor</v-btn>
+      <v-col cols="12" md="4" class="text-end">
+        <v-btn variant="outlined" @click="irParaOFornecedor"> Voltar </v-btn>
+      </v-col>
+    </v-row>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>Cargo</th>
-          <th>E-mail</th>
-          <th>Status</th>
-          <th>Telefone</th>
-        </tr>
-      </thead>
+    <!-- Card de visualização -->
 
-      <tbody>
-        <tr>
-          <td>{{ fornecedorEdicao?.nome }}</td>
-          <td>{{ fornecedorEdicao?.cargo }}</td>
-          <td>{{ fornecedorEdicao?.email }}</td>
-          <td>{{ fornecedorEdicao?.status }}</td>
-          <td>{{ fornecedorEdicao?.telefone }}</td>
+    <v-card variant="outlined">
+      <v-card-text>
+        <v-row>
+          <v-col cols="12" md="6">
+            <strong>Nome</strong>
+            <div>{{ fornecedorEdicao?.nome }}</div>
+          </v-col>
 
-          <td>
-            <v-btn @click="irParaFornecedorEditar">Editar</v-btn>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+          <v-col cols="12" md="6">
+            <strong>Cargo</strong>
+            <div>{{ fornecedorEdicao?.cargo }}</div>
+          </v-col>
+
+          <v-col cols="12" md="6">
+            <strong>E-mail</strong>
+            <div>{{ fornecedorEdicao?.email }}</div>
+          </v-col>
+
+          <v-col cols="12" md="6">
+            <strong>Telefone</strong>
+            <div>{{ fornecedorEdicao?.telefone }}</div>
+          </v-col>
+        </v-row>
+
+        <v-row class="mt-4">
+          <v-col cols="12" class="d-flex justify-end gap-4">
+            <v-btn variant="outlined" @click="irParaOFornecedor">
+              Voltar
+            </v-btn>
+
+            <v-btn color="primary" @click="irParaFornecedorEditar">
+              Editar fornecedor
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
+  </v-container>
 </template>

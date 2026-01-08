@@ -48,31 +48,71 @@ export default defineComponent({
 </script>
 
 <template>
-  <div>
-    <h1>Cadastrar um fornecedor</h1>
+  <v-container fluid>
+    <v-row>
+      <v-col>
+        <h2>Cadastrar fornecedor</h2>
+      </v-col>
 
-    <v-btn @click="irParaFornecedor">Fornecedores</v-btn>
+      <v-col cols="12" md="4" class="text-end">
+        <v-btn variant="outlined" @click="irParaFornecedor"> Voltar </v-btn>
+      </v-col>
+    </v-row>
 
-    <form @submit.prevent="enviarForm">
-      <input v-model="form.nome" type="name" placeholder="Nome" />
+    <v-card variant="outlined">
+      <v-card-text>
+        <v-form @submit.prevent="enviarForm">
+          <v-row>
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="form.nome"
+                label="Nome"
+                variant="outlined"
+              />
+            </v-col>
 
-      <br />
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="form.cargo"
+                label="Cargo"
+                variant="outlined"
+              />
+            </v-col>
 
-      <input v-model="form.cargo" type="text" placeholder="Cargo" />
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="form.email"
+                label="Telefone"
+                variant="outlined"
+              />
+            </v-col>
 
-      <br />
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="form.telefone"
+                label="Telefone"
+                variant="outlined"
+              />
+            </v-col>
+          </v-row>
 
-      <input v-model="form.email" type="email" placeholder="E-mail" />
+          <v-row class="mt4">
+            <v-col cols="12" class="d-flex justify-end gap-4">
+              <v-btn variant="outlined" @click="irParaFornecedor">
+                Cancelar
+              </v-btn>
 
-      <br />
-
-      <input v-model="form.telefone" type="number" placeholder="Telefone" />
-
-      <br />
-
-      <v-btn type="submit" :disabled="!form.nome || !form.cargo || !form.email">
-        Criar
-      </v-btn>
-    </form>
-  </div>
+              <v-btn
+                color="primary"
+                type="submit"
+                :disabled="!form.nome || !form.cargo || !form.email"
+              >
+                Criar fornecedor
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-form>
+      </v-card-text>
+    </v-card>
+  </v-container>
 </template>
