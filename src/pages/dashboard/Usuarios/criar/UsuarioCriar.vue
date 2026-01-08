@@ -51,23 +51,64 @@ export default defineComponent({
 </script>
 
 <template>
-  <div>
-    <h1>Vamos criar um usuário</h1>
+  <v-container fluid>
+    <v-row class="mb-4">
+      <v-col cols="12">
+        <h2>Criar usuário</h2>
+      </v-col>
+    </v-row>
 
-    <v-btn @click="irParaUsuarios">usuarios</v-btn>
+    <v-form @submit.prevent="enviarForm">
+      <v-row>
+        <v-col cols="12" md="6">
+          <v-text-field
+            v-model="form.nome"
+            label="Nome"
+            variant="outlined"
+            required
+          />
+        </v-col>
 
-    <form @submit.prevent="enviarForm">
-      <input v-model="form.nome" placeholder="Nome" />
-      <br />
-      <input v-model="form.cargo" placeholder="cargo" />
-      <br />
-      <input type="email" v-model="form.email" placeholder="email" />
-      <br />
-      <input v-model="form.telefone" placeholder="telefone" />
+        <v-col cols="12" md="6">
+          <v-text-field
+            v-model="form.cargo"
+            label="Cargo"
+            variant="outlined"
+            required
+          />
+        </v-col>
 
-      <v-btn type="submit" :disabled="!form.nome || !form.email || !form.cargo">
-        Criar
-      </v-btn>
-    </form>
-  </div>
+        <v-col cols="12" md="6">
+          <v-text-field
+            v-model="form.email"
+            label="Telefone"
+            variant="outlined"
+          />
+        </v-col>
+
+        <v-col cols="12" md="6">
+          <v-select
+            v-model="form.status"
+            :items="['ativo', 'inativo']"
+            label="Status"
+            variant="outlined"
+          />
+        </v-col>
+      </v-row>
+
+      <v-row class="mt-4">
+        <v-col cols="12" class="d-flex gap-4">
+          <v-btn
+            type="submit"
+            color="primary"
+            :disabled="!form.nome || !form.email || !form.cargo"
+          >
+            Criar Usuário
+          </v-btn>
+
+          <v-btn variant="outlined" @click="irParaUsuarios"> Voltar </v-btn>
+        </v-col>
+      </v-row>
+    </v-form>
+  </v-container>
 </template>

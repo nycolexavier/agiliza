@@ -75,7 +75,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div>
+  <!-- <div>
     <h1>Ver usuário {{ usuario?.nome }}</h1>
 
     <v-btn @click="irParaOUsuario">Voltar para ver o usuário</v-btn>
@@ -94,5 +94,74 @@ export default defineComponent({
       </v-btn>
     </form>
     <Footer />
-  </div>
+  </div> -->
+
+  <v-container fluid>
+    <v-row class="mb-4" align="center">
+      <v-col cols="12" md="8">
+        <h2>Editar usário</h2>
+
+        <p v-if="usuario" class="text-medium-emphasis">
+          {{ usuario?.nome }}
+        </p>
+      </v-col>
+
+      <v-col cols="12" md="4" class="text-end">
+        <v-btn variant="outlined" @click="irParaOUsuario"> Voltar </v-btn>
+      </v-col>
+    </v-row>
+
+    <v-card variant="outlined">
+      <v-card-text>
+        <v-form @submite.prevent="enviarForm">
+          <v-row>
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="form.nome"
+                label="Nome"
+                variant="outlined"
+              />
+            </v-col>
+
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="form.cargo"
+                label="Cargo"
+                variant="outlined"
+              />
+            </v-col>
+
+            <v-col>
+              <v-text-field
+                v-model="form.email"
+                label="E-mail"
+                type="email"
+                variant="outlined"
+              />
+            </v-col>
+
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="form.telefone"
+                label="Telefone"
+                variant="outlined"
+              />
+            </v-col>
+          </v-row>
+
+          <v-row class="mt-4">
+            <v-col cols="12" class="d-flex justify-end">
+              <v-btn
+                color="primary"
+                type="submit"
+                :disabled="!form.nome || !form.email || !form.cargo"
+              >
+                Salvar alterações
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-form>
+      </v-card-text>
+    </v-card>
+  </v-container>
 </template>

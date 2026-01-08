@@ -20,6 +20,16 @@ export default defineComponent({
 
       paginaAtual: 1,
       itensPorPagina: 10,
+
+      headers: [
+        { title: 'ID', key: 'id' },
+        { title: 'Nome', key: 'nome' },
+        { title: 'Cargo', key: 'cargo' },
+        { title: 'E-mail', key: 'email' },
+        { title: 'Status', key: 'status' },
+        { title: 'Telefone', key: 'telefone' },
+        { title: 'Ações', key: 'actions' },
+      ],
     };
   },
 
@@ -80,68 +90,59 @@ export default defineComponent({
 </script>
 
 <template>
-  <div>
-    <h1>Página de Usuários</h1>
+  <v-contatiner fuild>
+    <v-row align="center" class="mb-4">
+      <v-col cols="12" md="6">
+        <h2>Usários</h2>
+      </v-col>
 
-    <input type="text" v-model="busca" placeholder="Buscar usuário pelo nome" />
+      <v-col cols="12" md="6" class="text-end">
+        <v-btn color="primary" @click="irParaCriarUsuario"
+          >Adicionar usuário</v-btn
+        >
+      </v-col>
+    </v-row>
 
-    <br />
+    <v-text-field
+      v-model="busca"
+      label="Buscar usuário pelo nome"
+      variant="outlined"
+      density="compact"
+      clearable
+      class="mb-4"
+    />
 
-    <v-btn @click="irParaCriarUsuario">adicionar usuários</v-btn>
+    <v-card variant="outlined">
+      <v-data-table :headers="headers" :items="usuariosPaginados">
+        <template #item.actions="{ item }">
+          <v-btn
+            size="small"
+            variant="outlined"
+            @click="irParaVerUsuarios(item.id)"
+          >
+            Editar
+          </v-btn>
+        </template>
+      </v-data-table>
+    </v-card>
 
-    <br />
-
-    <v-btn @click="irParaODashboard">Dashboard</v-btn>
-
-    <table>
-      <thead>
-        <tr>
-          <th>id</th>
-          <th>Nome</th>
-          <th>Cargo</th>
-          <th>E-mail</th>
-          <th>Status</th>
-          <th>Telefone</th>
-        </tr>
-      </thead>
-
-      <tbody v-if="usuario.length">
-        <tr v-for="item in usuariosPaginados" :key="item.id">
-          <td>{{ item.id }}</td>
-          <td>{{ item.nome }}</td>
-          <td>{{ item.cargo }}</td>
-          <td>{{ item.email }}</td>
-          <td>{{ item.status }}</td>
-          <td>{{ item.telefone }}</td>
-
-          <td>
-            <v-btn @click="irParaVerUsuarios(item.id)">Editar</v-btn>
-          </td>
-        </tr>
-      </tbody>
-
-      <tbody v-else>
-        <tr>
-          <td colspan="7">Nenhum usuário encontrado</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div>
-      <v-btn @click="paginaAtual--" :disabled="paginaAtual === 1">
+    <v-row class="mt-4" justify="center" align="center">
+      <v-btn
+        variant="outlined"
+        @click="paginaAtual--"
+        :disabled="paginaAtual === 1"
+      >
         Anterior
       </v-btn>
-
-      <span>Página {{ paginaAtual }}</span>
+      <span class="mx-4">Página {{ paginaAtual }}</span>
 
       <v-btn
+        variant="outlined"
         @click="paginaAtual++"
         :disabled="paginaAtual * itensPorPagina >= usuariosFiltrados.length"
       >
         Próximo
       </v-btn>
-    </div>
-
-    <Footer />
-  </div>
+    </v-row>
+  </v-contatiner>
 </template>

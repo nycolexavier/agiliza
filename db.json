@@ -216,6 +216,14 @@
       "email": "verdade@gmail.com",
       "status": "ativo",
       "telefone": "4209482"
+    },
+    {
+      "id": "cbfb",
+      "nome": "aaa",
+      "cargo": "aaa",
+      "email": "aa",
+      "status": "ativo",
+      "telefone": ""
     }
   ],
   "fornecedores": [
@@ -624,6 +632,20 @@
       "prateleira": "44",
       "sessao": "3131",
       "quantidadeMaxima": "4204920"
+    },
+    {
+      "id": "471a",
+      "corredor": "",
+      "prateleira": "",
+      "sessao": "",
+      "quantidadeMaxima": ""
+    },
+    {
+      "id": "2faf",
+      "corredor": "",
+      "prateleira": "",
+      "sessao": "",
+      "quantidadeMaxima": ""
     }
   ],
   "lotes": [
