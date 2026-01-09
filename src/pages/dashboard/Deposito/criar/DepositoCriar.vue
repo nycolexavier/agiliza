@@ -40,25 +40,85 @@ export default defineComponent({
 </script>
 
 <template>
-  <div>
-    <h1>Criar um depósito</h1>
+  <v-container fluid>
+    <!-- Cabeçalho -->
+    <v-row align="center" class="mb-4">
+      <v-col cols="12" md="6">
+        <h2>Criar depósito</h2>
+      </v-col>
 
-    <v-btn @click="irParaODeposito">Voltar para depósito</v-btn>
+      <v-col cols="12" md="6" class="text-end">
+        <v-btn variant="outlined" @click="irParaODeposito">
+          Voltar para depósitos
+        </v-btn>
+      </v-col>
+    </v-row>
 
-    <form @click.prevent="enviarForm">
-      <input v-model="form.corredor" type="text" placeholder="Corredor" />
-      <br />
-      <input v-model="form.prateleira" type="text" placeholder="Prateleira" />
-      <br />
-      <input v-model="form.sessao" type="text" placeholder="Sessao" />
-      <br />
-      <input
-        v-model="form.quantidadeMaxima"
-        type="text"
-        placeholder="Quantidade máxima"
-      />
-      <br />
-      <v-btn>Criar</v-btn>
-    </form>
-  </div>
+    <!-- Card do formulário -->
+    <v-card variant="outlined">
+      <v-card-text>
+        <v-form @submit.prevent="enviarForm">
+          <v-row>
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="form.corredor"
+                label="Corredor"
+                variant="outlined"
+                density="compact"
+                required
+              />
+            </v-col>
+
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="form.prateleira"
+                label="Prateleira"
+                variant="outlined"
+                density="compact"
+                required
+              />
+            </v-col>
+
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="form.sessao"
+                label="Sessão"
+                variant="outlined"
+                density="compact"
+                required
+              />
+            </v-col>
+
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="form.quantidadeMaxima"
+                label="Quantidade máxima"
+                variant="outlined"
+                density="compact"
+                required
+              />
+            </v-col>
+
+            <!-- Botões -->
+            <v-col cols="12" class="text-end">
+              <v-btn
+                color="primary"
+                type="submit"
+                :disabled="
+                  !form.corredor ||
+                  !form.prateleira ||
+                  !form.sessao ||
+                  !form.quantidadeMaxima
+                "
+              >
+                Criar depósito
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-form>
+      </v-card-text>
+    </v-card>
+
+    <Footer />
+  </v-container>
 </template>

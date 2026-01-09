@@ -43,34 +43,55 @@ export default defineComponent({
 </script>
 
 <template>
-  <div>
-    <h1>Olá {{ deposito?.id }}</h1>
+  <v-container fluid>
+    <!-- Cabeçalho -->
+    <v-row align="center" class="mb-4">
+      <v-col cols="12" md="6">
+        <h2>Depósito #{{ deposito?.id }}</h2>
+      </v-col>
 
-    <v-btn @click="irParaoDeposito">Voltar pro deposito</v-btn>
+      <v-col cols="12" md="6" class="text-end">
+        <v-btn variant="outlined" class="me-2" @click="irParaoDeposito">
+          Voltar para depósitos
+        </v-btn>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Corredor</th>
-          <th>Prateleira</th>
-          <th>Sessão</th>
-          <th>Quantidade Máxima</th>
-        </tr>
-      </thead>
+        <v-btn
+          color="primary"
+          @click="irParaODepositoEditar"
+          :disabled="!deposito"
+        >
+          Editar depósito
+        </v-btn>
+      </v-col>
+    </v-row>
 
-      <tbody>
-        <tr>
-          <td>{{ deposito?.corredor }}</td>
-          <td>{{ deposito?.prateleira }}</td>
-          <td>{{ deposito?.sessao }}</td>
-          <td>{{ deposito?.quantidadeMaxima }}</td>
+    <!-- Card de informações -->
+    <v-card variant="outlined">
+      <v-card-text>
+        <v-row>
+          <v-col cols="12" md="6">
+            <strong>Corredor</strong>
+            <div>{{ deposito?.corredor }}</div>
+          </v-col>
 
-          <td>
-            <v-btn @click="irParaODepositoEditar"> Editar </v-btn>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+          <v-col cols="12" md="6">
+            <strong>Prateleira</strong>
+            <div>{{ deposito?.prateleira }}</div>
+          </v-col>
+
+          <v-col cols="12" md="6">
+            <strong>Sessão</strong>
+            <div>{{ deposito?.sessao }}</div>
+          </v-col>
+
+          <v-col cols="12" md="6">
+            <strong>Quantidade máxima</strong>
+            <div>{{ deposito?.quantidadeMaxima }}</div>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
+
     <Footer />
-  </div>
+  </v-container>
 </template>

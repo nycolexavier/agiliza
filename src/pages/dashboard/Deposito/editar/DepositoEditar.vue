@@ -68,33 +68,85 @@ export default defineComponent({
 </script>
 
 <template>
-  <div>
-    <h1>Editar deposito {{ deposito?.id }}</h1>
+  <v-container fluid>
+    <!-- Cabeçalho -->
+    <v-row align="center" class="mb-4">
+      <v-col cols="12" md="6">
+        <h2>Editar depósito #{{ deposito?.id }}</h2>
+      </v-col>
 
-    <v-btn @click="irParaODeposito">Voltar para ver o deposito</v-btn>
+      <v-col cols="12" md="6" class="text-end">
+        <v-btn variant="outlined" @click="irParaODeposito">
+          Voltar para ver o depósito
+        </v-btn>
+      </v-col>
+    </v-row>
 
-    <form @submit.prevent="enviarForm">
-      <input v-model="form.corredor" placeholder="Corredor" />
-      <br />
-      <input v-model="form.prateleira" placeholder="prateleira" />
-      <br />
-      <input v-model="form.sessao" placeholder="sessao" />
-      <br />
-      <input v-model="form.quantidadeMaxima" placeholder="quantidadeMaxima" />
-      <br />
-      <v-btn
-        @click="enviarForm"
-        type="submit"
-        :disabled="
-          !form.corredor ||
-          !form.prateleira ||
-          !form.sessao ||
-          !form.quantidadeMaxima
-        "
-      >
-        Editar
-      </v-btn>
-    </form>
+    <!-- Card do formulário -->
+    <v-card variant="outlined">
+      <v-card-text>
+        <v-form @submit.prevent="enviarForm">
+          <v-row>
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="form.corredor"
+                label="Corredor"
+                variant="outlined"
+                density="compact"
+                required
+              />
+            </v-col>
+
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="form.prateleira"
+                label="Prateleira"
+                variant="outlined"
+                density="compact"
+                required
+              />
+            </v-col>
+
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="form.sessao"
+                label="Sessão"
+                variant="outlined"
+                density="compact"
+                required
+              />
+            </v-col>
+
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="form.quantidadeMaxima"
+                label="Quantidade máxima"
+                variant="outlined"
+                density="compact"
+                required
+              />
+            </v-col>
+
+            <!-- Botão -->
+            <v-col cols="12" class="text-end">
+              <v-btn
+                color="primary"
+                type="submit"
+                :disabled="
+                  !form.corredor ||
+                  !form.prateleira ||
+                  !form.sessao ||
+                  !form.quantidadeMaxima
+                "
+              >
+                Salvar alterações
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-form>
+      </v-card-text>
+    </v-card>
+
     <Footer />
-  </div>
+  </v-container>
 </template>

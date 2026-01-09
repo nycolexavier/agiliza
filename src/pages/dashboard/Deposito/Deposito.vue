@@ -77,58 +77,90 @@ export default defineComponent({
 </script>
 
 <template>
-  <div>
-    <h1>Página de Deposito</h1>
+  <v-container fluid>
+    <!-- Cabeçalho -->
+    <v-row align="center" class="mb-4">
+      <v-col cols="12" md="6">
+        <h2>Depósitos</h2>
+      </v-col>
 
-    <input type="text" v-model="busca" placeholder="Buscar por corredor" />
+      <v-col cols="12" md="6" class="text-end">
+        <v-btn variant="outlined" class="me-2" @click="irParaODashboard">
+          Dashboard
+        </v-btn>
 
-    <br />
+        <v-btn color="primary" @click="irParaDepositoCriar">
+          Adicionar depósito
+        </v-btn>
+      </v-col>
+    </v-row>
 
-    <v-btn @click="irParaDepositoCriar">Adicionar Deposito</v-btn>
+    <!-- Busca -->
+    <v-card variant="outlined" class="mb-4">
+      <v-card-text>
+        <v-text-field v-model="busca" label="Buscar por corredor" clearable />
+      </v-card-text>
+    </v-card>
 
-    <br />
+    <!-- Tabela -->
+    <v-card variant="outlined">
+      <v-data-table :items="depositoPaginados" item-key="id">
+        <template #headers>
+          <tr>
+            <th>Corredor</th>
+            <th>Prateleira</th>
+            <th>Sessão</th>
+            <th>Quantidade máxima</th>
+            <th>Ações</th>
+          </tr>
+        </template>
 
-    <v-btn @click="irParaODashboard">Dashboard</v-btn>
+        <template #item="{ item }">
+          <tr>
+            <td>{{ item.corredor }}</td>
+            <td>{{ item.prateleira }}</td>
+            <td>{{ item.sessao }}</td>
+            <td>{{ item.quantidadeMaxima }}</td>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Corredor</th>
-          <th>Prateleira</th>
-          <th>Sessão</th>
-          <th>Quantidade Máxima</th>
-        </tr>
-      </thead>
+            <td>
+              <v-btn
+                size="small"
+                variant="outlined"
+                @click="irParaDepositoVer(item.id)"
+              >
+                Ver
+              </v-btn>
+            </td>
+          </tr>
+        </template>
 
-      <tbody>
-        <tr v-for="item in depositoPaginados" :key="item.id">
-          <td>{{ item.corredor }}</td>
-          <td>{{ item.prateleira }}</td>
-          <td>{{ item.sessao }}</td>
-          <td>{{ item.quantidadeMaxima }}</td>
+        <template #no-data> Nenhum depósito encontrado </template>
+      </v-data-table>
+    </v-card>
 
-          <td>
-            <v-btn @click="irParaDepositoVer(item.id)">Ver</v-btn>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div>
-      <v-btn @click="paginaAtual--" :disabled="paginaAtual === 1">
+    <!-- Paginação -->
+    <v-row class="mt-4" align="center" justify="center">
+      <v-btn
+        variant="outlined"
+        class="me-2"
+        @click="paginaAtual--"
+        :disabled="paginaAtual === 1"
+      >
         Anterior
       </v-btn>
 
       <span>Página {{ paginaAtual }}</span>
 
       <v-btn
+        variant="outlined"
+        class="ms-2"
         @click="paginaAtual++"
         :disabled="paginaAtual * itensPorPagina >= depositoFiltrado.length"
       >
         Próximo
       </v-btn>
-    </div>
+    </v-row>
 
     <Footer />
-  </div>
+  </v-container>
 </template>
