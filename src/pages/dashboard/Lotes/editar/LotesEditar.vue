@@ -74,34 +74,93 @@ export default defineComponent({
 </script>
 
 <template>
-  <div>
-    <h1>Editar lote: {{ lote?.id }}</h1>
+  <v-container>
+    <!-- Cabeçalho -->
+    <v-row align="center" class="mb-4">
+      <v-col cols="12" md="6">
+        <h2>Editar lote {{ lote?.id }}</h2>
+      </v-col>
 
-    <v-btn @click="irParaOProduto">Voltar para ver o lote</v-btn>
+      <v-col cols="12" md="6" class="text-end">
+        <v-btn variant="outlined" @click="irParaOProduto">
+          Voltar para ver o lote
+        </v-btn>
+      </v-col>
+    </v-row>
 
-    <form @submit.prevent="enviarForm">
-      <input v-model="form.codigoLote" placeholder="codigoLote" />
-      <br />
-      <input v-model="form.marca" placeholder="marca" />
-      <br />
-      <input v-model="form.produto" placeholder="produto" />
-      <br />
-      <input v-model="form.quantidadeProduto" placeholder="quantidadeProduto" />
-      <br />
-      <input v-model="form.dataValidade" placeholder="dataValidade" />
-      <v-btn
-        type="submit"
-        :disabled="
-          !form.codigoLote ||
-          !form.marca ||
-          !form.produto ||
-          // !form.quantidadeProduto ||
-          !form.dataValidade
-        "
-      >
-        Editar
-      </v-btn>
-    </form>
-    <Footer />
-  </div>
+    <!-- Card do formulário -->
+    <v-card variant="outlined">
+      <v-card-text>
+        <v-form @submit.prevent="enviarForm">
+          <v-row>
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="form.codigoLote"
+                label="Código do lote"
+                variant="outlined"
+                required
+              />
+            </v-col>
+
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="form.marca"
+                label="Marca"
+                variant="outlined"
+                required
+              />
+            </v-col>
+
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="form.produto"
+                label="Produto"
+                variant="outlined"
+                required
+              />
+            </v-col>
+
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="form.quantidadeProduto"
+                label="Quantidade do produto"
+                variant="outlined"
+                type="number"
+              />
+            </v-col>
+
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="form.dataValidade"
+                label="Data de validade"
+                type="date"
+                variant="outlined"
+                required
+              />
+            </v-col>
+          </v-row>
+
+          <!-- Ações -->
+          <v-row class="mt-4">
+            <v-col cols="12" class="text-end">
+              <v-btn
+                color="primary"
+                type="submit"
+                :disabled="
+                  !form.codigoLote ||
+                  !form.marca ||
+                  !form.produto ||
+                  !form.dataValidade
+                "
+              >
+                Salvar alterações
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-form>
+      </v-card-text>
+    </v-card>
+
+    <Footer class="mt-6" />
+  </v-container>
 </template>

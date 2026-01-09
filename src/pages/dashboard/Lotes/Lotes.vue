@@ -73,58 +73,87 @@ export default defineComponent({
 </script>
 
 <template>
-  <div>
-    <h1>Página de Lotes</h1>
+  <v-container fluid>
+    <!-- Cabeçalho -->
+    <v-row align="center" class="mb-4">
+      <v-col cols="12" md="6">
+        <h2>Lotes</h2>
+      </v-col>
 
-    <input type="text" v-model="busca" placeholder="Busca por Código Lote" />
+      <v-col cols="12" md="6" class="text-end">
+        <v-btn variant="outlined" @click="irParaODashboard"> Dashboard </v-btn>
+      </v-col>
+    </v-row>
 
-    <br />
+    <!-- Busca -->
+    <v-text-field
+      v-model="busca"
+      label="Buscar por código do lote"
+      variant="outlined"
+      density="compact"
+      clearable
+      class="mb-4"
+    />
 
-    <v-btn @click="irParaODashboard">Dashboard</v-btn>
+    <!-- Tabela -->
+    <v-card variant="outlined">
+      <v-data-table :items="lotesPaginados" item-key="id">
+        <template #headers>
+          <tr>
+            <th>ID</th>
+            <th>Código do lote</th>
+            <th>Marca</th>
+            <th>Produto</th>
+            <th>Status</th>
+            <th>Data de validade</th>
+            <th>Ações</th>
+          </tr>
+        </template>
 
-    <br />
+        <template #item="{ item }">
+          <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.codigoLote }}</td>
+            <td>{{ item.marca }}</td>
+            <td>{{ item.produto }}</td>
+            <td>{{ item.status }}</td>
+            <td>{{ item.dataValidade }}</td>
 
-    <table>
-      <thead>
-        <tr>
-          <th>id</th>
-          <th>Código Lote</th>
-          <th>Marca</th>
-          <th>Produto</th>
-          <th>Status</th>
-          <th>Data de validade</th>
-        </tr>
-      </thead>
+            <td>
+              <v-btn
+                size="small"
+                variant="outlined"
+                @click="irParaOLotesEditar(item.id)"
+              >
+                Ver
+              </v-btn>
+            </td>
+          </tr>
+        </template>
+      </v-data-table>
+    </v-card>
 
-      <tbody>
-        <tr v-for="item in lotesPaginados" :key="item.id">
-          <td>{{ item.id }}</td>
-          <td>{{ item.codigoLote }}</td>
-          <td>{{ item.marca }}</td>
-          <td>{{ item.produto }}</td>
-          <td>{{ item.status }}</td>
-          <td>{{ item.dataValidade }}</td>
-
-          <td>
-            <v-btn @click="irParaOLotesEditar(item.id)">Ver</v-btn>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div>
-      <v-btn @click="paginaAtual--" :disabled="paginaAtual === 1">
+    <!-- Paginação -->
+    <v-row class="mt-4" justify="center" align="center">
+      <v-btn
+        variant="outlined"
+        @click="paginaAtual--"
+        :disabled="paginaAtual === 1"
+      >
         Anterior
       </v-btn>
 
-      <span>Página {{ paginaAtual }}</span>
+      <span class="mx-4"> Página {{ paginaAtual }} </span>
 
       <v-btn
+        variant="outlined"
         @click="paginaAtual++"
         :disabled="paginaAtual * itensPorPagina >= lotesFiltrado.length"
       >
         Próximo
       </v-btn>
-    </div>
-  </div>
+    </v-row>
+
+    <Footer />
+  </v-container>
 </template>

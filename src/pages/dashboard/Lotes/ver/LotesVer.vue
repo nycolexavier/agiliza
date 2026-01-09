@@ -44,37 +44,66 @@ export default defineComponent({
 </script>
 
 <template>
-  <div>
-    <h1>Lote: {{ lote?.id }}</h1>
+  <v-container>
+    <!-- Cabeçalho -->
+    <v-row align="center" class="mb-4">
+      <v-col cols="12" md="6">
+        <h2>Lote {{ lote?.id }}</h2>
+      </v-col>
 
-    <v-btn @click="irParaOsLotes">Voltar para Lotes</v-btn>
+      <v-col cols="12" md="6" class="text-end">
+        <v-btn variant="outlined" class="mr-2" @click="irParaOsLotes">
+          Voltar para Lotes
+        </v-btn>
 
-    <table>
-      <thead>
-        <tr>
-          <th>id</th>
-          <th>Código Lote</th>
-          <th>Marca</th>
-          <th>Produto</th>
-          <th>Status</th>
-          <th>Data de validade</th>
-        </tr>
-      </thead>
+        <v-btn
+          variant="flat"
+          color="primary"
+          :disabled="!lote"
+          @click="irParaLotesEditar"
+        >
+          Editar
+        </v-btn>
+      </v-col>
+    </v-row>
 
-      <tbody>
-        <tr>
-          <td>{{ lote?.id }}</td>
-          <td>{{ lote?.codigoLote }}</td>
-          <td>{{ lote?.marca }}</td>
-          <td>{{ lote?.produto }}</td>
-          <td>{{ lote?.status }}</td>
-          <td>{{ lote?.dataValidade }}</td>
+    <!-- Card com dados -->
+    <v-card variant="outlined">
+      <v-card-text>
+        <v-row>
+          <v-col cols="12" md="6">
+            <strong>ID</strong>
+            <div>{{ lote?.id }}</div>
+          </v-col>
 
-          <td>
-            <v-btn @click="irParaLotesEditar">Editar</v-btn>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+          <v-col cols="12" md="6">
+            <strong>Código do lote</strong>
+            <div>{{ lote?.codigoLote }}</div>
+          </v-col>
+
+          <v-col cols="12" md="6">
+            <strong>Marca</strong>
+            <div>{{ lote?.marca }}</div>
+          </v-col>
+
+          <v-col cols="12" md="6">
+            <strong>Produto</strong>
+            <div>{{ lote?.produto }}</div>
+          </v-col>
+
+          <v-col cols="12" md="6">
+            <strong>Status</strong>
+            <div>{{ lote?.status }}</div>
+          </v-col>
+
+          <v-col cols="12" md="6">
+            <strong>Data de validade</strong>
+            <div>{{ lote?.dataValidade }}</div>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
+
+    <Footer class="mt-6" />
+  </v-container>
 </template>
