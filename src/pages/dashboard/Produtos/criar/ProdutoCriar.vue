@@ -21,6 +21,9 @@ export default defineComponent({
         status: 'ativo',
         categoria: '',
       },
+      snackbar: false,
+      snackbarTexto: '',
+      snackbarCor: 'success',
     };
   },
 
@@ -39,6 +42,14 @@ export default defineComponent({
           status: this.form.status,
           categoria: this.form.categoria,
         });
+
+        this.snackbarTexto = 'Produto criado com sucesso';
+        this.snackbarCor = 'sucsess';
+        this.snackbar = true;
+
+        setTimeout(() => {
+          this.$router.push(ROUTES.produtos.list);
+        }, 1000);
 
         console.log('Deu certo!');
       } catch (error) {
@@ -121,5 +132,13 @@ export default defineComponent({
         </v-form>
       </v-card-text>
     </v-card>
+    <v-snackbar
+      v-model="snackbar"
+      :color="snackbarCor"
+      timeout="3000"
+      location="top right"
+    >
+      {{ snackbarTexto }}
+    </v-snackbar>
   </v-container>
 </template>

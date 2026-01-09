@@ -76,7 +76,6 @@ export default defineComponent({
 });
 </script>
 
-
 <template>
   <v-container fluid>
     <!-- Cabeçalho -->
@@ -111,10 +110,7 @@ export default defineComponent({
 
     <!-- Tabela -->
     <v-card variant="outlined">
-      <v-data-table
-        :items="fornecedoresPaginados"
-        item-key="id"
-      >
+      <v-data-table :items="fornecedoresPaginados" item-key="id">
         <template #headers>
           <tr>
             <th>Nome</th>
@@ -140,7 +136,7 @@ export default defineComponent({
                 variant="outlined"
                 @click="irParaFornecedoresEdicao(item.id)"
               >
-                Ver
+                Editar
               </v-btn>
             </td>
           </tr>

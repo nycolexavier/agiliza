@@ -20,6 +20,10 @@ export default defineComponent({
         status: 'ativo',
         telefone: '',
       },
+
+      snackbar: false,
+      snackbarTexto: '',
+      snackbarCor: 'success',
     };
   },
 
@@ -38,7 +42,13 @@ export default defineComponent({
           telefone: this.form.telefone,
         });
 
-        alert('AA');
+        (this.snackbarTexto = 'Depósito criado com sucesso'),
+          (this.snackbarCor = 'success');
+        this.snackbar = true;
+
+        setTimeout(() => {
+          this.$router.push(ROUTES.fornecedores.list);
+        }, 1000);
       } catch (error) {
         console.error('Erro ao criar fornecedor', error);
       }
@@ -114,5 +124,13 @@ export default defineComponent({
         </v-form>
       </v-card-text>
     </v-card>
+    <v-snackbar
+      v-model="snackbar"
+      :color="snackbarCor"
+      timeout="3000"
+      location="top right"
+    >
+      {{ snackbarTexto }}
+    </v-snackbar>
   </v-container>
 </template>

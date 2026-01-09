@@ -19,6 +19,10 @@ export default defineComponent({
         sessao: '',
         quantidadeMaxima: '',
       },
+
+      snackbar: false,
+      snackbarTexto: '',
+      snackbarCor: 'success',
     };
   },
 
@@ -28,12 +32,24 @@ export default defineComponent({
     },
 
     async enviarForm() {
-      const response = await api.post(`/deposito`, {
-        corredor: this.form.corredor,
-        prateleira: this.form.prateleira,
-        sessao: this.form.sessao,
-        quantidadeMaxima: this.form.quantidadeMaxima,
-      });
+      try {
+        const response = await api.post(`/deposito`, {
+          corredor: this.form.corredor,
+          prateleira: this.form.prateleira,
+          sessao: this.form.sessao,
+          quantidadeMaxima: this.form.quantidadeMaxima,
+        });
+
+        (this.snackbarTexto = 'Depósito criado com sucesso'),
+          (this.snackbarCor = 'success');
+        this.snackbar = true;
+
+        setTimeout(() => {
+          this.$router.push(ROUTES.deposito.list);
+        }, 1000);
+      } catch (error) {
+        console.error('Erro ao criar um depósito');
+      }
     },
   },
 });
@@ -120,5 +136,14 @@ export default defineComponent({
     </v-card>
 
     <Footer />
+
+    <v-snackbar
+      v-model="snackbar"
+      :color="snackbarCor"
+      timeout="3000"
+      location="top right"
+    >
+      {{ snackbarTexto }}
+    </v-snackbar>
   </v-container>
 </template>

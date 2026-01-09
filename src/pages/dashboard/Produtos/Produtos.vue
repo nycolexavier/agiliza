@@ -60,7 +60,7 @@ export default defineComponent({
     },
 
     irParaProdutosVer(id: number) {
-      this.$router.push(ROUTES.produtos.list);
+      this.$router.push(ROUTES.produtos.ver(id));
     },
 
     irParaCriarProduto() {
@@ -135,7 +135,7 @@ export default defineComponent({
                 variant="outlined"
                 @click="irParaProdutosVer(item.id)"
               >
-                Ver
+                Editar
               </v-btn>
             </td>
           </tr>

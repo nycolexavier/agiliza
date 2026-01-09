@@ -23,6 +23,10 @@ export default defineComponent({
         status: 'ativo',
         telefone: '',
       },
+
+      snackbar: false,
+      snackbarTexto: '',
+      snackbarCor: 'success',
     };
   },
 
@@ -41,7 +45,13 @@ export default defineComponent({
           telefone: this.form.telefone,
         });
 
-        console.log('Deu!');
+        this.snackbarTexto = 'Usuário criado com sucesso';
+        this.snackbarCor = 'success';
+        this.snackbar = true;
+
+        setTimeout(() => {
+          this.$router.push(ROUTES.usuarios.list);
+        }, 1000);
       } catch (error) {
         console.error('Erro ao criar usuário', error);
       }
@@ -79,11 +89,7 @@ export default defineComponent({
         </v-col>
 
         <v-col cols="12" md="6">
-          <v-text-field
-            v-model="form.email"
-            label="Telefone"
-            variant="outlined"
-          />
+          <v-text-field v-model="form.email" label="Email" variant="outlined" />
         </v-col>
 
         <v-col cols="12" md="6">
@@ -110,5 +116,14 @@ export default defineComponent({
         </v-col>
       </v-row>
     </v-form>
+
+    <v-snackbar
+      v-model="snackbar"
+      :color="snackbarCor"
+      timeout="3000"
+      location="top right"
+    >
+      {{ snackbarTexto }}
+    </v-snackbar>
   </v-container>
 </template>
