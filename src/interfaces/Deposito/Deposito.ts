@@ -4,4 +4,6 @@ export interface Deposito{
   prateleira: string,
   sessao: string,
   quantidadeMaxima: string
+  criadoPor: string
+  atualizadoEm: string
 }

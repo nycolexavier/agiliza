@@ -38,14 +38,13 @@ export default defineComponent({
       const response = await api.get(`/fornecedores/${id}`);
       this.fornecedorEdicao = response.data;
 
-      console.log(this.fornecedorEdicao);
     },
   },
 });
 </script>
 
 <template>
-  <v-container fluid>
+  <BaseFormContainer>
     <v-row>
       <v-col>
         <h2>Fornecedor</h2>
@@ -98,5 +97,5 @@ export default defineComponent({
         </v-row>
       </v-card-text>
     </v-card> 
-  </v-container>
+  </BaseFormContainer>
 </template>

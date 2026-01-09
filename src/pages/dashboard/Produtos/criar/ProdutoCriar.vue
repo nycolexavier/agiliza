@@ -50,8 +50,6 @@ export default defineComponent({
         setTimeout(() => {
           this.$router.push(ROUTES.produtos.list);
         }, 1000);
-
-        console.log('Deu certo!');
       } catch (error) {
         console.error('Erro ao criar produto', error);
       }
@@ -61,7 +59,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <v-container fluid>
+  <BaseFormContainer>
     <!-- Cabeçalho -->
     <v-row align="center" class="mb-4">
       <v-col cols="12" md="6">
@@ -91,6 +89,7 @@ export default defineComponent({
                 v-model="form.quantidadeMedida"
                 label="Quantidade de medida"
                 required
+                :rules="[(v) => !!v || 'Quantidade de medida é obrigatório']"
               />
             </v-col>
 
@@ -99,6 +98,7 @@ export default defineComponent({
                 v-model="form.quantidadeProduto"
                 label="Quantidade de produto"
                 required
+                :rules="[(v) => !!v || 'Quantidade de produto é obrigatório']"
               />
             </v-col>
 
@@ -107,6 +107,7 @@ export default defineComponent({
                 v-model="form.categoria"
                 label="Categoria"
                 required
+                :rules="[(v) => !!v || 'Categoria é obrigatório']"
               />
             </v-col>
           </v-row>
@@ -140,5 +141,5 @@ export default defineComponent({
     >
       {{ snackbarTexto }}
     </v-snackbar>
-  </v-container>
+  </BaseFormContainer>
 </template>

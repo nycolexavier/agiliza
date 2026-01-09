@@ -61,7 +61,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <v-container fluid>
+ <BaseFormContainer>
     <v-row class="mb-4">
       <v-col cols="12">
         <h2>Criar usuário</h2>
@@ -76,6 +76,7 @@ export default defineComponent({
             label="Nome"
             variant="outlined"
             required
+            :rules="[v => !!v || 'Nome é obrigatório']"
           />
         </v-col>
 
@@ -85,6 +86,7 @@ export default defineComponent({
             label="Cargo"
             variant="outlined"
             required
+              :rules="[v => !!v || 'Cargo é obrigatório']"
           />
         </v-col>
 
@@ -125,5 +127,5 @@ export default defineComponent({
     >
       {{ snackbarTexto }}
     </v-snackbar>
-  </v-container>
+ </BaseFormContainer>
 </template>

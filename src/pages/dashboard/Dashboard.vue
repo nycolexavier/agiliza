@@ -1,4 +1,5 @@
 <script lang="ts">
+import BaseFormContainer from '@/components/base/BaseFormContainer.vue';
 import Footer from '@/components/footer/Footer.vue';
 import { ROUTES } from '@/router/utils/routes';
 import { defineComponent } from 'vue';
@@ -118,7 +119,7 @@ export default defineComponent({
     <!-- conteúdo -->
 
     <v-main>
-      <v-container fuild>
+      <BaseFormContainer>
         <h2>Resumo do mês</h2>
 
         <v-row>
@@ -150,9 +151,9 @@ export default defineComponent({
             </v-card>
           </v-col>
         </v-row>
-      </v-container>
+      </BaseFormContainer>
     </v-main>
 
-    <Footer/>
+    <Footer />
   </v-app>
 </template>

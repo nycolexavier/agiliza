@@ -1,4 +1,6 @@
 <script lang="ts">
+import BaseFormContainer from '@/components/base/BaseFormContainer.vue';
+import BaseSnackbar from '@/components/base/BaseSnackbar.vue';
 import Footer from '@/components/footer/Footer.vue';
 import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
@@ -9,6 +11,7 @@ export default defineComponent({
 
   components: {
     Footer,
+    BaseSnackbar,
   },
 
   data() {
@@ -23,7 +26,7 @@ export default defineComponent({
 
       snackbar: false,
       snackbarTexto: '',
-      snackbarCor: 'success',
+      snackbarTipo: 'success',
     };
   },
 
@@ -43,7 +46,7 @@ export default defineComponent({
         });
 
         (this.snackbarTexto = 'Depósito criado com sucesso'),
-          (this.snackbarCor = 'success');
+          (this.snackbarTipo = 'success');
         this.snackbar = true;
 
         setTimeout(() => {
@@ -58,7 +61,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <v-container fluid>
+  <BaseFormContainer>
     <v-row>
       <v-col>
         <h2>Cadastrar fornecedor</h2>
@@ -78,6 +81,8 @@ export default defineComponent({
                 v-model="form.nome"
                 label="Nome"
                 variant="outlined"
+                required
+                :rules="[(v) => !!v || 'Quantidade de medida é obrigatório']"
               />
             </v-col>
 
@@ -86,6 +91,7 @@ export default defineComponent({
                 v-model="form.cargo"
                 label="Cargo"
                 variant="outlined"
+                required
               />
             </v-col>
 
@@ -94,6 +100,7 @@ export default defineComponent({
                 v-model="form.email"
                 label="Telefone"
                 variant="outlined"
+                required
               />
             </v-col>
 
@@ -102,6 +109,7 @@ export default defineComponent({
                 v-model="form.telefone"
                 label="Telefone"
                 variant="outlined"
+                required
               />
             </v-col>
           </v-row>
@@ -124,13 +132,11 @@ export default defineComponent({
         </v-form>
       </v-card-text>
     </v-card>
-    <v-snackbar
+
+    <BaseSnackbar
       v-model="snackbar"
-      :color="snackbarCor"
-      timeout="3000"
-      location="top right"
-    >
-      {{ snackbarTexto }}
-    </v-snackbar>
-  </v-container>
+      :texto="snackbarTexto"
+      :tipo="snackbarTipo"
+    />
+  </BaseFormContainer>
 </template>

@@ -77,7 +77,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <v-container fluid>
+  <BaseFormContainer>
     <!-- Cabeçalho -->
     <v-row align="center" class="mb-4">
       <v-col cols="12" md="6">
@@ -162,5 +162,5 @@ export default defineComponent({
     </v-row>
 
     <Footer />
-  </v-container>
+  </BaseFormContainer>
 </template>

@@ -47,7 +47,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <v-container fluid>
+  <BaseFormContainer>
     <v-row class="mb-4" align="center">
       <v-col cols="12" md="8">
         <h2>Usuário</h2>
@@ -92,9 +92,7 @@ export default defineComponent({
           </v-col>
         </v-row>
       </v-card-text>
-    
     </v-card>
-    <Footer/>
-
-  </v-container>
+    <Footer />
+  </BaseFormContainer>
 </template>

@@ -48,8 +48,6 @@ export default defineComponent({
         this.form.email = response.data.email;
         this.form.status = response.data.status;
         this.form.telefone = response.data.telefone;
-
-        console.log(this.fornecedor?.nome);
       } catch (error) {
         console.error('Erro ao buscar fornecedores', error);
       }
@@ -57,7 +55,6 @@ export default defineComponent({
 
     async enviarForm() {
       try {
-        console.log('Editou?');
 
         const response = await api.patch(
           `/fornecedores/${this.fornecedor?.id}`,
@@ -69,8 +66,6 @@ export default defineComponent({
           }
         );
 
-        console.log('response', response);
-
         return response;
       } catch (error) {}
     },
@@ -79,7 +74,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <v-container fluid>
+  <BaseFormContainer>
     <v-row class="mb-4" align="center">
       <v-col cols="12" md="8">
         <h2>Editar fornecedor</h2>
@@ -139,5 +134,5 @@ export default defineComponent({
         </v-form>
       </v-card-text>
     </v-card>
-  </v-container>
+  </BaseFormContainer>
 </template>

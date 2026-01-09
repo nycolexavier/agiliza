@@ -21,6 +21,7 @@ import FornecedorEditar from '@/pages/dashboard/Fornecedores/editar/FornecedorEd
 import ProdutosEditar from '@/pages/dashboard/Produtos/editar/ProdutosEditar.vue';
 import DepositoEditar from '@/pages/dashboard/Deposito/editar/DepositoEditar.vue';
 import LotesVer from '@/pages/dashboard/Lotes/ver/LotesVer.vue';
+import Movimentacao from '@/pages/dashboard/Movimentacao/Movimentacao.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -134,6 +135,11 @@ const router = createRouter({
       path: '/dashboard/lotes/:id/editar',
       name: 'lotes-editar',
       component: LotesEditar,
+    },
+    {
+      path: '/dashboard/movimentacao',
+      name: 'movimentacao',
+      component: Movimentacao,
     },
     {
       path: '/',

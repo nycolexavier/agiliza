@@ -1,9 +1,13 @@
-export interface Produto{
-  id: number,
-  nome: string,
-  sku: number,
-  unidadeMedida: string,
-  quantidadeProduto: string,
-  status: "ativo" | "inativo",
-  categoria: string
+export interface Produto {
+  id: number;
+  nome: string;
+  sku: number;
+  unidadeMedida: string;
+  quantidadeProduto: string;
+  status: 'ativo' | 'inativo';
+  categoria: string;
+  descricao: string;
+  criadoEm: string;
+  criadoPor: string;
+  atualizadoEm: string;
 }

@@ -72,7 +72,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <v-container fluid>
+  <BaseFormContainer>
     <!-- Cabeçalho -->
     <v-row align="center" class="mb-4">
       <v-col cols="12" md="6">
@@ -104,6 +104,7 @@ export default defineComponent({
                 v-model="form.unidadeMedida"
                 label="Unidade de medida"
                 required
+                :rules="[(v) => !!v || 'Quantidade de medida é obrigatório']"
               />
             </v-col>
 
@@ -112,6 +113,7 @@ export default defineComponent({
                 v-model="form.quantidadeProduto"
                 label="Quantidade do produto"
                 required
+                :rules="[(v) => !!v || 'Quantidade de produto é obrigatório']"
               />
             </v-col>
 
@@ -120,6 +122,7 @@ export default defineComponent({
                 v-model="form.categoria"
                 label="Categoria"
                 required
+                :rules="[(v) => !!v || 'Categoria é obrigatório']"
               />
             </v-col>
           </v-row>
@@ -147,5 +150,5 @@ export default defineComponent({
     </v-card>
 
     <Footer />
-  </v-container>
+  </BaseFormContainer>
 </template>

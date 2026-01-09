@@ -47,8 +47,6 @@ export default defineComponent({
         this.form.email = response.data.email;
         this.form.status = response.data.status;
         this.form.telefone = response.data.telefone;
-
-        console.log(this.usuario?.nome);
       } catch (error) {
         console.error('Erro ao buscar usuários', error);
       }
@@ -56,17 +54,12 @@ export default defineComponent({
 
     async enviarForm() {
       try {
-        console.log('Editou?');
-
         const response = await api.patch(`/usuarios/${this.usuario?.id}`, {
           nome: this.form.nome,
           cargo: this.form.cargo,
           email: this.form.email,
           telefone: this.form.telefone,
         });
-
-        console.log('response', response);
-
         return response;
       } catch (error) {}
     },
@@ -96,7 +89,8 @@ export default defineComponent({
     <Footer />
   </div> -->
 
-  <v-container fluid>
+    <BaseFormContainer>
+
     <v-row class="mb-4" align="center">
       <v-col cols="12" md="8">
         <h2>Editar usário</h2>
@@ -163,5 +157,5 @@ export default defineComponent({
         </v-form>
       </v-card-text>
     </v-card>
-  </v-container>
+  </BaseFormContainer>
 </template>

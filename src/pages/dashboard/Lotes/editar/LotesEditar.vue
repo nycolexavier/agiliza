@@ -49,8 +49,6 @@ export default defineComponent({
         this.form.quantidadeProduto = response.data.quantidadeProduto;
         this.form.status = response.data.status;
         this.form.dataValidade = response.data.dataValidade;
-
-        console.log(response);
       } catch (error) {
         console.error('Erro ao buscar lote', error);
       }
@@ -74,7 +72,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <v-container>
+ <BaseFormContainer>
     <!-- Cabeçalho -->
     <v-row align="center" class="mb-4">
       <v-col cols="12" md="6">
@@ -99,6 +97,7 @@ export default defineComponent({
                 label="Código do lote"
                 variant="outlined"
                 required
+                :rules="[(v) => !!v || 'Código do lote é obrigatório']"
               />
             </v-col>
 
@@ -108,6 +107,7 @@ export default defineComponent({
                 label="Marca"
                 variant="outlined"
                 required
+                :rules="[(v) => !!v || 'Marca é obrigatório']"
               />
             </v-col>
 
@@ -117,6 +117,7 @@ export default defineComponent({
                 label="Produto"
                 variant="outlined"
                 required
+                :rules="[(v) => !!v || 'Produto é obrigatório']"
               />
             </v-col>
 
@@ -126,6 +127,7 @@ export default defineComponent({
                 label="Quantidade do produto"
                 variant="outlined"
                 type="number"
+                :rules="[(v) => !!v || 'Quantidade do produto é obrigatório']"
               />
             </v-col>
 
@@ -136,6 +138,7 @@ export default defineComponent({
                 type="date"
                 variant="outlined"
                 required
+                :rules="[(v) => !!v || 'Data de validade é obrigatório']"
               />
             </v-col>
           </v-row>
@@ -162,5 +165,5 @@ export default defineComponent({
     </v-card>
 
     <Footer class="mt-6" />
-  </v-container>
+  </BaseFormContainer>
 </template>

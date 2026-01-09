@@ -68,7 +68,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <v-container fluid>
+  <BaseFormContainer>
     <!-- Cabeçalho -->
     <v-row align="center" class="mb-4">
       <v-col cols="12" md="6">
@@ -94,6 +94,7 @@ export default defineComponent({
                 variant="outlined"
                 density="compact"
                 required
+                :rules="[(v) => !!v || 'Corredor é obrigatório']"
               />
             </v-col>
 
@@ -104,6 +105,7 @@ export default defineComponent({
                 variant="outlined"
                 density="compact"
                 required
+                :rules="[(v) => !!v || 'Prateleira é obrigatório']"
               />
             </v-col>
 
@@ -114,6 +116,7 @@ export default defineComponent({
                 variant="outlined"
                 density="compact"
                 required
+                :rules="[(v) => !!v || 'Sessão é obrigatório']"
               />
             </v-col>
 
@@ -124,6 +127,7 @@ export default defineComponent({
                 variant="outlined"
                 density="compact"
                 required
+                :rules="[(v) => !!v || 'Quantidade máxima é obrigatório']"
               />
             </v-col>
 
@@ -148,5 +152,5 @@ export default defineComponent({
     </v-card>
 
     <Footer />
-  </v-container>
+  </BaseFormContainer>
 </template>

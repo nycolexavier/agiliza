@@ -14,7 +14,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <v-container class="fill-height" fluid>
+  <BaseFormContainer>
     <v-row align="center" justify="center">
       <v-col cols="12" sm="8" md="4">
         <v-card variant="outlined">
@@ -29,6 +29,10 @@ export default defineComponent({
                 type="email"
                 variant="outlined"
                 placeholder="Digite seu e-mail"
+                :rules="[
+                  (v) => !!v || 'E-mail obrigatório',
+                  (v) => /.+@.+\..+/.test(v) || 'E-mail inválido',
+                ]"
               />
 
               <v-text-field
@@ -36,6 +40,7 @@ export default defineComponent({
                 type="password"
                 variant="outlined"
                 placeholder="Digite sua senha"
+                :rules="[(v) => v.length >= 6 || 'Mínimo 6 caracteres']"
               />
             </v-form>
           </v-card-text>
@@ -48,5 +53,5 @@ export default defineComponent({
         </v-card>
       </v-col>
     </v-row>
-  </v-container>
+ </BaseFormContainer>
 </template>
