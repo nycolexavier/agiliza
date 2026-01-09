@@ -97,6 +97,10 @@ export default defineComponent({
       </v-col>
 
       <v-col cols="12" md="6" class="text-end">
+        <v-btn variant="outlined" class="me-2" @click="irParaODashboard">
+          Dashboard
+        </v-btn>
+
         <v-btn color="primary" @click="irParaCriarUsuario"
           >Adicionar usuário</v-btn
         >

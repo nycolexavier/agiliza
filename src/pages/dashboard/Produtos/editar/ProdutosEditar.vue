@@ -72,34 +72,80 @@ export default defineComponent({
 </script>
 
 <template>
-  <div>
-    <h1>Editar produto {{ produto?.nome }}</h1>
+  <v-container fluid>
+    <!-- Cabeçalho -->
+    <v-row align="center" class="mb-4">
+      <v-col cols="12" md="6">
+        <h2>Editar produto: {{ produto?.nome }}</h2>
+      </v-col>
 
-    <v-btn @click="irParaOProduto">Voltar para ver o produto</v-btn>
+      <v-col cols="12" md="6" class="text-end">
+        <v-btn variant="outlined" class="mr-2" @click="irParaOProduto">
+          Voltar para o produto
+        </v-btn>
+      </v-col>
+    </v-row>
 
-    <form @submit.prevent="enviarForm">
-      <input v-model="form.nome" placeholder="Nome" />
-      <br />
-      <input v-model="form.sku" placeholder="sku" />
-      <br />
-      <input v-model="form.unidadeMedida" placeholder="unidadeMedida" />
-      <br />
-      <input v-model="form.quantidadeProduto" placeholder="quantidadeProduto" />
-      <br />
-      <input v-model="form.categoria" placeholder="categoria" />
-      <v-btn
-        type="submit"
-        :disabled="
-          !form.nome ||
-          !form.sku ||
-          !form.unidadeMedida ||
-          !form.quantidadeProduto ||
-          !form.categoria
-        "
-      >
-        Editar
-      </v-btn>
-    </form>
+    <!-- Card do formulário -->
+    <v-card variant="outlined">
+      <v-card-text>
+        <v-form @submit.prevent="enviarForm">
+          <v-row>
+            <v-col cols="12" md="6">
+              <v-text-field v-model="form.nome" label="Nome" required />
+            </v-col>
+
+            <v-col cols="12" md="6">
+              <v-text-field v-model="form.sku" label="SKU" required />
+            </v-col>
+
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="form.unidadeMedida"
+                label="Unidade de medida"
+                required
+              />
+            </v-col>
+
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="form.quantidadeProduto"
+                label="Quantidade do produto"
+                required
+              />
+            </v-col>
+
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="form.categoria"
+                label="Categoria"
+                required
+              />
+            </v-col>
+          </v-row>
+
+          <!-- Ações -->
+          <v-row class="mt-4">
+            <v-col cols="12" class="text-end">
+              <v-btn
+                type="submit"
+                color="primary"
+                :disabled="
+                  !form.nome ||
+                  !form.sku ||
+                  !form.unidadeMedida ||
+                  !form.quantidadeProduto ||
+                  !form.categoria
+                "
+              >
+                Salvar alterações
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-form>
+      </v-card-text>
+    </v-card>
+
     <Footer />
-  </div>
+  </v-container>
 </template>

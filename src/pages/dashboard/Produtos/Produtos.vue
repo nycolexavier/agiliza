@@ -77,65 +77,93 @@ export default defineComponent({
 </script>
 
 <template>
-  <div>
-    <h1>Página de produtos</h1>
+  <v-container fluid>
+    <!-- Cabeçalho -->
+    <v-row class="mb-4" align="center">
+      <v-col cols="12" md="6">
+        <h2>Produtos</h2>
+      </v-col>
 
-    <br />
+      <v-col cols="12" md="6" class="text-end">
+        <v-btn color="primary" class="mr-2" @click="irParaCriarProduto">
+          Adicionar produto
+        </v-btn>
 
-    <input type="text" v-model="busca" placeholder="Buscar por nome" />
+        <v-btn variant="outlined" @click="irParaODashboard"> Dashboard </v-btn>
+      </v-col>
+    </v-row>
 
-    <br />
+    <!-- Busca -->
+    <v-text-field
+      v-model="busca"
+      label="Buscar produto pelo nome"
+      variant="outlined"
+      density="compact"
+      clearable
+      class="mb-4"
+    />
 
-    <v-btn @click="irParaCriarProduto">Adicionar produtos</v-btn>
+    <!-- Tabela -->
+    <v-card variant="outlined">
+      <v-data-table :items="produtosPaginados" item-key="id">
+        <template #headers>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>SKU</th>
+            <th>Unidade</th>
+            <th>Quantidade</th>
+            <th>Categoria</th>
+            <th>Status</th>
+            <th class="text-end">Ações</th>
+          </tr>
+        </template>
 
-    <br />
-    <v-btn @click="irParaODashboard">Dashboard</v-btn>
+        <template #item="{ item }">
+          <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.nome }}</td>
+            <td>{{ item.sku }}</td>
+            <td>{{ item.unidadeMedida }}</td>
+            <td>{{ item.quantidadeProduto }}</td>
+            <td>{{ item.categoria }}</td>
+            <td>{{ item.status }}</td>
 
-    <table>
-      <thead>
-        <tr>
-          <th>id</th>
-          <th>nome</th>
-          <th>sku</th>
-          <th>unidade de medida</th>
-          <th>quantidade de produto</th>
-          <th>categoria</th>
-          <th>status</th>
-        </tr>
-      </thead>
+            <td class="text-end">
+              <v-btn
+                size="small"
+                variant="outlined"
+                @click="irParaProdutosVer(item.id)"
+              >
+                Ver
+              </v-btn>
+            </td>
+          </tr>
+        </template>
+      </v-data-table>
+    </v-card>
 
-      <tbody>
-        <tr v-for="item in produtosPaginados" :key="item.id">
-          <td>{{ item?.id }}</td>
-          <td>{{ item.nome }}</td>
-          <td>{{ item.sku }}</td>
-          <td>{{ item.unidadeMedida }}</td>
-          <td>{{ item.quantidadeProduto }}</td>
-          <td>{{ item.categoria }}</td>
-          <td>{{ item.status }}</td>
-
-          <td>
-            <v-btn @click="irParaProdutosVer(item.id)">Ver</v-btn>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div>
-      <v-btn @click="paginaAtual--" :disabled="paginaAtual === 1">
+    <!-- Paginação -->
+    <v-row class="mt-4" align="center" justify="center">
+      <v-btn
+        variant="outlined"
+        @click="paginaAtual--"
+        :disabled="paginaAtual === 1"
+      >
         Anterior
       </v-btn>
 
-      <span>Página {{ paginaAtual }}</span>
+      <span class="mx-4"> Página {{ paginaAtual }} </span>
 
       <v-btn
+        variant="outlined"
         @click="paginaAtual++"
         :disabled="paginaAtual * itensPorPagina >= produtoFiltrado.length"
       >
         Próximo
       </v-btn>
-    </div>
+    </v-row>
 
     <Footer />
-  </div>
+  </v-container>
 </template>

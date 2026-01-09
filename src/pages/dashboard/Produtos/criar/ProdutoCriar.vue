@@ -50,50 +50,76 @@ export default defineComponent({
 </script>
 
 <template>
-  <div>
-    <h1>Criar um produto</h1>
+  <v-container fluid>
+    <!-- Cabeçalho -->
+    <v-row align="center" class="mb-4">
+      <v-col cols="12" md="6">
+        <h2>Criar produto</h2>
+      </v-col>
 
-    <v-btn @click="irParaOProduto">Produto</v-btn>
+      <v-col cols="12" md="6" class="text-end">
+        <v-btn variant="outlined" @click="irParaOProduto"> Produtos </v-btn>
+      </v-col>
+    </v-row>
 
-    <form @submit.prevent="enviarForm" action="">
-      <input v-model="form.nome" type="text" placeholder="Nome" />
+    <!-- Card do formulário -->
+    <v-card variant="outlined">
+      <v-card-text>
+        <v-form @submit.prevent="enviarForm">
+          <v-row>
+            <v-col cols="12" md="6">
+              <v-text-field v-model="form.nome" label="Nome" required />
+            </v-col>
 
-      <br />
+            <v-col cols="12" md="6">
+              <v-text-field v-model="form.sku" label="SKU" required />
+            </v-col>
 
-      <input v-model="form.sku" type="text" placeholder="SKU" />
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="form.quantidadeMedida"
+                label="Quantidade de medida"
+                required
+              />
+            </v-col>
 
-      <br />
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="form.quantidadeProduto"
+                label="Quantidade de produto"
+                required
+              />
+            </v-col>
 
-      <input
-        v-model="form.quantidadeMedida"
-        type="text"
-        placeholder="Quantidade de Medida"
-      />
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="form.categoria"
+                label="Categoria"
+                required
+              />
+            </v-col>
+          </v-row>
 
-      <br />
-
-      <input
-        v-model="form.quantidadeProduto"
-        type="text"
-        placeholder="Quantidade de Produto"
-      />
-
-      <br />
-
-      <input v-model="form.categoria" type="text" placeholder="Categoria" />
-
-      <v-btn
-        type="submit"
-        :disabled="
-          !form.nome ||
-          !form.categoria ||
-          !form.quantidadeMedida ||
-          !form.quantidadeProduto ||
-          !form.sku
-        "
-      >
-        Criar
-      </v-btn>
-    </form>
-  </div>
+          <!-- Botão -->
+          <v-row class="mt-4">
+            <v-col cols="12" class="text-end">
+              <v-btn
+                type="submit"
+                color="primary"
+                :disabled="
+                  !form.nome ||
+                  !form.categoria ||
+                  !form.quantidadeMedida ||
+                  !form.quantidadeProduto ||
+                  !form.sku
+                "
+              >
+                Criar produto
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-form>
+      </v-card-text>
+    </v-card>
+  </v-container>
 </template>

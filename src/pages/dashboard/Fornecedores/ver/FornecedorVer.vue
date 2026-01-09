@@ -97,6 +97,6 @@ export default defineComponent({
           </v-col>
         </v-row>
       </v-card-text>
-    </v-card>
+    </v-card> 
   </v-container>
 </template>
