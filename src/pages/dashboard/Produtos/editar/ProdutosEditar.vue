@@ -3,6 +3,8 @@ import Footer from '@/components/footer/Footer.vue';
 import type { Produto } from '@/interfaces/Produtos/Produto';
 import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
+import { ProdutosListID, ProdutosPost } from '@/services/Produtos';
+import { UsuariosIDPatch } from '@/services/usuarios.services';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -40,15 +42,17 @@ export default defineComponent({
       try {
         const id = this.$route.params.id;
 
-        const response = await api.get(`/produtos/${id}`);
-        this.produto = response.data;
+        if (typeof id === 'string') {
+          const response = await ProdutosListID(id);
+          this.produto = response.data;
 
-        this.form.nome = response.data.nome;
-        this.form.sku = response.data.sku;
-        this.form.unidadeMedida = response.data.unidadeMedida;
-        this.form.quantidadeProduto = response.data.quantidadeProduto;
-        this.form.status = response.data.status;
-        this.form.categoria = response.data.categoria;
+          this.form.nome = response.data.nome;
+          this.form.sku = response.data.sku;
+          this.form.unidadeMedida = response.data.unidadeMedida;
+          this.form.quantidadeProduto = response.data.quantidadeProduto;
+          this.form.status = response.data.status;
+          this.form.categoria = response.data.categoria;
+        }
       } catch (error) {
         console.error('Erro ao buscar produto', error);
       }
@@ -56,15 +60,18 @@ export default defineComponent({
 
     async enviarForm() {
       try {
-        const response = await api.patch(`/produtos/${this.produto?.id}`, {
-          nome: this.form.nome,
-          sku: this.form.sku,
-          unidadeMedida: this.form.unidadeMedida,
-          quantidadeProduto: this.form.quantidadeProduto,
-          categoria: this.form.categoria,
-        });
-
-        return response;
+        const id = this.$route.params.id;
+        if (typeof id === 'string') {
+          const response = await ProdutosPost({
+            nome: this.form.nome,
+            sku: this.form.sku,
+            unidadeMedida: this.form.unidadeMedida,
+            quantidadeProduto: this.form.quantidadeProduto,
+            status: 'ativo',
+            categoria: this.form.categoria,
+          });
+          return response;
+        }
       } catch (error) {}
     },
   },

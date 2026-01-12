@@ -11,3 +11,20 @@ export interface Produto {
   criadoPor: string;
   atualizadoEm: string;
 }
+
+export interface ProdutosPostDTO {
+  nome: string;
+  sku: string;
+  unidadeMedida: string;
+  quantidadeProduto: string;
+  status: string;
+  categoria: string;
+}
+
+export interface ProdutosPatchDTO {
+  nome: string;
+  sku: string;
+  unidadeMedida: string;
+  quantidadeProduto: string;
+  categoria: string;
+}

@@ -3,6 +3,7 @@ import Footer from '@/components/footer/Footer.vue';
 import type { Produto } from '@/interfaces/Produtos/Produto';
 import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
+import { ProdutosListID } from '@/services/Produtos';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -34,8 +35,10 @@ export default defineComponent({
 
     async buscarProduto() {
       const id = this.$route.params.id;
-      const response = await api.get(`/produtos/${id}`);
-      this.produto = response.data;
+      if (typeof id === 'string') {
+        const response = await ProdutosListID(id);
+        this.produto = response.data;
+      }
     },
   },
 });

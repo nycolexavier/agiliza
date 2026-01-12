@@ -5,6 +5,7 @@ import api from '@/services/api';
 import type { Produto } from '@/interfaces/Produtos/Produto';
 import { removerAcentos } from '@/utils/string/normalize';
 import { ROUTES } from '@/router/utils/routes';
+import { ProdutosList } from '@/services/Produtos';
 
 export default defineComponent({
   name: 'ProdutosPage',
@@ -68,7 +69,7 @@ export default defineComponent({
     },
 
     async buscarProdutos() {
-      const response = await api.get<Produto[]>('/produtos');
+      const response = await ProdutosList();
 
       this.produto = response.data;
     },

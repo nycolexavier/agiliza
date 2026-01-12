@@ -2,6 +2,7 @@
 import Footer from '@/components/footer/Footer.vue';
 import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
+import { ProdutosPost } from '@/services/Produtos';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -34,10 +35,19 @@ export default defineComponent({
 
     async enviarForm() {
       try {
-        await api.post(`/produtos`, {
+        // await api.post(`/produtos`, {
+        //   nome: this.form.nome,
+        //   sku: this.form.sku,
+        //   quantidadeMedida: this.form.quantidadeMedida,
+        //   quantidadeProduto: this.form.quantidadeProduto,
+        //   status: this.form.status,
+        //   categoria: this.form.categoria,
+        // });
+
+        await ProdutosPost({
           nome: this.form.nome,
           sku: this.form.sku,
-          quantidadeMedida: this.form.quantidadeMedida,
+          unidadeMedida: this.form.quantidadeMedida,
           quantidadeProduto: this.form.quantidadeProduto,
           status: this.form.status,
           categoria: this.form.categoria,
