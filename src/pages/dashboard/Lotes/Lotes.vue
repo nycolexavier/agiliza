@@ -5,6 +5,7 @@ import api from '@/services/api';
 import type { Lote } from '@/interfaces/Lotes/Lote';
 import { removerAcentos } from '@/utils/string/normalize';
 import { ROUTES } from '@/router/utils/routes';
+import { LoteList } from '@/services/lote';
 
 export default defineComponent({
   name: 'ProdutosPage',
@@ -64,7 +65,7 @@ export default defineComponent({
     },
 
     async buscarLotes() {
-      const response = await api.get<Lote[]>(`/lotes`);
+      const response = await LoteList();
 
       this.lotes = response.data;
     },

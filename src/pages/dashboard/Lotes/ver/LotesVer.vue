@@ -4,6 +4,7 @@ import type { Lote } from '@/interfaces/Lotes/Lote';
 import router from '@/router';
 import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
+import { LoteListID } from '@/services/lote';
 import { computed, defineComponent } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
@@ -36,15 +37,17 @@ export default defineComponent({
 
     async buscarLote() {
       const id = computed(() => this.$route.params.id);
-      const response = await api.get(`/lotes/${id.value}`);
-      this.lote = response.data;
+      if (typeof id === 'string') {
+        const response = await LoteListID(id);
+        this.lote = response.data;
+      }
     },
   },
 });
 </script>
 
 <template>
- <BaseFormContainer>
+  <BaseFormContainer>
     <!-- Cabeçalho -->
     <v-row align="center" class="mb-4">
       <v-col cols="12" md="6">

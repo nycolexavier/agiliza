@@ -3,6 +3,7 @@ import Footer from '@/components/footer/Footer.vue';
 import type { Lote } from '@/interfaces/Lotes/Lote';
 import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
+import { LoteIDPatch, LoteListID } from '@/services/lote';
 import { defineComponent } from 'vue';
 // to-do: fazer o create do lote e colocar o quantidadeProduto nele
 export default defineComponent({
@@ -40,15 +41,17 @@ export default defineComponent({
       try {
         const id = this.$route.params.id;
 
-        const response = await api.get(`/lotes/${id}`);
-        this.lote = response.data;
+        if (typeof id === 'string') {
+          const response = await LoteListID(id);
+          this.lote = response.data;
 
-        this.form.codigoLote = response.data.codigoLote;
-        this.form.marca = response.data.marca;
-        this.form.produto = response.data.produto;
-        this.form.quantidadeProduto = response.data.quantidadeProduto;
-        this.form.status = response.data.status;
-        this.form.dataValidade = response.data.dataValidade;
+          this.form.codigoLote = response.data.codigoLote;
+          this.form.marca = response.data.marca;
+          this.form.produto = response.data.produto;
+          this.form.quantidadeProduto = response.data.quantidadeProduto;
+          this.form.status = response.data.status;
+          this.form.dataValidade = response.data.dataValidade;
+        }
       } catch (error) {
         console.error('Erro ao buscar lote', error);
       }
@@ -56,15 +59,17 @@ export default defineComponent({
 
     async enviarForm() {
       try {
-        const response = await api.patch(`/lotes/${this.lote?.id}`, {
-          codigoLote: this.form.codigoLote,
-          marca: this.form.marca,
-          produto: this.form.produto,
-          quantidadeProduto: this.form.quantidadeProduto,
-          dataValidade: this.form.dataValidade,
-        });
-
-        return response;
+        const id = this.$route.params.id;
+        if (typeof id === 'string') {
+          const response = await LoteIDPatch(id, {
+            codigoLote: this.form.codigoLote,
+            marca: this.form.marca,
+            produto: this.form.produto,
+            quantidadeProduto: this.form.quantidadeProduto,
+            dataValidade: this.form.dataValidade,
+          });
+          return response;
+        }
       } catch (error) {}
     },
   },
@@ -72,7 +77,7 @@ export default defineComponent({
 </script>
 
 <template>
- <BaseFormContainer>
+  <BaseFormContainer>
     <!-- Cabeçalho -->
     <v-row align="center" class="mb-4">
       <v-col cols="12" md="6">
