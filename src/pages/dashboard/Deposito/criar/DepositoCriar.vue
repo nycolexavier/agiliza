@@ -2,6 +2,7 @@
 import Footer from '@/components/footer/Footer.vue';
 import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
+import { DepositoPost } from '@/services/deposito.services';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -33,12 +34,7 @@ export default defineComponent({
 
     async enviarForm() {
       try {
-        const response = await api.post(`/deposito`, {
-          corredor: this.form.corredor,
-          prateleira: this.form.prateleira,
-          sessao: this.form.sessao,
-          quantidadeMaxima: this.form.quantidadeMaxima,
-        });
+        const response = await DepositoPost(this.form);
 
         (this.snackbarTexto = 'Depósito criado com sucesso'),
           (this.snackbarCor = 'success');

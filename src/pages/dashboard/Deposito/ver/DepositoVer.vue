@@ -3,6 +3,7 @@ import Footer from '@/components/footer/Footer.vue';
 import type { Deposito } from '@/interfaces/Deposito/Deposito';
 import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
+import { DepositoListID } from '@/services/deposito.services';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -35,15 +36,18 @@ export default defineComponent({
 
     async verDeposito() {
       const id = this.$route.params.id;
-      const response = await api.get(`/deposito/${id}`);
-      this.deposito = response.data;
+
+      if (typeof id === 'string') {
+        const response = await DepositoListID(id);
+        this.deposito = response.data;
+      }
     },
   },
 });
 </script>
 
 <template>
- <BaseFormContainer>
+  <BaseFormContainer>
     <!-- Cabeçalho -->
     <v-row align="center" class="mb-4">
       <v-col cols="12" md="6">

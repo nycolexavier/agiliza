@@ -1,5 +1,5 @@
 export interface Movimentacao {
-  id: number;
+  id: string;
   idlote: number;
   tipomovimentacao: 'entrada' | 'saida';
   quantidade: number;

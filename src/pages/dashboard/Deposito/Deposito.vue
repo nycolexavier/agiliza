@@ -5,6 +5,7 @@ import api from '@/services/api';
 import type { Deposito } from '@/interfaces/Deposito/Deposito';
 import { removerAcentos } from '@/utils/string/normalize';
 import { ROUTES } from '@/router/utils/routes';
+import { DepositoList } from '@/services/deposito.services';
 
 export default defineComponent({
   name: 'DepositoPage',
@@ -55,7 +56,7 @@ export default defineComponent({
   },
 
   methods: {
-    irParaDepositoVer(id: number) {
+    irParaDepositoVer(id: string) {
       this.$router.push(ROUTES.deposito.ver(id));
     },
 
@@ -68,7 +69,7 @@ export default defineComponent({
     },
 
     async buscarDeposito() {
-      const response = await api.get<Deposito[]>('/deposito');
+      const response = await DepositoList();
 
       this.deposito = response.data;
     },

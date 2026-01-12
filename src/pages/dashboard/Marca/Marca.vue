@@ -59,7 +59,7 @@ export default defineComponent({
       this.$router.push(ROUTES.dashboard);
     },
 
-    irParaProdutosVer(id: number) {
+    irParaProdutosVer(id: string) {
       this.$router.push(ROUTES.marca.ver(id));
     },
 

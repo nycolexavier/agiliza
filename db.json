@@ -1,4 +1,5 @@
 {
+  "dashboard": [],
   "usuarios": [
     {
       "id": "1",
@@ -731,6 +732,13 @@
       "prateleira": "jjjjjjjjj",
       "sessao": "jjjjjjjjj",
       "quantidadeMaxima": "jjjjjj"
+    },
+    {
+      "id": "1442",
+      "corredor": "2242",
+      "prateleira": "rfww",
+      "sessao": "342",
+      "quantidadeMaxima": "234242"
     }
   ],
   "lotes": [

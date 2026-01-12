@@ -1,5 +1,5 @@
 export interface Lote {
-  id: number;
+  id: string;
   codigoLote: string;
   marca: string;
   produto: string;

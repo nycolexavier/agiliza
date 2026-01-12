@@ -82,7 +82,7 @@ export default defineComponent({
       this.$router.push(ROUTES.usuarios.new);
     },
 
-    irParaVerUsuarios(id: number) {
+    irParaVerUsuarios(id: string) {
       this.$router.push(ROUTES.usuarios.ver(id));
     },
   },

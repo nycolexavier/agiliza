@@ -59,7 +59,7 @@ export default defineComponent({
       this.$router.push(ROUTES.dashboard);
     },
 
-    irParaMovimentacaoVer(id: number) {
+    irParaMovimentacaoVer(id: string) {
       this.$router.push(ROUTES.movimentacao.ver(id));
     },
 

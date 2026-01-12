@@ -1,5 +1,5 @@
 export interface Marca {
-  id: number;
+  id: string;
   nome: string;
   criadoEm: string;
   criadoPor: string;

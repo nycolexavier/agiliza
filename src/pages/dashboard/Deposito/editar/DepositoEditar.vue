@@ -3,6 +3,7 @@ import Footer from '@/components/footer/Footer.vue';
 import type { Deposito } from '@/interfaces/Deposito/Deposito';
 import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
+import { DepositoIDPatch, DepositoListID } from '@/services/deposito.services';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -39,13 +40,15 @@ export default defineComponent({
       try {
         const id = this.$route.params.id;
 
-        const response = await api.get(`/deposito/${id}`);
-        this.deposito = response.data;
+        if (typeof id === 'string') {
+          const response = await DepositoListID(id);
+          this.deposito = response.data;
 
-        this.form.corredor = response.data.corredor;
-        this.form.prateleira = response.data.prateleira;
-        this.form.sessao = response.data.sessao;
-        this.form.quantidadeMaxima = response.data.quantidadeMaxima;
+          this.form.corredor = response.data.corredor;
+          this.form.prateleira = response.data.prateleira;
+          this.form.sessao = response.data.sessao;
+          this.form.quantidadeMaxima = response.data.quantidadeMaxima;
+        }
       } catch (error) {
         console.error('Erro ao buscar deposito', error);
       }
@@ -53,14 +56,11 @@ export default defineComponent({
 
     async enviarForm() {
       try {
-        const response = await api.patch(`/deposito/${this.deposito?.id}`, {
-          corredor: this.form.corredor,
-          prateleira: this.form.prateleira,
-          sessao: this.form.sessao,
-          quantidadeMaxima: this.form.quantidadeMaxima,
-        });
-
-        return response;
+        const id = this.$route.params.id;
+        if (typeof id === 'string') {
+          const response = await DepositoIDPatch(id, this.form);
+          return response;
+        }
       } catch (error) {}
     },
   },
