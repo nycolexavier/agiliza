@@ -3,5 +3,15 @@ export interface Marca {
   nome: string;
   criadoEm: string;
   criadoPor: string;
-  AtualizadoEm: string;
+  atualizadoEm: string;
+}
+
+export interface MarcaPostDTO {
+  nome: string;
+  criadoEm: string;
+  atualizadoEm: string;
+}
+
+export interface MarcaPatchDTO {
+  nome: string;
 }

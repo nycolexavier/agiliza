@@ -1,10 +1,10 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
 import { defineComponent } from 'vue';
-import api from '@/services/api';
 import type { Marca } from '@/interfaces/Marca';
 import { removerAcentos } from '@/utils/string/normalize';
 import { ROUTES } from '@/router/utils/routes';
+import { MarcaList } from '@/services/marca';
 
 export default defineComponent({
   name: 'ProdutosPage',
@@ -68,7 +68,7 @@ export default defineComponent({
     },
 
     async buscarProdutos() {
-      const response = await api.get<Marca[]>('/marcas');
+      const response = await MarcaList();
 
       this.marca = response.data;
     },
@@ -122,7 +122,7 @@ export default defineComponent({
             <td>{{ item.nome }}</td>
             <td>{{ item.criadoEm }}</td>
             <td>{{ item.criadoPor }}</td>
-            <td>{{ item.AtualizadoEm }}</td>
+            <td>{{ item.atualizadoEm }}</td>
 
             <td class="text-end">
               <v-btn

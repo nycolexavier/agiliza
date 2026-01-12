@@ -35,15 +35,6 @@ export default defineComponent({
 
     async enviarForm() {
       try {
-        // await api.post(`/produtos`, {
-        //   nome: this.form.nome,
-        //   sku: this.form.sku,
-        //   quantidadeMedida: this.form.quantidadeMedida,
-        //   quantidadeProduto: this.form.quantidadeProduto,
-        //   status: this.form.status,
-        //   categoria: this.form.categoria,
-        // });
-
         await ProdutosPost({
           nome: this.form.nome,
           sku: this.form.sku,

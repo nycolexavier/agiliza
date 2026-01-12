@@ -4,6 +4,7 @@ import BaseSnackbar from '@/components/base/BaseSnackbar.vue';
 import Footer from '@/components/footer/Footer.vue';
 import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
+import { MarcaPost } from '@/services/marca';
 import { defineComponent, reactive } from 'vue';
 
 export default defineComponent({
@@ -35,7 +36,7 @@ export default defineComponent({
 
     async enviarForm() {
       try {
-        await api.post(`/marcas`, {
+        await MarcaPost({
           nome: this.form.nome,
           criadoEm: this.form.criadoEm,
           atualizadoEm: this.form.atualizadoEm,

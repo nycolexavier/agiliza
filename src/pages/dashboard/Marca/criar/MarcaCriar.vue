@@ -4,6 +4,7 @@ import BaseSnackbar from '@/components/base/BaseSnackbar.vue';
 import Footer from '@/components/footer/Footer.vue';
 import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
+import { MarcaPost } from '@/services/marca';
 import { defineComponent, reactive } from 'vue';
 
 export default defineComponent({
@@ -35,10 +36,10 @@ export default defineComponent({
 
     async enviarForm() {
       try {
-        await api.post(`/marcas`, {
+        await MarcaPost({
           nome: this.form.nome,
-          criadoEm: new Date().toISOString,
-          atualizadoEm: new Date().toISOString,
+          criadoEm: new Date().toISOString(),
+          atualizadoEm: new Date().toISOString(),
         });
 
         (this.snackbarTexto = 'Marca criado com sucesso'),
@@ -87,11 +88,7 @@ export default defineComponent({
             <v-col cols="12" class="d-flex justify-end gap-4">
               <v-btn variant="outlined" @click="irParaMarca"> Cancelar </v-btn>
 
-              <v-btn
-                color="primary"
-                type="submit"
-                :disabled="!form.nome"
-              >
+              <v-btn color="primary" type="submit" :disabled="!form.nome">
                 Criar marca
               </v-btn>
             </v-col>

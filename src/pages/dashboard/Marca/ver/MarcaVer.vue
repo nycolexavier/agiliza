@@ -3,6 +3,7 @@ import Footer from '@/components/footer/Footer.vue';
 import type { Marca } from '@/interfaces/Marca';
 import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
+import { MarcaListID } from '@/services/marca';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -34,8 +35,10 @@ export default defineComponent({
 
     async buscarProduto() {
       const id = this.$route.params.id;
-      const response = await api.get(`/marcas/${id}`);
-      this.marca = response.data;
+      if (typeof id === 'string') {
+        const response = await MarcaListID(id);
+        this.marca = response.data;
+      }
     },
   },
 });
@@ -54,11 +57,7 @@ export default defineComponent({
           Voltar para marcas
         </v-btn>
 
-        <v-btn
-          color="primary"
-          :disabled="!marca"
-          @click="irParaProdutosEditar"
-        >
+        <v-btn color="primary" :disabled="!marca" @click="irParaProdutosEditar">
           Editar marca
         </v-btn>
       </v-col>
