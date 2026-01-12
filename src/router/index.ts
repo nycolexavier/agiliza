@@ -22,6 +22,13 @@ import ProdutosEditar from '@/pages/dashboard/Produtos/editar/ProdutosEditar.vue
 import DepositoEditar from '@/pages/dashboard/Deposito/editar/DepositoEditar.vue';
 import LotesVer from '@/pages/dashboard/Lotes/ver/LotesVer.vue';
 import Movimentacao from '@/pages/dashboard/Movimentacao/Movimentacao.vue';
+import Marca from '@/pages/dashboard/Marca/Marca.vue';
+import Relatorio from '@/pages/dashboard/Relatorio/Relatorio.vue';
+import MarcaCriar from '@/pages/dashboard/Marca/criar/MarcaCriar.vue';
+import MarcaVer from '@/pages/dashboard/Marca/ver/MarcaVer.vue';
+import MovimentacaoCriar from '@/pages/dashboard/Movimentacao/criar/MovimentacaoCriar.vue';
+import MovimentacaoEditar from '@/pages/dashboard/Movimentacao/editar/MovimentacaoEditar.vue';
+import MovimentacaoVer from '@/pages/dashboard/Movimentacao/ver/MovimentacaoVer.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -140,6 +147,41 @@ const router = createRouter({
       path: '/dashboard/movimentacao',
       name: 'movimentacao',
       component: Movimentacao,
+    },
+    {
+      path: '/dashboard/movimentacao/new',
+      name: 'movimentacao-criar',
+      component: MovimentacaoCriar,
+    },
+    {
+      path: '/dashboard/movimentacao/:id',
+      name: 'movimentacao-ver',
+      component: MovimentacaoVer,
+    },
+    {
+      path: '/dashboard/movimentacao/:id/editar',
+      name: 'movimentacao-editar',
+      component: MovimentacaoEditar,
+    },
+    {
+      path: '/dashboard/marca',
+      name: 'marca',
+      component: Marca,
+    },
+    {
+      path: '/dashboard/marca/new',
+      name: 'marca-criar',
+      component: MarcaCriar,
+    },
+    {
+      path: '/dashboard/marca/:id',
+      name: 'marca-ver',
+      component: MarcaVer,
+    },
+    {
+      path: '/dashboard/relatorio',
+      name: 'relatorio',
+      component: Relatorio,
     },
     {
       path: '/',

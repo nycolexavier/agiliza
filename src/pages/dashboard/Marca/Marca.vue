@@ -2,12 +2,12 @@
 import Footer from '@/components/footer/Footer.vue';
 import { defineComponent } from 'vue';
 import api from '@/services/api';
-import type { Movimentacao } from '@/interfaces/Movimentacao';
+import type { Marca } from '@/interfaces/Marca';
 import { removerAcentos } from '@/utils/string/normalize';
 import { ROUTES } from '@/router/utils/routes';
 
 export default defineComponent({
-  name: 'MovimentacoesPage',
+  name: 'ProdutosPage',
 
   components: {
     Footer,
@@ -15,7 +15,7 @@ export default defineComponent({
 
   data() {
     return {
-      movimentacoes: [] as Movimentacao[],
+      marca: [] as Marca[],
       busca: '',
 
       paginaAtual: 1,
@@ -24,22 +24,22 @@ export default defineComponent({
   },
 
   computed: {
-    movimentacoesPaginadas(): Movimentacao[] {
+    produtosPaginados(): Marca[] {
       const inicio = (this.paginaAtual - 1) * this.itensPorPagina;
       const fim = inicio + this.itensPorPagina;
 
-      return this.movimentacoesFiltradas.slice(inicio, fim);
+      return this.produtoFiltrado.slice(inicio, fim);
     },
 
-    movimentacoesFiltradas(): Movimentacao[] {
+    produtoFiltrado(): Marca[] {
       if (!this.busca) {
-        return this.movimentacoes;
+        return this.marca;
       }
 
       const buscaNormalizada = removerAcentos(this.busca);
 
-      return this.movimentacoes.filter((mov: Movimentacao) =>
-        removerAcentos(mov.tipomovimentacao).includes(buscaNormalizada)
+      return this.marca.filter((marca) =>
+        removerAcentos(marca.nome).includes(buscaNormalizada)
       );
     },
   },
@@ -51,7 +51,7 @@ export default defineComponent({
   },
 
   mounted() {
-    this.buscarMovimentacoes();
+    this.buscarProdutos();
   },
 
   methods: {
@@ -59,17 +59,18 @@ export default defineComponent({
       this.$router.push(ROUTES.dashboard);
     },
 
-    irParaMovimentacaoVer(id: number) {
-      this.$router.push(ROUTES.movimentacao.ver(id));
+    irParaProdutosVer(id: number) {
+      this.$router.push(ROUTES.marca.ver(id));
     },
 
-    irParaCriarMovimentacao() {
-      this.$router.push(ROUTES.movimentacao.new);
+    irParaCriarProduto() {
+      this.$router.push(ROUTES.marca.new);
     },
 
-    async buscarMovimentacoes() {
-      const response = await api.get<Movimentacao[]>('/movimentacao');
-      this.movimentacoes = response.data;
+    async buscarProdutos() {
+      const response = await api.get<Marca[]>('/marcas');
+
+      this.marca = response.data;
     },
   },
 });
@@ -80,12 +81,12 @@ export default defineComponent({
     <!-- Cabeçalho -->
     <v-row class="mb-4" align="center">
       <v-col cols="12" md="6">
-        <h2>Movimentações</h2>
+        <h2>Marca</h2>
       </v-col>
 
       <v-col cols="12" md="6" class="text-end">
-        <v-btn color="primary" class="mr-2" @click="irParaCriarMovimentacao">
-          Nova movimentação
+        <v-btn color="primary" class="mr-2" @click="irParaCriarProduto">
+          Adicionar marca
         </v-btn>
 
         <v-btn variant="outlined" @click="irParaODashboard"> Dashboard </v-btn>
@@ -95,7 +96,7 @@ export default defineComponent({
     <!-- Busca -->
     <v-text-field
       v-model="busca"
-      label="Buscar por tipo de movimentação"
+      label="Buscar marca pelo nome"
       variant="outlined"
       density="compact"
       clearable
@@ -104,33 +105,30 @@ export default defineComponent({
 
     <!-- Tabela -->
     <v-card variant="outlined">
-      <v-data-table :items="movimentacoesPaginadas" item-key="id">
+      <v-data-table :items="produtosPaginados" item-key="id">
         <template #headers>
           <tr>
             <th>ID</th>
-            <th>Lote</th>
-            <th>Tipo</th>
-            <th>Quantidade</th>
-            <th>Data</th>
-            <th>Status</th>
-            <th class="text-end">Ações</th>
+            <th>Nome</th>
+            <th>criadoEm</th>
+            <th>criadoPor</th>
+            <th>AtualizadoEm</th>
           </tr>
         </template>
 
         <template #item="{ item }">
           <tr>
             <td>{{ item.id }}</td>
-            <td>{{ item.idlote }}</td>
-            <td>{{ item.tipomovimentacao }}</td>
-            <td>{{ item.quantidade }}</td>
-            <td>{{ item.datamovimentacao }}</td>
-            <td>{{ item.status }}</td>
+            <td>{{ item.nome }}</td>
+            <td>{{ item.criadoEm }}</td>
+            <td>{{ item.criadoPor }}</td>
+            <td>{{ item.AtualizadoEm }}</td>
 
             <td class="text-end">
               <v-btn
                 size="small"
                 variant="outlined"
-                @click="irParaMovimentacaoVer(item.id)"
+                @click="irParaProdutosVer(item?.id)"
               >
                 Ver
               </v-btn>
@@ -155,9 +153,7 @@ export default defineComponent({
       <v-btn
         variant="outlined"
         @click="paginaAtual++"
-        :disabled="
-          paginaAtual * itensPorPagina >= movimentacoesFiltradas.length
-        "
+        :disabled="paginaAtual * itensPorPagina >= produtoFiltrado.length"
       >
         Próximo
       </v-btn>

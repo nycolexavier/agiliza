@@ -830,5 +830,69 @@
       "status": "inativo",
       "dataValidade": "2024-12-01"
     }
+  ],
+  "marcas": [
+    {
+      "id": "50ed",
+      "nome": "Nestlé"
+    },
+    {
+      "id": "9c57",
+      "nome": "Garoto"
+    },
+    {
+      "id": "2bd0",
+      "nome": "Teste"
+    },
+    {
+      "id": "9d3c",
+      "nome": "MasterChef"
+    },
+    {
+      "id": "0cb8",
+      "nome": "MasterChef"
+    },
+    {
+      "id": "f772",
+      "nome": "MasterChef"
+    },
+    {
+      "id": "3355",
+      "nome": "MasterChef"
+    },
+    {
+      "id": "8abb",
+      "nome": "MasterChef"
+    },
+    {
+      "id": "0318",
+      "nome": "ddd"
+    }
+  ],
+  "movimentacao": [
+    {
+      "id": "c29d",
+      "idlote": 2.4e+243,
+      "tipomovimentacao": "entrada",
+      "quantidade": 42424,
+      "datamovimentacao": "2026-01-05",
+      "status": "ativo"
+    },
+    {
+      "id": "5ab4",
+      "idlote": 34343,
+      "tipomovimentacao": "saida",
+      "quantidade": 434343,
+      "datamovimentacao": "2025-12-28",
+      "status": "ativo"
+    },
+    {
+      "id": "d180",
+      "idlote": 3215636,
+      "tipomovimentacao": "entrada",
+      "quantidade": 3243434343,
+      "datamovimentacao": "2026-01-23",
+      "status": "ativo"
+    }
   ]
 }

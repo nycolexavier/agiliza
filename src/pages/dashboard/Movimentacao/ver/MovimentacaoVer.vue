@@ -39,7 +39,7 @@ export default defineComponent({
       const buscaNormalizada = removerAcentos(this.busca);
 
       return this.movimentacoes.filter((mov: Movimentacao) =>
-        removerAcentos(mov.tipomovimentacao).includes(buscaNormalizada)
+        removerAcentos(String(mov.tipomovimentacao)).includes(buscaNormalizada)
       );
     },
   },
@@ -55,20 +55,20 @@ export default defineComponent({
   },
 
   methods: {
-    irParaODashboard() {
+    irParaDashboard() {
       this.$router.push(ROUTES.dashboard);
-    },
-
-    irParaMovimentacaoVer(id: number) {
-      this.$router.push(ROUTES.movimentacao.ver(id));
     },
 
     irParaCriarMovimentacao() {
       this.$router.push(ROUTES.movimentacao.new);
     },
 
+    irParaVerMovimentacao(id: number) {
+      this.$router.push(ROUTES.movimentacao.ver(id));
+    },
+
     async buscarMovimentacoes() {
-      const response = await api.get<Movimentacao[]>('/movimentacao');
+      const response = await api.get<Movimentacao[]>('/movimentacoes');
       this.movimentacoes = response.data;
     },
   },
@@ -80,7 +80,7 @@ export default defineComponent({
     <!-- Cabeçalho -->
     <v-row class="mb-4" align="center">
       <v-col cols="12" md="6">
-        <h2>Movimentações</h2>
+        <h2>Movimentação:</h2>
       </v-col>
 
       <v-col cols="12" md="6" class="text-end">
@@ -88,7 +88,7 @@ export default defineComponent({
           Nova movimentação
         </v-btn>
 
-        <v-btn variant="outlined" @click="irParaODashboard"> Dashboard </v-btn>
+        <v-btn variant="outlined" @click="irParaDashboard"> Dashboard </v-btn>
       </v-col>
     </v-row>
 
@@ -108,7 +108,6 @@ export default defineComponent({
         <template #headers>
           <tr>
             <th>ID</th>
-            <th>Lote</th>
             <th>Tipo</th>
             <th>Quantidade</th>
             <th>Data</th>
@@ -120,7 +119,6 @@ export default defineComponent({
         <template #item="{ item }">
           <tr>
             <td>{{ item.id }}</td>
-            <td>{{ item.idlote }}</td>
             <td>{{ item.tipomovimentacao }}</td>
             <td>{{ item.quantidade }}</td>
             <td>{{ item.datamovimentacao }}</td>
@@ -130,7 +128,7 @@ export default defineComponent({
               <v-btn
                 size="small"
                 variant="outlined"
-                @click="irParaMovimentacaoVer(item.id)"
+                @click="irParaVerMovimentacao(item.id)"
               >
                 Ver
               </v-btn>

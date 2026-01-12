@@ -32,54 +32,23 @@ export default defineComponent({
     irParaLotes() {
       this.$router.push(ROUTES.lotes.list);
     },
+
+    irParaMovimentacao() {
+      this.$router.push(ROUTES.movimentacao.list);
+    },
+
+    irParaMarca() {
+      this.$router.push(ROUTES.marca.list);
+    },
+
+    irParaORelatorio() {
+      this.$router.push(ROUTES.relatorio.list);
+    },
   },
 });
 </script>
 
 <template>
-  <!-- <header>
-    <div>
-      <div>imagem</div>
-
-      <br />
-
-      <p>menu:</p>
-      <button @click="irParaUsuarios">usuários</button>
-      <br />
-      <button @click="irParaFornecedores">fornecedores</button>
-      <br />
-      <button @click="irParaProdutos">produtos</button>
-      <br />
-      <button @click="irParaDeposito">depósito</button>
-      <br />
-      <button @click="irParaLotes">lotes</button>
-    </div>
-  </header>
-
-  <br />
-
-  <section>
-    <div>geral/mês:</div>
-
-    <br />
-
-    <div>Quantia total de fornecedores</div>
-
-    <br />
-
-    <div>Total dos produtos</div>
-
-    <br />
-
-    <div>Total de Itens no Estoque</div>
-
-    <div>Produtos críticos (perto do vencimento)</div>
-  </section>
-
-  <br />
-
-  <Footer /> -->
-
   <v-app>
     <!-- topo -->
     <v-app-bar title="Dashboard" variant="outlined" border flat />
@@ -114,6 +83,20 @@ export default defineComponent({
         title="Lotes"
         prepend-icon="mdi-layers"
         @click="irParaLotes"
+      />
+
+      <v-list-item
+        title="Movimentações"
+        prepend-icon="mdi-swap-horizontal"
+        @click="irParaMovimentacao"
+      />
+
+      <v-list-item title="Marcas" prepend-icon="mdi-tag" @click="irParaMarca" />
+
+      <v-list-item
+        title="Relatório"
+        prepend-icon="mdi-file-chart"
+        @click="irParaORelatorio"
       />
     </v-navigation-drawer>
     <!-- conteúdo -->

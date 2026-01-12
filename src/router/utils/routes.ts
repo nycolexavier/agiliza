@@ -35,4 +35,25 @@ export const ROUTES = {
     ver: (id: number) => `/dashboard/lotes/${id}`,
     editar: (id: number) => `/dashboard/lotes/${id}/editar`,
   },
+
+  movimentacao: {
+    list: '/dashboard/movimentacao',
+    new: '/dashboard/movimentacao/new',
+    ver: (id: number) => `/dashboard/movimentacao/${id}`,
+    editar: (id: number) => `/dashboard/movimentacao/${id}/editar`,
+  },
+
+  marca: {
+    list: '/dashboard/marca',
+    new: '/dashboard/marca/new',
+    ver: (id: number) => `/dashboard/marca/${id}`,
+    editar: (id: number) => `/dashboard/marca/${id}/editar`,
+  },
+
+  relatorio: {
+    list: '/dashboard/relatorio',
+    new: '/dashboard/relatorio/new',
+    ver: (id: number) => `/dashboard/relatorio/${id}`,
+    editar: (id: number) => `/dashboard/relatorio/${id}/editar`,
+  },
 };
