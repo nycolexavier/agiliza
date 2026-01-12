@@ -1,5 +1,5 @@
 import type { Produto } from '@/interfaces/Produtos/Produto';
-export interface InformacoesNutricionais {
+export interface InformacaoNutricionail {
   carboidratosTotais: string;
   idProduto: Produto[];
   proteinas: string;

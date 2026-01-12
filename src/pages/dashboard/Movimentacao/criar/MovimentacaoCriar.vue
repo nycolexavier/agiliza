@@ -2,6 +2,7 @@
 import Footer from '@/components/footer/Footer.vue';
 import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
+import { MovimentacaoPost } from '@/services/movimentacao.services';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -34,7 +35,7 @@ export default defineComponent({
 
     async enviarForm() {
       try {
-        await api.post('/movimentacao', {
+        await MovimentacaoPost({
           idlote: Number(this.form.idlote),
           tipomovimentacao: this.form.tipomovimentacao,
           quantidade: Number(this.form.quantidade),

@@ -5,6 +5,7 @@ import api from '@/services/api';
 import type { Movimentacao } from '@/interfaces/Movimentacao';
 import { removerAcentos } from '@/utils/string/normalize';
 import { ROUTES } from '@/router/utils/routes';
+import { MovimentacaoList } from '@/services/movimentacao.services';
 
 export default defineComponent({
   name: 'MovimentacoesPage',
@@ -68,7 +69,7 @@ export default defineComponent({
     },
 
     async buscarMovimentacoes() {
-      const response = await api.get<Movimentacao[]>('/movimentacoes');
+      const response = await MovimentacaoList();
       this.movimentacoes = response.data;
     },
   },

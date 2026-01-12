@@ -3,7 +3,12 @@ import Footer from '@/components/footer/Footer.vue';
 import type { Movimentacao } from '@/interfaces/Movimentacao';
 import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
+import {
+  MovimentacaoIDPatch,
+  MovimentacaoListID,
+} from '@/services/movimentacao.services';
 import { defineComponent } from 'vue';
+import { id } from 'vuetify/locale';
 
 export default defineComponent({
   name: 'MovimentacoesEditarPage',
@@ -41,16 +46,18 @@ export default defineComponent({
       try {
         const id = this.$route.params.id;
 
-        const response = await api.get(`/movimentacao/${id}`);
-        this.movimentacao = response.data;
+        if (typeof id === 'string') {
+          const response = await MovimentacaoListID(id);
+          this.movimentacao = response.data;
 
-        this.form.tipomovimentacao = response.data.tipomovimentacao;
-        this.form.quantidade = response.data.quantidade;
-        this.form.datamovimentacao = response.data.datamovimentacao;
-        this.form.status = response.data.status;
-        this.form.idlote = response.data.idlote;
-        this.form.idproduto = response.data.idproduto;
-        this.form.idfornecedor = response.data.idfornecedor;
+          this.form.tipomovimentacao = response.data.tipomovimentacao;
+          this.form.quantidade = response.data.quantidade;
+          this.form.datamovimentacao = response.data.datamovimentacao;
+          this.form.status = response.data.status;
+          this.form.idlote = response.data.idlote;
+          this.form.idproduto = response.data.idproduto;
+          this.form.idfornecedor = response.data.idfornecedor;
+        }
       } catch (error) {
         console.error('Erro ao buscar movimentação', error);
       }
@@ -58,19 +65,18 @@ export default defineComponent({
 
     async enviarForm() {
       try {
-        const response = await api.patch(
-          `/movimentacoes/${this.movimentacao?.id}`,
-          {
+        const id = this.$route.params.id;
+        if (typeof id === 'string') {
+          const response = await MovimentacaoIDPatch(id, {
             tipomovimentacao: this.form.tipomovimentacao,
             quantidade: this.form.quantidade,
             datamovimentacao: this.form.datamovimentacao,
             idlote: this.form.idlote,
-            idproduto: this.form.idproduto || null,
-            idfornecedor: this.form.idfornecedor || null,
-          }
-        );
-
-        return response;
+            idproduto: this.form.idproduto,
+            idfornecedor: this.form.idfornecedor,
+          });
+          return response;
+        }
       } catch (error) {
         console.error('Erro ao editar movimentação', error);
       }
