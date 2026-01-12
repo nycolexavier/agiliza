@@ -1,9 +1,8 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
 import type { Fornecedor } from '@/interfaces/Fornecedores/Fornecedor';
-import type { Usuario } from '@/interfaces/Usuarios/Usuario';
 import { ROUTES } from '@/router/utils/routes';
-import api from '@/services/api';
+import { DepositoIDPatch, FornecedoresListID } from '@/services/fornecedores';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -39,15 +38,16 @@ export default defineComponent({
     async buscarUsuario() {
       try {
         const id = this.$route.params.id;
+        if (typeof id === 'string') {
+          const response = await FornecedoresListID(id);
+          this.fornecedor = response.data;
 
-        const response = await api.get(`/fornecedores/${id}`);
-        this.fornecedor = response.data;
-
-        this.form.nome = response.data.nome;
-        this.form.cargo = response.data.cargo;
-        this.form.email = response.data.email;
-        this.form.status = response.data.status;
-        this.form.telefone = response.data.telefone;
+          this.form.nome = response.data.nome;
+          this.form.cargo = response.data.cargo;
+          this.form.email = response.data.email;
+          this.form.status = response.data.status;
+          this.form.telefone = response.data.telefone;
+        }
       } catch (error) {
         console.error('Erro ao buscar fornecedores', error);
       }
@@ -55,18 +55,13 @@ export default defineComponent({
 
     async enviarForm() {
       try {
+        const id = this.$route.params.id;
 
-        const response = await api.patch(
-          `/fornecedores/${this.fornecedor?.id}`,
-          {
-            nome: this.form.nome,
-            cargo: this.form.cargo,
-            email: this.form.email,
-            telefone: this.form.telefone,
-          }
-        );
+        if (typeof id === 'string') {
+          const response = await DepositoIDPatch(id, this.form);
 
-        return response;
+          return response;
+        }
       } catch (error) {}
     },
   },

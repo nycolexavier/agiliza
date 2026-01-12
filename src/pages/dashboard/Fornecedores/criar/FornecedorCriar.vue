@@ -4,6 +4,7 @@ import BaseSnackbar from '@/components/base/BaseSnackbar.vue';
 import Footer from '@/components/footer/Footer.vue';
 import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
+import { FornecedoresPost } from '@/services/fornecedores';
 import { defineComponent, reactive } from 'vue';
 
 export default defineComponent({
@@ -37,13 +38,7 @@ export default defineComponent({
 
     async enviarForm() {
       try {
-        await api.post(`/fornecedores`, {
-          nome: this.form.nome,
-          cargo: this.form.cargo,
-          email: this.form.email,
-          status: this.form.status,
-          telefone: this.form.telefone,
-        });
+        await FornecedoresPost(this.form);
 
         (this.snackbarTexto = 'Depósito criado com sucesso'),
           (this.snackbarTipo = 'success');

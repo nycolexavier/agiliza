@@ -3,6 +3,7 @@ import Footer from '@/components/footer/Footer.vue';
 import type { Fornecedor } from '@/interfaces/Fornecedores/Fornecedor';
 import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
+import { FornecedoresListID } from '@/services/fornecedores';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -34,10 +35,10 @@ export default defineComponent({
 
     async buscarFornecedores() {
       const id = this.$route.params.id;
-
-      const response = await api.get(`/fornecedores/${id}`);
-      this.fornecedorEdicao = response.data;
-
+      if (typeof id === 'string') {
+        const response = await FornecedoresListID(id);
+        this.fornecedorEdicao = response.data;
+      }
     },
   },
 });
@@ -96,6 +97,6 @@ export default defineComponent({
           </v-col>
         </v-row>
       </v-card-text>
-    </v-card> 
+    </v-card>
   </BaseFormContainer>
 </template>

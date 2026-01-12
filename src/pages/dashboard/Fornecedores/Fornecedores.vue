@@ -5,6 +5,7 @@ import api from '@/services/api';
 import type { Fornecedor } from '@/interfaces/Fornecedores/Fornecedor';
 import { removerAcentos } from '@/utils/string/normalize';
 import { ROUTES } from '@/router/utils/routes';
+import { FornecedoresList } from '@/services/fornecedores';
 
 export default defineComponent({
   name: 'FornecedoresPage',
@@ -68,7 +69,7 @@ export default defineComponent({
     },
 
     async buscarFornecedores() {
-      const response = await api.get<Fornecedor[]>('/fornecedores');
+      const response = await FornecedoresList();
 
       this.fornecedores = response.data;
     },
