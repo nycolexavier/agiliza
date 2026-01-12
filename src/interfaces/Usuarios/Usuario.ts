@@ -9,3 +9,17 @@ export interface Usuario {
   criadoPor: string;
   atuaizadoEm: string;
 }
+
+export interface UsuarioPatchDTO {
+  nome: string;
+  cargo: string;
+  email: string;
+  telefone: string;
+}
+
+export interface UsuariosPostDTO {
+  nome: string;
+  cargo: string;
+  email: string;
+  telefone: string;
+}

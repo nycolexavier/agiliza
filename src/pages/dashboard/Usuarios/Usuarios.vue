@@ -5,6 +5,7 @@ import api from '@/services/api';
 import type { Usuario } from '@/interfaces/Usuarios/Usuario';
 import { removerAcentos } from '@/utils/string/normalize';
 import { ROUTES } from '@/router/utils/routes';
+import { UsuariosList } from '@/services/usuarios.services';
 
 export default defineComponent({
   name: 'UsuariosPage',
@@ -71,7 +72,7 @@ export default defineComponent({
 
     async buscarUsuarios() {
       try {
-        const response = await api.get<Usuario[]>(`/usuarios`);
+        const response = await UsuariosList();
         this.usuario = response.data;
       } catch (error) {
         console.error('Erro ao buscar usuários', error);
@@ -124,7 +125,7 @@ export default defineComponent({
             variant="outlined"
             @click="irParaVerUsuarios(item.id)"
           >
-            Editar
+            Ver mais
           </v-btn>
         </template>
       </v-data-table>

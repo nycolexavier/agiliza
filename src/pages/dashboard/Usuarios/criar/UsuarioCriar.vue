@@ -3,6 +3,7 @@ import Footer from '@/components/footer/Footer.vue';
 import type { Usuario } from '@/interfaces/Usuarios/Usuario';
 import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
+import { UsuariosPost } from '@/services/usuarios.services';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -37,13 +38,7 @@ export default defineComponent({
 
     async enviarForm() {
       try {
-        await api.post(`/usuarios`, {
-          nome: this.form.nome,
-          cargo: this.form.cargo,
-          email: this.form.email,
-          status: this.form.status,
-          telefone: this.form.telefone,
-        });
+        await UsuariosPost(this.form);
 
         this.snackbarTexto = 'Usuário criado com sucesso';
         this.snackbarCor = 'success';
@@ -61,7 +56,7 @@ export default defineComponent({
 </script>
 
 <template>
- <BaseFormContainer>
+  <BaseFormContainer>
     <v-row class="mb-4">
       <v-col cols="12">
         <h2>Criar usuário</h2>
@@ -76,7 +71,7 @@ export default defineComponent({
             label="Nome"
             variant="outlined"
             required
-            :rules="[v => !!v || 'Nome é obrigatório']"
+            :rules="[(v) => !!v || 'Nome é obrigatório']"
           />
         </v-col>
 
@@ -86,7 +81,7 @@ export default defineComponent({
             label="Cargo"
             variant="outlined"
             required
-              :rules="[v => !!v || 'Cargo é obrigatório']"
+            :rules="[(v) => !!v || 'Cargo é obrigatório']"
           />
         </v-col>
 
@@ -127,5 +122,5 @@ export default defineComponent({
     >
       {{ snackbarTexto }}
     </v-snackbar>
- </BaseFormContainer>
+  </BaseFormContainer>
 </template>

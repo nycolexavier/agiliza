@@ -17,6 +17,6 @@ export function FornecedoresPost(payload: FornecedorPostDTO) {
   return api.post(`/fornecedores`, payload);
 }
 
-export function DepositoIDPatch(id: string, payload: FornecedorPatchDTO) {
+export function FornecedoresIDPatch(id: string, payload: FornecedorPatchDTO) {
   return api.patch(`/fornecedores/${id}`, payload);
 }

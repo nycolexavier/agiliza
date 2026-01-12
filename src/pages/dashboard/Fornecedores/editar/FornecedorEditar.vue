@@ -2,7 +2,10 @@
 import Footer from '@/components/footer/Footer.vue';
 import type { Fornecedor } from '@/interfaces/Fornecedores/Fornecedor';
 import { ROUTES } from '@/router/utils/routes';
-import { DepositoIDPatch, FornecedoresListID } from '@/services/fornecedores';
+import {
+  FornecedoresIDPatch,
+  FornecedoresListID,
+} from '@/services/fornecedores';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -58,7 +61,7 @@ export default defineComponent({
         const id = this.$route.params.id;
 
         if (typeof id === 'string') {
-          const response = await DepositoIDPatch(id, this.form);
+          const response = await FornecedoresIDPatch(id, this.form);
 
           return response;
         }
