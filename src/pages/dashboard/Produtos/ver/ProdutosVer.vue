@@ -2,7 +2,6 @@
 import Footer from '@/components/footer/Footer.vue';
 import type { Produto } from '@/interfaces/Produtos/Produto';
 import { ROUTES } from '@/router/utils/routes';
-import api from '@/services/api';
 import { ProdutosListID } from '@/services/Produtos';
 import { defineComponent } from 'vue';
 import PageHeader from '@/components/layouts/PageHeader.vue';

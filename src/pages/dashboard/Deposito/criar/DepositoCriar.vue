@@ -55,18 +55,12 @@ export default defineComponent({
 
 <template>
   <BaseFormContainer>
-    <!-- Cabeçalho -->
-    <v-row align="center" class="mb-4">
-      <v-col cols="12" md="6">
-        <h2>Criar depósito</h2>
-      </v-col>
-
-      <v-col cols="12" md="6" class="text-end">
-        <v-btn variant="outlined" @click="irParaODeposito">
-          Voltar para depósitos
-        </v-btn>
-      </v-col>
-    </v-row>
+    <PageHeader
+      title="Criar depósito"
+      showBack
+      backLabel="Voltar para depósitos"
+      @back="irParaODeposito"
+    />
 
     <!-- Card do formulário -->
     <v-card variant="outlined">

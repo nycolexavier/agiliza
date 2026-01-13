@@ -59,15 +59,12 @@ export default defineComponent({
 
 <template>
   <BaseFormContainer>
-    <v-row>
-      <v-col>
-        <h2>Cadastrar fornecedor</h2>
-      </v-col>
-
-      <v-col cols="12" md="4" class="text-end">
-        <v-btn variant="outlined" @click="irParaFornecedor"> Voltar </v-btn>
-      </v-col>
-    </v-row>
+    <PageHeader
+      title="Cadastrar fornecedor"
+      showBack
+      backLabel="Voltar para fornecedor"
+      @back="irParaFornecedor"
+    />
 
     <v-card variant="outlined">
       <v-card-text>

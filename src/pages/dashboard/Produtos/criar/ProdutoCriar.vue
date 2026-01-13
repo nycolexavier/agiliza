@@ -1,8 +1,7 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
 import { ROUTES } from '@/router/utils/routes';
-import api from '@/services/api';
-import { ProdutosIDPatch, ProdutosPost } from '@/services/Produtos';
+import { ProdutosIDPatch } from '@/services/Produtos';
 import { defineComponent } from 'vue';
 import PageHeader from '@/components/layouts/PageHeader.vue';
 
@@ -64,16 +63,12 @@ export default defineComponent({
 
 <template>
   <BaseFormContainer>
-    <!-- Cabeçalho -->
-    <v-row align="center" class="mb-4">
-      <v-col cols="12" md="6">
-        <h2>Criar produto</h2>
-      </v-col>
-
-      <v-col cols="12" md="6" class="text-end">
-        <v-btn variant="outlined" @click="irParaOProduto"> Produtos </v-btn>
-      </v-col>
-    </v-row>
+    <PageHeader
+      title="Criar produto"
+      showBack
+      backLabel="Voltar para produtos"
+      @back="irParaOProduto"
+    />
 
     <!-- Card do formulário -->
     <v-card variant="outlined">

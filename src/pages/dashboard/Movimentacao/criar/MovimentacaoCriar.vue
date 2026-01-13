@@ -10,7 +10,8 @@ export default defineComponent({
   name: 'MovimentacaoCriarPage',
 
   components: {
-    Footer,PageHeader
+    Footer,
+    PageHeader,
   },
 
   data() {
@@ -64,18 +65,12 @@ export default defineComponent({
 </script>
 <template>
   <BaseFormContainer>
-    <!-- Cabeçalho -->
-    <v-row align="center" class="mb-4">
-      <v-col cols="12" md="6">
-        <h2>Criar movimentação</h2>
-      </v-col>
-
-      <v-col cols="12" md="6" class="text-end">
-        <v-btn variant="outlined" @click="irParaMovimentacoes">
-          Movimentações
-        </v-btn>
-      </v-col>
-    </v-row>
+    <PageHeader
+      title="Criar movimentação"
+      showBack
+      backLabel="Voltar para movimentações"
+      @back="irParaMovimentacoes"
+    />
 
     <!-- Card do formulário -->
     <v-card variant="outlined">

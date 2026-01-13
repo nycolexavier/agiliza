@@ -2,9 +2,7 @@
 import Footer from '@/components/footer/Footer.vue';
 import type { Produto } from '@/interfaces/Produtos/Produto';
 import { ROUTES } from '@/router/utils/routes';
-import api from '@/services/api';
 import { ProdutosListID, ProdutosPost } from '@/services/Produtos';
-import { UsuariosIDPatch } from '@/services/usuarios.services';
 import { defineComponent } from 'vue';
 import PageHeader from '@/components/layouts/PageHeader.vue';
 
@@ -12,7 +10,8 @@ export default defineComponent({
   name: 'ProdutosEditarPage',
 
   components: {
-    Footer,PageHeader
+    Footer,
+    PageHeader,
   },
 
   data(vm) {
@@ -81,18 +80,12 @@ export default defineComponent({
 
 <template>
   <BaseFormContainer>
-    <!-- Cabeçalho -->
-    <v-row align="center" class="mb-4">
-      <v-col cols="12" md="6">
-        <h2>Editar produto: {{ produto?.nome }}</h2>
-      </v-col>
-
-      <v-col cols="12" md="6" class="text-end">
-        <v-btn variant="outlined" class="mr-2" @click="irParaOProduto">
-          Voltar para o produto
-        </v-btn>
-      </v-col>
-    </v-row>
+    <PageHeader
+      :title="`Editar produto #{{ produto?.id }}`"
+      showBack
+      backLabel="Voltar para ver o produto"
+      @back="irParaOProduto"
+    />
 
     <!-- Card do formulário -->
     <v-card variant="outlined">

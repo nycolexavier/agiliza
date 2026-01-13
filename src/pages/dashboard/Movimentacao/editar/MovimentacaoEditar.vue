@@ -2,20 +2,19 @@
 import Footer from '@/components/footer/Footer.vue';
 import type { Movimentacao } from '@/interfaces/Movimentacao';
 import { ROUTES } from '@/router/utils/routes';
-import api from '@/services/api';
 import {
   MovimentacaoIDPatch,
   MovimentacaoListID,
 } from '@/services/movimentacao.services';
 import { defineComponent } from 'vue';
-import { id } from 'vuetify/locale';
 import PageHeader from '@/components/layouts/PageHeader.vue';
 
 export default defineComponent({
   name: 'MovimentacoesEditarPage',
 
   components: {
-    Footer,PageHeader
+    Footer,
+    PageHeader,
   },
 
   data() {
@@ -88,18 +87,12 @@ export default defineComponent({
 
 <template>
   <BaseFormContainer>
-    <!-- Cabeçalho -->
-    <v-row align="center" class="mb-4">
-      <v-col cols="12" md="6">
-        <h2>Editar movimentação: {{ movimentacao?.id }}</h2>
-      </v-col>
-
-      <v-col cols="12" md="6" class="text-end">
-        <v-btn variant="outlined" class="mr-2" @click="irParaAMovimentacao">
-          Voltar para movimentação
-        </v-btn>
-      </v-col>
-    </v-row>
+    <PageHeader
+      :title="`Editar movimentação #{{ movimentacao?.id }}`"
+      showBack
+      backLabel="Voltar para ver o movimentação"
+      @back="irParaAMovimentacao"
+    />
 
     <!-- Card do formulário -->
     <v-card variant="outlined">

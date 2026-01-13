@@ -59,11 +59,12 @@ export default defineComponent({
 
 <template>
   <BaseFormContainer>
-    <v-row class="mb-4">
-      <v-col cols="12">
-        <h2>Criar usuário</h2>
-      </v-col>
-    </v-row>
+    <PageHeader
+      title="Criar usuário"
+      showBack
+      backLabel="Voltar para usuários"
+      @back="irParaUsuarios"
+    />
 
     <v-form @submit.prevent="enviarForm">
       <v-row>

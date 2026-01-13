@@ -72,41 +72,13 @@ export default defineComponent({
 </script>
 
 <template>
-  <!-- <div>
-    <h1>Ver usuário {{ usuario?.nome }}</h1>
-
-    <v-btn @click="irParaOUsuario">Voltar para ver o usuário</v-btn>
-
-    <form @submit.prevent="enviarForm">
-      <input v-model="form.nome" placeholder="Nome" />
-      <br />
-      <input v-model="form.cargo" placeholder="cargo" />
-      <br />
-      <input type="email" v-model="form.email" placeholder="email" />
-      <br />
-      <input v-model="form.telefone" placeholder="telefone" />
-
-      <v-btn type="submit" :disabled="!form.nome || !form.email || !form.cargo">
-        Editar
-      </v-btn>
-    </form>
-    <Footer />
-  </div> -->
-
   <BaseFormContainer>
-    <v-row class="mb-4" align="center">
-      <v-col cols="12" md="8">
-        <h2>Editar usário</h2>
-
-        <p v-if="usuario" class="text-medium-emphasis">
-          {{ usuario?.nome }}
-        </p>
-      </v-col>
-
-      <v-col cols="12" md="4" class="text-end">
-        <v-btn variant="outlined" @click="irParaOUsuario"> Voltar </v-btn>
-      </v-col>
-    </v-row>
+    <PageHeader
+      :title="`Editar usário #{{ usuario?.id }}`"
+      showBack
+      backLabel="Voltar para ver o usário"
+      @back="irParaOUsuario"
+    />
 
     <v-card variant="outlined">
       <v-card-text>

@@ -11,7 +11,8 @@ export default defineComponent({
   name: 'DepositoEditarPage',
 
   components: {
-    Footer,PageHeader
+    Footer,
+    PageHeader,
   },
 
   data(vm) {
@@ -70,18 +71,12 @@ export default defineComponent({
 
 <template>
   <BaseFormContainer>
-    <!-- Cabeçalho -->
-    <v-row align="center" class="mb-4">
-      <v-col cols="12" md="6">
-        <h2>Editar depósito #{{ deposito?.id }}</h2>
-      </v-col>
-
-      <v-col cols="12" md="6" class="text-end">
-        <v-btn variant="outlined" @click="irParaODeposito">
-          Voltar para ver o depósito
-        </v-btn>
-      </v-col>
-    </v-row>
+    <PageHeader
+      :title="`Editar depósito #{{ deposito?.id }}`"
+      showBack
+      backLabel="Voltar para ver o depósito"
+      @back="irParaODeposito"
+    />
 
     <!-- Card do formulário -->
     <v-card variant="outlined">

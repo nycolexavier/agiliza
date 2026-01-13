@@ -12,7 +12,8 @@ export default defineComponent({
   name: 'MarcaCriarPage',
 
   components: {
-    Footer,PageHeader
+    Footer,
+    PageHeader,
     BaseSnackbar,
   },
 
@@ -60,15 +61,12 @@ export default defineComponent({
 
 <template>
   <BaseFormContainer>
-    <v-row>
-      <v-col>
-        <h2>Editar marca</h2>
-      </v-col>
-
-      <v-col cols="12" md="4" class="text-end">
-        <v-btn variant="outlined" @click="irParaMarca"> Voltar </v-btn>
-      </v-col>
-    </v-row>
+    <PageHeader
+      :title="`Editar marca #{{ marca?.id }}`"
+      showBack
+      backLabel="Voltar para ver o marca"
+      @back="irParaMarca"
+    />
 
     <v-card variant="outlined">
       <v-card-text>
