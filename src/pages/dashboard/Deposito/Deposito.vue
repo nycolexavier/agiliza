@@ -7,12 +7,14 @@ import { ROUTES } from '@/router/utils/routes';
 import { DepositoList } from '@/services/deposito.services';
 import PageHeader from '@/components/layouts/PageHeader.vue';
 import SearchInput from '@/components/form/SearchInput.vue';
+import BaseTable from '@/components/base/BaseTable.vue';
 
 export default defineComponent({
   name: 'DepositoPage',
 
   components: {
     Footer,
+    BaseTable,
     PageHeader,
     SearchInput,
   },
@@ -21,6 +23,13 @@ export default defineComponent({
     return {
       deposito: [] as Deposito[],
       busca: '',
+      headers: [
+        { title: 'Corredor', key: 'corredor' },
+        { title: 'Prateleira', key: 'prateleira' },
+        { title: 'Sessão', key: 'sessao' },
+        { title: 'Qtd. Máxima', key: 'quantidadeMaxima' },
+        { title: 'Ações', key: 'actions' },
+      ],
 
       paginaAtual: 1,
       itensPorPagina: 10,
@@ -90,41 +99,12 @@ export default defineComponent({
 
     <SearchInput v-model="busca" label="Buscar por corredor" />
 
-    <!-- Tabela -->
-    <v-card variant="outlined">
-      <v-data-table :items="depositoPaginados" item-key="id">
-        <template #headers>
-          <tr>
-            <th>Corredor</th>
-            <th>Prateleira</th>
-            <th>Sessão</th>
-            <th>Quantidade máxima</th>
-            <th>Ações</th>
-          </tr>
-        </template>
-
-        <template #item="{ item }">
-          <tr>
-            <td>{{ item.corredor }}</td>
-            <td>{{ item.prateleira }}</td>
-            <td>{{ item.sessao }}</td>
-            <td>{{ item.quantidadeMaxima }}</td>
-
-            <td>
-              <v-btn
-                size="small"
-                variant="outlined"
-                @click="irParaDepositoVer(item.id)"
-              >
-                Ver
-              </v-btn>
-            </td>
-          </tr>
-        </template>
-
-        <template #no-data> Nenhum depósito encontrado </template>
-      </v-data-table>
-    </v-card>
+    <BaseTable
+      :headers="headers"
+      :items="depositoPaginados"
+      actionLabel="Ver mais"
+      @action="(item) => irParaDepositoVer(item.id)"
+    />
 
     <!-- Paginação -->
     <v-row class="mt-4" align="center" justify="center">

@@ -7,12 +7,14 @@ import { ROUTES } from '@/router/utils/routes';
 import { MovimentacaoList } from '@/services/movimentacao.services';
 import PageHeader from '@/components/layouts/PageHeader.vue';
 import SearchInput from '@/components/form/SearchInput.vue';
+import BaseTable from '@/components/base/BaseTable.vue';
 
 export default defineComponent({
   name: 'MovimentacoesPage',
 
   components: {
     Footer,
+    BaseTable,
     PageHeader,
     SearchInput,
   },
@@ -21,6 +23,15 @@ export default defineComponent({
     return {
       movimentacoes: [] as Movimentacao[],
       busca: '',
+      headers: [
+        { title: 'ID', key: 'id' },
+        { title: 'Lote', key: 'idlote' },
+        { title: 'Tipo', key: 'tipomovimentacao' },
+        { title: 'Quantidade', key: 'quantidade' },
+        { title: 'Data', key: 'datamovimentacao' },
+        { title: 'Status', key: 'status' },
+        { title: 'Ações', key: 'actions' },
+      ],
 
       paginaAtual: 1,
       itensPorPagina: 10,
@@ -91,43 +102,12 @@ export default defineComponent({
 
     <SearchInput v-model="busca" label="Buscar por tipo de movimentação" />
 
-    <!-- Tabela -->
-    <v-card variant="outlined">
-      <v-data-table :items="movimentacoesPaginadas" item-key="id">
-        <template #headers>
-          <tr>
-            <th>ID</th>
-            <th>Lote</th>
-            <th>Tipo</th>
-            <th>Quantidade</th>
-            <th>Data</th>
-            <th>Status</th>
-            <th class="text-end">Ações</th>
-          </tr>
-        </template>
-
-        <template #item="{ item }">
-          <tr>
-            <td>{{ item.id }}</td>
-            <td>{{ item.idlote }}</td>
-            <td>{{ item.tipomovimentacao }}</td>
-            <td>{{ item.quantidade }}</td>
-            <td>{{ item.datamovimentacao }}</td>
-            <td>{{ item.status }}</td>
-
-            <td class="text-end">
-              <v-btn
-                size="small"
-                variant="outlined"
-                @click="irParaMovimentacaoVer(item.id)"
-              >
-                Ver
-              </v-btn>
-            </td>
-          </tr>
-        </template>
-      </v-data-table>
-    </v-card>
+    <BaseTable
+      :headers="headers"
+      :items="movimentacoesPaginadas"
+      actionLabel="Ver"
+      @action="(item) => irParaMovimentacaoVer(item.id)"
+    />
 
     <!-- Paginação -->
     <v-row class="mt-4" align="center" justify="center">

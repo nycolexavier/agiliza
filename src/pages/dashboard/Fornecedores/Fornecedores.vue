@@ -6,7 +6,7 @@ import { removerAcentos } from '@/utils/string/normalize';
 import { ROUTES } from '@/router/utils/routes';
 import { FornecedoresList } from '@/services/fornecedores';
 import PageHeader from '@/components/layouts/PageHeader.vue';
-
+import BaseTable from '@/components/base/BaseTable.vue';
 import SearchInput from '@/components/form/SearchInput.vue';
 
 export default defineComponent({
@@ -16,12 +16,22 @@ export default defineComponent({
     Footer,
     PageHeader,
     SearchInput,
+    BaseTable,
   },
 
   data() {
     return {
       fornecedores: [] as Fornecedor[],
       busca: '',
+
+      headers: [
+        { title: 'Nome', key: 'nome' },
+        { title: 'Cargo', key: 'cargo' },
+        { title: 'E-mail', key: 'email' },
+        { title: 'Status', key: 'status' },
+        { title: 'Telefone', key: 'telefone' },
+        { title: 'Ações', key: 'actions' },
+      ],
 
       paginaAtual: 1,
       itensPorPagina: 10,
@@ -91,47 +101,13 @@ export default defineComponent({
 
     <SearchInput v-model="busca" label="Buscar fornecedor pelo nome" />
 
-    <!-- Tabela -->
-    <v-card variant="outlined">
-      <v-data-table
-        :items="fornecedoresPaginados"
-        item-key="id"
-        hide-default-footer
-      >
-        <template #headers>
-          <tr>
-            <th>Nome</th>
-            <th>Cargo</th>
-            <th>E-mail</th>
-            <th>Status</th>
-            <th>Telefone</th>
-            <th class="text-end">Ações</th>
-          </tr>
-        </template>
+    <BaseTable
+      :headers="headers"
+      :items="fornecedoresPaginados"
+      actionLabel="Editar"
+      @action="(item) => irParaFornecedoresEdicao(item.id)"
+    />
 
-        <template #item="{ item }">
-          <tr>
-            <td>{{ item.nome }}</td>
-            <td>{{ item.cargo }}</td>
-            <td>{{ item.email }}</td>
-            <td>{{ item.status }}</td>
-            <td>{{ item.telefone }}</td>
-
-            <td class="text-end">
-              <v-btn
-                size="small"
-                variant="outlined"
-                @click="irParaFornecedoresEdicao(item.id)"
-              >
-                Editar
-              </v-btn>
-            </td>
-          </tr>
-        </template>
-      </v-data-table>
-    </v-card>
-
-    <!-- Paginação -->
     <v-row class="mt-4" align="center" justify="center">
       <v-btn
         variant="outlined"

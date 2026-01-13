@@ -7,12 +7,14 @@ import { ROUTES } from '@/router/utils/routes';
 import { MarcaList } from '@/services/marca';
 import PageHeader from '@/components/layouts/PageHeader.vue';
 import SearchInput from '@/components/form/SearchInput.vue';
+import BaseTable from '@/components/base/BaseTable.vue';
 
 export default defineComponent({
   name: 'ProdutosPage',
 
   components: {
     Footer,
+    BaseTable,
     PageHeader,
     SearchInput,
   },
@@ -21,6 +23,14 @@ export default defineComponent({
     return {
       marca: [] as Marca[],
       busca: '',
+      headers: [
+        { title: 'ID', key: 'id' },
+        { title: 'Nome', key: 'nome' },
+        { title: 'Criado em', key: 'criadoEm' },
+        { title: 'Criado por', key: 'criadoPor' },
+        { title: 'Atualizado em', key: 'atualizadoEm' },
+        { title: 'Ações', key: 'actions' },
+      ],
 
       paginaAtual: 1,
       itensPorPagina: 10,
@@ -90,40 +100,12 @@ export default defineComponent({
 
     <SearchInput v-model="busca" label="Buscar marca pelo nome" />
 
-    <!-- Tabela -->
-    <v-card variant="outlined">
-      <v-data-table :items="produtosPaginados" item-key="id">
-        <template #headers>
-          <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>criadoEm</th>
-            <th>criadoPor</th>
-            <th>AtualizadoEm</th>
-          </tr>
-        </template>
-
-        <template #item="{ item }">
-          <tr>
-            <td>{{ item.id }}</td>
-            <td>{{ item.nome }}</td>
-            <td>{{ item.criadoEm }}</td>
-            <td>{{ item.criadoPor }}</td>
-            <td>{{ item.atualizadoEm }}</td>
-
-            <td class="text-end">
-              <v-btn
-                size="small"
-                variant="outlined"
-                @click="irParaProdutosVer(item?.id)"
-              >
-                Ver
-              </v-btn>
-            </td>
-          </tr>
-        </template>
-      </v-data-table>
-    </v-card>
+    <BaseTable
+      :headers="headers"
+      :items="produtosPaginados"
+      actionLabel="Ver"
+      @action="(item) => irParaProdutosVer(item.id)"
+    />
 
     <!-- Paginação -->
     <v-row class="mt-4" align="center" justify="center">

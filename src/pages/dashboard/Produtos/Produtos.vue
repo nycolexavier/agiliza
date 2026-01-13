@@ -6,6 +6,7 @@ import { removerAcentos } from '@/utils/string/normalize';
 import { ROUTES } from '@/router/utils/routes';
 import { ProdutosList } from '@/services/Produtos';
 import PageHeader from '@/components/layouts/PageHeader.vue';
+import BaseTable from '@/components/base/BaseTable.vue';
 
 export default defineComponent({
   name: 'ProdutosPage',
@@ -13,12 +14,23 @@ export default defineComponent({
   components: {
     Footer,
     PageHeader,
+    BaseTable,
   },
 
   data() {
     return {
       produto: [] as Produto[],
       busca: '',
+      headers: [
+        { title: 'ID', key: 'id' },
+        { title: 'Nome', key: 'nome' },
+        { title: 'SKU', key: 'sku' },
+        { title: 'Unidade', key: 'unidadeMedida' },
+        { title: 'Quantidade', key: 'quantidadeProduto' },
+        { title: 'Categoria', key: 'categoria' },
+        { title: 'Status', key: 'status' },
+        { title: 'Ações', key: 'actions' },
+      ],
 
       paginaAtual: 1,
       itensPorPagina: 10,
@@ -95,45 +107,12 @@ export default defineComponent({
       class="mb-4"
     />
 
-    <!-- Tabela -->
-    <v-card variant="outlined">
-      <v-data-table :items="produtosPaginados" item-key="id">
-        <template #headers>
-          <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>SKU</th>
-            <th>Unidade</th>
-            <th>Quantidade</th>
-            <th>Categoria</th>
-            <th>Status</th>
-            <th class="text-end">Ações</th>
-          </tr>
-        </template>
-
-        <template #item="{ item }">
-          <tr>
-            <td>{{ item.id }}</td>
-            <td>{{ item.nome }}</td>
-            <td>{{ item.sku }}</td>
-            <td>{{ item.unidadeMedida }}</td>
-            <td>{{ item.quantidadeProduto }}</td>
-            <td>{{ item.categoria }}</td>
-            <td>{{ item.status }}</td>
-
-            <td class="text-end">
-              <v-btn
-                size="small"
-                variant="outlined"
-                @click="irParaProdutosVer(item.id)"
-              >
-                Editar
-              </v-btn>
-            </td>
-          </tr>
-        </template>
-      </v-data-table>
-    </v-card>
+    <BaseTable
+      :headers="headers"
+      :items="produtosPaginados"
+      actionLabel="Editar"
+      @action="(item) => irParaProdutosVer(item.id)"
+    />
 
     <!-- Paginação -->
     <v-row class="mt-4" align="center" justify="center">

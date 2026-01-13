@@ -7,6 +7,7 @@ import { ROUTES } from '@/router/utils/routes';
 import { LoteList } from '@/services/lote';
 import PageHeader from '@/components/layouts/PageHeader.vue';
 import SearchInput from '@/components/form/SearchInput.vue';
+import BaseTable from '@/components/base/BaseTable.vue';
 
 export default defineComponent({
   name: 'ProdutosPage',
@@ -15,12 +16,22 @@ export default defineComponent({
     Footer,
     PageHeader,
     SearchInput,
+    BaseTable,
   },
 
   data() {
     return {
       lotes: [] as Lote[],
       busca: '',
+      headers: [
+        { title: 'ID', key: 'id' },
+        { title: 'Código do lote', key: 'codigoLote' },
+        { title: 'Marca', key: 'marca' },
+        { title: 'Produto', key: 'produto' },
+        { title: 'Status', key: 'status' },
+        { title: 'Data de validade', key: 'dataValidade' },
+        { title: 'Ações', key: 'actions' },
+      ],
 
       paginaAtual: 1,
       itensPorPagina: 10,
@@ -82,43 +93,12 @@ export default defineComponent({
 
     <SearchInput v-model="busca" label="Buscar por código do lote" />
 
-    <!-- Tabela -->
-    <v-card variant="outlined">
-      <v-data-table :items="lotesPaginados" item-key="id">
-        <template #headers>
-          <tr>
-            <th>ID</th>
-            <th>Código do lote</th>
-            <th>Marca</th>
-            <th>Produto</th>
-            <th>Status</th>
-            <th>Data de validade</th>
-            <th>Ações</th>
-          </tr>
-        </template>
-
-        <template #item="{ item }">
-          <tr>
-            <td>{{ item.id }}</td>
-            <td>{{ item.codigoLote }}</td>
-            <td>{{ item.marca }}</td>
-            <td>{{ item.produto }}</td>
-            <td>{{ item.status }}</td>
-            <td>{{ item.dataValidade }}</td>
-
-            <td>
-              <v-btn
-                size="small"
-                variant="outlined"
-                @click="irParaOLotesEditar(item.id)"
-              >
-                Ver
-              </v-btn>
-            </td>
-          </tr>
-        </template>
-      </v-data-table>
-    </v-card>
+    <BaseTable
+      :headers="headers"
+      :items="lotesPaginados"
+      actionLabel="Ver"
+      @action="(item) => irParaOLotesEditar(item.id)"
+    />
 
     <!-- Paginação -->
     <v-row class="mt-4" justify="center" align="center">
