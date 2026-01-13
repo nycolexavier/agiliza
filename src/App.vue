@@ -2,8 +2,8 @@
 import { RouterView } from 'vue-router';
 
 export default {
-  name: 'App'
-}
+  name: 'App',
+};
 </script>
 
 <template>
@@ -15,7 +15,8 @@ export default {
 </template>
 
 <style>
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   padding: 0;

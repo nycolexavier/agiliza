@@ -1,5 +1,13 @@
 {
-  "dashboard": [],
+  "dashboard": [
+    {
+      "quantiaTotal": "1",
+      "totalProdutos": "10",
+      "totalDeItensEstoque": "60",
+      "pertoVencimento": "40",
+      "id": "abd9"
+    }
+  ],
   "usuarios": [
     {
       "id": "1",
@@ -875,6 +883,12 @@
     {
       "id": "0318",
       "nome": "ddd"
+    },
+    {
+      "id": "02f4",
+      "nome": "Nestlé",
+      "criadoEm": "2026-01-13T11:30:52.434Z",
+      "atualizadoEm": "2026-01-13T11:30:52.434Z"
     }
   ],
   "movimentacao": [

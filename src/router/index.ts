@@ -29,6 +29,7 @@ import MarcaVer from '@/pages/dashboard/Marca/ver/MarcaVer.vue';
 import MovimentacaoCriar from '@/pages/dashboard/Movimentacao/criar/MovimentacaoCriar.vue';
 import MovimentacaoEditar from '@/pages/dashboard/Movimentacao/editar/MovimentacaoEditar.vue';
 import MovimentacaoVer from '@/pages/dashboard/Movimentacao/ver/MovimentacaoVer.vue';
+import MenuLayout from '@/components/layouts/MenuLayout.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,163 +39,60 @@ const router = createRouter({
       name: 'login',
       component: Login,
     },
+    // DASHBOARD (COM MENU)
     {
       path: '/dashboard',
-      name: 'dashboard',
-      component: Dashboard,
-    },
-    {
-      path: '/dashboard/produtos',
-      name: 'produtos',
-      component: Produtos,
-    },
-    {
-      path: '/dashboard/produtos/:id',
-      name: 'produtos-ver',
-      component: ProdutosVer,
-    },
-    {
-      path: '/dashboard/produtos/:id/editar',
-      name: 'produtos-editar',
-      component: ProdutosEditar,
-    },
-    {
-      path: '/dashboard/produtos/new',
-      name: 'produtos-new',
-      component: ProdutoCriar,
-    },
-    {
-      path: '/dashboard/fornecedores',
-      name: 'fornecedores',
-      component: Fornecedores,
-    },
-    {
-      path: '/dashboard/fornecedores/:id',
-      name: 'fornecedores-ver',
-      component: FornecedorVer,
-    },
-    {
-      path: '/dashboard/fornecedores/:id/editar',
-      name: 'fornecedores-editar',
-      component: FornecedorEditar,
-    },
-    {
-      path: '/dashboard/fornecedores/new',
-      name: 'fornecedores-new',
-      component: FornecedorCriar,
-    },
-    {
-      path: '/dashboard/deposito',
-      name: 'deposito',
-      component: Deposito,
-    },
-    {
-      path: '/dashboard/deposito/:id',
-      name: 'deposito-ver',
-      component: DepositoVer,
-    },
-    {
-      path: '/dashboard/deposito/:id/editar',
-      name: 'deposito-editar',
-      component: DepositoEditar,
-    },
-    {
-      path: '/dashboard/deposito/new',
-      name: 'deposito-criar',
-      component: DepositoCriar,
-    },
-    {
-      path: '/dashboard/usuarios',
-      name: 'usuarios',
-      component: Usuarios,
-    },
-    {
-      path: '/dashboard/usuarios/new',
-      name: 'usuarios-criar',
-      component: UsuarioCriar,
-    },
-    {
-      path: '/dashboard/usuarios/ver',
-      name: 'usuarios-ver',
-      component: UsuarioVer,
-    },
-    {
-      path: '/dashboard/usuarios/:id',
-      name: 'usuario-detalhe',
-      component: UsuarioVer,
-    },
-    {
-      path: '/dashboard/usuarios/:id/editar',
-      name: 'usuario-editar',
-      component: UsuarioEditar,
-    },
-    {
-      path: '/dashboard/lotes',
-      name: 'lotes',
-      component: Lotes,
-    },
-    {
-      path: '/dashboard/lotes/:id',
-      name: 'lotes-ver',
-      component: LotesVer,
-    },
-    {
-      path: '/dashboard/lotes/:id/editar',
-      name: 'lotes-editar',
-      component: LotesEditar,
-    },
-    {
-      path: '/dashboard/movimentacao',
-      name: 'movimentacao',
-      component: Movimentacao,
-    },
-    {
-      path: '/dashboard/movimentacao/new',
-      name: 'movimentacao-criar',
-      component: MovimentacaoCriar,
-    },
-    {
-      path: '/dashboard/movimentacao/:id',
-      name: 'movimentacao-ver',
-      component: MovimentacaoVer,
-    },
-    {
-      path: '/dashboard/movimentacao/:id/editar',
-      name: 'movimentacao-editar',
-      component: MovimentacaoEditar,
-    },
-    {
-      path: '/dashboard/marca',
-      name: 'marca',
-      component: Marca,
-    },
-    {
-      path: '/dashboard/marca/new',
-      name: 'marca-criar',
-      component: MarcaCriar,
-    },
-    {
-      path: '/dashboard/marca/:id',
-      name: 'marca-ver',
-      component: MarcaVer,
-    },
-    {
-      path: '/dashboard/relatorio',
-      name: 'relatorio',
-      component: Relatorio,
-    },
-    {
-      path: '/',
-      name: 'home',
-      component: HomeView,
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue'),
+      component: MenuLayout,
+      children: [
+        {
+          path: '',
+          name: 'dashboard',
+          component: Dashboard,
+        },
+
+        // PRODUTOS
+        { path: 'produtos', component: Produtos },
+        { path: 'produtos/new', component: ProdutoCriar },
+        { path: 'produtos/:id', component: ProdutosVer },
+        { path: 'produtos/:id/editar', component: ProdutosEditar },
+
+        // FORNECEDORES
+        { path: 'fornecedores', component: Fornecedores },
+        { path: 'fornecedores/new', component: FornecedorCriar },
+        { path: 'fornecedores/:id', component: FornecedorVer },
+        { path: 'fornecedores/:id/editar', component: FornecedorEditar },
+
+        // DEPÓSITO
+        { path: 'deposito', component: Deposito },
+        { path: 'deposito/new', component: DepositoCriar },
+        { path: 'deposito/:id', component: DepositoVer },
+        { path: 'deposito/:id/editar', component: DepositoEditar },
+
+        // USUÁRIOS
+        { path: 'usuarios', component: Usuarios },
+        { path: 'usuarios/new', component: UsuarioCriar },
+        { path: 'usuarios/:id', component: UsuarioVer },
+        { path: 'usuarios/:id/editar', component: UsuarioEditar },
+
+        // LOTES
+        { path: 'lotes', component: Lotes },
+        { path: 'lotes/:id', component: LotesVer },
+        { path: 'lotes/:id/editar', component: LotesEditar },
+
+        // MOVIMENTAÇÃO
+        { path: 'movimentacao', component: Movimentacao },
+        { path: 'movimentacao/new', component: MovimentacaoCriar },
+        { path: 'movimentacao/:id', component: MovimentacaoVer },
+        { path: 'movimentacao/:id/editar', component: MovimentacaoEditar },
+
+        // MARCA
+        { path: 'marca', component: Marca },
+        { path: 'marca/new', component: MarcaCriar },
+        { path: 'marca/:id', component: MarcaVer },
+
+        // RELATÓRIO
+        { path: 'relatorio', component: Relatorio },
+      ],
     },
   ],
 });

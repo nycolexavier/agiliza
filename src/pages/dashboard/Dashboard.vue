@@ -50,57 +50,6 @@ export default defineComponent({
 
 <template>
   <v-app>
-    <!-- topo -->
-    <v-app-bar title="Dashboard" variant="outlined" border flat />
-
-    <!-- menu lateral -->
-    <v-navigation-drawer permanent border>
-      <v-list-item
-        title="Usuários"
-        prepend-icon="mdi-account"
-        @click="irParaUsuarios"
-      />
-
-      <v-list-item
-        title="Fornecedores"
-        prepend-icon="mdi-truck"
-        @click="irParaFornecedores"
-      />
-
-      <v-list-item
-        title="Produtos"
-        prepend-icon="mdi-package-variant"
-        @click="irParaProdutos"
-      />
-
-      <v-list-item
-        title="Depósito"
-        prepend-icon="mdi-warehouse"
-        @click="irParaDeposito"
-      />
-
-      <v-list-item
-        title="Lotes"
-        prepend-icon="mdi-layers"
-        @click="irParaLotes"
-      />
-
-      <v-list-item
-        title="Movimentações"
-        prepend-icon="mdi-swap-horizontal"
-        @click="irParaMovimentacao"
-      />
-
-      <v-list-item title="Marcas" prepend-icon="mdi-tag" @click="irParaMarca" />
-
-      <v-list-item
-        title="Relatório"
-        prepend-icon="mdi-file-chart"
-        @click="irParaORelatorio"
-      />
-    </v-navigation-drawer>
-    <!-- conteúdo -->
-
     <v-main>
       <BaseFormContainer>
         <h2>Resumo do mês</h2>
