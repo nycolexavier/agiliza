@@ -70,7 +70,6 @@ export default defineComponent({
       @back="irParaOProduto"
     />
 
-    <!-- Card do formulário -->
     <v-card variant="outlined">
       <v-card-text>
         <v-form @submit.prevent="enviarForm">
@@ -111,7 +110,6 @@ export default defineComponent({
             </v-col>
           </v-row>
 
-          <!-- Botão -->
           <v-row class="mt-4">
             <v-col cols="12" class="text-end">
               <v-btn
@@ -132,6 +130,7 @@ export default defineComponent({
         </v-form>
       </v-card-text>
     </v-card>
+
     <v-snackbar
       v-model="snackbar"
       :color="snackbarCor"

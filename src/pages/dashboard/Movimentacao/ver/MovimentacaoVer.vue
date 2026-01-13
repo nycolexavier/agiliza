@@ -95,7 +95,11 @@ export default defineComponent({
 
     <!-- Tabela -->
     <v-card variant="outlined">
-      <v-data-table :items="movimentacoesPaginadas" item-key="id">
+      <v-data-table
+        :items="movimentacoesPaginadas"
+        item-key="id"
+        hide-default-footer
+      >
         <template #headers>
           <tr>
             <th>ID</th>

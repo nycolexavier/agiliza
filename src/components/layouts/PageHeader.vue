@@ -1,6 +1,5 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { ROUTES } from '@/router/utils/routes';
 
 export default defineComponent({
   name: 'PageHeader',
@@ -53,7 +52,6 @@ export default defineComponent({
 
 <template>
   <v-row align="center" class="mb-4">
-    <!-- TÍTULO -->
     <v-col cols="12" md="6">
       <h2>{{ title }}</h2>
 
@@ -62,7 +60,6 @@ export default defineComponent({
       </p>
     </v-col>
 
-    <!-- BOTÕES -->
     <v-col cols="12" md="6" class="text-end">
       <v-btn
         v-if="showBack"

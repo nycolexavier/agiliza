@@ -4,6 +4,7 @@ import { ROUTES } from '@/router/utils/routes';
 import { DepositoPost } from '@/services/deposito.services';
 import { defineComponent } from 'vue';
 import PageHeader from '@/components/layouts/PageHeader.vue';
+import FormCard from '@/components/form/FormCard.vue';
 
 export default defineComponent({
   name: 'DepositoCriarPage',
@@ -11,6 +12,7 @@ export default defineComponent({
   components: {
     Footer,
     PageHeader,
+    FormCard,
   },
 
   data() {
@@ -61,74 +63,68 @@ export default defineComponent({
       @back="irParaODeposito"
     />
 
-    <!-- Card do formulário -->
-    <v-card variant="outlined">
-      <v-card-text>
-        <v-form @submit.prevent="enviarForm">
-          <v-row>
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="form.corredor"
-                label="Corredor"
-                variant="outlined"
-                density="compact"
-                required
-                :rules="[(v) => !!v || 'Corredor é obrigatório']"
-              />
-            </v-col>
+    <FormCard
+      submitLabel="Criar depósito"
+      :disabled="!form.corredor"
+      @submit="enviarForm"
+    >
+      <v-row>
+        <v-col cols="12" md="6">
+          <v-text-field
+            v-model="form.corredor"
+            label="Corredor"
+            variant="outlined"
+            density="compact"
+            required
+          />
+        </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="form.prateleira"
-                label="Prateleira"
-                variant="outlined"
-                density="compact"
-                required
-                :rules="[(v) => !!v || 'Prateleira é obrigatório']"
-              />
-            </v-col>
+        <v-col cols="12" md="6">
+          <v-text-field
+            v-model="form.prateleira"
+            label="Prateleira"
+            variant="outlined"
+            density="compact"
+            required
+          />
+        </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="form.sessao"
-                label="Sessão"
-                variant="outlined"
-                density="compact"
-                required
-                :rules="[(v) => !!v || 'Sessão é obrigatório']"
-              />
-            </v-col>
+        <v-col cols="12" md="6">
+          <v-text-field
+            v-model="form.sessao"
+            label="Sessão"
+            variant="outlined"
+            density="compact"
+            required
+          />
+        </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="form.quantidadeMaxima"
-                label="Quantidade máxima"
-                variant="outlined"
-                density="compact"
-                required
-                :rules="[(v) => !!v || 'Quantidade máxima é obrigatório']"
-              />
-            </v-col>
+        <v-col cols="12" md="6">
+          <v-text-field
+            v-model="form.quantidadeMaxima"
+            label="Quantidade máxima"
+            variant="outlined"
+            density="compact"
+            required
+          />
+        </v-col>
+      </v-row>
 
-            <!-- Botões -->
-            <v-col cols="12" class="text-end">
-              <v-btn
-                color="primary"
-                type="submit"
-                :disabled="
-                  !form.corredor ||
-                  !form.prateleira ||
-                  !form.sessao ||
-                  !form.quantidadeMaxima
-                "
-              >
-                Criar depósito
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-form>
-      </v-card-text>
-    </v-card>
+      <template #actions>
+        <v-btn
+          color="primary"
+          type="submit"
+          :disabled="
+            !form.corredor ||
+            !form.prateleira ||
+            !form.sessao ||
+            !form.quantidadeMaxima
+          "
+        >
+          Criar depósito
+        </v-btn>
+      </template>
+    </FormCard>
 
     <Footer />
 

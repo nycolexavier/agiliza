@@ -25,7 +25,7 @@ export default defineComponent({
 
 <template>
   <v-card variant="outlined">
-    <v-data-table :headers="headers" :items="items">
+    <v-data-table :headers="headers" :items="items" hide-default-footer>
       <template #item.actions="{ item }">
         <v-btn size="small" variant="outlined" @click="$emit('action', item)">
           {{ actionLabel }}

@@ -3,9 +3,8 @@ import BaseFormContainer from '@/components/base/BaseFormContainer.vue';
 import BaseSnackbar from '@/components/base/BaseSnackbar.vue';
 import Footer from '@/components/footer/Footer.vue';
 import { ROUTES } from '@/router/utils/routes';
-import api from '@/services/api';
 import { FornecedoresPost } from '@/services/fornecedores';
-import { defineComponent, reactive } from 'vue';
+import { defineComponent } from 'vue';
 import PageHeader from '@/components/layouts/PageHeader.vue';
 
 export default defineComponent({
@@ -66,66 +65,58 @@ export default defineComponent({
       @back="irParaFornecedor"
     />
 
-    <v-card variant="outlined">
-      <v-card-text>
-        <v-form @submit.prevent="enviarForm">
-          <v-row>
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="form.nome"
-                label="Nome"
-                variant="outlined"
-                required
-                :rules="[(v) => !!v || 'Quantidade de medida é obrigatório']"
-              />
-            </v-col>
+    <FormCard @submit="enviarForm">
+      <v-row>
+        <v-col cols="12" md="6">
+          <v-text-field
+            v-model="form.nome"
+            label="Nome"
+            variant="outlined"
+            required
+            :rules="[(v) => !!v || 'Nome é obrigatório']"
+          />
+        </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="form.cargo"
-                label="Cargo"
-                variant="outlined"
-                required
-              />
-            </v-col>
+        <v-col cols="12" md="6">
+          <v-text-field
+            v-model="form.cargo"
+            label="Cargo"
+            variant="outlined"
+            required
+          />
+        </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="form.email"
-                label="Telefone"
-                variant="outlined"
-                required
-              />
-            </v-col>
+        <v-col cols="12" md="6">
+          <v-text-field
+            v-model="form.email"
+            label="E-mail"
+            variant="outlined"
+            required
+          />
+        </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="form.telefone"
-                label="Telefone"
-                variant="outlined"
-                required
-              />
-            </v-col>
-          </v-row>
+        <v-col cols="12" md="6">
+          <v-text-field
+            v-model="form.telefone"
+            label="Telefone"
+            variant="outlined"
+            required
+          />
+        </v-col>
+      </v-row>
 
-          <v-row class="mt4">
-            <v-col cols="12" class="d-flex justify-end gap-4">
-              <v-btn variant="outlined" @click="irParaFornecedor">
-                Cancelar
-              </v-btn>
+      <template #actions>
+        <v-btn variant="outlined" @click="irParaFornecedor"> Cancelar </v-btn>
 
-              <v-btn
-                color="primary"
-                type="submit"
-                :disabled="!form.nome || !form.cargo || !form.email"
-              >
-                Criar fornecedor
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-form>
-      </v-card-text>
-    </v-card>
+        <v-btn
+          color="primary"
+          type="submit"
+          :disabled="!form.nome || !form.cargo || !form.email"
+        >
+          Criar fornecedor
+        </v-btn>
+      </template>
+    </FormCard>
 
     <BaseSnackbar
       v-model="snackbar"
