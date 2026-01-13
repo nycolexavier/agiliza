@@ -11,6 +11,9 @@ export default defineComponent({
   },
 
   methods: {
+    irParaODashboard() {
+      this.$router.push(ROUTES.dashboard);
+    },
     irParaUsuarios() {
       this.$router.push(ROUTES.usuarios.list);
     },
@@ -35,66 +38,72 @@ export default defineComponent({
     irParaRelatorio() {
       this.$router.push(ROUTES.relatorio.list);
     },
-    irParaODashboard() {
-      this.$router.push(ROUTES.dashboard);
-    },
   },
 });
 </script>
+
 <template>
-  <v-app>
-    <!-- TOPO -->
-    <v-app-bar ariant="outlined" border flat >
+  <v-layout style="height: 100vh">
+   <!-- menu lateral -->
+    <v-navigation-drawer permanent width="280" border>
+      <v-list density="comfortable">
+        <v-list-item
+          title="Usuários"
+          prepend-icon="mdi-account"
+          @click="irParaUsuarios"
+        />
+        <v-list-item
+          title="Fornecedores"
+          prepend-icon="mdi-truck"
+          @click="irParaFornecedores"
+        />
+        <v-list-item
+          title="Produtos"
+          prepend-icon="mdi-package-variant"
+          @click="irParaProdutos"
+        />
+        <v-list-item
+          title="Depósito"
+          prepend-icon="mdi-warehouse"
+          @click="irParaDeposito"
+        />
+        <v-list-item
+          title="Lotes"
+          prepend-icon="mdi-layers"
+          @click="irParaLotes"
+        />
+        <v-list-item
+          title="Movimentações"
+          prepend-icon="mdi-swap-horizontal"
+          @click="irParaMovimentacao"
+        />
+        <v-list-item
+          title="Marcas"
+          prepend-icon="mdi-tag"
+          @click="irParaMarca"
+        />
+        <v-list-item
+          title="Relatório"
+          prepend-icon="mdi-file-chart"
+          @click="irParaRelatorio"
+        />
+      </v-list>
+    </v-navigation-drawer>
+
+    <!-- TOPO FIXO -->
+    <v-app-bar position="fixed" height="64" flat border>
       <v-app-bar-title class="cursor-pointer" @click="irParaODashboard">
         Agiliza
       </v-app-bar-title>
     </v-app-bar>
 
-    <!-- MENU LATERAL -->
-    <v-navigation-drawer permanent border>
-      <v-list-item
-        title="Usuários"
-        prepend-icon="mdi-account"
-        @click="irParaUsuarios"
-      />
-      <v-list-item
-        title="Fornecedores"
-        prepend-icon="mdi-truck"
-        @click="irParaFornecedores"
-      />
-      <v-list-item
-        title="Produtos"
-        prepend-icon="mdi-package-variant"
-        @click="irParaProdutos"
-      />
-      <v-list-item
-        title="Depósito"
-        prepend-icon="mdi-warehouse"
-        @click="irParaDeposito"
-      />
-      <v-list-item
-        title="Lotes"
-        prepend-icon="mdi-layers"
-        @click="irParaLotes"
-      />
-      <v-list-item
-        title="Movimentações"
-        prepend-icon="mdi-swap-horizontal"
-        @click="irParaMovimentacao"
-      />
-      <v-list-item title="Marcas" prepend-icon="mdi-tag" @click="irParaMarca" />
-      <v-list-item
-        title="Relatório"
-        prepend-icon="mdi-file-chart"
-        @click="irParaRelatorio"
-      />
-    </v-navigation-drawer>
+    <!-- CONTEÚDO -->
+    <v-main style="padding-top: 64px; overflow-y: auto">
+      <div class="pa-4">
+        <RouterView />
+      </div>
 
-    <!-- CONTEÚDO DINÂMICO -->
-    <v-main>
-      <RouterView />
+      <Footer />
     </v-main>
-
-    <Footer />
-  </v-app>
+  </v-layout>
 </template>

@@ -6,12 +6,14 @@ import type { Usuario } from '@/interfaces/Usuarios/Usuario';
 import { removerAcentos } from '@/utils/string/normalize';
 import { ROUTES } from '@/router/utils/routes';
 import { UsuariosList } from '@/services/usuarios.services';
+import PageHeader from '@/components/layouts/PageHeader.vue';
 
 export default defineComponent({
   name: 'UsuariosPage',
 
   components: {
     Footer,
+    PageHeader
   },
 
   data() {
@@ -92,21 +94,12 @@ export default defineComponent({
 
 <template>
   <v-contatiner fuild>
-    <v-row align="center" class="mb-4">
-      <v-col cols="12" md="6">
-        <h2>Usários</h2>
-      </v-col>
-
-      <v-col cols="12" md="6" class="text-end">
-        <v-btn variant="outlined" class="me-2" @click="irParaODashboard">
-          Dashboard
-        </v-btn>
-
-        <v-btn color="primary" @click="irParaCriarUsuario"
-          >Adicionar usuário</v-btn
-        >
-      </v-col>
-    </v-row>
+    
+    <PageHeader
+      title="Usuários"
+      actionLabel="Adicionar usuário"
+      @action="irParaCriarUsuario"
+    />
 
     <v-text-field
       v-model="busca"

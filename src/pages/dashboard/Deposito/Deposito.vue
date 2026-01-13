@@ -6,12 +6,14 @@ import type { Deposito } from '@/interfaces/Deposito/Deposito';
 import { removerAcentos } from '@/utils/string/normalize';
 import { ROUTES } from '@/router/utils/routes';
 import { DepositoList } from '@/services/deposito.services';
+import PageHeader from '@/components/layouts/PageHeader.vue';
 
 export default defineComponent({
   name: 'DepositoPage',
 
   components: {
     Footer,
+    PageHeader,
   },
 
   data() {
@@ -79,22 +81,11 @@ export default defineComponent({
 
 <template>
   <BaseFormContainer>
-    <!-- Cabeçalho -->
-    <v-row align="center" class="mb-4">
-      <v-col cols="12" md="6">
-        <h2>Depósitos</h2>
-      </v-col>
-
-      <v-col cols="12" md="6" class="text-end">
-        <v-btn variant="outlined" class="me-2" @click="irParaODashboard">
-          Dashboard
-        </v-btn>
-
-        <v-btn color="primary" @click="irParaDepositoCriar">
-          Adicionar depósito
-        </v-btn>
-      </v-col>
-    </v-row>
+    <PageHeader
+      title="Depósitos"
+      actionLabel="Adicionar depósito"
+      @action="irParaDepositoCriar"
+    />
 
     <!-- Busca -->
     <v-card variant="outlined" class="mb-4">

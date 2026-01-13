@@ -6,12 +6,14 @@ import type { Lote } from '@/interfaces/Lotes/Lote';
 import { removerAcentos } from '@/utils/string/normalize';
 import { ROUTES } from '@/router/utils/routes';
 import { LoteList } from '@/services/lote';
+import PageHeader from '@/components/layouts/PageHeader.vue';
 
 export default defineComponent({
   name: 'ProdutosPage',
 
   components: {
     Footer,
+    PageHeader,
   },
 
   data() {
@@ -75,16 +77,7 @@ export default defineComponent({
 
 <template>
   <BaseFormContainer>
-    <!-- Cabeçalho -->
-    <v-row align="center" class="mb-4">
-      <v-col cols="12" md="6">
-        <h2>Lotes</h2>
-      </v-col>
-
-      <v-col cols="12" md="6" class="text-end">
-        <v-btn variant="outlined" @click="irParaODashboard"> Dashboard </v-btn>
-      </v-col>
-    </v-row>
+    <PageHeader title="Lotes" actionLabel="Adicionar lotes" />
 
     <!-- Busca -->
     <v-text-field

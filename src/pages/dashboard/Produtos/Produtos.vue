@@ -6,12 +6,14 @@ import type { Produto } from '@/interfaces/Produtos/Produto';
 import { removerAcentos } from '@/utils/string/normalize';
 import { ROUTES } from '@/router/utils/routes';
 import { ProdutosList } from '@/services/Produtos';
+import PageHeader from '@/components/layouts/PageHeader.vue';
 
 export default defineComponent({
   name: 'ProdutosPage',
 
   components: {
     Footer,
+    PageHeader,
   },
 
   data() {
@@ -79,20 +81,11 @@ export default defineComponent({
 
 <template>
   <BaseFormContainer>
-    <!-- Cabeçalho -->
-    <v-row class="mb-4" align="center">
-      <v-col cols="12" md="6">
-        <h2>Produtos</h2>
-      </v-col>
-
-      <v-col cols="12" md="6" class="text-end">
-        <v-btn color="primary" class="mr-2" @click="irParaCriarProduto">
-          Adicionar produto
-        </v-btn>
-
-        <v-btn variant="outlined" @click="irParaODashboard"> Dashboard </v-btn>
-      </v-col>
-    </v-row>
+    <PageHeader
+      title="Produtos"
+      actionLabel="Adicionar produto"
+      @action="irParaCriarProduto"
+    />
 
     <!-- Busca -->
     <v-text-field

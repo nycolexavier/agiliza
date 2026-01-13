@@ -570,6 +570,42 @@
       "quantidadeProduto": "'94828'",
       "status": "ativo",
       "categoria": "Plástico"
+    },
+    {
+      "id": "5d17",
+      "nome": "Nescau",
+      "sku": "49411",
+      "unidadeMedida": "313131",
+      "quantidadeProduto": "313",
+      "status": "ativo",
+      "categoria": "Achocolatado"
+    },
+    {
+      "id": "c3bb",
+      "nome": "Leite Desnatado",
+      "sku": "4253453",
+      "unidadeMedida": "Unidade",
+      "quantidadeProduto": "1 Litro",
+      "status": "ativo",
+      "categoria": "derivados"
+    },
+    {
+      "id": "8f99",
+      "nome": "Leite Desnatado",
+      "sku": "4253453",
+      "unidadeMedida": "Unidade",
+      "quantidadeProduto": "1 Litro",
+      "status": "ativo",
+      "categoria": "derivados"
+    },
+    {
+      "id": "a665",
+      "nome": "Leite",
+      "sku": "4253453",
+      "unidadeMedida": "Unidade",
+      "quantidadeProduto": "1 Litro",
+      "status": "ativo",
+      "categoria": "derivados"
     }
   ],
   "deposito": [

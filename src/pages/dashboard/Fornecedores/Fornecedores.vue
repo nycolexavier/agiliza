@@ -6,12 +6,14 @@ import type { Fornecedor } from '@/interfaces/Fornecedores/Fornecedor';
 import { removerAcentos } from '@/utils/string/normalize';
 import { ROUTES } from '@/router/utils/routes';
 import { FornecedoresList } from '@/services/fornecedores';
+import PageHeader from '@/components/layouts/PageHeader.vue';
 
 export default defineComponent({
   name: 'FornecedoresPage',
 
   components: {
     Footer,
+    PageHeader,
   },
 
   data() {
@@ -79,22 +81,11 @@ export default defineComponent({
 
 <template>
   <BaseFormContainer>
-    <!-- Cabeçalho -->
-    <v-row class="mb-4" align="center">
-      <v-col cols="12" md="8">
-        <h2>Fornecedores</h2>
-      </v-col>
-
-      <v-col cols="12" md="4" class="text-end">
-        <v-btn variant="outlined" class="me-2" @click="irParaODashboard">
-          Dashboard
-        </v-btn>
-
-        <v-btn color="primary" @click="irParaAddFornecedor">
-          Adicionar fornecedor
-        </v-btn>
-      </v-col>
-    </v-row>
+    <PageHeader
+      title="Fornecedores"
+      actionLabel="Adicionar fornecedor"
+      @action="irParaAddFornecedor"
+    />
 
     <!-- Busca -->
     <v-row class="mb-4">
@@ -111,7 +102,11 @@ export default defineComponent({
 
     <!-- Tabela -->
     <v-card variant="outlined">
-      <v-data-table :items="fornecedoresPaginados" item-key="id">
+      <v-data-table
+        :items="fornecedoresPaginados"
+        item-key="id"
+        hide-default-footer
+      >
         <template #headers>
           <tr>
             <th>Nome</th>

@@ -2,7 +2,7 @@
 import Footer from '@/components/footer/Footer.vue';
 import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
-import { ProdutosPost } from '@/services/Produtos';
+import { ProdutosIDPatch, ProdutosPost } from '@/services/Produtos';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -35,7 +35,7 @@ export default defineComponent({
 
     async enviarForm() {
       try {
-        await ProdutosPost({
+        await ProdutosIDPatch({id, 
           nome: this.form.nome,
           sku: this.form.sku,
           unidadeMedida: this.form.quantidadeMedida,

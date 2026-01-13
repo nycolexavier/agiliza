@@ -2,7 +2,6 @@
 import Footer from '@/components/footer/Footer.vue';
 import type { Usuario } from '@/interfaces/Usuarios/Usuario';
 import { ROUTES } from '@/router/utils/routes';
-import api from '@/services/api';
 import { UsuariosListID } from '@/services/usuarios.services';
 import { defineComponent } from 'vue';
 

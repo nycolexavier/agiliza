@@ -15,5 +15,5 @@ export function ProdutosPost(payload: ProdutosPostDTO) {
   return api.post(`/produtos`, payload);
 }
 export function ProdutosIDPatch(id: string, payload: ProdutosPatchDTO) {
-  return api.get(`/produtos/${id}`);
+  return api.patch(`/produtos/${id}`);
 }

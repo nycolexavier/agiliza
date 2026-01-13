@@ -6,12 +6,14 @@ import type { Movimentacao } from '@/interfaces/Movimentacao';
 import { removerAcentos } from '@/utils/string/normalize';
 import { ROUTES } from '@/router/utils/routes';
 import { MovimentacaoList } from '@/services/movimentacao.services';
+import PageHeader from '@/components/layouts/PageHeader.vue';
 
 export default defineComponent({
   name: 'MovimentacoesPage',
 
   components: {
     Footer,
+    PageHeader,
   },
 
   data() {

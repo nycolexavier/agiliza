@@ -5,12 +5,14 @@ import type { Marca } from '@/interfaces/Marca';
 import { removerAcentos } from '@/utils/string/normalize';
 import { ROUTES } from '@/router/utils/routes';
 import { MarcaList } from '@/services/marca';
+import PageHeader from '@/components/layouts/PageHeader.vue';
 
 export default defineComponent({
   name: 'ProdutosPage',
 
   components: {
     Footer,
+    PageHeader,
   },
 
   data() {
@@ -78,20 +80,11 @@ export default defineComponent({
 
 <template>
   <BaseFormContainer>
-    <!-- Cabeçalho -->
-    <v-row class="mb-4" align="center">
-      <v-col cols="12" md="6">
-        <h2>Marca</h2>
-      </v-col>
-
-      <v-col cols="12" md="6" class="text-end">
-        <v-btn color="primary" class="mr-2" @click="irParaCriarProduto">
-          Adicionar marca
-        </v-btn>
-
-        <v-btn variant="outlined" @click="irParaODashboard"> Dashboard </v-btn>
-      </v-col>
-    </v-row>
+    <PageHeader
+      title="Marca"
+      actionLabel="Adicionar marca"
+      @action="irParaCriarProduto"
+    />
 
     <!-- Busca -->
     <v-text-field
