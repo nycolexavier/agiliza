@@ -6,6 +6,7 @@ import { removerAcentos } from '@/utils/string/normalize';
 import { ROUTES } from '@/router/utils/routes';
 import { MarcaList } from '@/services/marca';
 import PageHeader from '@/components/layouts/PageHeader.vue';
+import SearchInput from '@/components/form/SearchInput.vue';
 
 export default defineComponent({
   name: 'ProdutosPage',
@@ -13,6 +14,7 @@ export default defineComponent({
   components: {
     Footer,
     PageHeader,
+    SearchInput,
   },
 
   data() {
@@ -86,15 +88,7 @@ export default defineComponent({
       @action="irParaCriarProduto"
     />
 
-    <!-- Busca -->
-    <v-text-field
-      v-model="busca"
-      label="Buscar marca pelo nome"
-      variant="outlined"
-      density="compact"
-      clearable
-      class="mb-4"
-    />
+    <SearchInput v-model="busca" label="Buscar marca pelo nome" />
 
     <!-- Tabela -->
     <v-card variant="outlined">

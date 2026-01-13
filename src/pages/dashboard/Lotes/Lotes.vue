@@ -1,12 +1,12 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
 import { defineComponent } from 'vue';
-import api from '@/services/api';
 import type { Lote } from '@/interfaces/Lotes/Lote';
 import { removerAcentos } from '@/utils/string/normalize';
 import { ROUTES } from '@/router/utils/routes';
 import { LoteList } from '@/services/lote';
 import PageHeader from '@/components/layouts/PageHeader.vue';
+import SearchInput from '@/components/form/SearchInput.vue';
 
 export default defineComponent({
   name: 'ProdutosPage',
@@ -14,6 +14,7 @@ export default defineComponent({
   components: {
     Footer,
     PageHeader,
+    SearchInput,
   },
 
   data() {
@@ -79,15 +80,7 @@ export default defineComponent({
   <BaseFormContainer>
     <PageHeader title="Lotes" actionLabel="Adicionar lotes" />
 
-    <!-- Busca -->
-    <v-text-field
-      v-model="busca"
-      label="Buscar por código do lote"
-      variant="outlined"
-      density="compact"
-      clearable
-      class="mb-4"
-    />
+    <SearchInput v-model="busca" label="Buscar por código do lote" />
 
     <!-- Tabela -->
     <v-card variant="outlined">

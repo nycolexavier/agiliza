@@ -1,19 +1,20 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
 import { defineComponent } from 'vue';
-import api from '@/services/api';
 import type { Usuario } from '@/interfaces/Usuarios/Usuario';
 import { removerAcentos } from '@/utils/string/normalize';
 import { ROUTES } from '@/router/utils/routes';
 import { UsuariosList } from '@/services/usuarios.services';
 import PageHeader from '@/components/layouts/PageHeader.vue';
+import SearchInput from '@/components/form/SearchInput.vue';
 
 export default defineComponent({
   name: 'UsuariosPage',
 
   components: {
     Footer,
-    PageHeader
+    PageHeader,
+    SearchInput,
   },
 
   data() {
@@ -94,21 +95,13 @@ export default defineComponent({
 
 <template>
   <v-contatiner fuild>
-    
     <PageHeader
       title="Usuários"
       actionLabel="Adicionar usuário"
       @action="irParaCriarUsuario"
     />
 
-    <v-text-field
-      v-model="busca"
-      label="Buscar usuário pelo nome"
-      variant="outlined"
-      density="compact"
-      clearable
-      class="mb-4"
-    />
+    <SearchInput v-model="busca" label="Buscar usuário pelo nome" />
 
     <v-card variant="outlined">
       <v-data-table :headers="headers" :items="usuariosPaginados">

@@ -1,12 +1,13 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
 import { defineComponent } from 'vue';
-import api from '@/services/api';
 import type { Fornecedor } from '@/interfaces/Fornecedores/Fornecedor';
 import { removerAcentos } from '@/utils/string/normalize';
 import { ROUTES } from '@/router/utils/routes';
 import { FornecedoresList } from '@/services/fornecedores';
 import PageHeader from '@/components/layouts/PageHeader.vue';
+
+import SearchInput from '@/components/form/SearchInput.vue';
 
 export default defineComponent({
   name: 'FornecedoresPage',
@@ -14,6 +15,7 @@ export default defineComponent({
   components: {
     Footer,
     PageHeader,
+    SearchInput,
   },
 
   data() {
@@ -87,18 +89,7 @@ export default defineComponent({
       @action="irParaAddFornecedor"
     />
 
-    <!-- Busca -->
-    <v-row class="mb-4">
-      <v-col cols="12" md="6">
-        <v-text-field
-          v-model="busca"
-          label="Buscar fornecedor pelo nome"
-          variant="outlined"
-          density="compact"
-          clearable
-        />
-      </v-col>
-    </v-row>
+    <SearchInput v-model="busca" label="Buscar fornecedor pelo nome" />
 
     <!-- Tabela -->
     <v-card variant="outlined">

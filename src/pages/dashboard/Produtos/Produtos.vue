@@ -1,7 +1,6 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
 import { defineComponent } from 'vue';
-import api from '@/services/api';
 import type { Produto } from '@/interfaces/Produtos/Produto';
 import { removerAcentos } from '@/utils/string/normalize';
 import { ROUTES } from '@/router/utils/routes';
@@ -87,7 +86,6 @@ export default defineComponent({
       @action="irParaCriarProduto"
     />
 
-    <!-- Busca -->
     <v-text-field
       v-model="busca"
       label="Buscar produto pelo nome"

@@ -1,12 +1,12 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
 import { defineComponent } from 'vue';
-import api from '@/services/api';
 import type { Movimentacao } from '@/interfaces/Movimentacao';
 import { removerAcentos } from '@/utils/string/normalize';
 import { ROUTES } from '@/router/utils/routes';
 import { MovimentacaoList } from '@/services/movimentacao.services';
 import PageHeader from '@/components/layouts/PageHeader.vue';
+import SearchInput from '@/components/form/SearchInput.vue';
 
 export default defineComponent({
   name: 'MovimentacoesPage',
@@ -14,6 +14,7 @@ export default defineComponent({
   components: {
     Footer,
     PageHeader,
+    SearchInput,
   },
 
   data() {
@@ -80,30 +81,15 @@ export default defineComponent({
 
 <template>
   <BaseFormContainer>
-    <!-- Cabeçalho -->
-    <v-row class="mb-4" align="center">
-      <v-col cols="12" md="6">
-        <h2>Movimentações</h2>
-      </v-col>
-
-      <v-col cols="12" md="6" class="text-end">
-        <v-btn color="primary" class="mr-2" @click="irParaCriarMovimentacao">
-          Nova movimentação
-        </v-btn>
-
-        <v-btn variant="outlined" @click="irParaODashboard"> Dashboard </v-btn>
-      </v-col>
-    </v-row>
-
-    <!-- Busca -->
-    <v-text-field
-      v-model="busca"
-      label="Buscar por tipo de movimentação"
-      variant="outlined"
-      density="compact"
-      clearable
-      class="mb-4"
+    <PageHeader
+      title="Movimentações"
+      actionLabel="Nova movimentação"
+      secondaryLabel="Dashboard"
+      @action="irParaCriarMovimentacao"
+      @secondary="irParaODashboard"
     />
+
+    <SearchInput v-model="busca" label="Buscar por tipo de movimentação" />
 
     <!-- Tabela -->
     <v-card variant="outlined">
