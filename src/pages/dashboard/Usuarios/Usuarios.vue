@@ -8,12 +8,14 @@ import { UsuariosList } from '@/services/usuarios.services';
 import PageHeader from '@/components/layouts/PageHeader.vue';
 import SearchInput from '@/components/form/SearchInput.vue';
 import BasePagination from '@/components/base/BasePagination.vue';
+import BaseTable from '@/components/base/BaseTable.vue';
 
 export default defineComponent({
   name: 'UsuariosPage',
 
   components: {
     Footer,
+    BaseTable,
     PageHeader,
     SearchInput,
     BasePagination,
@@ -105,19 +107,12 @@ export default defineComponent({
 
     <SearchInput v-model="busca" label="Buscar usuário pelo nome" />
 
-    <v-card variant="outlined">
-      <v-data-table :headers="headers" :items="usuariosPaginados">
-        <template #item.actions="{ item }">
-          <v-btn
-            size="small"
-            variant="outlined"
-            @click="irParaVerUsuarios(item.id)"
-          >
-            Ver mais
-          </v-btn>
-        </template>
-      </v-data-table>
-    </v-card>
+    <BaseTable
+      :headers="headers"
+      :items="usuariosPaginados"
+      actionLabel="Editar"
+      @action="(item) => irParaVerUsuarios(item.id)"
+    />
 
     <BasePagination
       v-model:paginaAtual="paginaAtual"
