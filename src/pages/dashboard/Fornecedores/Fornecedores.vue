@@ -8,6 +8,7 @@ import { FornecedoresList } from '@/services/fornecedores';
 import PageHeader from '@/components/layouts/PageHeader.vue';
 import BaseTable from '@/components/base/BaseTable.vue';
 import SearchInput from '@/components/form/SearchInput.vue';
+import BasePagination from '@/components/base/BasePagination.vue';
 
 export default defineComponent({
   name: 'FornecedoresPage',
@@ -17,6 +18,7 @@ export default defineComponent({
     PageHeader,
     SearchInput,
     BaseTable,
+    BasePagination,
   },
 
   data() {
@@ -108,27 +110,11 @@ export default defineComponent({
       @action="(item) => irParaFornecedoresEdicao(item.id)"
     />
 
-    <v-row class="mt-4" align="center" justify="center">
-      <v-btn
-        variant="outlined"
-        class="me-4"
-        @click="paginaAtual--"
-        :disabled="paginaAtual === 1"
-      >
-        Anterior
-      </v-btn>
-
-      <span>Página {{ paginaAtual }}</span>
-
-      <v-btn
-        variant="outlined"
-        class="ms-4"
-        @click="paginaAtual++"
-        :disabled="paginaAtual * itensPorPagina >= fornecedorFiltrado.length"
-      >
-        Próximo
-      </v-btn>
-    </v-row>
+    <BasePagination
+      v-model:paginaAtual="paginaAtual"
+      :itensPorPagina="itensPorPagina"
+      :totalItens="fornecedorFiltrado.length"
+    />
 
     <Footer />
   </BaseFormContainer>

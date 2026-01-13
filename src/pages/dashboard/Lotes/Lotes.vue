@@ -8,6 +8,7 @@ import { LoteList } from '@/services/lote';
 import PageHeader from '@/components/layouts/PageHeader.vue';
 import SearchInput from '@/components/form/SearchInput.vue';
 import BaseTable from '@/components/base/BaseTable.vue';
+import BasePagination from '@/components/base/BasePagination.vue';
 
 export default defineComponent({
   name: 'ProdutosPage',
@@ -17,6 +18,7 @@ export default defineComponent({
     PageHeader,
     SearchInput,
     BaseTable,
+    BasePagination,
   },
 
   data() {
@@ -100,26 +102,11 @@ export default defineComponent({
       @action="(item) => irParaOLotesEditar(item.id)"
     />
 
-    <!-- Paginação -->
-    <v-row class="mt-4" justify="center" align="center">
-      <v-btn
-        variant="outlined"
-        @click="paginaAtual--"
-        :disabled="paginaAtual === 1"
-      >
-        Anterior
-      </v-btn>
-
-      <span class="mx-4"> Página {{ paginaAtual }} </span>
-
-      <v-btn
-        variant="outlined"
-        @click="paginaAtual++"
-        :disabled="paginaAtual * itensPorPagina >= lotesFiltrado.length"
-      >
-        Próximo
-      </v-btn>
-    </v-row>
+    <BasePagination
+      v-model:paginaAtual="paginaAtual"
+      :itensPorPagina="itensPorPagina"
+      :totalItens="lotesFiltrado.length"
+    />
 
     <Footer />
   </BaseFormContainer>

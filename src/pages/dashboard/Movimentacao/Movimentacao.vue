@@ -8,6 +8,7 @@ import { MovimentacaoList } from '@/services/movimentacao.services';
 import PageHeader from '@/components/layouts/PageHeader.vue';
 import SearchInput from '@/components/form/SearchInput.vue';
 import BaseTable from '@/components/base/BaseTable.vue';
+import BasePagination from '@/components/base/BasePagination.vue';
 
 export default defineComponent({
   name: 'MovimentacoesPage',
@@ -17,6 +18,7 @@ export default defineComponent({
     BaseTable,
     PageHeader,
     SearchInput,
+    BasePagination,
   },
 
   data() {
@@ -109,28 +111,11 @@ export default defineComponent({
       @action="(item) => irParaMovimentacaoVer(item.id)"
     />
 
-    <!-- Paginação -->
-    <v-row class="mt-4" align="center" justify="center">
-      <v-btn
-        variant="outlined"
-        @click="paginaAtual--"
-        :disabled="paginaAtual === 1"
-      >
-        Anterior
-      </v-btn>
-
-      <span class="mx-4"> Página {{ paginaAtual }} </span>
-
-      <v-btn
-        variant="outlined"
-        @click="paginaAtual++"
-        :disabled="
-          paginaAtual * itensPorPagina >= movimentacoesFiltradas.length
-        "
-      >
-        Próximo
-      </v-btn>
-    </v-row>
+    <BasePagination
+      v-model:paginaAtual="paginaAtual"
+      :itensPorPagina="itensPorPagina"
+      :totalItens="movimentacoesFiltradas.length"
+    />
 
     <Footer />
   </BaseFormContainer>

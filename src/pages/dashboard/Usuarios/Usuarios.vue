@@ -7,6 +7,7 @@ import { ROUTES } from '@/router/utils/routes';
 import { UsuariosList } from '@/services/usuarios.services';
 import PageHeader from '@/components/layouts/PageHeader.vue';
 import SearchInput from '@/components/form/SearchInput.vue';
+import BasePagination from '@/components/base/BasePagination.vue';
 
 export default defineComponent({
   name: 'UsuariosPage',
@@ -15,6 +16,7 @@ export default defineComponent({
     Footer,
     PageHeader,
     SearchInput,
+    BasePagination,
   },
 
   data() {
@@ -117,23 +119,10 @@ export default defineComponent({
       </v-data-table>
     </v-card>
 
-    <v-row class="mt-4" justify="center" align="center">
-      <v-btn
-        variant="outlined"
-        @click="paginaAtual--"
-        :disabled="paginaAtual === 1"
-      >
-        Anterior
-      </v-btn>
-      <span class="mx-4">Página {{ paginaAtual }}</span>
-
-      <v-btn
-        variant="outlined"
-        @click="paginaAtual++"
-        :disabled="paginaAtual * itensPorPagina >= usuariosFiltrados.length"
-      >
-        Próximo
-      </v-btn>
-    </v-row>
+    <BasePagination
+      v-model:paginaAtual="paginaAtual"
+      :itensPorPagina="itensPorPagina"
+      :totalItens="usuariosFiltrados.length"
+    />
   </v-contatiner>
 </template>

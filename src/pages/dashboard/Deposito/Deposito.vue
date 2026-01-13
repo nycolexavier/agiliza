@@ -8,6 +8,7 @@ import { DepositoList } from '@/services/deposito.services';
 import PageHeader from '@/components/layouts/PageHeader.vue';
 import SearchInput from '@/components/form/SearchInput.vue';
 import BaseTable from '@/components/base/BaseTable.vue';
+import BasePagination from '@/components/base/BasePagination.vue';
 
 export default defineComponent({
   name: 'DepositoPage',
@@ -17,6 +18,7 @@ export default defineComponent({
     BaseTable,
     PageHeader,
     SearchInput,
+    BasePagination,
   },
 
   data() {
@@ -106,28 +108,11 @@ export default defineComponent({
       @action="(item) => irParaDepositoVer(item.id)"
     />
 
-    <!-- Paginação -->
-    <v-row class="mt-4" align="center" justify="center">
-      <v-btn
-        variant="outlined"
-        class="me-2"
-        @click="paginaAtual--"
-        :disabled="paginaAtual === 1"
-      >
-        Anterior
-      </v-btn>
-
-      <span>Página {{ paginaAtual }}</span>
-
-      <v-btn
-        variant="outlined"
-        class="ms-2"
-        @click="paginaAtual++"
-        :disabled="paginaAtual * itensPorPagina >= depositoFiltrado.length"
-      >
-        Próximo
-      </v-btn>
-    </v-row>
+    <BasePagination
+      v-model:paginaAtual="paginaAtual"
+      :itensPorPagina="itensPorPagina"
+      :totalItens="depositoFiltrado.length"
+    />
 
     <Footer />
   </BaseFormContainer>

@@ -8,6 +8,7 @@ import { MarcaList } from '@/services/marca';
 import PageHeader from '@/components/layouts/PageHeader.vue';
 import SearchInput from '@/components/form/SearchInput.vue';
 import BaseTable from '@/components/base/BaseTable.vue';
+import BasePagination from '@/components/base/BasePagination.vue';
 
 export default defineComponent({
   name: 'ProdutosPage',
@@ -17,6 +18,7 @@ export default defineComponent({
     BaseTable,
     PageHeader,
     SearchInput,
+    BasePagination,
   },
 
   data() {
@@ -42,10 +44,10 @@ export default defineComponent({
       const inicio = (this.paginaAtual - 1) * this.itensPorPagina;
       const fim = inicio + this.itensPorPagina;
 
-      return this.produtoFiltrado.slice(inicio, fim);
+      return this.marcaFiltrada.slice(inicio, fim);
     },
 
-    produtoFiltrado(): Marca[] {
+    marcaFiltrada(): Marca[] {
       if (!this.busca) {
         return this.marca;
       }
@@ -107,26 +109,11 @@ export default defineComponent({
       @action="(item) => irParaProdutosVer(item.id)"
     />
 
-    <!-- Paginação -->
-    <v-row class="mt-4" align="center" justify="center">
-      <v-btn
-        variant="outlined"
-        @click="paginaAtual--"
-        :disabled="paginaAtual === 1"
-      >
-        Anterior
-      </v-btn>
-
-      <span class="mx-4"> Página {{ paginaAtual }} </span>
-
-      <v-btn
-        variant="outlined"
-        @click="paginaAtual++"
-        :disabled="paginaAtual * itensPorPagina >= produtoFiltrado.length"
-      >
-        Próximo
-      </v-btn>
-    </v-row>
+    <BasePagination
+      v-model:paginaAtual="paginaAtual"
+      :itensPorPagina="itensPorPagina"
+      :totalItens="marcaFiltrada.length"
+    />
 
     <Footer />
   </BaseFormContainer>
