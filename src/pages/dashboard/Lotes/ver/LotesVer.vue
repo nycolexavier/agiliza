@@ -1,13 +1,11 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
 import type { Lote } from '@/interfaces/Lotes/Lote';
-import router from '@/router';
 import { ROUTES } from '@/router/utils/routes';
-import api from '@/services/api';
 import { LoteListID } from '@/services/lote';
 import { computed, defineComponent } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
 import PageHeader from '@/components/layouts/PageHeader.vue';
+import DetailsCard from '@/components/card/DetailsCard.vue';
 
 export default defineComponent({
   name: 'LotesVerPage',
@@ -15,6 +13,7 @@ export default defineComponent({
   components: {
     Footer,
     PageHeader,
+    DetailsCard,
   },
 
   data(vm) {
@@ -60,42 +59,16 @@ export default defineComponent({
       @action="irParaLotesEditar"
     />
 
-    <!-- Card com dados -->
-    <v-card variant="outlined">
-      <v-card-text>
-        <v-row>
-          <v-col cols="12" md="6">
-            <strong>ID</strong>
-            <div>{{ lote?.id }}</div>
-          </v-col>
-
-          <v-col cols="12" md="6">
-            <strong>Código do lote</strong>
-            <div>{{ lote?.codigoLote }}</div>
-          </v-col>
-
-          <v-col cols="12" md="6">
-            <strong>Marca</strong>
-            <div>{{ lote?.marca }}</div>
-          </v-col>
-
-          <v-col cols="12" md="6">
-            <strong>Produto</strong>
-            <div>{{ lote?.produto }}</div>
-          </v-col>
-
-          <v-col cols="12" md="6">
-            <strong>Status</strong>
-            <div>{{ lote?.status }}</div>
-          </v-col>
-
-          <v-col cols="12" md="6">
-            <strong>Data de validade</strong>
-            <div>{{ lote?.dataValidade }}</div>
-          </v-col>
-        </v-row>
-      </v-card-text>
-    </v-card>
+    <DetailsCard
+      :items="[
+        { label: 'Nome', value: lote?.id },
+        { label: 'Código Lote', value: lote?.codigoLote },
+        { label: 'Marca', value: lote?.marca },
+        { label: 'Produto', value: lote?.produto },
+        { label: 'Status', value: lote?.status },
+        { label: 'Data de validade', value: lote?.dataValidade },
+      ]"
+    />
 
     <Footer class="mt-6" />
   </BaseFormContainer>

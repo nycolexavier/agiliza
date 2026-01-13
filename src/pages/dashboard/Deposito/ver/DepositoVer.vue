@@ -2,10 +2,10 @@
 import Footer from '@/components/footer/Footer.vue';
 import type { Deposito } from '@/interfaces/Deposito/Deposito';
 import { ROUTES } from '@/router/utils/routes';
-import api from '@/services/api';
 import { DepositoListID } from '@/services/deposito.services';
 import { defineComponent } from 'vue';
 import PageHeader from '@/components/layouts/PageHeader.vue';
+import DetailsCard from '@/components/card/DetailsCard.vue';
 
 export default defineComponent({
   name: 'DepositoVerPage',
@@ -13,6 +13,7 @@ export default defineComponent({
   components: {
     Footer,
     PageHeader,
+    DetailsCard,
   },
 
   data() {
@@ -50,53 +51,24 @@ export default defineComponent({
 
 <template>
   <BaseFormContainer>
-    <!-- Cabeçalho -->
-    <v-row align="center" class="mb-4">
-      <v-col cols="12" md="6">
-        <h2>Depósito #{{ deposito?.id }}</h2>
-      </v-col>
+    <PageHeader
+      :title="`Depósito #${deposito?.id}`"
+      showBack
+      backLabel="Voltar para depósitos"
+      actionLabel="Editar depósito"
+      :actionDisabled="!deposito"
+      @back="irParaoDeposito"
+      @action="irParaODepositoEditar"
+    />
 
-      <v-col cols="12" md="6" class="text-end">
-        <v-btn variant="outlined" class="me-2" @click="irParaoDeposito">
-          Voltar para depósitos
-        </v-btn>
-
-        <v-btn
-          color="primary"
-          @click="irParaODepositoEditar"
-          :disabled="!deposito"
-        >
-          Editar depósito
-        </v-btn>
-      </v-col>
-    </v-row>
-
-    <!-- Card de informações -->
-    <v-card variant="outlined">
-      <v-card-text>
-        <v-row>
-          <v-col cols="12" md="6">
-            <strong>Corredor</strong>
-            <div>{{ deposito?.corredor }}</div>
-          </v-col>
-
-          <v-col cols="12" md="6">
-            <strong>Prateleira</strong>
-            <div>{{ deposito?.prateleira }}</div>
-          </v-col>
-
-          <v-col cols="12" md="6">
-            <strong>Sessão</strong>
-            <div>{{ deposito?.sessao }}</div>
-          </v-col>
-
-          <v-col cols="12" md="6">
-            <strong>Quantidade máxima</strong>
-            <div>{{ deposito?.quantidadeMaxima }}</div>
-          </v-col>
-        </v-row>
-      </v-card-text>
-    </v-card>
+    <DetailsCard
+      :items="[
+        { label: 'Nome', value: deposito?.corredor },
+        { label: 'Cargo', value: deposito?.prateleira },
+        { label: 'E-mail', value: deposito?.sessao },
+        { label: 'Telefone', value: deposito?.quantidadeMaxima },
+      ]"
+    />
 
     <Footer />
   </BaseFormContainer>

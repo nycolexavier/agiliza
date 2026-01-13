@@ -1,7 +1,6 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
 import { ROUTES } from '@/router/utils/routes';
-import api from '@/services/api';
 import { DepositoPost } from '@/services/deposito.services';
 import { defineComponent } from 'vue';
 import PageHeader from '@/components/layouts/PageHeader.vue';

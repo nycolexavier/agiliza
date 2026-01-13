@@ -2,10 +2,10 @@
 import Footer from '@/components/footer/Footer.vue';
 import type { Marca } from '@/interfaces/Marca';
 import { ROUTES } from '@/router/utils/routes';
-import api from '@/services/api';
 import { MarcaListID } from '@/services/marca';
 import { defineComponent } from 'vue';
 import PageHeader from '@/components/layouts/PageHeader.vue';
+import DetailsCard from '@/components/card/DetailsCard.vue';
 
 export default defineComponent({
   name: 'MarcaVerPage',
@@ -13,6 +13,7 @@ export default defineComponent({
   components: {
     Footer,
     PageHeader,
+    DetailsCard,
   },
 
   data() {
@@ -26,11 +27,11 @@ export default defineComponent({
   },
 
   methods: {
-    irParaOsProdutos() {
+    irParaOsMarca() {
       this.$router.push(ROUTES.marca.list);
     },
 
-    irParaProdutosEditar() {
+    irParaMarcaEditar() {
       if (!this.marca) return;
       this.$router.push(ROUTES.marca.editar(this.marca.id));
     },
@@ -54,26 +55,16 @@ export default defineComponent({
       backLabel="Voltar para marcas"
       actionLabel="Editar marca"
       :actionDisabled="!marca"
-      @back="irParaOsProdutos"
-      @action="irParaProdutosEditar"
+      @back="irParaOsMarca"
+      @action="irParaMarcaEditar"
     />
 
-    <!-- Card de informações -->
-    <v-card variant="outlined">
-      <v-card-text>
-        <v-row>
-          <v-col cols="12" md="4">
-            <strong>ID</strong>
-            <div>{{ marca?.id }}</div>
-          </v-col>
-
-          <v-col cols="12" md="4">
-            <strong>Nome</strong>
-            <div>{{ marca?.nome }}</div>
-          </v-col>
-        </v-row>
-      </v-card-text>
-    </v-card>
+    <DetailsCard
+      :items="[
+        { label: 'ID', value: marca?.id },
+        { label: 'Nome', value: marca?.nome },
+      ]"
+    />
 
     <Footer />
   </BaseFormContainer>

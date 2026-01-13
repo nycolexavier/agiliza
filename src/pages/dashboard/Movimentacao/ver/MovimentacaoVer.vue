@@ -7,12 +7,14 @@ import { ROUTES } from '@/router/utils/routes';
 import { MovimentacaoList } from '@/services/movimentacao.services';
 import PageHeader from '@/components/layouts/PageHeader.vue';
 import SearchInput from '@/components/form/SearchInput.vue';
+import DetailsCard from '@/components/card/DetailsCard.vue';
 
 export default defineComponent({
   name: 'MovimentacoesPage',
 
   components: {
     Footer,
+    DetailsCard,
     PageHeader,
     SearchInput,
   },
