@@ -6,12 +6,13 @@ import api from '@/services/api';
 import { ProdutosListID, ProdutosPost } from '@/services/Produtos';
 import { UsuariosIDPatch } from '@/services/usuarios.services';
 import { defineComponent } from 'vue';
+import PageHeader from '@/components/layouts/PageHeader.vue';
 
 export default defineComponent({
   name: 'ProdutosEditarPage',
 
   components: {
-    Footer,
+    Footer,PageHeader
   },
 
   data(vm) {

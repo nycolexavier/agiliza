@@ -7,12 +7,14 @@ import api from '@/services/api';
 import { LoteListID } from '@/services/lote';
 import { computed, defineComponent } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import PageHeader from '@/components/layouts/PageHeader.vue';
 
 export default defineComponent({
   name: 'LotesVerPage',
 
   components: {
     Footer,
+    PageHeader,
   },
 
   data(vm) {
@@ -48,27 +50,15 @@ export default defineComponent({
 
 <template>
   <BaseFormContainer>
-    <!-- Cabeçalho -->
-    <v-row align="center" class="mb-4">
-      <v-col cols="12" md="6">
-        <h2>Lote {{ lote?.id }}</h2>
-      </v-col>
-
-      <v-col cols="12" md="6" class="text-end">
-        <v-btn variant="outlined" class="mr-2" @click="irParaOsLotes">
-          Voltar para Lotes
-        </v-btn>
-
-        <v-btn
-          variant="flat"
-          color="primary"
-          :disabled="!lote"
-          @click="irParaLotesEditar"
-        >
-          Editar
-        </v-btn>
-      </v-col>
-    </v-row>
+    <PageHeader
+      :title="`Lote ${lote?.id}`"
+      showBack
+      backLabel="Voltar para Lotes"
+      actionLabel="Editar"
+      :actionDisabled="!lote"
+      @back="irParaOsLotes"
+      @action="irParaLotesEditar"
+    />
 
     <!-- Card com dados -->
     <v-card variant="outlined">

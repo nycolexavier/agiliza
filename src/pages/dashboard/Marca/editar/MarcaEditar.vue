@@ -6,12 +6,13 @@ import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
 import { MarcaPost } from '@/services/marca';
 import { defineComponent, reactive } from 'vue';
+import PageHeader from '@/components/layouts/PageHeader.vue';
 
 export default defineComponent({
   name: 'MarcaCriarPage',
 
   components: {
-    Footer,
+    Footer,PageHeader
     BaseSnackbar,
   },
 

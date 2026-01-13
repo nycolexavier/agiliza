@@ -6,12 +6,14 @@ import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
 import { MarcaPost } from '@/services/marca';
 import { defineComponent, reactive } from 'vue';
+import PageHeader from '@/components/layouts/PageHeader.vue';
 
 export default defineComponent({
   name: 'MarcaCriarPage',
 
   components: {
     Footer,
+    PageHeader,
     BaseSnackbar,
   },
 
@@ -59,15 +61,7 @@ export default defineComponent({
 
 <template>
   <BaseFormContainer>
-    <v-row>
-      <v-col>
-        <h2>Editar marca</h2>
-      </v-col>
-
-      <v-col cols="12" md="4" class="text-end">
-        <v-btn variant="outlined" @click="irParaMarca"> Voltar </v-btn>
-      </v-col>
-    </v-row>
+    <PageHeader title="Editar marca" showBack @back="irParaMarca" />
 
     <v-card variant="outlined">
       <v-card-text>

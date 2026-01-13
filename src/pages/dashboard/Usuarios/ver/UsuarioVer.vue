@@ -4,12 +4,14 @@ import type { Usuario } from '@/interfaces/Usuarios/Usuario';
 import { ROUTES } from '@/router/utils/routes';
 import { UsuariosListID } from '@/services/usuarios.services';
 import { defineComponent } from 'vue';
+import PageHeader from '@/components/layouts/PageHeader.vue';
 
 export default defineComponent({
   name: 'UsuariosVerPage',
 
   components: {
     Footer,
+    PageHeader,
   },
 
   data() {

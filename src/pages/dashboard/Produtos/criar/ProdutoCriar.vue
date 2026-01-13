@@ -4,12 +4,14 @@ import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
 import { ProdutosIDPatch, ProdutosPost } from '@/services/Produtos';
 import { defineComponent } from 'vue';
+import PageHeader from '@/components/layouts/PageHeader.vue';
 
 export default defineComponent({
   name: 'ProdutoCriarPage',
 
   components: {
     Footer,
+    PageHeader,
   },
 
   data() {
@@ -35,7 +37,8 @@ export default defineComponent({
 
     async enviarForm() {
       try {
-        await ProdutosIDPatch({id, 
+        await ProdutosIDPatch({
+          id,
           nome: this.form.nome,
           sku: this.form.sku,
           unidadeMedida: this.form.quantidadeMedida,

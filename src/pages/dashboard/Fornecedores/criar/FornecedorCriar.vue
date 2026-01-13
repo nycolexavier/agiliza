@@ -6,12 +6,14 @@ import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
 import { FornecedoresPost } from '@/services/fornecedores';
 import { defineComponent, reactive } from 'vue';
+import PageHeader from '@/components/layouts/PageHeader.vue';
 
 export default defineComponent({
   name: 'FornecedorCriarPage',
 
   components: {
     Footer,
+    PageHeader,
     BaseSnackbar,
   },
 

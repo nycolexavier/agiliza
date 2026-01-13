@@ -5,12 +5,14 @@ import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
 import { DepositoListID } from '@/services/deposito.services';
 import { defineComponent } from 'vue';
+import PageHeader from '@/components/layouts/PageHeader.vue';
 
 export default defineComponent({
   name: 'DepositoVerPage',
 
   components: {
     Footer,
+    PageHeader,
   },
 
   data() {

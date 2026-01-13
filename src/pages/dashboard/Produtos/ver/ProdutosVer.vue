@@ -5,12 +5,14 @@ import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
 import { ProdutosListID } from '@/services/Produtos';
 import { defineComponent } from 'vue';
+import PageHeader from '@/components/layouts/PageHeader.vue';
 
 export default defineComponent({
   name: 'ProdutosVerPage',
 
   components: {
     Footer,
+    PageHeader,
   },
 
   data() {

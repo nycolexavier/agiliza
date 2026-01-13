@@ -5,12 +5,14 @@ import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
 import { FornecedoresListID } from '@/services/fornecedores';
 import { defineComponent } from 'vue';
+import PageHeader from '@/components/layouts/PageHeader.vue';
 
 export default defineComponent({
   name: 'FornecedorVerPage',
 
   components: {
     Footer,
+    PageHeader,
   },
 
   data() {
@@ -46,20 +48,12 @@ export default defineComponent({
 
 <template>
   <BaseFormContainer>
-    <v-row>
-      <v-col>
-        <h2>Fornecedor</h2>
-        <p v-if="fornecedorEdicao" class="text-medium-emphasis">
-          {{ fornecedorEdicao?.nome }}
-        </p>
-      </v-col>
-
-      <v-col cols="12" md="4" class="text-end">
-        <v-btn variant="outlined" @click="irParaOFornecedor"> Voltar </v-btn>
-      </v-col>
-    </v-row>
-
-    <!-- Card de visualização -->
+    <PageHeader
+      title=" Fornecedor"
+      :subtitle="fornecedorEdicao?.nome"
+      :show-back="true"
+      @back="irParaOFornecedor"
+    />
 
     <v-card variant="outlined">
       <v-card-text>

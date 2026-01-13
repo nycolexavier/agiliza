@@ -5,12 +5,14 @@ import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
 import { UsuariosPost } from '@/services/usuarios.services';
 import { defineComponent } from 'vue';
+import PageHeader from '@/components/layouts/PageHeader.vue';
 
 export default defineComponent({
   name: 'UsuarioCriarPage',
 
   components: {
     Footer,
+    PageHeader,
   },
 
   data() {

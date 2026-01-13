@@ -4,12 +4,14 @@ import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
 import { DepositoPost } from '@/services/deposito.services';
 import { defineComponent } from 'vue';
+import PageHeader from '@/components/layouts/PageHeader.vue';
 
 export default defineComponent({
   name: 'DepositoCriarPage',
 
   components: {
     Footer,
+    PageHeader,
   },
 
   data() {

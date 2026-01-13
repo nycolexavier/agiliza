@@ -5,13 +5,14 @@ import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
 import { UsuariosIDPatch, UsuariosListID } from '@/services/usuarios.services';
 import { defineComponent } from 'vue';
-import { toPhysical } from 'vuetify/lib/util/anchor.mjs';
+import PageHeader from '@/components/layouts/PageHeader.vue';
 
 export default defineComponent({
   name: 'UsuarioEditarPage',
 
   components: {
     Footer,
+    PageHeader,
   },
 
   data(vm) {

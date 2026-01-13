@@ -4,12 +4,13 @@ import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
 import { MovimentacaoPost } from '@/services/movimentacao.services';
 import { defineComponent } from 'vue';
+import PageHeader from '@/components/layouts/PageHeader.vue';
 
 export default defineComponent({
   name: 'MovimentacaoCriarPage',
 
   components: {
-    Footer,
+    Footer,PageHeader
   },
 
   data() {

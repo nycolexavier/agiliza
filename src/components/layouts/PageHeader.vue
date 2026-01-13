@@ -10,21 +10,42 @@ export default defineComponent({
       type: String,
       required: true,
     },
+
+    subtitle: {
+      type: String,
+      required: false,
+    },
+
     actionLabel: {
       type: String,
-      required: true,
+      required: false,
+    },
+
+    actionDisabled: {
+      type: Boolean,
+      default: false,
+    },
+
+    showBack: {
+      type: Boolean,
+      default: false,
+    },
+
+    backLabel: {
+      type: String,
+      default: 'Voltar',
     },
   },
 
-  emits: ['action'],
+  emits: ['action', 'back'],
 
   methods: {
-    irParaDashboard() {
-      this.$router.push(ROUTES.dashboard);
-    },
-
     executarAcao() {
       this.$emit('action');
+    },
+
+    voltar() {
+      this.$emit('back');
     },
   },
 });
@@ -32,16 +53,32 @@ export default defineComponent({
 
 <template>
   <v-row align="center" class="mb-4">
+    <!-- TÍTULO -->
     <v-col cols="12" md="6">
       <h2>{{ title }}</h2>
+
+      <p v-if="subtitle" class="text-medium-emphasis">
+        {{ subtitle }}
+      </p>
     </v-col>
 
+    <!-- BOTÕES -->
     <v-col cols="12" md="6" class="text-end">
-      <v-btn variant="outlined" class="me-2" @click="irParaDashboard">
-        Dashboard
+      <v-btn
+        v-if="showBack"
+        variant="outlined"
+        class="me-2"
+        @click="voltar"
+      >
+        {{ backLabel }}
       </v-btn>
 
-      <v-btn color="primary" @click="executarAcao">
+      <v-btn
+        v-if="actionLabel"
+        color="primary"
+        :disabled="actionDisabled"
+        @click="executarAcao"
+      >
         {{ actionLabel }}
       </v-btn>
     </v-col>

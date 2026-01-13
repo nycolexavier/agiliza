@@ -5,12 +5,15 @@ import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
 import { LoteIDPatch, LoteListID } from '@/services/lote';
 import { defineComponent } from 'vue';
+import PageHeader from '@/components/layouts/PageHeader.vue';
+
 // to-do: fazer o create do lote e colocar o quantidadeProduto nele
 export default defineComponent({
   name: 'ProdutosEditarPage',
 
   components: {
     Footer,
+    PageHeader,
   },
 
   data(vm) {
@@ -78,18 +81,12 @@ export default defineComponent({
 
 <template>
   <BaseFormContainer>
-    <!-- Cabeçalho -->
-    <v-row align="center" class="mb-4">
-      <v-col cols="12" md="6">
-        <h2>Editar lote {{ lote?.id }}</h2>
-      </v-col>
-
-      <v-col cols="12" md="6" class="text-end">
-        <v-btn variant="outlined" @click="irParaOProduto">
-          Voltar para ver o lote
-        </v-btn>
-      </v-col>
-    </v-row>
+    <PageHeader
+      :title="`Editar lote ${lote?.id}`"
+      showBack
+      backLabel="Voltar para ver o lote"
+      @back="irParaOProduto"
+    />
 
     <!-- Card do formulário -->
     <v-card variant="outlined">

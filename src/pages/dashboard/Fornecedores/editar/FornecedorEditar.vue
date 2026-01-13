@@ -7,12 +7,14 @@ import {
   FornecedoresListID,
 } from '@/services/fornecedores';
 import { defineComponent } from 'vue';
+import PageHeader from '@/components/layouts/PageHeader.vue';
 
 export default defineComponent({
   name: 'FornecedorEditarPage',
 
   components: {
     Footer,
+    PageHeader,
   },
 
   data(vm) {
@@ -73,18 +75,12 @@ export default defineComponent({
 
 <template>
   <BaseFormContainer>
-    <v-row class="mb-4" align="center">
-      <v-col cols="12" md="8">
-        <h2>Editar fornecedor</h2>
-        <p v-if="fornecedor" class="text-medium-emphasis">
-          {{ fornecedor?.nome }}
-        </p>
-      </v-col>
-    </v-row>
-
-    <v-col cols="12" md="4" class="text-end">
-      <v-btn variant="outlined" @click="irParaOFornecedor"> Voltar </v-btn>
-    </v-col>
+    <PageHeader
+      title="Editar fornecedor"
+      :subtitle="fornecedor?.nome"
+      :showBack="true"
+      @back="irParaOFornecedor"
+    />
 
     <v-card variant="outlined">
       <v-card-text>

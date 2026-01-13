@@ -5,12 +5,14 @@ import { ROUTES } from '@/router/utils/routes';
 import api from '@/services/api';
 import { MarcaListID } from '@/services/marca';
 import { defineComponent } from 'vue';
+import PageHeader from '@/components/layouts/PageHeader.vue';
 
 export default defineComponent({
   name: 'MarcaVerPage',
 
   components: {
     Footer,
+    PageHeader,
   },
 
   data() {
@@ -46,22 +48,15 @@ export default defineComponent({
 
 <template>
   <BaseFormContainer>
-    <!-- Cabeçalho -->
-    <v-row align="center" class="mb-4">
-      <v-col cols="12" md="6">
-        <h2>Marca: {{ marca?.nome }}</h2>
-      </v-col>
-
-      <v-col cols="12" md="6" class="text-end">
-        <v-btn variant="outlined" class="mr-2" @click="irParaOsProdutos">
-          Voltar para marcas
-        </v-btn>
-
-        <v-btn color="primary" :disabled="!marca" @click="irParaProdutosEditar">
-          Editar marca
-        </v-btn>
-      </v-col>
-    </v-row>
+    <PageHeader
+      :title="`Marca: ${marca?.nome}`"
+      showBack
+      backLabel="Voltar para marcas"
+      actionLabel="Editar marca"
+      :actionDisabled="!marca"
+      @back="irParaOsProdutos"
+      @action="irParaProdutosEditar"
+    />
 
     <!-- Card de informações -->
     <v-card variant="outlined">

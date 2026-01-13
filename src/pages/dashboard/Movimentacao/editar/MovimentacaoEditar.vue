@@ -9,12 +9,13 @@ import {
 } from '@/services/movimentacao.services';
 import { defineComponent } from 'vue';
 import { id } from 'vuetify/locale';
+import PageHeader from '@/components/layouts/PageHeader.vue';
 
 export default defineComponent({
   name: 'MovimentacoesEditarPage',
 
   components: {
-    Footer,
+    Footer,PageHeader
   },
 
   data() {
