@@ -8,6 +8,8 @@ import { defineComponent } from 'vue';
 import PageHeader from '@/components/layouts/PageHeader.vue';
 import CreateFormCard from '@/components/form/CreateFormCard.vue';
 import { emailRules } from '@/utils/validators/emailRules';
+import { CARGOS } from '@/interfaces/Cargo';
+import type { Cargo } from '@/interfaces/Usuarios/Usuario';
 
 export default defineComponent({
   name: 'FornecedorCriarPage',
@@ -21,10 +23,11 @@ export default defineComponent({
 
   data() {
     return {
+      cargos: CARGOS,
       emailRules,
       form: {
         nome: '',
-        cargo: '',
+        cargo: '' as Cargo,
         email: '',
         status: 'ativo',
         telefone: '',
@@ -91,11 +94,13 @@ export default defineComponent({
       </v-col>
 
       <v-col cols="12" md="6">
-        <v-text-field
+        <v-select
           v-model="form.cargo"
+          :items="cargos"
           label="Cargo"
           variant="outlined"
           required
+          :rules="[(v) => !!v || 'Cargo é obrigatório']"
         />
       </v-col>
 

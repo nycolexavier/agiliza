@@ -6,6 +6,7 @@ import { UsuariosIDPatch, UsuariosListID } from '@/services/usuarios.services';
 import { defineComponent } from 'vue';
 import PageHeader from '@/components/layouts/PageHeader.vue';
 import FormCard from '@/components/form/FormCard.vue';
+import { emailRules } from '@/utils/validators/emailRules';
 
 export default defineComponent({
   name: 'UsuarioEditarPage',
@@ -19,6 +20,9 @@ export default defineComponent({
   data(vm) {
     return {
       usuario: null as Usuario | null,
+
+      emailRules,
+
       form: {
         nome: '',
         cargo: '',
@@ -99,7 +103,7 @@ export default defineComponent({
           <v-text-field
             v-model="form.email"
             label="E-mail"
-            type="email"
+            :rules="emailRules"
             variant="outlined"
           />
         </v-col>

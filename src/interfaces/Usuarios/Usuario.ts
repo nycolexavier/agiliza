@@ -1,4 +1,4 @@
-export type Cargo = 'admin' | 'gerente' | 'funcionario' | 'fornecedor';
+import type { Cargo } from "../Cargo";
 
 export interface Usuario {
   id: string;
