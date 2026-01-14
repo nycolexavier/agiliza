@@ -6,6 +6,7 @@ import { ROUTES } from '@/router/utils/routes';
 import { MarcaPost } from '@/services/marca';
 import { defineComponent } from 'vue';
 import PageHeader from '@/components/layouts/PageHeader.vue';
+import CreateFormCard from '@/components/form/CreateFormCard.vue';
 
 export default defineComponent({
   name: 'MarcaCriarPage',
@@ -14,6 +15,7 @@ export default defineComponent({
     Footer,
     PageHeader,
     BaseSnackbar,
+    CreateFormCard,
   },
 
   data() {
@@ -60,29 +62,23 @@ export default defineComponent({
 
 <template>
   <BaseFormContainer>
-    <PageHeader title="Editar marca" showBack @back="irParaMarca" />
+    <PageHeader title="Criar marca" showBack @back="irParaMarca" />
 
-    <FormCard @submit="enviarForm">
-      <v-row>
-        <v-col cols="12" md="6">
-          <v-text-field
-            v-model="form.nome"
-            label="Nome"
-            variant="outlined"
-            required
-            :rules="[(v) => !!v || 'Nome é obrigatório']"
-          />
-        </v-col>
-      </v-row>
-
-      <template #actions>
-        <v-btn variant="outlined" @click="irParaMarca"> Cancelar </v-btn>
-
-        <v-btn color="primary" type="submit" :disabled="!form.nome">
-          Criar marca
-        </v-btn>
-      </template>
-    </FormCard>
+    <CreateFormCard
+      submitLabel="Criar marca"
+      :disabled="!form.nome"
+      @submit="enviarForm"
+    >
+      <v-col cols="12" md="6">
+        <v-text-field
+          v-model="form.nome"
+          label="Nome"
+          variant="outlined"
+          required
+          :rules="[(v) => !!v || 'Nome é obrigatório']"
+        />
+      </v-col>
+    </CreateFormCard>
 
     <BaseSnackbar
       v-model="snackbar"

@@ -2,7 +2,6 @@
 import Footer from '@/components/footer/Footer.vue';
 import type { Lote } from '@/interfaces/Lotes/Lote';
 import { ROUTES } from '@/router/utils/routes';
-import api from '@/services/api';
 import { LoteIDPatch, LoteListID } from '@/services/lote';
 import { defineComponent } from 'vue';
 import PageHeader from '@/components/layouts/PageHeader.vue';
@@ -88,7 +87,6 @@ export default defineComponent({
       @back="irParaOProduto"
     />
 
-    <!-- Card do formulário -->
     <v-card variant="outlined">
       <v-card-text>
         <v-form @submit.prevent="enviarForm">
@@ -145,7 +143,6 @@ export default defineComponent({
             </v-col>
           </v-row>
 
-          <!-- Ações -->
           <v-row class="mt-4">
             <v-col cols="12" class="text-end">
               <v-btn

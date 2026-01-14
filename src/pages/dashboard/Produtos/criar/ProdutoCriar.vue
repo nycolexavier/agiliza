@@ -4,6 +4,7 @@ import { ROUTES } from '@/router/utils/routes';
 import { ProdutosIDPatch } from '@/services/Produtos';
 import { defineComponent } from 'vue';
 import PageHeader from '@/components/layouts/PageHeader.vue';
+import CreateFormCard from '@/components/form/CreateFormCard.vue';
 
 export default defineComponent({
   name: 'ProdutoCriarPage',
@@ -11,6 +12,7 @@ export default defineComponent({
   components: {
     Footer,
     PageHeader,
+    CreateFormCard,
   },
 
   data() {
@@ -70,66 +72,52 @@ export default defineComponent({
       @back="irParaOProduto"
     />
 
-    <v-card variant="outlined">
-      <v-card-text>
-        <v-form @submit.prevent="enviarForm">
-          <v-row>
-            <v-col cols="12" md="6">
-              <v-text-field v-model="form.nome" label="Nome" required />
-            </v-col>
+    <CreateFormCard
+      submitLabel="Criar produto"
+      :disabled="
+        !form.nome ||
+        !form.categoria ||
+        !form.quantidadeMedida ||
+        !form.quantidadeProduto ||
+        !form.sku
+      "
+      @submit="enviarForm"
+    >
+      <v-col cols="12" md="6">
+        <v-text-field v-model="form.nome" label="Nome" required />
+      </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field v-model="form.sku" label="SKU" required />
-            </v-col>
+      <v-col cols="12" md="6">
+        <v-text-field v-model="form.sku" label="SKU" required />
+      </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="form.quantidadeMedida"
-                label="Quantidade de medida"
-                required
-                :rules="[(v) => !!v || 'Quantidade de medida é obrigatório']"
-              />
-            </v-col>
+      <v-col cols="12" md="6">
+        <v-text-field
+          v-model="form.quantidadeMedida"
+          label="Quantidade de medida"
+          required
+          :rules="[(v) => !!v || 'Quantidade de medida é obrigatório']"
+        />
+      </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="form.quantidadeProduto"
-                label="Quantidade de produto"
-                required
-                :rules="[(v) => !!v || 'Quantidade de produto é obrigatório']"
-              />
-            </v-col>
+      <v-col cols="12" md="6">
+        <v-text-field
+          v-model="form.quantidadeProduto"
+          label="Quantidade de produto"
+          required
+          :rules="[(v) => !!v || 'Quantidade de produto é obrigatório']"
+        />
+      </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="form.categoria"
-                label="Categoria"
-                required
-                :rules="[(v) => !!v || 'Categoria é obrigatório']"
-              />
-            </v-col>
-          </v-row>
-
-          <v-row class="mt-4">
-            <v-col cols="12" class="text-end">
-              <v-btn
-                type="submit"
-                color="primary"
-                :disabled="
-                  !form.nome ||
-                  !form.categoria ||
-                  !form.quantidadeMedida ||
-                  !form.quantidadeProduto ||
-                  !form.sku
-                "
-              >
-                Criar produto
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-form>
-      </v-card-text>
-    </v-card>
+      <v-col cols="12" md="6">
+        <v-text-field
+          v-model="form.categoria"
+          label="Categoria"
+          required
+          :rules="[(v) => !!v || 'Categoria é obrigatório']"
+        />
+      </v-col>
+    </CreateFormCard>
 
     <v-snackbar
       v-model="snackbar"

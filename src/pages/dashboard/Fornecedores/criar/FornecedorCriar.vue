@@ -6,6 +6,7 @@ import { ROUTES } from '@/router/utils/routes';
 import { FornecedoresPost } from '@/services/fornecedores';
 import { defineComponent } from 'vue';
 import PageHeader from '@/components/layouts/PageHeader.vue';
+import CreateFormCard from '@/components/form/CreateFormCard.vue';
 
 export default defineComponent({
   name: 'FornecedorCriarPage',
@@ -14,6 +15,7 @@ export default defineComponent({
     Footer,
     PageHeader,
     BaseSnackbar,
+    CreateFormCard,
   },
 
   data() {
@@ -65,58 +67,48 @@ export default defineComponent({
       @back="irParaFornecedor"
     />
 
-    <FormCard @submit="enviarForm">
-      <v-row>
-        <v-col cols="12" md="6">
-          <v-text-field
-            v-model="form.nome"
-            label="Nome"
-            variant="outlined"
-            required
-            :rules="[(v) => !!v || 'Nome é obrigatório']"
-          />
-        </v-col>
+    <CreateFormCard
+      submitLabel="Criar fornecedor"
+      :disabled="!form.nome || !form.cargo || !form.email"
+      @submit="enviarForm"
+    >
+      <v-col cols="12" md="6">
+        <v-text-field
+          v-model="form.nome"
+          label="Nome"
+          variant="outlined"
+          required
+          :rules="[(v) => !!v || 'Nome é obrigatório']"
+        />
+      </v-col>
 
-        <v-col cols="12" md="6">
-          <v-text-field
-            v-model="form.cargo"
-            label="Cargo"
-            variant="outlined"
-            required
-          />
-        </v-col>
+      <v-col cols="12" md="6">
+        <v-text-field
+          v-model="form.cargo"
+          label="Cargo"
+          variant="outlined"
+          required
+        />
+      </v-col>
 
-        <v-col cols="12" md="6">
-          <v-text-field
-            v-model="form.email"
-            label="E-mail"
-            variant="outlined"
-            required
-          />
-        </v-col>
+      <v-col cols="12" md="6">
+        <v-text-field
+          v-model="form.email"
+          label="E-mail"
+          variant="outlined"
+          required
+        />
+      </v-col>
 
-        <v-col cols="12" md="6">
-          <v-text-field
-            v-model="form.telefone"
-            label="Telefone"
-            variant="outlined"
-            required
-          />
-        </v-col>
-      </v-row>
-
-      <template #actions>
-        <v-btn variant="outlined" @click="irParaFornecedor"> Cancelar </v-btn>
-
-        <v-btn
-          color="primary"
-          type="submit"
-          :disabled="!form.nome || !form.cargo || !form.email"
-        >
-          Criar fornecedor
-        </v-btn>
-      </template>
-    </FormCard>
+      <v-col cols="12" md="6">
+        <v-text-field
+          v-model="form.telefone"
+          label="Telefone"
+          variant="outlined"
+          required
+        />
+      </v-col>
+    </CreateFormCard>
 
     <BaseSnackbar
       v-model="snackbar"

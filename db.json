@@ -451,6 +451,14 @@
       "email": "arca@gmail.com",
       "status": "ativo",
       "telefone": 40928402
+    },
+    {
+      "id": "f9b7",
+      "nome": "NYCOLE DOS SANTOS XAVIER",
+      "cargo": "select",
+      "email": "nycole.xavierr@gmail.com",
+      "status": "ativo",
+      "telefone": "31997537547"
     }
   ],
   "produtos": [
@@ -783,6 +791,13 @@
       "prateleira": "rfww",
       "sessao": "342",
       "quantidadeMaxima": "234242"
+    },
+    {
+      "id": "6145",
+      "corredor": "aaaaaaaaaaa",
+      "prateleira": "aaaaaaaaa",
+      "sessao": "aaaaaaaaa",
+      "quantidadeMaxima": "aaaaaaaaaa"
     }
   ],
   "lotes": [
@@ -925,6 +940,12 @@
       "nome": "Nestlé",
       "criadoEm": "2026-01-13T11:30:52.434Z",
       "atualizadoEm": "2026-01-13T11:30:52.434Z"
+    },
+    {
+      "id": "723c",
+      "nome": "intel",
+      "criadoEm": "2026-01-14T13:08:19.509Z",
+      "atualizadoEm": "2026-01-14T13:08:19.512Z"
     }
   ],
   "movimentacao": [

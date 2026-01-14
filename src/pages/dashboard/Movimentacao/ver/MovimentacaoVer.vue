@@ -93,7 +93,6 @@ export default defineComponent({
 
     <SearchInput v-model="busca" label="Buscar por tipo de movimentação" />
 
-    <!-- Tabela -->
     <v-card variant="outlined">
       <v-data-table
         :items="movimentacoesPaginadas"
@@ -133,7 +132,6 @@ export default defineComponent({
       </v-data-table>
     </v-card>
 
-    <!-- Paginação -->
     <v-row class="mt-4" align="center" justify="center">
       <v-btn
         variant="outlined"

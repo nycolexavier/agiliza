@@ -2,7 +2,6 @@
 import Footer from '@/components/footer/Footer.vue';
 import type { Deposito } from '@/interfaces/Deposito/Deposito';
 import { ROUTES } from '@/router/utils/routes';
-import api from '@/services/api';
 import { DepositoIDPatch, DepositoListID } from '@/services/deposito.services';
 import { defineComponent } from 'vue';
 import PageHeader from '@/components/layouts/PageHeader.vue';
@@ -78,7 +77,6 @@ export default defineComponent({
       @back="irParaODeposito"
     />
 
-    <!-- Card do formulário -->
     <v-card variant="outlined">
       <v-card-text>
         <v-form @submit.prevent="enviarForm">
@@ -127,7 +125,6 @@ export default defineComponent({
               />
             </v-col>
 
-            <!-- Botão -->
             <v-col cols="12" class="text-end">
               <v-btn
                 color="primary"

@@ -5,6 +5,7 @@ import { DepositoPost } from '@/services/deposito.services';
 import { defineComponent } from 'vue';
 import PageHeader from '@/components/layouts/PageHeader.vue';
 import FormCard from '@/components/form/FormCard.vue';
+import CreateFormCard from '@/components/form/CreateFormCard.vue';
 
 export default defineComponent({
   name: 'DepositoCriarPage',
@@ -13,6 +14,7 @@ export default defineComponent({
     Footer,
     PageHeader,
     FormCard,
+    CreateFormCard,
   },
 
   data() {
@@ -63,68 +65,38 @@ export default defineComponent({
       @back="irParaODeposito"
     />
 
-    <FormCard
+    <CreateFormCard
       submitLabel="Criar depósito"
-      :disabled="!form.corredor"
+      :disabled="
+        !form.corredor ||
+        !form.prateleira ||
+        !form.sessao ||
+        !form.quantidadeMaxima
+      "
       @submit="enviarForm"
     >
       <v-row>
         <v-col cols="12" md="6">
-          <v-text-field
-            v-model="form.corredor"
-            label="Corredor"
-            variant="outlined"
-            density="compact"
-            required
-          />
+          <v-text-field v-model="form.corredor" label="Corredor" required />
         </v-col>
 
         <v-col cols="12" md="6">
-          <v-text-field
-            v-model="form.prateleira"
-            label="Prateleira"
-            variant="outlined"
-            density="compact"
-            required
-          />
+          <v-text-field v-model="form.prateleira" label="Prateleira" required />
         </v-col>
 
         <v-col cols="12" md="6">
-          <v-text-field
-            v-model="form.sessao"
-            label="Sessão"
-            variant="outlined"
-            density="compact"
-            required
-          />
+          <v-text-field v-model="form.sessao" label="Sessão" required />
         </v-col>
 
         <v-col cols="12" md="6">
           <v-text-field
             v-model="form.quantidadeMaxima"
             label="Quantidade máxima"
-            variant="outlined"
-            density="compact"
             required
           />
         </v-col>
       </v-row>
-
-      <template #actions>
-        <v-btn
-          color="primary"
-          type="submit"
-          :disabled="
-            !form.corredor ||
-            !form.prateleira ||
-            !form.sessao ||
-            !form.quantidadeMaxima
-          "
-        >
-          Criar depósito
-        </v-btn>
-      </template>
-    </FormCard>
+    </CreateFormCard>
 
     <Footer />
 
