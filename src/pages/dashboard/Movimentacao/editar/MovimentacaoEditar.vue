@@ -8,12 +8,14 @@ import {
 } from '@/services/movimentacao.services';
 import { defineComponent } from 'vue';
 import PageHeader from '@/components/layouts/PageHeader.vue';
+import FormCard from '@/components/form/FormCard.vue';
 
 export default defineComponent({
   name: 'MovimentacoesEditarPage',
 
   components: {
     Footer,
+    FormCard,
     PageHeader,
   },
 
@@ -94,73 +96,58 @@ export default defineComponent({
       @back="irParaAMovimentacao"
     />
 
-    <v-card variant="outlined">
-      <v-card-text>
-        <v-form @submit.prevent="enviarForm">
-          <v-row>
-            <v-col cols="12" md="6">
-              <v-select
-                v-model="form.tipomovimentacao"
-                label="Tipo de movimentação"
-                :items="['entrada', 'saida']"
-                required
-              />
-            </v-col>
+    <FormCard
+      submitLabel="Salvar alterações"
+      :disabled="
+        !form.tipomovimentacao ||
+        !form.quantidade ||
+        !form.datamovimentacao ||
+        !form.idlote
+      "
+      @submit="enviarForm"
+    >
+      <v-row>
+        <v-col cols="12" md="6">
+          <v-select
+            v-model="form.tipomovimentacao"
+            label="Tipo de movimentação"
+            :items="['entrada', 'saida']"
+            required
+          />
+        </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="form.quantidade"
-                label="Quantidade"
-                type="number"
-                required
-                :rules="[(v) => !!v || 'Quantidade é obrigatória']"
-              />
-            </v-col>
+        <v-col cols="12" md="6">
+          <v-text-field
+            v-model="form.quantidade"
+            label="Quantidade"
+            type="number"
+            required
+            :rules="[(v) => !!v || 'Quantidade é obrigatória']"
+          />
+        </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="form.datamovimentacao"
-                label="Data da movimentação"
-                type="date"
-                required
-              />
-            </v-col>
+        <v-col cols="12" md="6">
+          <v-text-field
+            v-model="form.datamovimentacao"
+            label="Data da movimentação"
+            type="date"
+            required
+          />
+        </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field v-model="form.idlote" label="ID do lote" required />
-            </v-col>
+        <v-col cols="12" md="6">
+          <v-text-field v-model="form.idlote" label="ID do lote" required />
+        </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field v-model="form.idproduto" label="ID do produto" />
-            </v-col>
+        <v-col cols="12" md="6">
+          <v-text-field v-model="form.idproduto" label="ID do produto" />
+        </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="form.idfornecedor"
-                label="ID do fornecedor"
-              />
-            </v-col>
-          </v-row>
-
-          <v-row class="mt-4">
-            <v-col cols="12" class="text-end">
-              <v-btn
-                type="submit"
-                color="primary"
-                :disabled="
-                  !form.tipomovimentacao ||
-                  !form.quantidade ||
-                  !form.datamovimentacao ||
-                  !form.idlote
-                "
-              >
-                Salvar alterações
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-form>
-      </v-card-text>
-    </v-card>
+        <v-col cols="12" md="6">
+          <v-text-field v-model="form.idfornecedor" label="ID do fornecedor" />
+        </v-col>
+      </v-row>
+    </FormCard>
 
     <Footer />
   </BaseFormContainer>

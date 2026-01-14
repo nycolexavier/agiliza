@@ -2,16 +2,17 @@
 import Footer from '@/components/footer/Footer.vue';
 import type { Usuario } from '@/interfaces/Usuarios/Usuario';
 import { ROUTES } from '@/router/utils/routes';
-import api from '@/services/api';
 import { UsuariosIDPatch, UsuariosListID } from '@/services/usuarios.services';
 import { defineComponent } from 'vue';
 import PageHeader from '@/components/layouts/PageHeader.vue';
+import FormCard from '@/components/form/FormCard.vue';
 
 export default defineComponent({
   name: 'UsuarioEditarPage',
 
   components: {
     Footer,
+    FormCard,
     PageHeader,
   },
 
@@ -80,57 +81,37 @@ export default defineComponent({
       @back="irParaOUsuario"
     />
 
-    <v-card variant="outlined">
-      <v-card-text>
-        <v-form @submite.prevent="enviarForm">
-          <v-row>
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="form.nome"
-                label="Nome"
-                variant="outlined"
-              />
-            </v-col>
+    <FormCard
+      submitLabel="Salvar alterações"
+      :disabled="!form.nome || !form.email || !form.cargo"
+      @submit="enviarForm"
+    >
+      <v-row>
+        <v-col cols="12" md="6">
+          <v-text-field v-model="form.nome" label="Nome" variant="outlined" />
+        </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="form.cargo"
-                label="Cargo"
-                variant="outlined"
-              />
-            </v-col>
+        <v-col cols="12" md="6">
+          <v-text-field v-model="form.cargo" label="Cargo" variant="outlined" />
+        </v-col>
 
-            <v-col>
-              <v-text-field
-                v-model="form.email"
-                label="E-mail"
-                type="email"
-                variant="outlined"
-              />
-            </v-col>
+        <v-col cols="12">
+          <v-text-field
+            v-model="form.email"
+            label="E-mail"
+            type="email"
+            variant="outlined"
+          />
+        </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="form.telefone"
-                label="Telefone"
-                variant="outlined"
-              />
-            </v-col>
-          </v-row>
-
-          <v-row class="mt-4">
-            <v-col cols="12" class="d-flex justify-end">
-              <v-btn
-                color="primary"
-                type="submit"
-                :disabled="!form.nome || !form.email || !form.cargo"
-              >
-                Salvar alterações
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-form>
-      </v-card-text>
-    </v-card>
+        <v-col cols="12" md="6">
+          <v-text-field
+            v-model="form.telefone"
+            label="Telefone"
+            variant="outlined"
+          />
+        </v-col>
+      </v-row>
+    </FormCard>
   </BaseFormContainer>
 </template>

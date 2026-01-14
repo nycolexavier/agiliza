@@ -614,6 +614,15 @@
       "quantidadeProduto": "1 Litro",
       "status": "ativo",
       "categoria": "derivados"
+    },
+    {
+      "id": "fde9",
+      "nome": "Leite Integral",
+      "sku": "4253453",
+      "unidadeMedida": "Unidade",
+      "quantidadeProduto": "1 Litro",
+      "status": "ativo",
+      "categoria": "derivados"
     }
   ],
   "deposito": [

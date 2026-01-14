@@ -5,12 +5,14 @@ import { ROUTES } from '@/router/utils/routes';
 import { DepositoIDPatch, DepositoListID } from '@/services/deposito.services';
 import { defineComponent } from 'vue';
 import PageHeader from '@/components/layouts/PageHeader.vue';
+import FormCard from '@/components/form/FormCard.vue';
 
 export default defineComponent({
   name: 'DepositoEditarPage',
 
   components: {
     Footer,
+    FormCard,
     PageHeader,
   },
 
@@ -77,72 +79,60 @@ export default defineComponent({
       @back="irParaODeposito"
     />
 
-    <v-card variant="outlined">
-      <v-card-text>
-        <v-form @submit.prevent="enviarForm">
-          <v-row>
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="form.corredor"
-                label="Corredor"
-                variant="outlined"
-                density="compact"
-                required
-                :rules="[(v) => !!v || 'Corredor é obrigatório']"
-              />
-            </v-col>
+    <FormCard
+      submitLabel="Salvar alterações"
+      :disabled="
+        !form.corredor ||
+        !form.prateleira ||
+        !form.sessao ||
+        !form.quantidadeMaxima
+      "
+      @submit="enviarForm"
+    >
+      <v-col cols="12" md="6">
+        <v-text-field
+          v-model="form.corredor"
+          label="Corredor"
+          variant="outlined"
+          density="compact"
+          required
+          :rules="[(v) => !!v || 'Corredor é obrigatório']"
+        />
+      </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="form.prateleira"
-                label="Prateleira"
-                variant="outlined"
-                density="compact"
-                required
-                :rules="[(v) => !!v || 'Prateleira é obrigatório']"
-              />
-            </v-col>
+      <v-col cols="12" md="6">
+        <v-text-field
+          v-model="form.prateleira"
+          label="Prateleira"
+          variant="outlined"
+          density="compact"
+          required
+          :rules="[(v) => !!v || 'Prateleira é obrigatório']"
+        />
+      </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="form.sessao"
-                label="Sessão"
-                variant="outlined"
-                density="compact"
-                required
-                :rules="[(v) => !!v || 'Sessão é obrigatório']"
-              />
-            </v-col>
+      <v-col cols="12" md="6">
+        <v-text-field
+          v-model="form.sessao"
+          label="Sessão"
+          variant="outlined"
+          density="compact"
+          required
+          :rules="[(v) => !!v || 'Sessão é obrigatório']"
+        />
+      </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="form.quantidadeMaxima"
-                label="Quantidade máxima"
-                variant="outlined"
-                density="compact"
-                required
-                :rules="[(v) => !!v || 'Quantidade máxima é obrigatório']"
-              />
-            </v-col>
-
-            <v-col cols="12" class="text-end">
-              <v-btn
-                color="primary"
-                type="submit"
-                :disabled="
-                  !form.corredor ||
-                  !form.prateleira ||
-                  !form.sessao ||
-                  !form.quantidadeMaxima
-                "
-              >
-                Salvar alterações
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-form>
-      </v-card-text>
-    </v-card>
+      <v-col cols="12" md="6">
+        <v-text-field
+          v-model="form.quantidadeMaxima"
+          label="Quantidade máxima"
+          variant="outlined"
+          density="compact"
+          required
+          :rules="[(v) => !!v || 'Quantidade máxima é obrigatório']"
+        />
+      </v-col>
+    </FormCard>
 
     <Footer />
   </BaseFormContainer>

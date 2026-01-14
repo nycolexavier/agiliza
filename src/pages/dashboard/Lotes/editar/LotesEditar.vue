@@ -5,6 +5,7 @@ import { ROUTES } from '@/router/utils/routes';
 import { LoteIDPatch, LoteListID } from '@/services/lote';
 import { defineComponent } from 'vue';
 import PageHeader from '@/components/layouts/PageHeader.vue';
+import FormCard from '@/components/form/FormCard.vue';
 
 // to-do: fazer o create do lote e colocar o quantidadeProduto nele
 export default defineComponent({
@@ -12,6 +13,7 @@ export default defineComponent({
 
   components: {
     Footer,
+    FormCard,
     PageHeader,
   },
 
@@ -87,81 +89,64 @@ export default defineComponent({
       @back="irParaOProduto"
     />
 
-    <v-card variant="outlined">
-      <v-card-text>
-        <v-form @submit.prevent="enviarForm">
-          <v-row>
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="form.codigoLote"
-                label="Código do lote"
-                variant="outlined"
-                required
-                :rules="[(v) => !!v || 'Código do lote é obrigatório']"
-              />
-            </v-col>
+    <FormCard
+      submitLabel="Salvar alterações"
+      :disabled="
+        !form.codigoLote || !form.marca || !form.produto || !form.dataValidade
+      "
+      @submit="enviarForm"
+    >
+      <v-col cols="12" md="6">
+        <v-text-field
+          v-model="form.codigoLote"
+          label="Código do lote"
+          variant="outlined"
+          required
+          :rules="[(v) => !!v || 'Código do lote é obrigatório']"
+        />
+      </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="form.marca"
-                label="Marca"
-                variant="outlined"
-                required
-                :rules="[(v) => !!v || 'Marca é obrigatório']"
-              />
-            </v-col>
+      <v-col cols="12" md="6">
+        <v-text-field
+          v-model="form.marca"
+          label="Marca"
+          variant="outlined"
+          required
+          :rules="[(v) => !!v || 'Marca é obrigatório']"
+        />
+      </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="form.produto"
-                label="Produto"
-                variant="outlined"
-                required
-                :rules="[(v) => !!v || 'Produto é obrigatório']"
-              />
-            </v-col>
+      <v-col cols="12" md="6">
+        <v-text-field
+          v-model="form.produto"
+          label="Produto"
+          variant="outlined"
+          required
+          :rules="[(v) => !!v || 'Produto é obrigatório']"
+        />
+      </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="form.quantidadeProduto"
-                label="Quantidade do produto"
-                variant="outlined"
-                type="number"
-                :rules="[(v) => !!v || 'Quantidade do produto é obrigatório']"
-              />
-            </v-col>
+      <v-col cols="12" md="6">
+        <v-text-field
+          v-model="form.quantidadeProduto"
+          label="Quantidade do produto"
+          variant="outlined"
+          type="number"
+          :rules="[(v) => !!v || 'Quantidade do produto é obrigatório']"
+        />
+      </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="form.dataValidade"
-                label="Data de validade"
-                type="date"
-                variant="outlined"
-                required
-                :rules="[(v) => !!v || 'Data de validade é obrigatório']"
-              />
-            </v-col>
-          </v-row>
-
-          <v-row class="mt-4">
-            <v-col cols="12" class="text-end">
-              <v-btn
-                color="primary"
-                type="submit"
-                :disabled="
-                  !form.codigoLote ||
-                  !form.marca ||
-                  !form.produto ||
-                  !form.dataValidade
-                "
-              >
-                Salvar alterações
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-form>
-      </v-card-text>
-    </v-card>
+      <v-col cols="12" md="6">
+        <v-text-field
+          v-model="form.dataValidade"
+          label="Data de validade"
+          type="date"
+          variant="outlined"
+          required
+          :rules="[(v) => !!v || 'Data de validade é obrigatório']"
+        />
+      </v-col>
+    </FormCard>
 
     <Footer class="mt-6" />
   </BaseFormContainer>

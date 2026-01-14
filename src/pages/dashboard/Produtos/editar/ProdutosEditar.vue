@@ -87,66 +87,54 @@ export default defineComponent({
       @back="irParaOProduto"
     />
 
-    <v-card variant="outlined">
-      <v-card-text>
-        <v-form @submit.prevent="enviarForm">
-          <v-row>
-            <v-col cols="12" md="6">
-              <v-text-field v-model="form.nome" label="Nome" required />
-            </v-col>
+    <FormCard
+      submitLabel="Salvar alterações"
+      :disabled="
+        !form.nome ||
+        !form.sku ||
+        !form.unidadeMedida ||
+        !form.quantidadeProduto ||
+        !form.categoria
+      "
+      @submit="enviarForm"
+    >
+      <v-row>
+        <v-col cols="12" md="6">
+          <v-text-field v-model="form.nome" label="Nome" required />
+        </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field v-model="form.sku" label="SKU" required />
-            </v-col>
+        <v-col cols="12" md="6">
+          <v-text-field v-model="form.sku" label="SKU" required />
+        </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="form.unidadeMedida"
-                label="Unidade de medida"
-                required
-                :rules="[(v) => !!v || 'Quantidade de medida é obrigatório']"
-              />
-            </v-col>
+        <v-col cols="12" md="6">
+          <v-text-field
+            v-model="form.unidadeMedida"
+            label="Unidade de medida"
+            required
+            :rules="[(v) => !!v || 'Quantidade de medida é obrigatório']"
+          />
+        </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="form.quantidadeProduto"
-                label="Quantidade do produto"
-                required
-                :rules="[(v) => !!v || 'Quantidade de produto é obrigatório']"
-              />
-            </v-col>
+        <v-col cols="12" md="6">
+          <v-text-field
+            v-model="form.quantidadeProduto"
+            label="Quantidade do produto"
+            required
+            :rules="[(v) => !!v || 'Quantidade de produto é obrigatório']"
+          />
+        </v-col>
 
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="form.categoria"
-                label="Categoria"
-                required
-                :rules="[(v) => !!v || 'Categoria é obrigatório']"
-              />
-            </v-col>
-          </v-row>
-
-          <v-row class="mt-4">
-            <v-col cols="12" class="text-end">
-              <v-btn
-                type="submit"
-                color="primary"
-                :disabled="
-                  !form.nome ||
-                  !form.sku ||
-                  !form.unidadeMedida ||
-                  !form.quantidadeProduto ||
-                  !form.categoria
-                "
-              >
-                Salvar alterações
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-form>
-      </v-card-text>
-    </v-card>
+        <v-col cols="12" md="6">
+          <v-text-field
+            v-model="form.categoria"
+            label="Categoria"
+            required
+            :rules="[(v) => !!v || 'Categoria é obrigatório']"
+          />
+        </v-col>
+      </v-row>
+    </FormCard>
 
     <Footer />
   </BaseFormContainer>
