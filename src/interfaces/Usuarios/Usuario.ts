@@ -1,7 +1,9 @@
+export type Cargo = 'admin' | 'gerente' | 'funcionario' | 'fornecedor';
+
 export interface Usuario {
   id: string;
   nome: string;
-  cargo: string;
+  cargo: Cargo[];
   email: string;
   status: 'ativo' | 'inativo';
   telefone: string;

@@ -9,6 +9,7 @@ import {
 import { defineComponent } from 'vue';
 import PageHeader from '@/components/layouts/PageHeader.vue';
 import FormCard from '@/components/form/FormCard.vue';
+import { emailRules } from '@/utils/validators/emailRules';
 
 export default defineComponent({
   name: 'FornecedorEditarPage',
@@ -22,6 +23,7 @@ export default defineComponent({
   data(vm) {
     return {
       fornecedor: null as Fornecedor | null,
+      emailRules,
       form: {
         nome: '',
         cargo: '',
@@ -95,7 +97,12 @@ export default defineComponent({
       </v-col>
 
       <v-col cols="12" md="6">
-        <v-text-field v-model="form.email" label="E-mail" variant="outlined" />
+        <v-text-field
+          v-model="form.email"
+          :rules="emailRules"
+          label="E-mail"
+          variant="outlined"
+        />
       </v-col>
 
       <v-col cols="12" md="6">

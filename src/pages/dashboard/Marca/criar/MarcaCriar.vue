@@ -40,7 +40,7 @@ export default defineComponent({
     async enviarForm() {
       try {
         await MarcaPost({
-          nome: this.form.nome,
+          nome: this.form.nome.toLocaleLowerCase().trim(),
           criadoEm: new Date().toISOString(),
           atualizadoEm: new Date().toISOString(),
         });

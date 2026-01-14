@@ -7,6 +7,7 @@ import { FornecedoresPost } from '@/services/fornecedores';
 import { defineComponent } from 'vue';
 import PageHeader from '@/components/layouts/PageHeader.vue';
 import CreateFormCard from '@/components/form/CreateFormCard.vue';
+import { emailRules } from '@/utils/validators/emailRules';
 
 export default defineComponent({
   name: 'FornecedorCriarPage',
@@ -20,6 +21,7 @@ export default defineComponent({
 
   data() {
     return {
+      emailRules,
       form: {
         nome: '',
         cargo: '',
@@ -41,7 +43,13 @@ export default defineComponent({
 
     async enviarForm() {
       try {
-        await FornecedoresPost(this.form);
+        const payload = {
+          ...this.form,
+          nome: this.form.nome.toLocaleLowerCase().trim(),
+          email: this.form.nome.toLocaleLowerCase().trim(),
+        };
+
+        await FornecedoresPost(payload);
 
         (this.snackbarTexto = 'Depósito criado com sucesso'),
           (this.snackbarTipo = 'success');
@@ -95,6 +103,7 @@ export default defineComponent({
         <v-text-field
           v-model="form.email"
           label="E-mail"
+          :rules="emailRules"
           variant="outlined"
           required
         />
