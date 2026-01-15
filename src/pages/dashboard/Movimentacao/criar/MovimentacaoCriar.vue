@@ -5,6 +5,10 @@ import { MovimentacaoPost } from '@/services/movimentacao.services';
 import { defineComponent } from 'vue';
 import PageHeader from '@/components/layouts/PageHeader.vue';
 import CreateFormCard from '@/components/form/CreateFormCard.vue';
+import type { Status } from '@/interfaces/Status';
+import type { TipoMovimentacao } from '@/interfaces/Movimentacao';
+import { LoteList } from '@/services/lote';
+import { dataNaoFutura } from '@/utils/validators/dateRules';
 
 export default defineComponent({
   name: 'MovimentacaoCriarPage',
@@ -17,12 +21,15 @@ export default defineComponent({
 
   data() {
     return {
+      hoje: new Date().toISOString().substring(0, 10),
+
+      lotes: [] as { id: string; codigoLote: string }[],
       form: {
         idlote: '',
-        tipomovimentacao: '',
+        tipomovimentacao: '' as TipoMovimentacao,
         quantidade: '',
         datamovimentacao: '',
-        status: 'ativo',
+        status: 'ativo' as Status,
       },
 
       snackbar: false,
@@ -32,6 +39,8 @@ export default defineComponent({
   },
 
   methods: {
+    dataNaoFutura,
+
     irParaMovimentacoes() {
       this.$router.push(ROUTES.movimentacao.list);
     },
@@ -62,6 +71,15 @@ export default defineComponent({
       }
     },
   },
+
+  async mounted() {
+    try {
+      const response = await LoteList();
+      this.lotes = response.data;
+    } catch (error) {
+      console.error('Erro ao buscar a movimentação', error);
+    }
+  },
 });
 </script>
 <template>
@@ -84,12 +102,15 @@ export default defineComponent({
       @submit="enviarForm"
     >
       <v-col cols="12" md="6">
-        <v-text-field
+        <v-select
           v-model="form.idlote"
           label="ID do Lote"
+          :items="lotes"
+          item-title="codigoLote"
+          item-value="id"
           type="number"
           required
-          :rules="[(v) => !!v || 'Lote é obrigatório']"
+          :rules="[(v) => !!v || 'ID Lote é obrigatório']"
         />
       </v-col>
 
@@ -121,8 +142,9 @@ export default defineComponent({
           v-model="form.datamovimentacao"
           label="Data da movimentação"
           type="date"
+          :max="hoje"
           required
-          :rules="[(v) => !!v || 'Data é obrigatória']"
+          :rules="[(v) => !!v || 'Data é obrigatória', dataNaoFutura]"
         />
       </v-col>
     </CreateFormCard>

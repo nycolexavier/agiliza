@@ -8,8 +8,8 @@ import { defineComponent } from 'vue';
 import PageHeader from '@/components/layouts/PageHeader.vue';
 import CreateFormCard from '@/components/form/CreateFormCard.vue';
 import { emailRules } from '@/utils/validators/emailRules';
-import { CARGOS } from '@/interfaces/Cargo';
-import type { Cargo } from '@/interfaces/Usuarios/Usuario';
+import { CARGOS, type Cargo } from '@/interfaces/Cargo';
+import type { Status } from '@/interfaces/Status';
 
 export default defineComponent({
   name: 'FornecedorCriarPage',
@@ -27,9 +27,9 @@ export default defineComponent({
       emailRules,
       form: {
         nome: '',
-        cargo: '' as Cargo,
+        cargo: 'fornecedor' as Cargo,
         email: '',
-        status: 'ativo',
+        status: 'ativo' as Status,
         telefone: '',
       },
 

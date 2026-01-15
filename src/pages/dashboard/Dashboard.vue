@@ -5,6 +5,8 @@ import { ROUTES } from '@/router/utils/routes';
 import { defineComponent } from 'vue';
 import { useRouter } from 'vue-router';
 import PageHeader from '@/components/layouts/PageHeader.vue';
+import type { DashboardResumo } from '@/interfaces/Dashboard';
+import { DashboardGet } from '@/services/dashboard.services';
 
 export default defineComponent({
   name: 'DashboardPage',
@@ -12,6 +14,12 @@ export default defineComponent({
   components: {
     Footer,
     PageHeader,
+  },
+
+  data(vm) {
+    return {
+      resumo: null as DashboardResumo | null,
+    };
   },
 
   methods: {
@@ -47,6 +55,15 @@ export default defineComponent({
       this.$router.push(ROUTES.relatorio.list);
     },
   },
+
+  async mounted() {
+    try {
+      const response = await DashboardGet();
+      this.resumo = response.data;
+    } catch (error) {
+      console.error('Erro ao carregar dashboard', error);
+    }
+  },
 });
 </script>
 
@@ -60,28 +77,28 @@ export default defineComponent({
           <v-col cols="12" md="3">
             <v-card variant="outlined">
               <v-card-title>Fornecedores</v-card-title>
-              <v-card-text>Quantia total</v-card-text>
+              <v-card-text>{{ resumo?.quantiaTotal ?? 0 }}</v-card-text>
             </v-card>
           </v-col>
 
           <v-col cols="12" md="3">
             <v-card variant="outlined">
               <v-card-title>Produtos</v-card-title>
-              <v-card-text>Total de produtos</v-card-text>
+              <v-card-text>{{ resumo?.totalProdutos ?? 0 }}</v-card-text>
             </v-card>
           </v-col>
 
           <v-col cols="12" md="3">
             <v-card variant="outlined">
               <v-card-title>Estoque</v-card-title>
-              <v-card-text>Total de itens</v-card-text>
+              <v-card-text>{{ resumo?.totalDeItensEstoque ?? 0 }}</v-card-text>
             </v-card>
           </v-col>
 
           <v-col cols="12" md="3">
             <v-card variant="outlined">
               <v-card-title>Críticos</v-card-title>
-              <v-card-text>Perto do vencimento</v-card-text>
+              <v-card-text>{{ resumo?.pertoVencimento ?? 0 }}</v-card-text>
             </v-card>
           </v-col>
         </v-row>

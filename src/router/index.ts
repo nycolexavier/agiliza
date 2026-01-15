@@ -30,6 +30,7 @@ import MovimentacaoCriar from '@/pages/dashboard/Movimentacao/criar/Movimentacao
 import MovimentacaoEditar from '@/pages/dashboard/Movimentacao/editar/MovimentacaoEditar.vue';
 import MovimentacaoVer from '@/pages/dashboard/Movimentacao/ver/MovimentacaoVer.vue';
 import MenuLayout from '@/components/layouts/MenuLayout.vue';
+import LotesCriar from '@/pages/dashboard/Lotes/criar/LotesCriar.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -76,6 +77,7 @@ const router = createRouter({
 
         // LOTES
         { path: 'lotes', component: Lotes },
+        { path: 'lotes/new', component: LotesCriar },
         { path: 'lotes/:id', component: LotesVer },
         { path: 'lotes/:id/editar', component: LotesEditar },
 

@@ -3,7 +3,7 @@ import Footer from '@/components/footer/Footer.vue';
 import type { Lote } from '@/interfaces/Lotes/Lote';
 import { ROUTES } from '@/router/utils/routes';
 import { LoteListID } from '@/services/lote';
-import { computed, defineComponent } from 'vue';
+import { defineComponent } from 'vue';
 import PageHeader from '@/components/layouts/PageHeader.vue';
 import DetailsCard from '@/components/card/DetailsCard.vue';
 
@@ -37,7 +37,7 @@ export default defineComponent({
     },
 
     async buscarLote() {
-      const id = computed(() => this.$route.params.id);
+      const id = this.$route.params.id;
       if (typeof id === 'string') {
         const response = await LoteListID(id);
         this.lote = response.data;

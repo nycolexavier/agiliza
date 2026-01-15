@@ -1,5 +1,5 @@
 import api from './api';
 
-export function buscarDashboard() {
+export function DashboardGet() {
   return api.get('/dashboard');
 }

@@ -1,9 +1,11 @@
+import type { Status } from '../Status';
+
 export interface Fornecedor {
   id: string;
   nome: string;
   cargo: string;
   email: string;
-  status: 'ativo' | 'inativo';
+  status: Status;
   telefone: string;
 }
 
@@ -11,7 +13,7 @@ export interface FornecedorPostDTO {
   nome: string;
   cargo: string;
   email: string;
-  status: string;
+  status: Status;
   telefone: string;
 }
 

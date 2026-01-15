@@ -80,6 +80,10 @@ export default defineComponent({
       this.$router.push(ROUTES.lotes.ver(id));
     },
 
+    irParaOLotesAdd() {
+      this.$router.push(ROUTES.lotes.new);
+    },
+
     async buscarLotes() {
       const response = await LoteList();
 
@@ -91,7 +95,11 @@ export default defineComponent({
 
 <template>
   <BaseFormContainer>
-    <PageHeader title="Lotes" actionLabel="Adicionar lotes" />
+    <PageHeader
+      title="Lotes"
+      actionLabel="Adicionar lotes"
+      @action="irParaOLotesAdd"
+    />
 
     <SearchInput v-model="busca" label="Buscar por código do lote" />
 

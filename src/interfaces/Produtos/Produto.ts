@@ -1,10 +1,12 @@
+import type { Status } from '../Status';
+
 export interface Produto {
   id: string;
   nome: string;
   sku: number;
   unidadeMedida: string;
   quantidadeProduto: string;
-  status: 'ativo' | 'inativo';
+  status: Status;
   categoria: string;
   descricao: string;
   criadoEm: string;
@@ -17,7 +19,7 @@ export interface ProdutosPostDTO {
   sku: string;
   unidadeMedida: string;
   quantidadeProduto: string;
-  status: string;
+  status: Status;
   categoria: string;
 }
 

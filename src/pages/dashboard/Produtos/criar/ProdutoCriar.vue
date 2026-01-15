@@ -1,10 +1,11 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
 import { ROUTES } from '@/router/utils/routes';
-import { ProdutosIDPatch } from '@/services/Produtos';
+import { ProdutosPost } from '@/services/Produtos';
 import { defineComponent } from 'vue';
 import PageHeader from '@/components/layouts/PageHeader.vue';
 import CreateFormCard from '@/components/form/CreateFormCard.vue';
+import type { Status } from '@/interfaces/Status';
 
 export default defineComponent({
   name: 'ProdutoCriarPage',
@@ -22,7 +23,7 @@ export default defineComponent({
         sku: '',
         quantidadeMedida: '',
         quantidadeProduto: '',
-        status: 'ativo',
+        status: 'ativo' as Status,
         categoria: '',
       },
       snackbar: false,
@@ -38,8 +39,7 @@ export default defineComponent({
 
     async enviarForm() {
       try {
-        await ProdutosIDPatch({
-          id,
+        await ProdutosPost({
           nome: this.form.nome,
           sku: this.form.sku,
           unidadeMedida: this.form.quantidadeMedida,

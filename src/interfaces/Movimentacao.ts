@@ -1,27 +1,34 @@
+import type { Status } from './Status';
+
+export type TipoMovimentacao = 'entrada' | 'saida';
+
 export interface Movimentacao {
-  id: string;
+  id: number;
   idlote: number;
-  tipomovimentacao: 'entrada' | 'saida';
-  quantidade: string;
+  tipomovimentacao: TipoMovimentacao;
+  quantidade: number;
   datamovimentacao: string;
-  status: string;
+  status: Status;
+  idproduto?: number | null;
+  idfornecedor?: number | null;
 }
 
 export interface MovimentacaoPostDTO {
-  id?: string;
   idlote: number;
-  tipomovimentacao: string;
+  tipomovimentacao: TipoMovimentacao;
   quantidade: number;
   datamovimentacao: string;
-  status: string;
-  idproduto?: string;
+  status?: Status;
+  idproduto?: number;
+  idfornecedor?: number;
 }
 
 export interface MovimentacaoPatchDTO {
-  tipomovimentacao: string;
-  quantidade: string;
-  datamovimentacao: string;
-  idlote: string;
-  idproduto?: string;
-  idfornecedor?: string;
+  idlote?: number;
+  tipomovimentacao?: TipoMovimentacao;
+  quantidade?: number;
+  datamovimentacao?: string;
+  status?: Status;
+  idproduto?: number;
+  idfornecedor?: number;
 }

@@ -1,11 +1,12 @@
 import type { Cargo } from "../Cargo";
+import type { Status } from "../Status";
 
 export interface Usuario {
   id: string;
   nome: string;
   cargo: Cargo[];
   email: string;
-  status: 'ativo' | 'inativo';
+  status: Status;
   telefone: string;
   criadoEm: string;
   criadoPor: string;
