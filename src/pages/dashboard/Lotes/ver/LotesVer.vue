@@ -67,6 +67,7 @@ export default defineComponent({
         { label: 'Produto', value: lote?.produto },
         { label: 'Status', value: lote?.status },
         { label: 'Data de validade', value: lote?.dataValidade },
+        { label: 'Quantidade', value: lote?.quantidade },
       ]"
     />
 

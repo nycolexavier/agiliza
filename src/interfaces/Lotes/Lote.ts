@@ -13,7 +13,7 @@ export interface Lote {
   criadoEm: string;
   criadoPor: string;
   codigoBarra: string;
-  quantidade: string;
+  quantidade: number;
 }
 export interface LotePostDTO {
   id?: string; 

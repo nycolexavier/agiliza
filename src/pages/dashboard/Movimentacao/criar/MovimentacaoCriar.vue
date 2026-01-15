@@ -9,7 +9,10 @@ import type { Status } from '@/interfaces/Status';
 import type { TipoMovimentacao } from '@/interfaces/Movimentacao';
 import { LoteList } from '@/services/lote';
 import { dataNaoFutura } from '@/utils/validators/dateRules';
-import { precoCustoMenorOuIgualVenda, precoVendaMaiorOuIgualCusto } from '@/utils/validators/priceRules';
+import {
+  precoCustoMenorOuIgualVenda,
+  precoVendaMaiorOuIgualCusto,
+} from '@/utils/validators/priceRules';
 
 export default defineComponent({
   name: 'MovimentacaoCriarPage',
@@ -24,7 +27,10 @@ export default defineComponent({
     return {
       hoje: new Date().toISOString().substring(0, 10),
 
-      lotes: [] as { id: string; codigoLote: string }[],
+      lotes: [] as { id: string; codigoLote: string; quantidade: number }[],
+
+      quantidadeDisponivel: 0,
+
       form: {
         idlote: '',
         tipomovimentacao: '' as TipoMovimentacao,
@@ -40,12 +46,27 @@ export default defineComponent({
   },
 
   methods: {
-    dataNaoFutura,    
+    dataNaoFutura,
     precoCustoMenorOuIgualVenda,
     precoVendaMaiorOuIgualCusto,
 
     irParaMovimentacoes() {
       this.$router.push(ROUTES.movimentacao.list);
+    },
+
+    validarQuantidade(v: number) {
+      // if (!v) return 'Quantidade é obrigatória';
+
+      if (v <= 0) return 'Quantidade deve ser maior que zero';
+
+      if (
+        this.form.tipomovimentacao === 'saida' &&
+        v > this.quantidadeDisponivel
+      ) {
+        return `Quantidade maior que o estoque disponível (${this.quantidadeDisponivel})`;
+      }
+
+      return true;
     },
 
     async enviarForm() {
@@ -79,9 +100,22 @@ export default defineComponent({
     try {
       const response = await LoteList();
       this.lotes = response.data;
+      console.log(this.lotes);
     } catch (error) {
       console.error('Erro ao buscar a movimentação', error);
     }
+  },
+
+  watch: {
+    'form.idlote'(novoId) {
+      const loteSelecionado = this.lotes.find((l) => l.id === novoId);
+
+      this.quantidadeDisponivel = loteSelecionado
+        ? loteSelecionado.quantidade
+        : 0;
+
+      this.form.quantidade = '';
+    },
   },
 });
 </script>
@@ -133,11 +167,15 @@ export default defineComponent({
           label="Quantidade"
           type="number"
           required
-          :rules="[
-            (v) => !!v || 'Quantidade é obrigatória',
-            (v) => v > 0 || 'Quantidade deve ser maior que zero',
-          ]"
+          :rules="[(v) => validarQuantidade(Number(v))]"
+          :max="
+            form.tipomovimentacao === 'saida' ? quantidadeDisponivel : undefined
+          "
         />
+        <v-alert v-if="form.idlote" type="info" variant="tonal" class="mb-4">
+          Estoque disponível do lote:
+          <strong>{{ quantidadeDisponivel }}</strong>
+        </v-alert>
       </v-col>
 
       <v-col cols="12" md="6">
