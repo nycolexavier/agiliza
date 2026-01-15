@@ -13,6 +13,10 @@ import type { Status } from '@/interfaces/Status';
 import { MarcaList } from '@/services/marca';
 import { ProdutosList } from '@/services/Produtos';
 import { dataNaoFutura } from '@/utils/validators/dateRules';
+import {
+  precoCustoMenorOuIgualVenda,
+  precoVendaMaiorOuIgualCusto,
+} from '@/utils/validators/priceRules';
 
 export default defineComponent({
   name: 'LoteCriarPage',
@@ -55,6 +59,8 @@ export default defineComponent({
 
   methods: {
     dataNaoFutura,
+    precoCustoMenorOuIgualVenda,
+    precoVendaMaiorOuIgualCusto,
 
     irParaFornecedor() {
       this.$router.push(ROUTES.lotes.list);
@@ -183,6 +189,7 @@ export default defineComponent({
           :rules="[
             (v) => !!v || 'Campo é obrigatório',
             (v) => v >= 0 || 'Valor deve ser positivo',
+            (v) => precoCustoMenorOuIgualVenda(v, form.precoVenda),
           ]"
         />
       </v-col>
@@ -198,6 +205,7 @@ export default defineComponent({
         :rules="[
           (v) => !!v || 'Campo é obrigatório',
           (v) => v >= 0 || 'Valor deve ser positivo',
+          (v) => precoVendaMaiorOuIgualCusto(v, form.precoCusto),
         ]"
       />
 

@@ -112,6 +112,18 @@
       "precoVenda": "40",
       "codigoBarra": "8812698924",
       "quantidade": "10"
+    },
+    {
+      "id": "2986",
+      "codigoLote": "TIUWUCJKQ8",
+      "marca": "ca32",
+      "produto": "Chocolate",
+      "status": "ativo",
+      "dataValidade": "2026-01-14",
+      "precoCusto": "102",
+      "precoVenda": "202",
+      "codigoBarra": "3475369369",
+      "quantidade": "10"
     }
   ],
   "marcas": [
@@ -129,6 +141,14 @@
       "tipomovimentacao": "saida",
       "quantidade": 22222,
       "datamovimentacao": "2025-12-29",
+      "status": "ativo"
+    },
+    {
+      "id": "dba8",
+      "idlote": 2986,
+      "tipomovimentacao": "entrada",
+      "quantidade": 43,
+      "datamovimentacao": "2026-01-14",
       "status": "ativo"
     }
   ]

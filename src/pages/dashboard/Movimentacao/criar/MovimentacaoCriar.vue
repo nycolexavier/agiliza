@@ -9,6 +9,7 @@ import type { Status } from '@/interfaces/Status';
 import type { TipoMovimentacao } from '@/interfaces/Movimentacao';
 import { LoteList } from '@/services/lote';
 import { dataNaoFutura } from '@/utils/validators/dateRules';
+import { precoCustoMenorOuIgualVenda, precoVendaMaiorOuIgualCusto } from '@/utils/validators/priceRules';
 
 export default defineComponent({
   name: 'MovimentacaoCriarPage',
@@ -39,7 +40,9 @@ export default defineComponent({
   },
 
   methods: {
-    dataNaoFutura,
+    dataNaoFutura,    
+    precoCustoMenorOuIgualVenda,
+    precoVendaMaiorOuIgualCusto,
 
     irParaMovimentacoes() {
       this.$router.push(ROUTES.movimentacao.list);
