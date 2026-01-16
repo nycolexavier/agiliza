@@ -1,95 +1,127 @@
+<script lang="ts">
+import Footer from '@/components/footer/Footer.vue';
+import { defineComponent } from 'vue';
+import type { Usuario } from '@/interfaces/Usuarios/Usuario';
+import { removerAcentos } from '@/utils/string/normalize';
+import { ROUTES } from '@/router/utils/routes';
+import { UsuariosList } from '@/services/usuarios.services';
+import PageHeader from '@/components/layouts/PageHeader.vue';
+import SearchInput from '@/components/form/SearchInput.vue';
+import BasePagination from '@/components/base/BasePagination.vue';
+import BaseTable from '@/components/base/BaseTable.vue';
 
-   <script setup>
-    import Footer from '@/components/footer/Footer.vue';
-    import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-    
-    const router = useRouter();
+export default defineComponent({
+  name: 'UsuariosPage',
 
-    function irParaODashboard(){
-        router.push('/dashboard')
-    }
+  components: {
+    Footer,
+    BaseTable,
+    PageHeader,
+    SearchInput,
+    BasePagination,
+  },
 
-    const tabela = ref([
-        {
-            id: 1, 
-            nome: 'Nycole',
-            cargo: 'ADMIN',
-            email: 'nycole.xavier@gmail.com',
-            status: 'inativo',
-            telefone: '31997537547'
-        },
-        {
-            id: 2, 
-            nome: 'Soraia',
-            cargo: 'Gerente',
-            email: 'soraia.xavier@gmail.com',
-            status: 'ativo',
-            telefone: '31997537547'
-        },
-            {
-            id: 3, 
-            nome: 'Gleice',
-            cargo: 'Funcionária',
-            email: 'gleice.xavier@gmail.com',
-            status: 'ativo',
-            telefone: '31997537547'
-        },
-        {
-            id: 3, 
-            nome: 'Maria',
-            cargo: 'Funcionária',
-            email: 'gleice.xavier@gmail.com',
-            status: 'ativo',
-            telefone: '31997537547'
-        }
-        
-    ])
-</script> 
-    
-    <template>
-    <div>
-        <h1>Página de Usuários</h1>
+  data() {
+    return {
+      usuario: [] as Usuario[],
+      busca: '',
 
-        <p>(to-do) campo de busca</p>
+      isLoading: false,
 
-        <button>adicionar usuários</button>
+      paginaAtual: 1,
+      itensPorPagina: 10,
 
-        <br>
+      headers: [
+        { title: 'ID', key: 'id' },
+        { title: 'Nome', key: 'nome' },
+        { title: 'Cargo', key: 'cargo' },
+        { title: 'E-mail', key: 'email' },
+        { title: 'Status', key: 'status' },
+        { title: 'Telefone', key: 'telefone' },
+        { title: 'Ações', key: 'actions' },
+      ],
+    };
+  },
 
-        <button @click="irParaODashboard" >Dashboard</button>
+  computed: {
+    usuariosPaginados(): Usuario[] {
+      const inicio = (this.paginaAtual - 1) * this.itensPorPagina;
+      const fim = inicio + this.itensPorPagina;
 
-        <p>Listar usuarios</p>
-        <p>Editar usuarios</p>
-        <p>Deletar usuarios</p>
+      return this.usuariosFiltrados.slice(inicio, fim);
+    },
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Cargo</th>
-                    <th>E-mail</th>
-                    <th>Status</th>
-                    <th>Telefone</th>
-                </tr>
-            </thead>
+    usuariosFiltrados(): Usuario[] {
+      if (!this.busca) {
+        return this.usuario;
+      }
 
-            <tbody>
-                <tr v-for="item in tabela" :key="item.id">
-                    <td>{{ item.nome }}</td>
-                    <td>{{ item.cargo }}</td>
-                    <td>{{ item.email }}</td>
-                    <td>{{ item.status }}</td>
-                    <td>{{ item.telefone }}</td>
+      const buscaNormalizada = removerAcentos(this.busca);
 
-                    <td>
-                        <button>Ações</button>
-                    </td>
-                </tr>
+      return this.usuario.filter((usuario) =>
+        removerAcentos(usuario.nome).includes(buscaNormalizada)
+      );
+    },
+  },
 
-            </tbody>
-        </table>
+  watch: {
+    busca() {
+      this.paginaAtual = 1;
+    },
+  },
 
-        <Footer/>
-    </div>
+  mounted() {
+    this.buscarUsuarios();
+  },
+
+  methods: {
+    irParaODashboard() {
+      this.$router.push(ROUTES.dashboard);
+    },
+
+    async buscarUsuarios() {
+      try {
+        this.isLoading = true;
+        const response = await UsuariosList();
+        this.usuario = response.data;
+      } catch (error) {
+        console.error('Erro ao buscar usuários', error);
+      } finally {
+        this.isLoading = false;
+      }
+    },
+
+    irParaCriarUsuario() {
+      this.$router.push(ROUTES.usuarios.new);
+    },
+
+    irParaVerUsuarios(id: string) {
+      this.$router.push(ROUTES.usuarios.ver(id));
+    },
+  },
+});
+</script>
+
+<template>
+  <v-contatiner fuild>
+    <PageHeader
+      title="Usuários"
+      actionLabel="Adicionar usuário"
+      @action="irParaCriarUsuario"
+    />
+    <SearchInput v-model="busca" label="Buscar usuário pelo nome" />
+
+    <BaseTable
+      :headers="headers"
+      :items="usuariosPaginados"
+      actionLabel="Editar"
+      @action="(item) => irParaVerUsuarios(item.id)"
+    />
+
+    <BasePagination
+      v-model:paginaAtual="paginaAtual"
+      :itensPorPagina="itensPorPagina"
+      :totalItens="usuariosFiltrados.length"
+    />
+  </v-contatiner>
 </template>

@@ -1,20 +1,237 @@
 {
+  "dashboard": [
+    {
+      "quantiaTotal": "1",
+      "totalProdutos": "10",
+      "totalDeItensEstoque": "60",
+      "pertoVencimento": "40",
+      "id": "abd9"
+    }
+  ],
   "usuarios": [
     {
-      "id": 1,
-      "nome": "Nycole",
-      "cargo": "Admin",
-      "email": "nycole@gmail.com",
+      "id": "dadd",
+      "nome": "Levi",
+      "cargo": "funcionario",
+      "email": "levi@gmail.com",
       "status": "ativo",
-      "telefone": "31999999999"
+      "telefone": "4252525252"
     },
     {
-      "id": 2,
-      "nome": "Soraia",
-      "cargo": "Gerente",
-      "email": "soraia@gmail.com",
+      "id": "d211",
+      "nome": "Bia",
+      "cargo": "fornecedor",
+      "email": "bia",
       "status": "ativo",
-      "telefone": "31988888888"
+      "telefone": "31997537547"
+    },
+    {
+      "id": "e2b5",
+      "nome": "Sofia",
+      "cargo": "fornecedor",
+      "email": "sofia@gmail.com",
+      "status": "ativo",
+      "telefone": "31997537547"
+    },
+    {
+      "id": "b4cb",
+      "nome": "fróis da silva",
+      "cargo": "admin",
+      "email": "fróis da silva",
+      "status": "ativo",
+      "telefone": "31997537547"
+    },
+    {
+      "id": "e954",
+      "nome": "priscila dos santos marinho",
+      "cargo": "gerente",
+      "email": "priscila dos santos marinho",
+      "status": "ativo",
+      "telefone": "31997402013"
+    },
+    {
+      "id": "681d",
+      "nome": "cachorro",
+      "cargo": "gerente",
+      "email": "cachorro",
+      "status": "ativo",
+      "telefone": "31997402013"
+    },
+    {
+      "id": "8c5b",
+      "nome": "brito",
+      "cargo": "admin",
+      "email": "brito@gmail.com",
+      "status": "ativo",
+      "telefone": "31997537547"
+    }
+  ],
+  "fornecedores": [
+    {
+      "id": "e102",
+      "nome": "seu zé",
+      "cargo": "fornecedor",
+      "email": "seuze@gmail.com",
+      "status": "ativo",
+      "telefone": "31997537547"
+    },
+    {
+      "id": "22ea",
+      "nome": "dona maria",
+      "cargo": "gerente",
+      "email": "maria@gmail.com",
+      "status": "ativo",
+      "telefone": "31997537547"
+    },
+    {
+      "id": "78db",
+      "nome": "joana",
+      "cargo": "fornecedor",
+      "email": "joana@gmail.com",
+      "status": "ativo",
+      "telefone": "31997537547"
+    }
+  ],
+  "produtos": [
+    {
+      "id": "3e0e",
+      "nome": "Chocolate",
+      "sku": "3232",
+      "unidadeMedida": "32323",
+      "quantidadeProduto": "32323",
+      "status": "ativo",
+      "categoria": "Achocolatado"
+    },
+    {
+      "id": "e2f2",
+      "nome": "Celular",
+      "sku": "042842",
+      "unidadeMedida": "482",
+      "quantidadeProduto": "4082'",
+      "status": "ativo",
+      "categoria": "Tecnologia"
+    },
+    {
+      "id": "19ba",
+      "nome": "Controle Remoto",
+      "sku": "515256",
+      "unidadeMedida": "56",
+      "quantidadeProduto": "50",
+      "status": "ativo",
+      "categoria": "Eletrônico"
+    }
+  ],
+  "deposito": [
+    {
+      "id": "66ba",
+      "corredor": "A",
+      "prateleira": "1",
+      "sessao": "B",
+      "quantidadeMaxima": "2"
+    },
+    {
+      "id": "2918",
+      "corredor": "B",
+      "prateleira": "2",
+      "sessao": "C",
+      "quantidadeMaxima": "100"
+    },
+    {
+      "id": "e0db",
+      "corredor": "C",
+      "prateleira": "5",
+      "sessao": "a",
+      "quantidadeMaxima": "80"
+    },
+    {
+      "id": "e946",
+      "corredor": "F",
+      "prateleira": "52",
+      "sessao": "ac",
+      "quantidadeMaxima": "10"
+    }
+  ],
+  "lotes": [
+    {
+      "id": "ca15",
+      "codigoLote": "codigoTeste",
+      "marca": "nestlé",
+      "produto": "Chocolate",
+      "corredor": "A",
+      "fornecedor": "dona maria",
+      "status": "ativo",
+      "dataValidade": "2026-01-16",
+      "precoCusto": "200",
+      "precoVenda": "400",
+      "codigoBarra": "6544623442",
+      "quantidade": "20"
+    },
+    {
+      "id": "c98b",
+      "codigoLote": "8520852052",
+      "marca": "dell",
+      "produto": "Controle Remoto",
+      "corredor": "C",
+      "fornecedor": "joana",
+      "status": "ativo",
+      "dataValidade": "2026-01-15",
+      "precoCusto": "20",
+      "precoVenda": "50",
+      "codigoBarra": "54331265",
+      "quantidade": "20",
+      "quantidadeProduto": "30"
+    }
+  ],
+  "marcas": [
+    {
+      "id": "ca32",
+      "nome": "nestlé",
+      "criadoEm": "2026-01-14T17:12:26.341Z",
+      "atualizadoEm": "2026-01-14T17:12:26.341Z"
+    },
+    {
+      "id": "9b4e",
+      "nome": "garoto",
+      "criadoEm": "2026-01-15T17:52:58.613Z",
+      "atualizadoEm": "2026-01-15T17:52:58.613Z"
+    },
+    {
+      "id": "3c27",
+      "nome": "dell",
+      "criadoEm": "2026-01-16T13:40:08.057Z",
+      "atualizadoEm": "2026-01-16T13:40:08.057Z"
+    },
+    {
+      "id": "35f9",
+      "nome": "samsung",
+      "criadoEm": "2026-01-16T16:22:32.473Z",
+      "atualizadoEm": "2026-01-16T16:22:32.473Z"
+    }
+  ],
+  "movimentacao": [
+    {
+      "id": "c17f",
+      "idlote": "ca15",
+      "tipomovimentacao": "saída",
+      "quantidade": 10,
+      "datamovimentacao": "2026-01-08",
+      "status": "ativo"
+    },
+    {
+      "id": "e6fe",
+      "idlote": "ca15",
+      "tipomovimentacao": "saída",
+      "quantidade": 2555,
+      "datamovimentacao": "2026-01-16",
+      "status": "ativo"
+    },
+    {
+      "id": "c915",
+      "idlote": "c98b",
+      "tipomovimentacao": "saída",
+      "quantidade": 222,
+      "datamovimentacao": "2026-01-16",
+      "status": "ativo"
     }
   ]
 }

@@ -1,83 +1,121 @@
-<script setup>
-    import Footer from '@/components/footer/Footer.vue';
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+<script lang="ts">
+import Footer from '@/components/footer/Footer.vue';
+import { defineComponent } from 'vue';
+import type { Fornecedor } from '@/interfaces/Fornecedores/Fornecedor';
+import { removerAcentos } from '@/utils/string/normalize';
+import { ROUTES } from '@/router/utils/routes';
+import { FornecedoresList } from '@/services/fornecedores';
+import PageHeader from '@/components/layouts/PageHeader.vue';
+import BaseTable from '@/components/base/BaseTable.vue';
+import SearchInput from '@/components/form/SearchInput.vue';
+import BasePagination from '@/components/base/BasePagination.vue';
 
-    const router = useRouter();
+export default defineComponent({
+  name: 'FornecedoresPage',
 
-    function irParaODashboard(){
-        router.push('/dashboard')
-    }
+  components: {
+    Footer,
+    PageHeader,
+    SearchInput,
+    BaseTable,
+    BasePagination,
+  },
 
-const tabela = ref([
-    {
-        id: 1,
-        nome: "Seu José Barão",
-        cargo: "Fornecedor",
-        email: "jose@gmail.com",
-        status: "ativo",
-        telefone: "31997537547"
+  data() {
+    return {
+      fornecedores: [] as Fornecedor[],
+      busca: '',
+
+      headers: [
+        { title: 'Nome', key: 'nome' },
+        { title: 'Cargo', key: 'cargo' },
+        { title: 'E-mail', key: 'email' },
+        { title: 'Status', key: 'status' },
+        { title: 'Telefone', key: 'telefone' },
+        { title: 'Ações', key: 'actions' },
+      ],
+
+      paginaAtual: 1,
+      itensPorPagina: 10,
+    };
+  },
+
+  computed: {
+    fornecedoresPaginados(): Fornecedor[] {
+      const inicio = (this.paginaAtual - 1) * this.itensPorPagina;
+      const fim = inicio + this.itensPorPagina;
+
+      return this.fornecedorFiltrado.slice(inicio, fim);
     },
-    {
-        id: 2,
-        nome: "Dona Maria Baronesa",
-        cargo: "Fornecedor",
-        email: "maria@gmail.com",
-        status: "ativo",
-        telefone: "31997537547"
+
+    fornecedorFiltrado(): Fornecedor[] {
+      if (!this.busca) {
+        return this.fornecedores;
+      }
+
+      const buscaNormalizada = removerAcentos(this.busca);
+
+      return this.fornecedores.filter((fornecedor) =>
+        removerAcentos(fornecedor.nome).includes(buscaNormalizada)
+      );
     },
-    {
-        id: 3,
-        nome: "Dona Joana",
-        cargo: "Fornecedor",
-        email: "maria@gmail.com",
-        status: "ativo",
-        telefone: "31997537547"
-    }
-])
+  },
+
+  watch: {
+    busca() {
+      this.paginaAtual = 1;
+    },
+  },
+
+  mounted() {
+    this.buscarFornecedores();
+  },
+
+  methods: {
+    irParaODashboard() {
+      this.$router.push(ROUTES.dashboard);
+    },
+
+    irParaFornecedoresEdicao(id: string) {
+      this.$router.push(ROUTES.fornecedores.ver(id));
+    },
+
+    irParaAddFornecedor() {
+      this.$router.push(ROUTES.fornecedores.new);
+    },
+
+    async buscarFornecedores() {
+      const response = await FornecedoresList();
+
+      this.fornecedores = response.data;
+    },
+  },
+});
 </script>
 
+<template>
+  <BaseFormContainer>
+    <PageHeader
+      title="Fornecedores"
+      actionLabel="Adicionar fornecedor"
+      @action="irParaAddFornecedor"
+    />
 
-    <template>
-    <div>
-        <h1>Página de Fornecedores</h1>
+    <SearchInput v-model="busca" label="Buscar fornecedor pelo nome" />
 
-        <button @click="irParaODashboard" >Dashboard</button>
+    <BaseTable
+      :headers="headers"
+      :items="fornecedoresPaginados"
+      actionLabel="Editar"
+      @action="(item) => irParaFornecedoresEdicao(item.id)"
+    />
 
-        <p>(to-do) campo de busca</p>
+    <BasePagination
+      v-model:paginaAtual="paginaAtual"
+      :itensPorPagina="itensPorPagina"
+      :totalItens="fornecedorFiltrado.length"
+    />
 
-        <br>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Cargo</th>
-                    <th>E-mail</th>
-                    <th>Status</th>
-                    <th>Telefone</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr v-for="item in tabela" :key="item.id" >
-                    <td>{{item.nome}}</td>
-                    <td>{{item.cargo}}</td>
-                    <td>{{item.email}}</td>
-                    <td>{{item.status}}</td>
-                    <td>{{item.telefone}}</td>
-
-                    <td>
-                        <button>
-                            Ações
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-       
-
-        <Footer/>
-    </div>
+    <Footer />
+  </BaseFormContainer>
 </template>
-

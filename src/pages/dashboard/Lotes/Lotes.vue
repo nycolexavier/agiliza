@@ -1,83 +1,124 @@
-<script setup>
-    import Footer from '@/components/footer/Footer.vue';
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+<script lang="ts">
+import Footer from '@/components/footer/Footer.vue';
+import { defineComponent } from 'vue';
+import type { Lote } from '@/interfaces/Lotes/Lote';
+import { removerAcentos } from '@/utils/string/normalize';
+import { ROUTES } from '@/router/utils/routes';
+import { LoteList } from '@/services/lote';
+import PageHeader from '@/components/layouts/PageHeader.vue';
+import SearchInput from '@/components/form/SearchInput.vue';
+import BaseTable from '@/components/base/BaseTable.vue';
+import BasePagination from '@/components/base/BasePagination.vue';
 
-    const router = useRouter();
+export default defineComponent({
+  name: 'ProdutosPage',
 
-    function irParaODashboard(){
-        router.push('/dashboard')
-    }
+  components: {
+    Footer,
+    PageHeader,
+    SearchInput,
+    BaseTable,
+    BasePagination,
+  },
 
-const tabela = ref([
-    {
-        id: 1,
-        codigoLote: "Seu José Barão",
-        marca: "Itambé",
-        produto: "jose@gmail.com",
-        status: "ativo",
-        dataValidade: "31997537547"
+  data() {
+    return {
+      lotes: [] as Lote[],
+      busca: '',
+      headers: [
+        { title: 'ID', key: 'id' },
+        { title: 'Código do lote', key: 'codigoLote' },
+        { title: 'Marca', key: 'marca' },
+        { title: 'Produto', key: 'produto' },
+        { title: 'Status', key: 'status' },
+        { title: 'Data de validade', key: 'dataValidade' },
+        { title: 'Ações', key: 'actions' },
+      ],
+
+      paginaAtual: 1,
+      itensPorPagina: 10,
+    };
+  },
+
+  computed: {
+    lotesPaginados(): Lote[] {
+      const inicio = (this.paginaAtual - 1) * this.itensPorPagina;
+      const fim = inicio + this.itensPorPagina;
+
+      return this.lotesFiltrado.slice(inicio, fim);
     },
-    {
-        id: 2,
-        codigoLote: "Dona Maria Baronesa",
-        marca: "Nestlé",
-        produto: "Fornecedor",
-        status: "ativo",
-        dataValidade: "31997537547"
+
+    lotesFiltrado(): Lote[] {
+      if (!this.busca) {
+        return this.lotes;
+      }
+
+      const buscaNormalizada = removerAcentos(this.busca);
+
+      return this.lotes.filter((lote) =>
+        removerAcentos(lote.codigoLote).includes(buscaNormalizada)
+      );
     },
-    {
-        id: 3,
-        codigoLote: "Dona Joana",
-        marca: "Piracanjuba",
-        produto: "Fornecedor",
-        status: "ativo",
-        dataValidade: "31997537547"
-    }
-])
+  },
+
+  watch: {
+    busca() {
+      this.paginaAtual = 1;
+    },
+  },
+
+  mounted() {
+    this.buscarLotes();
+  },
+
+  methods: {
+    irParaODashboard() {
+      this.$router.push(ROUTES.dashboard);
+    },
+
+    irParaOLotesEditar(id: string) {
+      this.$router.push(ROUTES.lotes.ver(id));
+    },
+
+    irParaOLotesAdd() {
+      this.$router.push(ROUTES.lotes.new);
+    },
+
+    async buscarLotes() {
+      const response = await LoteList();
+
+      this.lotes = response.data;
+
+      
+    console.log(this.lotes);
+    },
+  },
+});
 </script>
 
+<template>
+  <BaseFormContainer>
+    <PageHeader
+      title="Lotes"
+      actionLabel="Adicionar lotes"
+      @action="irParaOLotesAdd"
+    />
 
-    <template>
-    <div>
-        <h1>Página de Lotes</h1>
+    <SearchInput v-model="busca" label="Buscar por código do lote" />
 
-        <button @click="irParaODashboard" >Dashboard</button>
+    <BaseTable
+      :headers="headers"
+      :items="lotesPaginados"
+      actionLabel="Ver"
+      @action="(item) => irParaOLotesEditar(item.id)"
+    />
 
-        <p>(to-do) campo de busca</p>
+    <BasePagination
+      v-model:paginaAtual="paginaAtual"
+      :itensPorPagina="itensPorPagina"
+      :totalItens="lotesFiltrado.length"
+    />
 
-        <br>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Código Lote</th>
-                    <th>Marca</th>
-                    <th>Produto</th>
-                    <th>Status</th>
-                    <th>Data de validade</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr v-for="item in tabela" :key="item.id" >
-                    <td>{{item.codigoLote}}</td>
-                    <td>{{item.marca}}</td>
-                    <td>{{item.produto}}</td>
-                    <td>{{item.status}}</td>
-                    <td>{{item.dataValidade}}</td>
-
-                    <td>
-                        <button>
-                            Ações
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-       
-
-        <Footer/>
-    </div>
+    <Footer />
+  </BaseFormContainer>
 </template>
-

@@ -1,68 +1,119 @@
-<script setup>
-    import Footer from '@/components/footer/Footer.vue';
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+<script lang="ts">
+import Footer from '@/components/footer/Footer.vue';
+import { defineComponent } from 'vue';
+import type { Deposito } from '@/interfaces/Deposito/Deposito';
+import { removerAcentos } from '@/utils/string/normalize';
+import { ROUTES } from '@/router/utils/routes';
+import { DepositoList } from '@/services/deposito.services';
+import PageHeader from '@/components/layouts/PageHeader.vue';
+import SearchInput from '@/components/form/SearchInput.vue';
+import BaseTable from '@/components/base/BaseTable.vue';
+import BasePagination from '@/components/base/BasePagination.vue';
 
-const router = useRouter()
+export default defineComponent({
+  name: 'DepositoPage',
 
-function irParaODashboard(){
-    router.push("/dashboard")
-}
+  components: {
+    Footer,
+    BaseTable,
+    PageHeader,
+    SearchInput,
+    BasePagination,
+  },
 
+  data() {
+    return {
+      deposito: [] as Deposito[],
+      busca: '',
+      headers: [
+        { title: 'Corredor', key: 'corredor' },
+        { title: 'Prateleira', key: 'prateleira' },
+        { title: 'Sessão', key: 'sessao' },
+        { title: 'Qtd. Máxima', key: 'quantidadeMaxima' },
+        { title: 'Ações', key: 'actions' },
+      ],
 
-    const tabela = ref([
-        {
-            id: "1",
-            corredor: "A",
-            prateleira: "12",
-            sessao: '5',
-            quantidadeMaxima: '15'
-        },
-        {
-            id: "2",
-            corredor: "B",
-            prateleira: "24",
-            sessao: '10',
-            quantidadeMaxima: '30'
-        }
-    ])
+      paginaAtual: 1,
+      itensPorPagina: 10,
+    };
+  },
+
+  mounted() {
+    this.buscarDeposito();
+  },
+
+  computed: {
+    depositoPaginados(): Deposito[] {
+      const inicio = (this.paginaAtual - 1) * this.itensPorPagina;
+      const fim = inicio + this.itensPorPagina;
+
+      return this.depositoFiltrado.slice(inicio, fim);
+    },
+
+    depositoFiltrado(): Deposito[] {
+      if (!this.busca) {
+        return this.deposito;
+      }
+
+      const buscaNormalizada = removerAcentos(this.busca);
+
+      return this.deposito.filter((deposito) =>
+        removerAcentos(deposito.corredor).includes(buscaNormalizada)
+      );
+    },
+  },
+
+  watch: {
+    busca() {
+      this.paginaAtual = 1;
+    },
+  },
+
+  methods: {
+    irParaDepositoVer(id: string) {
+      this.$router.push(ROUTES.deposito.ver(id));
+    },
+
+    irParaDepositoCriar() {
+      this.$router.push(ROUTES.deposito.new);
+    },
+
+    irParaODashboard() {
+      this.$router.push(ROUTES.dashboard);
+    },
+
+    async buscarDeposito() {
+      const response = await DepositoList();
+
+      this.deposito = response.data;
+    },
+  },
+});
 </script>
-    
-    
-    <template>
-    <div>
-        <h1>Página de Deposito</h1>
 
-        <br>
+<template>
+  <BaseFormContainer>
+    <PageHeader
+      title="Depósitos"
+      actionLabel="Adicionar depósito"
+      @action="irParaDepositoCriar"
+    />
 
-         <button @click="irParaODashboard" >Dashboard</button>
+    <SearchInput v-model="busca" label="Buscar por corredor" />
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Corredor</th>
-                    <th>Prateleira</th>
-                    <th>Sessão</th>
-                    <th>Quantidade Máxima</th>
-                </tr>
-            </thead>
+    <BaseTable
+      :headers="headers"
+      :items="depositoPaginados"
+      actionLabel="Ver mais"
+      @action="(item) => irParaDepositoVer(item.id)"
+    />
 
-            <tbody>
-                <tr v-for="item in tabela" :key="item.id" >
-                    <td>{{ item.corredor }}</td>
-                    <td>{{ item.prateleira }}</td>
-                    <td>{{ item.sessao }}</td>
-                    <td>{{ item.quantidadeMaxima }}</td>
+    <BasePagination
+      v-model:paginaAtual="paginaAtual"
+      :itensPorPagina="itensPorPagina"
+      :totalItens="depositoFiltrado.length"
+    />
 
-                    <td>
-                        <button>
-                            Ações
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <Footer/>
-    </div>
+    <Footer />
+  </BaseFormContainer>
 </template>
-

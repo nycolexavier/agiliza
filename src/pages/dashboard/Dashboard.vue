@@ -1,74 +1,109 @@
-<script setup>
+<script lang="ts">
+import BaseFormContainer from '@/components/base/BaseFormContainer.vue';
 import Footer from '@/components/footer/Footer.vue';
-import { useRouter } from 'vue-router';
+import { ROUTES } from '@/router/utils/routes';
+import { defineComponent } from 'vue';
+import PageHeader from '@/components/layouts/PageHeader.vue';
+import type { DashboardResumo } from '@/interfaces/Dashboard';
+import { DashboardGet } from '@/services/dashboard.services';
 
+export default defineComponent({
+  name: 'DashboardPage',
 
-const router = useRouter()
+  components: {
+    Footer,
+    PageHeader,
+  },
 
-function irParaUsuarios(){
-    router.push("/dashboard/usuarios")
-}
+  data(vm) {
+    return {
+      resumo: null as DashboardResumo | null,
+    };
+  },
 
-function irParaFornecedores(){
-    router.push("dashboard/fornecedores")
-}
+  methods: {
+    irParaUsuarios() {
+      this.$router.push(ROUTES.usuarios.list);
+    },
 
-function irParaProdutos(){
-    router.push("dashboard/produtos")
-}
+    irParaFornecedores() {
+      this.$router.push(ROUTES.fornecedores.list);
+    },
 
-function irParaDeposito(){
-    router.push("dashboard/deposito")
-}
+    irParaProdutos() {
+      this.$router.push(ROUTES.produtos.list);
+    },
 
-function irParaLotes(){
-    router.push("dashboard/lotes")
-}
+    irParaDeposito() {
+      this.$router.push(ROUTES.deposito.list);
+    },
 
+    irParaLotes() {
+      this.$router.push(ROUTES.lotes.list);
+    },
+
+    irParaMovimentacao() {
+      this.$router.push(ROUTES.movimentacao.list);
+    },
+
+    irParaMarca() {
+      this.$router.push(ROUTES.marca.list);
+    },
+
+    irParaORelatorio() {
+      this.$router.push(ROUTES.relatorio.list);
+    },
+  },
+
+  async mounted() {
+    try {
+      const response = await DashboardGet();
+      this.resumo = response.data;
+    } catch (error) {
+      console.error('Erro ao carregar dashboard', error);
+    }
+  },
+});
 </script>
 
 <template>
-    <header>
-        <div>
-            <div>imagem</div> 
+  <v-app>
+    <v-main>
+      <BaseFormContainer>
+        <h2>Resumo do mês</h2>
 
-            <br>
+        <v-row>
+          <v-col cols="12" md="3">
+            <v-card variant="outlined">
+              <v-card-title>Fornecedores</v-card-title>
+              <v-card-text>{{ resumo?.quantiaTotal ?? 0 }}</v-card-text>
+            </v-card>
+          </v-col>
 
-            <p>menu:</p>
-            <button @click="irParaUsuarios">usuários</button>
-            <br>
-            <button @click="irParaFornecedores" >fornecedores</button>
-            <br>
-            <button @click="irParaProdutos" >produtos</button>
-            <br>
-            <button @click="irParaDeposito" >depósito</button>
-            <br>
-            <button @click="irParaLotes" >lotes</button>
-        </div>
-    </header>
+          <v-col cols="12" md="3">
+            <v-card variant="outlined">
+              <v-card-title>Produtos</v-card-title>
+              <v-card-text>{{ resumo?.totalProdutos ?? 0 }}</v-card-text>
+            </v-card>
+          </v-col>
 
-    <br>
+          <v-col cols="12" md="3">
+            <v-card variant="outlined">
+              <v-card-title>Estoque</v-card-title>
+              <v-card-text>{{ resumo?.totalDeItensEstoque ?? 0 }}</v-card-text>
+            </v-card>
+          </v-col>
 
-    <section>
-        <div>geral/mês:</div>
+          <v-col cols="12" md="3">
+            <v-card variant="outlined">
+              <v-card-title>Críticos</v-card-title>
+              <v-card-text>{{ resumo?.pertoVencimento ?? 0 }}</v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </BaseFormContainer>
+    </v-main>
 
-        <br>
-
-        <div>Quantia total de fornecedores</div>
-
-        <br>
-
-        <div>Total dos produtos</div>
-
-        <br>
-
-        <div>Total de Itens no Estoque</div>
-
-        <div> Produtos críticos (perto do vencimento)</div>
-    </section>
-
-    <br>
-
-    <Footer/>
+    <Footer />
+  </v-app>
 </template>
-

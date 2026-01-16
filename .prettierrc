@@ -1,0 +1,8 @@
+{
+  "tadWidth": 2,
+  "usetabs": false,
+  "semi": true,
+  "singleQuote": true,
+  "bracketSpacing": true,
+  "arrowParens": "always"
+}
