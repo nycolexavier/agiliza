@@ -26,6 +26,8 @@ export default defineComponent({
       usuario: [] as Usuario[],
       busca: '',
 
+      isLoading: false,
+
       paginaAtual: 1,
       itensPorPagina: 10,
 
@@ -79,10 +81,13 @@ export default defineComponent({
 
     async buscarUsuarios() {
       try {
+        this.isLoading = true;
         const response = await UsuariosList();
         this.usuario = response.data;
       } catch (error) {
         console.error('Erro ao buscar usuários', error);
+      } finally {
+        this.isLoading = false;
       }
     },
 
@@ -104,7 +109,6 @@ export default defineComponent({
       actionLabel="Adicionar usuário"
       @action="irParaCriarUsuario"
     />
-
     <SearchInput v-model="busca" label="Buscar usuário pelo nome" />
 
     <BaseTable

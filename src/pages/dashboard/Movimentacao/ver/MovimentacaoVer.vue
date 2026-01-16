@@ -2,9 +2,8 @@
 import Footer from '@/components/footer/Footer.vue';
 import { defineComponent } from 'vue';
 import type { Movimentacao } from '@/interfaces/Movimentacao';
-import { removerAcentos } from '@/utils/string/normalize';
 import { ROUTES } from '@/router/utils/routes';
-import { MovimentacaoList } from '@/services/movimentacao.services';
+import { MovimentacaoListID } from '@/services/movimentacao.services';
 import PageHeader from '@/components/layouts/PageHeader.vue';
 import SearchInput from '@/components/form/SearchInput.vue';
 import DetailsCard from '@/components/card/DetailsCard.vue';
@@ -21,33 +20,12 @@ export default defineComponent({
 
   data() {
     return {
-      movimentacoes: [] as Movimentacao[],
+      movimentacoes: null as Movimentacao | null,
       busca: '',
 
       paginaAtual: 1,
       itensPorPagina: 10,
     };
-  },
-
-  computed: {
-    movimentacoesPaginadas(): Movimentacao[] {
-      const inicio = (this.paginaAtual - 1) * this.itensPorPagina;
-      const fim = inicio + this.itensPorPagina;
-
-      return this.movimentacoesFiltradas.slice(inicio, fim);
-    },
-
-    movimentacoesFiltradas(): Movimentacao[] {
-      if (!this.busca) {
-        return this.movimentacoes;
-      }
-
-      const buscaNormalizada = removerAcentos(this.busca);
-
-      return this.movimentacoes.filter((mov: Movimentacao) =>
-        removerAcentos(String(mov.tipomovimentacao)).includes(buscaNormalizada)
-      );
-    },
   },
 
   watch: {
@@ -65,17 +43,21 @@ export default defineComponent({
       this.$router.push(ROUTES.dashboard);
     },
 
-    irParaCriarMovimentacao() {
-      this.$router.push(ROUTES.movimentacao.new);
+    irParaEditarMovimentacao() {
+      if (!this.movimentacoes) return;
+      this.$router.push(ROUTES.movimentacao.editar(this.movimentacoes.id));
     },
 
-    irParaVerMovimentacao(id: string) {
-      this.$router.push(ROUTES.movimentacao.ver(id));
+    irParaMovimentacao(id: string) {
+      this.$router.push(ROUTES.movimentacao.list);
     },
 
     async buscarMovimentacoes() {
-      const response = await MovimentacaoList();
-      this.movimentacoes = response.data;
+      const id = this.$route.params.id;
+      if (typeof id === 'string') {
+        const response = await MovimentacaoListID(id);
+        this.movimentacoes = response.data;
+      }
     },
   },
 });
@@ -84,75 +66,24 @@ export default defineComponent({
 <template>
   <BaseFormContainer>
     <PageHeader
-      title="Movimentação"
-      actionLabel="Nova movimentação"
-      secondaryLabel="Dashboard"
-      @action="irParaCriarMovimentacao"
-      @secondary="irParaDashboard"
+      :title="`Movimentação: ${movimentacoes?.id}`"
+      showback
+      backLabel="Voltar para movimentações"
+      actionLabel="Editar"
+      :actionDisabled="!movimentacoes"
+      @back="irParaMovimentacao"
+      @action="irParaEditarMovimentacao"
     />
 
-    <SearchInput v-model="busca" label="Buscar por tipo de movimentação" />
-
-    <v-card variant="outlined">
-      <v-data-table
-        :items="movimentacoesPaginadas"
-        item-key="id"
-        hide-default-footer
-      >
-        <template #headers>
-          <tr>
-            <th>ID</th>
-            <th>Tipo</th>
-            <th>Quantidade</th>
-            <th>Data</th>
-            <th>Status</th>
-            <th class="text-end">Ações</th>
-          </tr>
-        </template>
-
-        <template #item="{ item }">
-          <tr>
-            <td>{{ item.id }}</td>
-            <td>{{ item.tipomovimentacao }}</td>
-            <td>{{ item.quantidade }}</td>
-            <td>{{ item.datamovimentacao }}</td>
-            <td>{{ item.status }}</td>
-
-            <td class="text-end">
-              <v-btn
-                size="small"
-                variant="outlined"
-                @click="irParaVerMovimentacao(item.id)"
-              >
-                Ver
-              </v-btn>
-            </td>
-          </tr>
-        </template>
-      </v-data-table>
-    </v-card>
-
-    <v-row class="mt-4" align="center" justify="center">
-      <v-btn
-        variant="outlined"
-        @click="paginaAtual--"
-        :disabled="paginaAtual === 1"
-      >
-        Anterior
-      </v-btn>
-
-      <span class="mx-4"> Página {{ paginaAtual }} </span>
-
-      <v-btn
-        variant="outlined"
-        @click="paginaAtual++"
-        :disabled="
-          paginaAtual * itensPorPagina >= movimentacoesFiltradas.length
-        "
-      >
-        Próximo
-      </v-btn>
-    </v-row>
+    <DetailsCard
+      :items="[
+        { label: 'ID', value: movimentacoes?.id },
+        { label: 'Tipo', value: movimentacoes?.tipomovimentacao },
+        { label: 'Quantidade', value: movimentacoes?.quantidade },
+        { label: 'Data', value: movimentacoes?.datamovimentacao },
+        { label: 'Status', value: movimentacoes?.status },
+      ]"
+    />
 
     <Footer />
   </BaseFormContainer>

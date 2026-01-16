@@ -17,6 +17,8 @@ import {
   precoCustoMenorOuIgualVenda,
   precoVendaMaiorOuIgualCusto,
 } from '@/utils/validators/priceRules';
+import { DepositoList } from '@/services/deposito.services';
+import { FornecedoresList } from '@/services/fornecedores';
 
 export default defineComponent({
   name: 'LoteCriarPage',
@@ -32,6 +34,8 @@ export default defineComponent({
     return {
       marcas: [] as { id: string; nome: string }[],
       produto: [] as { id: string; nome: string }[],
+      corredor: [] as { id: string; corredor: string }[],
+      fornecedor: [] as { id: string; nome: string }[],
 
       hoje: new Date().toISOString().split('T')[0],
 
@@ -43,6 +47,8 @@ export default defineComponent({
         codigoLote: '',
         marca: '',
         produto: '',
+        corredor: '',
+        fornecedor: '',
         status: 'ativo' as Status,
         dataValidade: '',
         precoCusto: '',
@@ -74,7 +80,7 @@ export default defineComponent({
       try {
         await LotePost(this.form);
 
-        (this.snackbarTexto = 'Depósito criado com sucesso'),
+        (this.snackbarTexto = 'Lotes criado com sucesso'),
           (this.snackbarTipo = 'success');
         this.snackbar = true;
 
@@ -100,6 +106,20 @@ export default defineComponent({
       this.produto = response.data;
     } catch (error) {
       console.error('Erro ao buscar marcas', error);
+    }
+
+    try {
+      const response = await DepositoList();
+      this.corredor = response.data;
+    } catch (error) {
+      console.error('Erro ao buscar deposito', error);
+    }
+
+        try {
+      const response = await FornecedoresList();
+      this.fornecedor = response.data;
+    } catch (error) {
+      console.error('Erro ao buscar fornecedor', error);
     }
   },
 });
@@ -138,13 +158,25 @@ export default defineComponent({
         />
       </v-col>
 
-      <!-- ver o que coloca esse: item-value="id"  ou item-value="nome"  -->
+      <v-col cols="12" md="6">
+        <v-select
+          v-model="form.fornecedor"
+          label="Fornecedor"
+          :items="fornecedor"
+          item-title="nome"
+          item-value="nome"
+          variant="outlined"
+          required
+        />
+      </v-col>
+
+      <!-- todo ver o que coloca esse: item-value="id"  ou item-value="nome"  -->
       <v-col cols="12" md="6">
         <v-select
           v-model="form.marca"
           :items="marcas"
           item-title="nome"
-          item-value="id"
+          item-value="nome"
           label="Marca"
           variant="outlined"
           required
@@ -165,15 +197,14 @@ export default defineComponent({
       </v-col>
 
       <v-col cols="12" md="6">
-        <v-text-field
-          v-model="form.dataValidade"
-          label="Data da validade"
-          type="date"
+        <v-select
+          v-model="form.corredor"
+          label="Corredor"
+          :items="corredor"
+          item-title="corredor"
+          item-value="corredor"
+          variant="outlined"
           required
-          :max="hoje"
-          :rules="[(v) => !!v || 'Data é obrigatória', dataNaoFutura]"
-          ,
-          dataNaoFutura
         />
       </v-col>
 
@@ -211,16 +242,6 @@ export default defineComponent({
 
       <v-col cols="12" md="6">
         <v-text-field
-          v-model="form.codigoBarra"
-          label="Código de barra"
-          variant="outlined"
-          required
-          :rules="[(v) => !!v || 'Campo é obrigatório']"
-        />
-      </v-col>
-
-      <v-col cols="12" md="6">
-        <v-text-field
           v-model="form.quantidade"
           label="Quantidade Produto"
           type="number"
@@ -232,6 +253,29 @@ export default defineComponent({
             (v) => !!v || 'Campo é obrigatório',
             (v) => v >= 0 || 'Valor deve ser positivo',
           ]"
+        />
+      </v-col>
+
+      <v-col cols="12" md="6">
+        <v-text-field
+          v-model="form.codigoBarra"
+          label="Código de barra"
+          variant="outlined"
+          required
+          :rules="[(v) => !!v || 'Campo é obrigatório']"
+        />
+      </v-col>
+
+      <v-col cols="12" md="6">
+        <v-text-field
+          v-model="form.dataValidade"
+          label="Data da validade"
+          type="date"
+          required
+          :max="hoje"
+          :rules="[(v) => !!v || 'Data é obrigatória', dataNaoFutura]"
+          ,
+          dataNaoFutura
         />
       </v-col>
     </CreateFormCard>

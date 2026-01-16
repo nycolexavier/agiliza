@@ -68,7 +68,9 @@ export default defineComponent({
 
         if (typeof id === 'string') {
           const response = await FornecedoresIDPatch(id, this.form);
-
+          setTimeout(() => {
+            this.$router.push(ROUTES.fornecedores.list);
+          }, 1000);
           return response;
         }
       } catch (error) {}
@@ -92,6 +94,10 @@ export default defineComponent({
       showCancel
       @submit="enviarForm"
     >
+      <v-col cols="12" md="6">
+        <v-text-field v-model="form.nome" label="Nome" variant="outlined" />
+      </v-col>
+
       <v-col cols="12" md="6">
         <v-text-field v-model="form.cargo" label="Cargo" variant="outlined" />
       </v-col>

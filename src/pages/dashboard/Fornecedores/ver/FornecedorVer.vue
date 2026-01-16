@@ -53,6 +53,8 @@ export default defineComponent({
       title=" Fornecedor"
       :subtitle="fornecedorEdicao?.nome"
       :show-back="true"
+      @action="irParaFornecedorEditar"
+      actionLabel="Editar fornecedor"
       @back="irParaOFornecedor"
     />
 

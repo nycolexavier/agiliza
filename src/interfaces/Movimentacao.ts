@@ -1,9 +1,12 @@
 import type { Status } from './Status';
 
-export type TipoMovimentacao = 'entrada' | 'saida';
+export enum TipoMovimentacao {
+  ENTRADA = 'entrada',
+  SAIDA = 'saida',
+}
 
 export interface Movimentacao {
-  id: number;
+  id: string;
   idlote: number;
   tipomovimentacao: TipoMovimentacao;
   quantidade: number;
@@ -14,7 +17,7 @@ export interface Movimentacao {
 }
 
 export interface MovimentacaoPostDTO {
-  idlote: number;
+  idlote: string;
   tipomovimentacao: TipoMovimentacao;
   quantidade: number;
   datamovimentacao: string;
@@ -24,7 +27,7 @@ export interface MovimentacaoPostDTO {
 }
 
 export interface MovimentacaoPatchDTO {
-  idlote?: number;
+  idlote: string;
   tipomovimentacao?: TipoMovimentacao;
   quantidade?: number;
   datamovimentacao?: string;

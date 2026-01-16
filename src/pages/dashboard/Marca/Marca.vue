@@ -29,7 +29,7 @@ export default defineComponent({
         { title: 'ID', key: 'id' },
         { title: 'Nome', key: 'nome' },
         { title: 'Criado em', key: 'criadoEm' },
-        { title: 'Criado por', key: 'criadoPor' },
+        // { title: 'Criado por', key: 'criadoPor' },
         { title: 'Atualizado em', key: 'atualizadoEm' },
         { title: 'Ações', key: 'actions' },
       ],

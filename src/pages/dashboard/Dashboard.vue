@@ -3,7 +3,6 @@ import BaseFormContainer from '@/components/base/BaseFormContainer.vue';
 import Footer from '@/components/footer/Footer.vue';
 import { ROUTES } from '@/router/utils/routes';
 import { defineComponent } from 'vue';
-import { useRouter } from 'vue-router';
 import PageHeader from '@/components/layouts/PageHeader.vue';
 import type { DashboardResumo } from '@/interfaces/Dashboard';
 import { DashboardGet } from '@/services/dashboard.services';

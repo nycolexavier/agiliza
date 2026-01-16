@@ -88,6 +88,9 @@ export default defineComponent({
       const response = await LoteList();
 
       this.lotes = response.data;
+
+      
+    console.log(this.lotes);
     },
   },
 });

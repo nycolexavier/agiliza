@@ -49,12 +49,12 @@ export default defineComponent({
         const payload = {
           ...this.form,
           nome: this.form.nome.toLocaleLowerCase().trim(),
-          email: this.form.nome.toLocaleLowerCase().trim(),
+          email: this.form.email.toLocaleLowerCase().trim(),
         };
 
         await FornecedoresPost(payload);
 
-        (this.snackbarTexto = 'Depósito criado com sucesso'),
+        (this.snackbarTexto = 'Fornecedor criado com sucesso'),
           (this.snackbarTipo = 'success');
         this.snackbar = true;
 

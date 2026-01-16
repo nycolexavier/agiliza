@@ -55,7 +55,7 @@ export default defineComponent({
     },
 
     validarQuantidade(v: number) {
-      // if (!v) return 'Quantidade é obrigatória';
+      if (!v) return 'Quantidade é obrigatória';
 
       if (v <= 0) return 'Quantidade deve ser maior que zero';
 
@@ -72,7 +72,7 @@ export default defineComponent({
     async enviarForm() {
       try {
         await MovimentacaoPost({
-          idlote: Number(this.form.idlote),
+          idlote: this.form.idlote,
           tipomovimentacao: this.form.tipomovimentacao,
           quantidade: Number(this.form.quantidade),
           datamovimentacao: this.form.datamovimentacao,
@@ -109,11 +109,13 @@ export default defineComponent({
   watch: {
     'form.idlote'(novoId) {
       const loteSelecionado = this.lotes.find((l) => l.id === novoId);
-
+      console.log('loteSelecionado', loteSelecionado);
+      console.log('novoId', novoId);
       this.quantidadeDisponivel = loteSelecionado
         ? loteSelecionado.quantidade
         : 0;
 
+      console.log('quantidadeDisponivel', this.quantidadeDisponivel);
       this.form.quantidade = '';
     },
   },
@@ -154,7 +156,7 @@ export default defineComponent({
       <v-col cols="12" md="6">
         <v-select
           v-model="form.tipomovimentacao"
-          :items="['entrada', 'saida']"
+          :items="['saída']"
           label="Tipo de movimentação"
           required
           :rules="[(v) => !!v || 'Tipo é obrigatório']"

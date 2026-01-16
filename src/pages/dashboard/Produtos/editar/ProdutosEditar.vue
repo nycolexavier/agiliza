@@ -21,7 +21,7 @@ export default defineComponent({
         nome: '',
         sku: '',
         unidadeMedida: '',
-        quantidadeProduto: '',
+        quantidade: '',
         status: 'ativo',
         categoria: '',
       },
@@ -49,7 +49,7 @@ export default defineComponent({
           this.form.nome = response.data.nome;
           this.form.sku = response.data.sku;
           this.form.unidadeMedida = response.data.unidadeMedida;
-          this.form.quantidadeProduto = response.data.quantidadeProduto;
+          this.form.quantidade = response.data.quantidade;
           this.form.status = response.data.status;
           this.form.categoria = response.data.categoria;
         }
@@ -66,7 +66,7 @@ export default defineComponent({
             nome: this.form.nome,
             sku: this.form.sku,
             unidadeMedida: this.form.unidadeMedida,
-            quantidadeProduto: this.form.quantidadeProduto,
+            quantidade: this.form.quantidade,
             status: 'ativo',
             categoria: this.form.categoria,
           });
@@ -93,7 +93,7 @@ export default defineComponent({
         !form.nome ||
         !form.sku ||
         !form.unidadeMedida ||
-        !form.quantidadeProduto ||
+        !form.quantidade ||
         !form.categoria
       "
       @submit="enviarForm"
@@ -118,7 +118,7 @@ export default defineComponent({
 
         <v-col cols="12" md="6">
           <v-text-field
-            v-model="form.quantidadeProduto"
+            v-model="form.quantidade"
             label="Quantidade do produto"
             required
             :rules="[(v) => !!v || 'Quantidade de produto é obrigatório']"

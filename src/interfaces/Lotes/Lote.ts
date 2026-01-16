@@ -14,9 +14,10 @@ export interface Lote {
   criadoPor: string;
   codigoBarra: string;
   quantidade: number;
+  corredor: string;
 }
 export interface LotePostDTO {
-  id?: string; 
+  id?: string;
   codigoLote: string;
   marca: string;
   produto: string;
@@ -28,6 +29,7 @@ export interface LotePostDTO {
   criadoPor?: string;
   codigoBarra: string;
   quantidade: string;
+  corredor: string;
 }
 export interface LotePatchDTO {
   codigoLote: string;
@@ -35,4 +37,5 @@ export interface LotePatchDTO {
   produto: string;
   quantidade: string;
   dataValidade: string;
+  corredor: string;
 }

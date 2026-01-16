@@ -73,7 +73,7 @@ export default defineComponent({
 <template>
   <BaseFormContainer>
     <PageHeader
-      :title="`Editar depósito #{{ deposito?.id }}`"
+      :title="`Editar corredor: ${deposito?.corredor}`"
       showBack
       backLabel="Voltar para ver o depósito"
       @back="irParaODeposito"

@@ -56,6 +56,8 @@ export default defineComponent({
           this.form.email = response.data.email;
           this.form.status = response.data.status;
           this.form.telefone = response.data.telefone;
+
+          console.log(response.data);
         }
       } catch (error) {
         console.error('Erro ao buscar usuários', error);
@@ -68,6 +70,9 @@ export default defineComponent({
 
         if (typeof id === 'string') {
           const response = await UsuariosIDPatch(id, this.form);
+          setTimeout(() => {
+            this.$router.push(ROUTES.usuarios.list);
+          }, 1000);
           return response;
         }
       } catch (error) {}
@@ -79,17 +84,13 @@ export default defineComponent({
 <template>
   <BaseFormContainer>
     <PageHeader
-      :title="`Editar usário #{{ usuario?.id }}`"
+      :title="`Editar usário: ${usuario?.id}`"
       showBack
       backLabel="Voltar para ver o usário"
       @back="irParaOUsuario"
     />
 
-    <FormCard
-      submitLabel="Salvar alterações"
-      :disabled="!form.nome || !form.email || !form.cargo"
-      @submit="enviarForm"
-    >
+    <FormCard submitLabel="Salvar alterações" @submit="enviarForm">
       <v-row>
         <v-col cols="12" md="6">
           <v-text-field v-model="form.nome" label="Nome" variant="outlined" />

@@ -40,7 +40,7 @@ export const ROUTES = {
     list: '/dashboard/movimentacao',
     new: '/dashboard/movimentacao/new',
     ver: (id: string) => `/dashboard/movimentacao/${id}`,
-    editar: (id: string) => `/dashboard/movimentacao/${id}/editar`,
+    editar: (id: number) => `/dashboard/movimentacao/${id}/editar`,
   },
 
   marca: {

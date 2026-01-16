@@ -5,6 +5,7 @@ export interface Produto {
   nome: string;
   sku: number;
   unidadeMedida: string;
+  quantidade: string;
   quantidadeProduto: string;
   status: Status;
   categoria: string;
@@ -18,7 +19,8 @@ export interface ProdutosPostDTO {
   nome: string;
   sku: string;
   unidadeMedida: string;
-  quantidadeProduto: string;
+  quantidadeProduto?: string;
+  quantidade: string;
   status: Status;
   categoria: string;
 }
@@ -28,5 +30,6 @@ export interface ProdutosPatchDTO {
   sku: string;
   unidadeMedida: string;
   quantidadeProduto: string;
+  quantidade: string;
   categoria: string;
 }

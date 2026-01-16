@@ -1,6 +1,6 @@
 <script lang="ts">
 import Footer from '@/components/footer/Footer.vue';
-import type { Movimentacao } from '@/interfaces/Movimentacao';
+import { TipoMovimentacao, type Movimentacao } from '@/interfaces/Movimentacao';
 import { ROUTES } from '@/router/utils/routes';
 import {
   MovimentacaoIDPatch,
@@ -21,10 +21,11 @@ export default defineComponent({
 
   data() {
     return {
+      TipoMovimentacao,
       movimentacao: null as Movimentacao | null,
       form: {
-        tipomovimentacao: '',
-        quantidade: '',
+        tipomovimentacao: undefined as TipoMovimentacao | undefined,
+        quantidade: undefined as number | undefined,
         datamovimentacao: '',
         status: 'ativo',
         idlote: '',
@@ -74,8 +75,6 @@ export default defineComponent({
             quantidade: this.form.quantidade,
             datamovimentacao: this.form.datamovimentacao,
             idlote: this.form.idlote,
-            idproduto: this.form.idproduto,
-            idfornecedor: this.form.idfornecedor,
           });
           return response;
         }
@@ -111,14 +110,17 @@ export default defineComponent({
           <v-select
             v-model="form.tipomovimentacao"
             label="Tipo de movimentação"
-            :items="['entrada', 'saida']"
+            :items="[
+              { title: 'Entrada', value: TipoMovimentacao.ENTRADA },
+              { title: 'Saída', value: TipoMovimentacao.SAIDA },
+            ]"
             required
           />
         </v-col>
 
         <v-col cols="12" md="6">
           <v-text-field
-            v-model="form.quantidade"
+            v-mode.number="form.quantidade"
             label="Quantidade"
             type="number"
             required
@@ -137,14 +139,6 @@ export default defineComponent({
 
         <v-col cols="12" md="6">
           <v-text-field v-model="form.idlote" label="ID do lote" required />
-        </v-col>
-
-        <v-col cols="12" md="6">
-          <v-text-field v-model="form.idproduto" label="ID do produto" />
-        </v-col>
-
-        <v-col cols="12" md="6">
-          <v-text-field v-model="form.idfornecedor" label="ID do fornecedor" />
         </v-col>
       </v-row>
     </FormCard>

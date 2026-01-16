@@ -45,7 +45,7 @@ export default defineComponent({
           atualizadoEm: this.form.atualizadoEm,
         });
 
-        (this.snackbarTexto = 'Depósito criado com sucesso'),
+        (this.snackbarTexto = 'Marca criadoa com sucesso'),
           (this.snackbarTipo = 'success');
         this.snackbar = true;
 
