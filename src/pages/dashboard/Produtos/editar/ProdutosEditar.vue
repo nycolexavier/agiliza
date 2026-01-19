@@ -81,7 +81,7 @@ export default defineComponent({
 <template>
   <BaseFormContainer>
     <PageHeader
-      :title="`Editar produto #{{ produto?.id }}`"
+      :title="`Editar produto: ${produto?.nome}`"
       showBack
       backLabel="Voltar para ver o produto"
       @back="irParaOProduto"

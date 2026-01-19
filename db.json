@@ -11,7 +11,7 @@
   "usuarios": [
     {
       "id": "dadd",
-      "nome": "Levi",
+      "nome": "Levi Melo",
       "cargo": "funcionario",
       "email": "levi@gmail.com",
       "status": "ativo",
@@ -21,7 +21,7 @@
       "id": "d211",
       "nome": "Bia",
       "cargo": "fornecedor",
-      "email": "bia",
+      "email": "bia@gmail.com",
       "status": "ativo",
       "telefone": "31997537547"
     },
@@ -64,6 +64,62 @@
       "email": "brito@gmail.com",
       "status": "ativo",
       "telefone": "31997537547"
+    },
+    {
+      "id": "190c",
+      "nome": "priscila dos santos marinho",
+      "cargo": "admin",
+      "email": "priscila dos santos marinho",
+      "status": "inativo",
+      "telefone": "31997402013"
+    },
+    {
+      "id": "65ed",
+      "nome": "soraia",
+      "cargo": "gerente",
+      "email": "soraia",
+      "status": "ativo",
+      "telefone": "41415151541"
+    },
+    {
+      "id": "d959",
+      "nome": "joão",
+      "cargo": "fornecedor",
+      "email": "joão",
+      "status": "ativo",
+      "telefone": "541361431"
+    },
+    {
+      "id": "3616",
+      "nome": "leonardo",
+      "cargo": "funcionario",
+      "email": "leonardo",
+      "status": "ativo",
+      "telefone": "63416314"
+    },
+    {
+      "id": "d1c6",
+      "nome": "suelen",
+      "cargo": "funcionario",
+      "email": "suelen",
+      "status": "ativo",
+      "telefone": "5092840928420"
+    },
+    {
+      "id": "84af",
+      "nome": "lucas",
+      "cargo": "gerente",
+      "email": "lucas",
+      "status": "ativo",
+      "telefone": "31997537547"
+    },
+    {
+      "id": "47c6",
+      "nome": "pedro",
+      "cargo": "gerente",
+      "email": "pedro",
+      "status": "ativo",
+      "telefone": "31977537547"
     }
   ],
   "fornecedores": [
@@ -88,6 +144,14 @@
       "nome": "joana",
       "cargo": "fornecedor",
       "email": "joana@gmail.com",
+      "status": "ativo",
+      "telefone": "31997537547"
+    },
+    {
+      "id": "e1a2",
+      "nome": "nycole dos santos xavier",
+      "cargo": "admin",
+      "email": "nycole.xavierr@gmail.com",
       "status": "ativo",
       "telefone": "31997537547"
     }
@@ -149,6 +213,62 @@
       "prateleira": "52",
       "sessao": "ac",
       "quantidadeMaxima": "10"
+    },
+    {
+      "id": "e4a1",
+      "corredor": "H",
+      "prateleira": "e",
+      "sessao": "f",
+      "quantidadeMaxima": "10"
+    },
+    {
+      "id": "dd41",
+      "corredor": "D",
+      "prateleira": "g",
+      "sessao": "g",
+      "quantidadeMaxima": "20"
+    },
+    {
+      "id": "ae5c",
+      "corredor": "E",
+      "prateleira": "f",
+      "sessao": "a",
+      "quantidadeMaxima": "40"
+    },
+    {
+      "id": "5d58",
+      "corredor": "F",
+      "prateleira": "r",
+      "sessao": "j",
+      "quantidadeMaxima": "50"
+    },
+    {
+      "id": "9383",
+      "corredor": "H",
+      "prateleira": "r",
+      "sessao": "s",
+      "quantidadeMaxima": "30"
+    },
+    {
+      "id": "a798",
+      "corredor": "C",
+      "prateleira": "W",
+      "sessao": "A",
+      "quantidadeMaxima": "40"
+    },
+    {
+      "id": "e6b0",
+      "corredor": "K",
+      "prateleira": "50",
+      "sessao": "E",
+      "quantidadeMaxima": "80"
+    },
+    {
+      "id": "4651",
+      "corredor": "T",
+      "prateleira": "F",
+      "sessao": "B",
+      "quantidadeMaxima": "60"
     }
   ],
   "lotes": [
@@ -206,6 +326,12 @@
       "nome": "samsung",
       "criadoEm": "2026-01-16T16:22:32.473Z",
       "atualizadoEm": "2026-01-16T16:22:32.473Z"
+    },
+    {
+      "id": "8a86",
+      "nome": "Nestléé",
+      "criadoEm": "",
+      "atualizadoEm": ""
     }
   ],
   "movimentacao": [

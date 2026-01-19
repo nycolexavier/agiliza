@@ -17,7 +17,7 @@ export default defineComponent({
     PageHeader,
   },
 
-  data(vm) {
+  data() {
     return {
       usuario: null as Usuario | null,
 
@@ -30,6 +30,10 @@ export default defineComponent({
         status: 'ativo',
         telefone: '',
       },
+
+      snackbar: false,
+      snackbarTexto: '',
+      snackbarCor: 'success',
     };
   },
 
@@ -70,6 +74,11 @@ export default defineComponent({
 
         if (typeof id === 'string') {
           const response = await UsuariosIDPatch(id, this.form);
+
+          (this.snackbarTexto = 'Usuario editado com sucesso'),
+            (this.snackbarCor = 'success');
+          this.snackbar = true;
+
           setTimeout(() => {
             this.$router.push(ROUTES.usuarios.list);
           }, 1000);
@@ -84,7 +93,7 @@ export default defineComponent({
 <template>
   <BaseFormContainer>
     <PageHeader
-      :title="`Editar usário: ${usuario?.id}`"
+      :title="`Editar usário: ${usuario?.nome}`"
       showBack
       backLabel="Voltar para ver o usário"
       @back="irParaOUsuario"
@@ -118,5 +127,14 @@ export default defineComponent({
         </v-col>
       </v-row>
     </FormCard>
+
+    <v-snackbar
+      v-model="snackbar"
+      :color="snackbarCor"
+      timeout="3000"
+      location="top right"
+    >
+      {{ snackbarTexto }}
+    </v-snackbar>
   </BaseFormContainer>
 </template>

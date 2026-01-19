@@ -31,6 +31,7 @@ import MovimentacaoEditar from '@/pages/dashboard/Movimentacao/editar/Movimentac
 import MovimentacaoVer from '@/pages/dashboard/Movimentacao/ver/MovimentacaoVer.vue';
 import MenuLayout from '@/components/layouts/MenuLayout.vue';
 import LotesCriar from '@/pages/dashboard/Lotes/criar/LotesCriar.vue';
+import MarcaEditar from '@/pages/dashboard/Marca/editar/MarcaEditar.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -91,6 +92,7 @@ const router = createRouter({
         { path: 'marca', component: Marca },
         { path: 'marca/new', component: MarcaCriar },
         { path: 'marca/:id', component: MarcaVer },
+        { path: 'marca/:id/editar', component: MarcaEditar },
 
         // RELATÓRIO
         { path: 'relatorio', component: Relatorio },

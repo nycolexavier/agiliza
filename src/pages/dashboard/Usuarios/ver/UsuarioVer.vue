@@ -68,10 +68,6 @@ export default defineComponent({
       :items="[
         { label: 'ID', value: usuario?.id },
         { label: 'Nome', value: usuario?.nome },
-        {
-          label: 'Status',
-          value: usuario?.status === 'ativo' ? 'Ativo' : 'Inativo',
-        },
         { label: 'Status', value: usuario?.status },
         { label: 'Telefone', value: usuario?.telefone },
       ]"

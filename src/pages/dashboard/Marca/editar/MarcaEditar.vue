@@ -20,6 +20,7 @@ export default defineComponent({
 
   data() {
     return {
+      marca: '',
       form: {
         nome: '',
         criadoEm: '',
@@ -50,7 +51,7 @@ export default defineComponent({
         this.snackbar = true;
 
         setTimeout(() => {
-          this.$router.push(ROUTES.fornecedores.list);
+          this.$router.push(ROUTES.marca.list);
         }, 1000);
       } catch (error) {
         console.error('Erro ao criar fornecedor', error);
@@ -63,7 +64,7 @@ export default defineComponent({
 <template>
   <BaseFormContainer>
     <PageHeader
-      :title="`Editar marca #{{ marca?.id }}`"
+      :title="`Editar marca`"
       showBack
       backLabel="Voltar para ver o marca"
       @back="irParaMarca"

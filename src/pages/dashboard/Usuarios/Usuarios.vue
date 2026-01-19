@@ -23,7 +23,7 @@ export default defineComponent({
 
   data() {
     return {
-      usuario: [] as Usuario[],
+      usuarios: [] as Usuario[],
       busca: '',
 
       isLoading: false,
@@ -53,14 +53,17 @@ export default defineComponent({
 
     usuariosFiltrados(): Usuario[] {
       if (!this.busca) {
-        return this.usuario;
+        return this.usuarios;
       }
 
       const buscaNormalizada = removerAcentos(this.busca);
 
-      return this.usuario.filter((usuario) =>
-        removerAcentos(usuario.nome).includes(buscaNormalizada)
-      );
+      return this.usuarios.filter((usuario) => {
+        const texto = removerAcentos(
+          `${usuario.nome} ${usuario.email} ${usuario.cargo} ${usuario.telefone} ${usuario.status} ${usuario.id} `
+        );
+        return texto.includes(buscaNormalizada);
+      });
     },
   },
 
@@ -83,7 +86,7 @@ export default defineComponent({
       try {
         this.isLoading = true;
         const response = await UsuariosList();
-        this.usuario = response.data;
+        this.usuarios = response.data;
       } catch (error) {
         console.error('Erro ao buscar usuários', error);
       } finally {
