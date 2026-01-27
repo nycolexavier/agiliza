@@ -20,7 +20,6 @@ export default defineComponent({
       form: {
         nome: '',
         sku: '',
-        unidadeMedida: '',
         quantidade: '',
         status: 'ativo',
         categoria: '',
@@ -48,7 +47,6 @@ export default defineComponent({
 
           this.form.nome = response.data.nome;
           this.form.sku = response.data.sku;
-          this.form.unidadeMedida = response.data.unidadeMedida;
           this.form.quantidade = response.data.quantidade;
           this.form.status = response.data.status;
           this.form.categoria = response.data.categoria;
@@ -65,7 +63,6 @@ export default defineComponent({
           const response = await ProdutosPost({
             nome: this.form.nome,
             sku: this.form.sku,
-            unidadeMedida: this.form.unidadeMedida,
             quantidade: this.form.quantidade,
             status: 'ativo',
             categoria: this.form.categoria,
@@ -92,7 +89,6 @@ export default defineComponent({
       :disabled="
         !form.nome ||
         !form.sku ||
-        !form.unidadeMedida ||
         !form.quantidade ||
         !form.categoria
       "
@@ -105,15 +101,6 @@ export default defineComponent({
 
         <v-col cols="12" md="6">
           <v-text-field v-model="form.sku" label="SKU" required />
-        </v-col>
-
-        <v-col cols="12" md="6">
-          <v-text-field
-            v-model="form.unidadeMedida"
-            label="Unidade de medida"
-            required
-            :rules="[(v) => !!v || 'Quantidade de medida é obrigatório']"
-          />
         </v-col>
 
         <v-col cols="12" md="6">

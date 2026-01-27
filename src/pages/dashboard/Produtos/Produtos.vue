@@ -27,8 +27,7 @@ export default defineComponent({
         { title: 'ID', key: 'id' },
         { title: 'Nome', key: 'nome' },
         { title: 'SKU', key: 'sku' },
-        { title: 'Unidade', key: 'unidadeMedida' },
-        { title: 'Quantidade', key: 'quantidadeProduto' },
+        { title: 'Descrição', key: 'descricao' },
         { title: 'Categoria', key: 'categoria' },
         { title: 'Status', key: 'status' },
         { title: 'Ações', key: 'actions' },
@@ -86,7 +85,9 @@ export default defineComponent({
     async buscarProdutos() {
       const response = await ProdutosList();
 
+      console.log(response.data);
       this.produto = response.data;
+
     },
   },
 });

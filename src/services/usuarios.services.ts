@@ -2,17 +2,17 @@ import type { Usuario, UsuarioPatchDTO, UsuariosPostDTO } from '@/interfaces/Usu
 import api from './api';
 
 export function UsuariosList() {
-  return api.get<Usuario[]>(`/usuarios`);
+  return api.get<Usuario[]>(`/users`);
 }
 
 export function UsuariosListID(id: string) {
-  return api.get<Usuario>(`/usuarios/${id}`);
+  return api.get<Usuario>(`/users/${id}`);
 }
 
 export function UsuariosPost(payload: UsuariosPostDTO) {
-  return api.post(`/usuarios`, payload);
+  return api.post(`/users`, payload);
 }
 
 export function UsuariosIDPatch(id: string, payload: UsuarioPatchDTO) {
-  return api.patch(`/usuarios/${id}`, payload);
+  return api.patch(`/users/${id}`, payload);
 }

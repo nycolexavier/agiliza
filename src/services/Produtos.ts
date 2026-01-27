@@ -6,14 +6,14 @@ import type {
 import api from './api';
 
 export function ProdutosList() {
-  return api.get<Produto[]>(`/produtos`);
+  return api.get<Produto[]>(`/products`);
 }
 export function ProdutosListID(id: string) {
-  return api.get(`/produtos/${id}`);
+  return api.get(`/products/${id}`);
 }
 export function ProdutosPost(payload: ProdutosPostDTO) {
-  return api.post(`/produtos`, payload);
+  return api.post(`/products`, payload);
 }
 export function ProdutosIDPatch(id: string, payload: ProdutosPatchDTO) {
-  return api.patch(`/produtos/${id}`);
+  return api.patch(`/products/${id}`);
 }

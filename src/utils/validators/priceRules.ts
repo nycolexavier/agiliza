@@ -1,7 +1,7 @@
 // Valida se o preço de venda é maior ou igual ao preço de custo
 export function precoVendaMaiorOuIgualCusto(
-  precoVenda: string,
-  precoCusto: string
+  precoVenda: number,
+  precoCusto: number
 ) {
   if (!precoVenda || !precoCusto) return true;
 
@@ -18,8 +18,8 @@ export function precoVendaMaiorOuIgualCusto(
 //  Valida se o preço de custo é menor ou igual ao preço de venda
 
 export function precoCustoMenorOuIgualVenda(
-  precoCusto: string,
-  precoVenda: string
+  precoCusto: number,
+  precoVenda: number
 ) {
   if (!precoCusto || !precoVenda) return true;
 

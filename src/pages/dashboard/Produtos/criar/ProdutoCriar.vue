@@ -22,7 +22,6 @@ export default defineComponent({
         nome: '',
         sku: '',
         quantidadeMedida: '',
-        quantidadeProduto: '',
         status: 'ativo' as Status,
         categoria: '',
       },
@@ -42,8 +41,6 @@ export default defineComponent({
         await ProdutosPost({
           nome: this.form.nome,
           sku: this.form.sku,
-          unidadeMedida: this.form.quantidadeMedida,
-          quantidadeProduto: this.form.quantidadeProduto,
           status: this.form.status,
           categoria: this.form.categoria,
         });
@@ -78,7 +75,6 @@ export default defineComponent({
         !form.nome ||
         !form.categoria ||
         !form.quantidadeMedida ||
-        !form.quantidadeProduto ||
         !form.sku
       "
       @submit="enviarForm"
@@ -89,24 +85,6 @@ export default defineComponent({
 
       <v-col cols="12" md="6">
         <v-text-field v-model="form.sku" label="SKU" required />
-      </v-col>
-
-      <v-col cols="12" md="6">
-        <v-text-field
-          v-model="form.quantidadeMedida"
-          label="Quantidade de medida"
-          required
-          :rules="[(v) => !!v || 'Quantidade de medida é obrigatório']"
-        />
-      </v-col>
-
-      <v-col cols="12" md="6">
-        <v-text-field
-          v-model="form.quantidadeProduto"
-          label="Quantidade de produto"
-          required
-          :rules="[(v) => !!v || 'Quantidade de produto é obrigatório']"
-        />
       </v-col>
 
       <v-col cols="12" md="6">

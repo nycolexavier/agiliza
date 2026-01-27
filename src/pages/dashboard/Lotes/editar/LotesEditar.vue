@@ -24,7 +24,6 @@ export default defineComponent({
         codigoLote: '',
         marca: '',
         produto: '',
-        quantidadeProduto: '',
         status: 'ativo',
         dataValidade: '',
       },
@@ -52,7 +51,6 @@ export default defineComponent({
           this.form.codigoLote = response.data.codigoLote;
           this.form.marca = response.data.marca;
           this.form.produto = response.data.produto;
-          this.form.quantidadeProduto = response.data.quantidadeProduto;
           this.form.status = response.data.status;
           this.form.dataValidade = response.data.dataValidade;
         }
@@ -69,7 +67,6 @@ export default defineComponent({
             codigoLote: this.form.codigoLote,
             marca: this.form.marca,
             produto: this.form.produto,
-            quantidadeProduto: this.form.quantidadeProduto,
             dataValidade: this.form.dataValidade,
           });
           return response;
@@ -123,16 +120,6 @@ export default defineComponent({
           variant="outlined"
           required
           :rules="[(v) => !!v || 'Produto é obrigatório']"
-        />
-      </v-col>
-
-      <v-col cols="12" md="6">
-        <v-text-field
-          v-model="form.quantidadeProduto"
-          label="Quantidade do produto"
-          variant="outlined"
-          type="number"
-          :rules="[(v) => !!v || 'Quantidade do produto é obrigatório']"
         />
       </v-col>
 

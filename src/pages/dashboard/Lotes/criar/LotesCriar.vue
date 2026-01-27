@@ -45,16 +45,16 @@ export default defineComponent({
 
       form: {
         codigoLote: '',
-        marca: '',
-        produto: '',
-        corredor: '',
-        fornecedor: '',
+        marcaId: '',
+        produtoId: '',
+        depositoId: '',
+        fornecedorId: '',
         status: 'ativo' as Status,
         dataValidade: '',
-        precoCusto: '',
-        precoVenda: '',
+        precoCusto: 0,
+        precoVenda: 0,
         codigoBarra: '',
-        quantidade: '',
+        quantidade: 0,
       },
 
       snackbar: false,
@@ -80,8 +80,8 @@ export default defineComponent({
       try {
         await LotePost(this.form);
 
-        (this.snackbarTexto = 'Lotes criado com sucesso'),
-          (this.snackbarTipo = 'success');
+        ((this.snackbarTexto = 'Lotes criado com sucesso'),
+          (this.snackbarTipo = 'success'));
         this.snackbar = true;
 
         setTimeout(() => {
@@ -115,7 +115,7 @@ export default defineComponent({
       console.error('Erro ao buscar deposito', error);
     }
 
-        try {
+    try {
       const response = await FornecedoresList();
       this.fornecedor = response.data;
     } catch (error) {
@@ -138,8 +138,10 @@ export default defineComponent({
       submitLabel="Criar lotes"
       :disabled="
         !form.codigoLote ||
-        !form.marca ||
-        !form.produto ||
+        !form.marcaId ||
+        !form.produtoId ||
+        !form.depositoId ||
+        !form.fornecedorId ||
         !form.dataValidade ||
         !form.precoCusto ||
         !form.precoVenda ||
@@ -160,11 +162,11 @@ export default defineComponent({
 
       <v-col cols="12" md="6">
         <v-select
-          v-model="form.fornecedor"
+          v-model="form.fornecedorId"
           label="Fornecedor"
           :items="fornecedor"
           item-title="nome"
-          item-value="nome"
+          item-value="id"
           variant="outlined"
           required
         />
@@ -173,10 +175,10 @@ export default defineComponent({
       <!-- todo ver o que coloca esse: item-value="id"  ou item-value="nome"  -->
       <v-col cols="12" md="6">
         <v-select
-          v-model="form.marca"
+          v-model="form.marcaId"
           :items="marcas"
           item-title="nome"
-          item-value="nome"
+          item-value="id"
           label="Marca"
           variant="outlined"
           required
@@ -186,11 +188,11 @@ export default defineComponent({
 
       <v-col cols="12" md="6">
         <v-select
-          v-model="form.produto"
+          v-model="form.produtoId"
           label="Produto"
           :items="produto"
           item-title="nome"
-          item-value="nome"
+          item-value="id"
           variant="outlined"
           required
         />
@@ -198,11 +200,11 @@ export default defineComponent({
 
       <v-col cols="12" md="6">
         <v-select
-          v-model="form.corredor"
+          v-model="form.depositoId"
           label="Corredor"
           :items="corredor"
           item-title="corredor"
-          item-value="corredor"
+          item-value="id"
           variant="outlined"
           required
         />
@@ -210,7 +212,7 @@ export default defineComponent({
 
       <v-col cols="12" md="6">
         <v-text-field
-          v-model="form.precoCusto"
+          v-model.number="form.precoCusto"
           label="Preço de Custo"
           variant="outlined"
           type="number"
@@ -220,13 +222,13 @@ export default defineComponent({
           :rules="[
             (v) => !!v || 'Campo é obrigatório',
             (v) => v >= 0 || 'Valor deve ser positivo',
-            (v) => precoCustoMenorOuIgualVenda(v, form.precoVenda),
+            (v) => precoCustoMenorOuIgualVenda(Number(v), Number(form.precoVenda)),
           ]"
         />
       </v-col>
 
       <v-text-field
-        v-model="form.precoVenda"
+        v-model.number="form.precoVenda"
         label="Preço de Venda"
         variant="outlined"
         type="number"
@@ -236,13 +238,13 @@ export default defineComponent({
         :rules="[
           (v) => !!v || 'Campo é obrigatório',
           (v) => v >= 0 || 'Valor deve ser positivo',
-          (v) => precoVendaMaiorOuIgualCusto(v, form.precoCusto),
+          (v) => precoVendaMaiorOuIgualCusto(Number(v), Number(form.precoCusto)),
         ]"
       />
 
       <v-col cols="12" md="6">
         <v-text-field
-          v-model="form.quantidade"
+          v-model.number="form.quantidade"
           label="Quantidade Produto"
           type="number"
           variant="outlined"

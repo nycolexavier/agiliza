@@ -64,8 +64,6 @@ export default defineComponent({
         { label: 'ID', value: produto?.id },
         { label: 'Nome', value: produto?.nome },
         { label: 'SKU', value: produto?.sku },
-        { label: 'Unidade de medida', value: produto?.unidadeMedida },
-        { label: 'Quant. Produto', value: produto?.quantidadeProduto },
         { label: 'Categoria', value: produto?.categoria },
         { label: 'Status', value: produto?.status },
       ]"
