@@ -8,8 +8,6 @@ export interface Marca {
 
 export interface MarcaPostDTO {
   nome: string;
-  criadoEm: string;
-  atualizadoEm: string;
 }
 
 export interface MarcaPatchDTO {

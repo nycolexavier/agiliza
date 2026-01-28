@@ -108,8 +108,8 @@ export default defineComponent({
 <template>
   <BaseFormContainer>
     <PageHeader
-      title="Lotes"
-      actionLabel="Adicionar lotes"
+      title="Entrada de lote"
+      actionLabel="Adicionar lote"
       @action="irParaOLotesAdd"
     />
 

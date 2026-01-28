@@ -68,12 +68,12 @@ export default defineComponent({
           @click="irParaDeposito"
         />
         <v-list-item
-          title="Lotes"
+          title="Entradas" Lote
           prepend-icon="mdi-layers"
           @click="irParaLotes"
         />
         <v-list-item
-          title="Movimentações"
+          title="Movimentação"
           prepend-icon="mdi-swap-horizontal"
           @click="irParaMovimentacao"
         />

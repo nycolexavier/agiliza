@@ -43,8 +43,6 @@ export default defineComponent({
         this.isLoading = true;
         await MarcaPost({
           nome: this.form.nome.toLocaleLowerCase().trim(),
-          criadoEm: new Date().toISOString(),
-          atualizadoEm: new Date().toISOString(),
         });
 
         (this.snackbarTexto = 'Marca criado com sucesso'),
@@ -56,6 +54,14 @@ export default defineComponent({
         }, 1000);
       } catch (error) {
         console.error('Erro ao criar marca', error);
+
+          const mensagemErro =
+    error?.response?.data?.message ||
+    'Erro ao criar marca. Tente novamente.';
+
+  this.snackbarTexto = mensagemErro;
+  this.snackbarTipo = 'error';
+  this.snackbar = true;
       } finally{
           this.isLoading = false;
       }
