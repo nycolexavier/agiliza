@@ -2,17 +2,17 @@ import type { Movimentacao, MovimentacaoPatchDTO, MovimentacaoPostDTO } from "@/
 import api from "./api";
 
 export function MovimentacaoList() {
-  return api.get<Movimentacao[]>('/movimentacao');
+  return api.get<Movimentacao[]>('/movimentacoes');
 }
 
 export function MovimentacaoListID(id: string) {
-  return api.get(`/movimentacao/${id}`);
+  return api.get(`/movimentacoes/${id}`);
 }
 
 export function MovimentacaoPost( payload: MovimentacaoPostDTO) {
-  return api.post(`/movimentacao`, payload);
+  return api.post(`/movimentacoes`, payload);
 }
 
 export function MovimentacaoIDPatch(id: string, payload: MovimentacaoPatchDTO) {
-  return api.patch(`/movimentacao/${id}`, payload);
+  return api.patch(`/movimentacoes/${id}`, payload);
 }

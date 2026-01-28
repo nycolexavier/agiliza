@@ -6,7 +6,7 @@ import { defineComponent } from 'vue';
 import PageHeader from '@/components/layouts/PageHeader.vue';
 import CreateFormCard from '@/components/form/CreateFormCard.vue';
 import type { Status } from '@/interfaces/Status';
-import type { TipoMovimentacao } from '@/interfaces/Movimentacao';
+import { TipoMovimentacao } from '@/interfaces/Movimentacao';
 import { LoteList } from '@/services/lote';
 import { dataNaoFutura } from '@/utils/validators/dateRules';
 import {
@@ -25,6 +25,10 @@ export default defineComponent({
 
   data() {
     return {
+      TipoMovimentacao,
+
+       isLoading: false,
+
       hoje: new Date().toISOString().substring(0, 10),
 
       lotes: [] as { id: string; codigoLote: string; quantidade: number }[],
@@ -32,10 +36,10 @@ export default defineComponent({
       quantidadeDisponivel: 0,
 
       form: {
-        idlote: '',
-        tipomovimentacao: '' as TipoMovimentacao,
-        quantidade: '',
-        datamovimentacao: '',
+        loteId: '',
+        tipo: '' as TipoMovimentacao,
+        quantidade: 0,
+        dataMovimentacao: '',
         status: 'ativo' as Status,
       },
 
@@ -59,10 +63,7 @@ export default defineComponent({
 
       if (v <= 0) return 'Quantidade deve ser maior que zero';
 
-      if (
-        this.form.tipomovimentacao === 'saida' &&
-        v > this.quantidadeDisponivel
-      ) {
+      if (this.form.tipo === 'saida' && v > this.quantidadeDisponivel) {
         return `Quantidade maior que o estoque disponível (${this.quantidadeDisponivel})`;
       }
 
@@ -71,12 +72,13 @@ export default defineComponent({
 
     async enviarForm() {
       try {
+        this.isLoading = true;
         await MovimentacaoPost({
-          idlote: this.form.idlote,
-          tipomovimentacao: this.form.tipomovimentacao,
+          loteId: this.form.loteId,
+          tipo: this.form.tipo,
           quantidade: Number(this.form.quantidade),
-          datamovimentacao: this.form.datamovimentacao,
-          status: this.form.status,
+          dataMovimentacao: this.form.dataMovimentacao,
+          criadoPorId: "675ee6b6-d15b-43c3-b728-d6a188eebe25"
         });
 
         this.snackbarTexto = 'Movimentação criada com sucesso';
@@ -92,6 +94,8 @@ export default defineComponent({
         this.snackbarTexto = 'Erro ao criar movimentação';
         this.snackbarCor = 'error';
         this.snackbar = true;
+      } finally {
+        this.isLoading = false;
       }
     },
   },
@@ -107,16 +111,16 @@ export default defineComponent({
   },
 
   watch: {
-    'form.idlote'(novoId) {
+    'form.loteId'(novoId) {
       const loteSelecionado = this.lotes.find((l) => l.id === novoId);
       console.log('loteSelecionado', loteSelecionado);
       console.log('novoId', novoId);
       this.quantidadeDisponivel = loteSelecionado
-        ? loteSelecionado.quantidade
+        ? Number(loteSelecionado.quantidade)
         : 0;
 
       console.log('quantidadeDisponivel', this.quantidadeDisponivel);
-      this.form.quantidade = '';
+      this.form.quantidade = 0;
     },
   },
 });
@@ -130,24 +134,20 @@ export default defineComponent({
       @back="irParaMovimentacoes"
     />
 
-    <CreateFormCard
+    <CreateFormCard   v-if="!isLoading"
       submitLabel="Criar movimentação"
       :disabled="
-        !form.idlote ||
-        !form.tipomovimentacao ||
-        !form.quantidade ||
-        !form.datamovimentacao
+        !form.loteId || !form.tipo || !form.quantidade || !form.dataMovimentacao
       "
       @submit="enviarForm"
     >
       <v-col cols="12" md="6">
         <v-select
-          v-model="form.idlote"
-          label="ID do Lote"
+          v-model="form.loteId"
+          label="Código Lote"
           :items="lotes"
           item-title="codigoLote"
           item-value="id"
-          type="number"
           required
           :rules="[(v) => !!v || 'ID Lote é obrigatório']"
         />
@@ -155,11 +155,13 @@ export default defineComponent({
 
       <v-col cols="12" md="6">
         <v-select
-          v-model="form.tipomovimentacao"
-          :items="['saída']"
+          v-model="form.tipo"
           label="Tipo de movimentação"
+          :items="[
+            { title: 'Entrada', value: TipoMovimentacao.ENTRADA },
+            { title: 'Saída', value: TipoMovimentacao.SAIDA },
+          ]"
           required
-          :rules="[(v) => !!v || 'Tipo é obrigatório']"
         />
       </v-col>
 
@@ -170,11 +172,9 @@ export default defineComponent({
           type="number"
           required
           :rules="[(v) => validarQuantidade(Number(v))]"
-          :max="
-            form.tipomovimentacao === 'saida' ? quantidadeDisponivel : undefined
-          "
+          :max="form.tipo === 'saida' ? quantidadeDisponivel : undefined"
         />
-        <v-alert v-if="form.idlote" type="info" variant="tonal" class="mb-4">
+        <v-alert v-if="form.loteId" type="info" variant="tonal" class="mb-4">
           Estoque disponível do lote:
           <strong>{{ quantidadeDisponivel }}</strong>
         </v-alert>
@@ -182,7 +182,7 @@ export default defineComponent({
 
       <v-col cols="12" md="6">
         <v-text-field
-          v-model="form.datamovimentacao"
+          v-model="form.dataMovimentacao"
           label="Data da movimentação"
           type="date"
           :max="hoje"
@@ -191,6 +191,11 @@ export default defineComponent({
         />
       </v-col>
     </CreateFormCard>
+
+        <div v-else class="text-center pa-4">
+      <v-progress-circular indeterminate/>
+      <p>Carregando movimentacoes...</p>
+    </div>
 
     <v-snackbar
       v-model="snackbar"

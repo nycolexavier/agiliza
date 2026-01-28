@@ -33,7 +33,7 @@ export default defineComponent({
 
       headers: [
         { title: 'ID', key: 'id' },
-        { title: 'Nome', key: 'nome' },
+        { title: 'Nome', key: 'name' },
         { title: 'Cargo', key: 'cargo' },
         { title: 'E-mail', key: 'email' },
         { title: 'Status', key: 'status' },
@@ -115,11 +115,17 @@ export default defineComponent({
     <SearchInput v-model="busca" label="Buscar usuário pelo nome" />
 
     <BaseTable
+      v-if="!isLoading"
       :headers="headers"
       :items="usuariosPaginados"
       actionLabel="Editar"
       @action="(item) => irParaVerUsuarios(item.id)"
     />
+
+    <div v-else class="text-center pa-4">
+      <v-progress-circular indeterminate/>
+      <p>Carregando usuários...</p>
+    </div>
 
     <BasePagination
       v-model:paginaAtual="paginaAtual"

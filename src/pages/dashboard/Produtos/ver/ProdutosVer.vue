@@ -18,6 +18,7 @@ export default defineComponent({
 
   data() {
     return {
+       isLoading: false,
       produto: null as Produto | null,
     };
   },
@@ -37,11 +38,16 @@ export default defineComponent({
     },
 
     async buscarProduto() {
-      const id = this.$route.params.id;
-      if (typeof id === 'string') {
-        const response = await ProdutosListID(id);
-        this.produto = response.data;
-      }
+      try{
+ this.isLoading = true;
+        const id = this.$route.params.id;
+        if (typeof id === 'string') {
+          const response = await ProdutosListID(id);
+          this.produto = response.data;
+        }
+      }finally {
+                    this.isLoading = false;
+                  }
     },
   },
 });
@@ -60,6 +66,7 @@ export default defineComponent({
     />
 
     <DetailsCard
+    v-if="!isLoading"
       :items="[
         { label: 'ID', value: produto?.id },
         { label: 'Nome', value: produto?.nome },
@@ -68,6 +75,12 @@ export default defineComponent({
         { label: 'Status', value: produto?.status },
       ]"
     />
+
+            <div v-else class="text-center pa-4">
+              <v-progress-circular indeterminate/>
+              <p>Carregando produtos...</p>
+            </div>
+    
 
     <Footer />
   </BaseFormContainer>

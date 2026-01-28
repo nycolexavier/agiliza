@@ -18,6 +18,8 @@ export default defineComponent({
 
   data() {
     return {
+      isLoading: false,
+
       form: {
         nome: '',
         sku: '',
@@ -38,6 +40,7 @@ export default defineComponent({
 
     async enviarForm() {
       try {
+        this.isLoading = true;
         await ProdutosPost({
           nome: this.form.nome,
           sku: this.form.sku,
@@ -54,6 +57,8 @@ export default defineComponent({
         }, 1000);
       } catch (error) {
         console.error('Erro ao criar produto', error);
+      } finally {
+        this.isLoading = false;
       }
     },
   },
@@ -70,6 +75,7 @@ export default defineComponent({
     />
 
     <CreateFormCard
+     v-if="!isLoading"
       submitLabel="Criar produto"
       :disabled="
         !form.nome ||
@@ -96,6 +102,11 @@ export default defineComponent({
         />
       </v-col>
     </CreateFormCard>
+
+        <div v-else class="text-center pa-4">
+          <v-progress-circular indeterminate/>
+          <p>Carregando usuários...</p>
+        </div>
 
     <v-snackbar
       v-model="snackbar"

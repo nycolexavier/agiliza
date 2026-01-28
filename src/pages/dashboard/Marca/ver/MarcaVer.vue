@@ -18,6 +18,7 @@ export default defineComponent({
 
   data() {
     return {
+        isLoading: false,
       marca: null as Marca | null,
     };
   },
@@ -37,11 +38,16 @@ export default defineComponent({
     },
 
     async buscarProduto() {
-      const id = this.$route.params.id;
-      if (typeof id === 'string') {
-        const response = await MarcaListID(id);
-        this.marca = response.data;
-      }
+      try{
+ this.isLoading = true;
+        const id = this.$route.params.id;
+        if (typeof id === 'string') {
+          const response = await MarcaListID(id);
+          this.marca = response.data;
+        }
+      } finally {
+              this.isLoading = false;
+            }
     },
   },
 });
@@ -60,11 +66,17 @@ export default defineComponent({
     />
 
     <DetailsCard
+     v-if="!isLoading"
       :items="[
         { label: 'ID', value: marca?.id },
         { label: 'Nome', value: marca?.nome },
       ]"
     />
+
+        <div v-else class="text-center pa-4">
+          <v-progress-circular indeterminate/>
+          <p>Carregando marca...</p>
+        </div>
 
     <Footer />
   </BaseFormContainer>

@@ -23,6 +23,9 @@ export default defineComponent({
 
   data() {
     return {
+
+      isLoading: false,
+
       lotes: [] as Lote[],
       busca: '',
       headers: [
@@ -85,12 +88,18 @@ export default defineComponent({
     },
 
     async buscarLotes() {
-      const response = await LoteList();
 
-      this.lotes = response.data;
+      try{
 
-      
-    console.log(this.lotes);
+        const response = await LoteList();
+  
+        this.lotes = response.data;
+      } catch(error){
+        console.error("Erro ao buscar lote")
+      } finally{
+        this.isLoading = false;
+      }
+
     },
   },
 });
@@ -107,11 +116,17 @@ export default defineComponent({
     <SearchInput v-model="busca" label="Buscar por código do lote" />
 
     <BaseTable
+     v-if="!isLoading"
       :headers="headers"
       :items="lotesPaginados"
       actionLabel="Ver"
       @action="(item) => irParaOLotesEditar(item.id)"
     />
+
+        <div v-else class="text-center pa-4">
+      <v-progress-circular indeterminate/>
+      <p>Carregando lotes...</p>
+    </div>
 
     <BasePagination
       v-model:paginaAtual="paginaAtual"

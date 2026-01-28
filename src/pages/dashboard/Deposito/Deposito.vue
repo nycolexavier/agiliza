@@ -23,6 +23,9 @@ export default defineComponent({
 
   data() {
     return {
+
+      isLoading: false,
+
       deposito: [] as Deposito[],
       busca: '',
       headers: [
@@ -83,9 +86,18 @@ export default defineComponent({
     },
 
     async buscarDeposito() {
+      try{
+
+      this.isLoading = true;
       const response = await DepositoList();
 
       this.deposito = response.data;
+      }
+      catch(error){
+        console.error("Erro ao buscar depósito")
+      } finally{
+        this.isLoading = false;
+      }
     },
   },
 });
@@ -102,11 +114,17 @@ export default defineComponent({
     <SearchInput v-model="busca" label="Buscar por corredor" />
 
     <BaseTable
+      v-if="!isLoading"
       :headers="headers"
       :items="depositoPaginados"
       actionLabel="Ver mais"
       @action="(item) => irParaDepositoVer(item.id)"
     />
+
+    <div v-else class="text-center pa-4">
+      <v-progress-circular indeterminate/>
+      <p>Carregando depósitos...</p>
+    </div>
 
     <BasePagination
       v-model:paginaAtual="paginaAtual"

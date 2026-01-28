@@ -32,6 +32,7 @@ export default defineComponent({
 
   data() {
     return {
+      isLoading: false,
       marcas: [] as { id: string; nome: string }[],
       produto: [] as { id: string; nome: string }[],
       corredor: [] as { id: string; corredor: string }[],
@@ -78,6 +79,7 @@ export default defineComponent({
 
     async enviarForm() {
       try {
+         this.isLoading = true;
         await LotePost(this.form);
 
         ((this.snackbarTexto = 'Lotes criado com sucesso'),
@@ -89,6 +91,8 @@ export default defineComponent({
         }, 1000);
       } catch (error) {
         console.error('Erro ao criar lotes', error);
+      } finally{
+ this.isLoading = false;
       }
     },
   },
@@ -135,6 +139,7 @@ export default defineComponent({
     />
 
     <CreateFormCard
+    v-if="!isLoading"
       submitLabel="Criar lotes"
       :disabled="
         !form.codigoLote ||
@@ -281,6 +286,12 @@ export default defineComponent({
         />
       </v-col>
     </CreateFormCard>
+
+        <div v-else class="text-center pa-4">
+          <v-progress-circular indeterminate/>
+          <p>Carregando lotes...</p>
+        </div>
+    
 
     <BaseSnackbar
       v-model="snackbar"

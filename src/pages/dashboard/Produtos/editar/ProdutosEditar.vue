@@ -16,6 +16,7 @@ export default defineComponent({
 
   data(vm) {
     return {
+       isLoading: false,
       produto: null as Produto | null,
       form: {
         nome: '',
@@ -39,6 +40,7 @@ export default defineComponent({
 
     async buscarProduto() {
       try {
+          this.isLoading = true;
         const id = this.$route.params.id;
 
         if (typeof id === 'string') {
@@ -53,7 +55,9 @@ export default defineComponent({
         }
       } catch (error) {
         console.error('Erro ao buscar produto', error);
-      }
+      } finally {
+              this.isLoading = false;
+            }
     },
 
     async enviarForm() {
@@ -85,6 +89,7 @@ export default defineComponent({
     />
 
     <FormCard
+     v-if="!isLoading"
       submitLabel="Salvar alterações"
       :disabled="
         !form.nome ||
@@ -122,6 +127,11 @@ export default defineComponent({
         </v-col>
       </v-row>
     </FormCard>
+
+        <div v-else class="text-center pa-4">
+          <v-progress-circular indeterminate/>
+          <p>Carregando produtos...</p>
+        </div>
 
     <Footer />
   </BaseFormContainer>

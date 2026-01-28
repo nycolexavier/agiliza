@@ -19,6 +19,9 @@ export default defineComponent({
 
   data() {
     return {
+
+       isLoading: false,
+
       form: {
         corredor: '',
         prateleira: '',
@@ -39,6 +42,7 @@ export default defineComponent({
 
     async enviarForm() {
       try {
+         this.isLoading = true;
         const response = await DepositoPost(this.form);
 
         (this.snackbarTexto = 'Depósito criado com sucesso'),
@@ -50,6 +54,8 @@ export default defineComponent({
         }, 1000);
       } catch (error) {
         console.error('Erro ao criar um depósito');
+      } finally {
+        this.isLoading = false;
       }
     },
   },
@@ -66,6 +72,7 @@ export default defineComponent({
     />
 
     <CreateFormCard
+     v-if="!isLoading"
       submitLabel="Criar depósito"
       :disabled="
         !form.corredor ||
@@ -97,6 +104,11 @@ export default defineComponent({
         </v-col>
       </v-row>
     </CreateFormCard>
+
+        <div v-else class="text-center pa-4">
+          <v-progress-circular indeterminate/>
+          <p>Carregando depósitos...</p>
+        </div>
 
     <Footer />
 

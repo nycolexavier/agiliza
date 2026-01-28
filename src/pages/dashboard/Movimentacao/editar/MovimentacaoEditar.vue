@@ -21,12 +21,14 @@ export default defineComponent({
 
   data() {
     return {
+      isLoading: false,
+
       TipoMovimentacao,
       movimentacao: null as Movimentacao | null,
       form: {
         tipomovimentacao: undefined as TipoMovimentacao | undefined,
         quantidade: undefined as number | undefined,
-        datamovimentacao: '',
+        dataMovimentacao: '',
         status: 'ativo',
         idlote: '',
         idproduto: '',
@@ -55,7 +57,7 @@ export default defineComponent({
 
           this.form.tipomovimentacao = response.data.tipomovimentacao;
           this.form.quantidade = response.data.quantidade;
-          this.form.datamovimentacao = response.data.datamovimentacao;
+          this.form.dataMovimentacao = response.data.dataMovimentacao;
           this.form.status = response.data.status;
           this.form.idlote = response.data.idlote;
           this.form.idproduto = response.data.idproduto;
@@ -68,18 +70,22 @@ export default defineComponent({
 
     async enviarForm() {
       try {
+        this.isLoading = true;
         const id = this.$route.params.id;
         if (typeof id === 'string') {
           const response = await MovimentacaoIDPatch(id, {
-            tipomovimentacao: this.form.tipomovimentacao,
+            tipo: this.form.tipo,
             quantidade: this.form.quantidade,
-            datamovimentacao: this.form.datamovimentacao,
+            dataMovimentacao: this.form.dataMovimentacao,
             idlote: this.form.idlote,
           });
           return response;
         }
       } catch (error) {
         console.error('Erro ao editar movimentação', error);
+      }
+      finally{
+        this.isLoading = false;
       }
     },
   },
@@ -96,11 +102,12 @@ export default defineComponent({
     />
 
     <FormCard
+     v-if="!isLoading"
       submitLabel="Salvar alterações"
       :disabled="
         !form.tipomovimentacao ||
         !form.quantidade ||
-        !form.datamovimentacao ||
+        !form.dataMovimentacao ||
         !form.idlote
       "
       @submit="enviarForm"
@@ -130,7 +137,7 @@ export default defineComponent({
 
         <v-col cols="12" md="6">
           <v-text-field
-            v-model="form.datamovimentacao"
+            v-model="form.dataMovimentacao"
             label="Data da movimentação"
             type="date"
             required
@@ -142,6 +149,11 @@ export default defineComponent({
         </v-col>
       </v-row>
     </FormCard>
+
+        <div v-else class="text-center pa-4">
+      <v-progress-circular indeterminate/>
+      <p>Carregando movimentações...</p>
+    </div>
 
     <Footer />
   </BaseFormContainer>

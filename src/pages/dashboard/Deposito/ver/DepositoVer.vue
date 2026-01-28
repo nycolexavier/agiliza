@@ -18,6 +18,9 @@ export default defineComponent({
 
   data() {
     return {
+
+      isLoading: false,
+
       deposito: null as Deposito | null,
     };
   },
@@ -38,11 +41,19 @@ export default defineComponent({
     },
 
     async verDeposito() {
-      const id = this.$route.params.id;
-
-      if (typeof id === 'string') {
-        const response = await DepositoListID(id);
-        this.deposito = response.data;
+      
+      try{
+  this.isLoading = true;
+        const id = this.$route.params.id;
+  
+        if (typeof id === 'string') {
+          const response = await DepositoListID(id);
+          this.deposito = response.data;
+        }
+      } catch(error){
+        console.error("Erro ao buscar dados")
+      } finally {
+this.isLoading = false;
       }
     },
   },
@@ -62,6 +73,7 @@ export default defineComponent({
     />
 
     <DetailsCard
+    v-if="!isLoading"
       :items="[
         { label: 'Nome', value: deposito?.corredor },
         { label: 'Cargo', value: deposito?.prateleira },
@@ -69,6 +81,11 @@ export default defineComponent({
         { label: 'Telefone', value: deposito?.quantidadeMaxima },
       ]"
     />
+
+    <div v-else class="text-center pa-4">
+      <v-progress-circular indeterminate/>
+      <p>Carregando depósito...</p>
+    </div>
 
     <Footer />
   </BaseFormContainer>

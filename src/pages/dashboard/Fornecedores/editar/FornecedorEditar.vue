@@ -22,6 +22,7 @@ export default defineComponent({
 
   data(vm) {
     return {
+       isLoading: false,
       fornecedor: null as Fornecedor | null,
       emailRules,
       form: {
@@ -46,6 +47,7 @@ export default defineComponent({
 
     async buscarUsuario() {
       try {
+          this.isLoading = true;
         const id = this.$route.params.id;
         if (typeof id === 'string') {
           const response = await FornecedoresListID(id);
@@ -59,6 +61,8 @@ export default defineComponent({
         }
       } catch (error) {
         console.error('Erro ao buscar fornecedores', error);
+      } finally {
+this.isLoading = false;
       }
     },
 
@@ -89,6 +93,7 @@ export default defineComponent({
     />
 
     <FormCard
+     v-if="!isLoading"
       submitLabel="Salvar alterações"
       :disabled="!form?.nome || !form?.email || !form?.cargo"
       showCancel
@@ -119,5 +124,11 @@ export default defineComponent({
         />
       </v-col>
     </FormCard>
+
+        <div v-else class="text-center pa-4">
+      <v-progress-circular indeterminate/>
+      <p>Carregando fornecedor...</p>
+    </div>
+
   </BaseFormContainer>
 </template>

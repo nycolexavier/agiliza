@@ -21,6 +21,7 @@ export default defineComponent({
 
   data() {
     return {
+      isLoading: false,
       produto: [] as Produto[],
       busca: '',
       headers: [
@@ -83,10 +84,18 @@ export default defineComponent({
     },
 
     async buscarProdutos() {
-      const response = await ProdutosList();
+      try{
 
-      console.log(response.data);
-      this.produto = response.data;
+        const response = await ProdutosList();
+  
+        console.log(response.data);
+        this.produto = response.data;
+      }
+      catch(error){
+        console.error("Erro ao buscar produtos")
+      } finally{
+        this.isLoading = false;
+      }
 
     },
   },
@@ -111,11 +120,17 @@ export default defineComponent({
     />
 
     <BaseTable
+    v-if="!isLoading"
       :headers="headers"
       :items="produtosPaginados"
       actionLabel="Editar"
       @action="(item) => irParaProdutosVer(item.id)"
     />
+
+            <div v-else class="text-center pa-4">
+      <v-progress-circular indeterminate/>
+      <p>Carregando produtos...</p>
+    </div>
 
     <BasePagination
       v-model:paginaAtual="paginaAtual"

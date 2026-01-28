@@ -23,6 +23,7 @@ export default defineComponent({
 
   data() {
     return {
+       isLoading: false,
       movimentacoes: [] as Movimentacao[],
       busca: '',
       headers: [
@@ -30,7 +31,7 @@ export default defineComponent({
         { title: 'Lote', key: 'idlote' },
         { title: 'Tipo', key: 'tipomovimentacao' },
         { title: 'Quantidade', key: 'quantidade' },
-        { title: 'Data', key: 'datamovimentacao' },
+        { title: 'Data', key: 'dataMovimentacao' },
         { title: 'Status', key: 'status' },
         { title: 'Ações', key: 'actions' },
       ],
@@ -56,7 +57,7 @@ export default defineComponent({
       const buscaNormalizada = removerAcentos(this.busca);
 
       return this.movimentacoes.filter((mov: Movimentacao) =>
-        removerAcentos(mov.tipomovimentacao).includes(buscaNormalizada)
+        removerAcentos(mov.tipo).includes(buscaNormalizada),
       );
     },
   },
@@ -85,8 +86,14 @@ export default defineComponent({
     },
 
     async buscarMovimentacoes() {
+      try{
       const response = await MovimentacaoList();
-      this.movimentacoes = response.data;
+      this.movimentacoes = response.data;}
+      catch(error){
+        console.error("Erro ao buscar movimentação")
+      } finally{
+        this.isLoading = false;
+      }
     },
   },
 });
@@ -105,11 +112,17 @@ export default defineComponent({
     <SearchInput v-model="busca" label="Buscar por tipo de movimentação" />
 
     <BaseTable
+     v-if="!isLoading"
       :headers="headers"
       :items="movimentacoesPaginadas"
       actionLabel="Ver"
       @action="(item) => irParaMovimentacaoVer(item.id)"
     />
+
+            <div v-else class="text-center pa-4">
+      <v-progress-circular indeterminate/>
+      <p>Carregando movimentações...</p>
+    </div>
 
     <BasePagination
       v-model:paginaAtual="paginaAtual"

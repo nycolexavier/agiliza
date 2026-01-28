@@ -18,6 +18,7 @@ export default defineComponent({
 
   data() {
     return {
+      isLoading: false,
       fornecedorEdicao: null as Fornecedor | null,
     };
   },
@@ -37,10 +38,15 @@ export default defineComponent({
     },
 
     async buscarFornecedores() {
-      const id = this.$route.params.id;
-      if (typeof id === 'string') {
-        const response = await FornecedoresListID(id);
-        this.fornecedorEdicao = response.data;
+      try{
+this.isLoading = true;
+        const id = this.$route.params.id;
+        if (typeof id === 'string') {
+          const response = await FornecedoresListID(id);
+          this.fornecedorEdicao = response.data;
+        }
+      } finally {
+this.isLoading = false;
       }
     },
   },
@@ -59,6 +65,7 @@ export default defineComponent({
     />
 
     <DetailsCard
+    v-if="!isLoading"
       :items="[
         { label: 'Nome', value: fornecedorEdicao?.nome },
         { label: 'Cargo', value: fornecedorEdicao?.cargo },
@@ -66,5 +73,11 @@ export default defineComponent({
         { label: 'Telefone', value: fornecedorEdicao?.telefone },
       ]"
     />
+
+        <div v-else class="text-center pa-4">
+      <v-progress-circular indeterminate/>
+      <p>Carregando fornecedores...</p>
+    </div>
+
   </BaseFormContainer>
 </template>

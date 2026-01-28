@@ -7,30 +7,31 @@ export enum TipoMovimentacao {
 
 export interface Movimentacao {
   id: string;
-  idlote: number;
-  tipomovimentacao: TipoMovimentacao;
+  loteId: string;
+  tipo: TipoMovimentacao;
   quantidade: number;
-  datamovimentacao: string;
+  dataMovimentacao: string;
   status: Status;
   idproduto?: number | null;
   idfornecedor?: number | null;
 }
 
 export interface MovimentacaoPostDTO {
-  idlote: string;
-  tipomovimentacao: TipoMovimentacao;
+  loteId: string;
+  tipo: TipoMovimentacao;
   quantidade: number;
-  datamovimentacao: string;
+  dataMovimentacao: string;
   status?: Status;
   idproduto?: number;
   idfornecedor?: number;
+  criadoPorId?: string
 }
 
 export interface MovimentacaoPatchDTO {
-  idlote: string;
-  tipomovimentacao?: TipoMovimentacao;
+  loteId: string;
+  tipo?: TipoMovimentacao;
   quantidade?: number;
-  datamovimentacao?: string;
+  dataMovimentacao?: string;
   status?: Status;
   idproduto?: number;
   idfornecedor?: number;

@@ -20,6 +20,8 @@ export default defineComponent({
 
   data() {
     return {
+       isLoading: false,
+
       movimentacoes: null as Movimentacao | null,
       busca: '',
 
@@ -53,12 +55,20 @@ export default defineComponent({
     },
 
     async buscarMovimentacoes() {
-      const id = this.$route.params.id;
-      if (typeof id === 'string') {
-        const response = await MovimentacaoListID(id);
-        this.movimentacoes = response.data;
+      try{
+this.isLoading = true;
+        const id = this.$route.params.id;
+        if (typeof id === 'string') {
+          const response = await MovimentacaoListID(id);
+          this.movimentacoes = response.data;
+        }
       }
-    },
+      catch(error){
+        console.error('Erro ao buscar usuários', error);
+      } finally {
+        this.isLoading = false;
+      }
+      }
   },
 });
 </script>
@@ -76,14 +86,20 @@ export default defineComponent({
     />
 
     <DetailsCard
+      v-if="!isLoading"
       :items="[
         { label: 'ID', value: movimentacoes?.id },
-        { label: 'Tipo', value: movimentacoes?.tipomovimentacao },
+        { label: 'Tipo', value: movimentacoes?.tipo },
         { label: 'Quantidade', value: movimentacoes?.quantidade },
-        { label: 'Data', value: movimentacoes?.datamovimentacao },
+        { label: 'Data', value: movimentacoes?.dataMovimentacao },
         { label: 'Status', value: movimentacoes?.status },
       ]"
     />
+
+    <div v-else class="text-center pa-4">
+      <v-progress-circular indeterminate />
+      <p>Carregando movimentações...</p>
+    </div>
 
     <Footer />
   </BaseFormContainer>

@@ -18,6 +18,8 @@ export default defineComponent({
 
   data(vm) {
     return {
+            isLoading: false,
+      
       lote: null as Lote | null,
     };
   },
@@ -37,10 +39,15 @@ export default defineComponent({
     },
 
     async buscarLote() {
-      const id = this.$route.params.id;
-      if (typeof id === 'string') {
-        const response = await LoteListID(id);
-        this.lote = response.data;
+      try{
+  this.isLoading = true;
+        const id = this.$route.params.id;
+        if (typeof id === 'string') {
+          const response = await LoteListID(id);
+          this.lote = response.data;
+        }
+      }finally{
+        this.isLoading = false;
       }
     },
   },
@@ -60,17 +67,23 @@ export default defineComponent({
     />
 
     <DetailsCard
+    v-if="!isLoading"
       :items="[
         { label: 'Nome', value: lote?.id },
         { label: 'Código Lote', value: lote?.codigoLote },
         { label: 'Marca', value: lote?.marca },
-        { label: 'Produto', value: lote?.produto },
+        { label: 'Produto', value: lote?.produto.produtoId },
         { label: 'Status', value: lote?.status },
         { label: 'Data de validade', value: lote?.dataValidade },
         { label: 'Quantidade', value: lote?.quantidade },
         { label: 'Corredor', value: lote?.corredor },
       ]"
     />
+
+        <div v-else class="text-center pa-4">
+          <v-progress-circular indeterminate/>
+          <p>Carregando lotes...</p>
+        </div>
 
     <Footer class="mt-6" />
   </BaseFormContainer>

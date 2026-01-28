@@ -23,6 +23,7 @@ export default defineComponent({
 
   data() {
     return {
+      isLoading: false,
       marca: [] as Marca[],
       busca: '',
       headers: [
@@ -84,9 +85,16 @@ export default defineComponent({
     },
 
     async buscarProdutos() {
+      try{
       const response = await MarcaList();
 
       this.marca = response.data;
+      }
+      catch(error){
+        console.error("Erro ao buscar marcas")
+      } finally{
+        this.isLoading = false;
+      }
     },
   },
 });
@@ -103,11 +111,17 @@ export default defineComponent({
     <SearchInput v-model="busca" label="Buscar marca pelo nome" />
 
     <BaseTable
+       v-if="!isLoading"
       :headers="headers"
       :items="produtosPaginados"
       actionLabel="Ver"
       @action="(item) => irParaProdutosVer(item.id)"
     />
+
+            <div v-else class="text-center pa-4">
+      <v-progress-circular indeterminate/>
+      <p>Carregando marcas...</p>
+    </div>
 
     <BasePagination
       v-model:paginaAtual="paginaAtual"

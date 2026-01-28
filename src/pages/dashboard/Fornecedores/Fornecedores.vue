@@ -23,6 +23,9 @@ export default defineComponent({
 
   data() {
     return {
+
+      isLoading: false,
+
       fornecedores: [] as Fornecedor[],
       busca: '',
 
@@ -85,9 +88,16 @@ export default defineComponent({
     },
 
     async buscarFornecedores() {
+      try{
       const response = await FornecedoresList();
 
       this.fornecedores = response.data;
+      } catch(error){
+        console.error("Erro ao buscar fornecedores")
+      }
+      finally{
+        this.isLoading = false;
+      }
     },
   },
 });
@@ -104,11 +114,17 @@ export default defineComponent({
     <SearchInput v-model="busca" label="Buscar fornecedor pelo nome" />
 
     <BaseTable
+     v-if="!isLoading"
       :headers="headers"
       :items="fornecedoresPaginados"
       actionLabel="Editar"
       @action="(item) => irParaFornecedoresEdicao(item.id)"
     />
+
+        <div v-else class="text-center pa-4">
+      <v-progress-circular indeterminate/>
+      <p>Carregando fornecedores...</p>
+    </div>
 
     <BasePagination
       v-model:paginaAtual="paginaAtual"

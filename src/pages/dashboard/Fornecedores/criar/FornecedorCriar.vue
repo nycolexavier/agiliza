@@ -23,6 +23,8 @@ export default defineComponent({
 
   data() {
     return {
+      isLoading: false,
+
       cargos: CARGOS,
       emailRules,
       form: {
@@ -46,6 +48,7 @@ export default defineComponent({
 
     async enviarForm() {
       try {
+         this.isLoading = true;
         const payload = {
           ...this.form,
           nome: this.form.nome.toLocaleLowerCase().trim(),
@@ -63,6 +66,8 @@ export default defineComponent({
         }, 1000);
       } catch (error) {
         console.error('Erro ao criar fornecedor', error);
+      } finally {
+ this.isLoading = false;
       }
     },
   },
@@ -79,6 +84,7 @@ export default defineComponent({
     />
 
     <CreateFormCard
+     v-if="!isLoading"
       submitLabel="Criar fornecedor"
       :disabled="!form.nome || !form.cargo || !form.email"
       @submit="enviarForm"
@@ -123,6 +129,11 @@ export default defineComponent({
         />
       </v-col>
     </CreateFormCard>
+
+        <div v-else class="text-center pa-4">
+      <v-progress-circular indeterminate/>
+      <p>Carregando fornecedores...</p>
+    </div>
 
     <BaseSnackbar
       v-model="snackbar"

@@ -18,6 +18,9 @@ export default defineComponent({
 
   data(vm) {
     return {
+
+      isLoading: false,
+
       deposito: null as Deposito | null,
       form: {
         corredor: '',
@@ -59,12 +62,17 @@ export default defineComponent({
 
     async enviarForm() {
       try {
+        this.isLoading = true;
         const id = this.$route.params.id;
         if (typeof id === 'string') {
           const response = await DepositoIDPatch(id, this.form);
           return response;
         }
-      } catch (error) {}
+      } catch (error) {
+        console.error("Erro ao buscar")
+      } finally {
+        this.isLoading = false;
+      }
     },
   },
 });

@@ -20,6 +20,7 @@ export default defineComponent({
 
   data() {
     return {
+        isLoading: false,
       marca: '',
       form: {
         nome: '',
@@ -40,6 +41,7 @@ export default defineComponent({
 
     async enviarForm() {
       try {
+        this.isLoading = true;
         await MarcaPost({
           nome: this.form.nome,
           criadoEm: this.form.criadoEm,
@@ -55,6 +57,8 @@ export default defineComponent({
         }, 1000);
       } catch (error) {
         console.error('Erro ao criar fornecedor', error);
+      }finally {
+        this.isLoading = false;
       }
     },
   },
@@ -70,7 +74,7 @@ export default defineComponent({
       @back="irParaMarca"
     />
 
-    <FormCard submitLabel="Salvar" :disabled="!form.nome" @submit="enviarForm">
+    <FormCard   v-if="!isLoading" submitLabel="Salvar" :disabled="!form.nome" @submit="enviarForm">
       <v-col cols="12" md="6">
         <v-text-field
           v-model="form.nome"
@@ -81,6 +85,11 @@ export default defineComponent({
         />
       </v-col>
     </FormCard>
+
+        <div v-else class="text-center pa-4">
+          <v-progress-circular indeterminate/>
+          <p>Carregando marca...</p>
+        </div>
 
     <BaseSnackbar
       v-model="snackbar"

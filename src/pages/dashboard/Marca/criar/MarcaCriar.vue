@@ -20,6 +20,7 @@ export default defineComponent({
 
   data() {
     return {
+       isLoading: false,
       form: {
         nome: '',
         criadoEm: '',
@@ -39,6 +40,7 @@ export default defineComponent({
 
     async enviarForm() {
       try {
+        this.isLoading = true;
         await MarcaPost({
           nome: this.form.nome.toLocaleLowerCase().trim(),
           criadoEm: new Date().toISOString(),
@@ -54,6 +56,8 @@ export default defineComponent({
         }, 1000);
       } catch (error) {
         console.error('Erro ao criar marca', error);
+      } finally{
+          this.isLoading = false;
       }
     },
   },
@@ -65,6 +69,7 @@ export default defineComponent({
     <PageHeader title="Criar marca" showBack @back="irParaMarca" />
 
     <CreateFormCard
+      v-if="!isLoading"
       submitLabel="Criar marca"
       :disabled="!form.nome"
       @submit="enviarForm"
@@ -79,6 +84,11 @@ export default defineComponent({
         />
       </v-col>
     </CreateFormCard>
+
+        <div v-else class="text-center pa-4">
+          <v-progress-circular indeterminate/>
+          <p>Carregando marca...</p>
+        </div>
 
     <BaseSnackbar
       v-model="snackbar"

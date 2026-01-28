@@ -19,11 +19,12 @@ export default defineComponent({
 
   data(vm) {
     return {
+       isLoading: false,
       lote: null as Lote | null,
       form: {
         codigoLote: '',
-        marca: '',
-        produto: '',
+        marcaId: '',
+        produtoId: '',
         status: 'ativo',
         dataValidade: '',
       },
@@ -49,8 +50,8 @@ export default defineComponent({
           this.lote = response.data;
 
           this.form.codigoLote = response.data.codigoLote;
-          this.form.marca = response.data.marca;
-          this.form.produto = response.data.produto;
+          this.form.marcaId = response.data.marcaId;
+          this.form.produtoId = response.data.produtoId;
           this.form.status = response.data.status;
           this.form.dataValidade = response.data.dataValidade;
         }
@@ -61,17 +62,21 @@ export default defineComponent({
 
     async enviarForm() {
       try {
+        this.isLoading = true;
         const id = this.$route.params.id;
         if (typeof id === 'string') {
           const response = await LoteIDPatch(id, {
             codigoLote: this.form.codigoLote,
-            marca: this.form.marca,
-            produto: this.form.produto,
+            marcaId: this.form.marcaId,
+            produtoId: this.form.produtoId,
             dataValidade: this.form.dataValidade,
           });
           return response;
         }
-      } catch (error) {}
+      } catch (error) {console.error('Erro ao buscar lotes', error);
+            } finally {
+              this.isLoading = false;
+            }
     },
   },
 });
@@ -87,9 +92,10 @@ export default defineComponent({
     />
 
     <FormCard
+     v-if="!isLoading"
       submitLabel="Salvar alterações"
       :disabled="
-        !form.codigoLote || !form.marca || !form.produto || !form.dataValidade
+        !form.codigoLote || !form.marcaId || !form.produtoId || !form.dataValidade
       "
       @submit="enviarForm"
     >
@@ -105,7 +111,7 @@ export default defineComponent({
 
       <v-col cols="12" md="6">
         <v-text-field
-          v-model="form.marca"
+          v-model="form.marcaId"
           label="Marca"
           variant="outlined"
           required
@@ -115,7 +121,7 @@ export default defineComponent({
 
       <v-col cols="12" md="6">
         <v-text-field
-          v-model="form.produto"
+          v-model="form.produtoId"
           label="Produto"
           variant="outlined"
           required
@@ -134,6 +140,11 @@ export default defineComponent({
         />
       </v-col>
     </FormCard>
+
+        <div v-else class="text-center pa-4">
+          <v-progress-circular indeterminate/>
+          <p>Carregando lotes...</p>
+        </div>
 
     <Footer class="mt-6" />
   </BaseFormContainer>
