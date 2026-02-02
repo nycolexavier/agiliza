@@ -8,7 +8,6 @@ import { defineComponent } from 'vue';
 import PageHeader from '@/components/layouts/PageHeader.vue';
 import CreateFormCard from '@/components/form/CreateFormCard.vue';
 import { emailRules } from '@/utils/validators/emailRules';
-import { CARGOS, type Cargo } from '@/interfaces/Cargo';
 import type { Status } from '@/interfaces/Status';
 
 export default defineComponent({
@@ -25,11 +24,9 @@ export default defineComponent({
     return {
       isLoading: false,
 
-      cargos: CARGOS,
       emailRules,
       form: {
         nome: '',
-        cargo: 'fornecedor' as Cargo,
         email: '',
         status: 'ativo' as Status,
         telefone: '',
@@ -48,7 +45,7 @@ export default defineComponent({
 
     async enviarForm() {
       try {
-         this.isLoading = true;
+        this.isLoading = true;
         const payload = {
           ...this.form,
           nome: this.form.nome.toLocaleLowerCase().trim(),
@@ -57,8 +54,8 @@ export default defineComponent({
 
         await FornecedoresPost(payload);
 
-        (this.snackbarTexto = 'Fornecedor criado com sucesso'),
-          (this.snackbarTipo = 'success');
+        ((this.snackbarTexto = 'Fornecedor criado com sucesso'),
+          (this.snackbarTipo = 'success'));
         this.snackbar = true;
 
         setTimeout(() => {
@@ -66,8 +63,18 @@ export default defineComponent({
         }, 1000);
       } catch (error) {
         console.error('Erro ao criar fornecedor', error);
+
+                console.error('Erro ao criar fornecedor', error);
+
+          const mensagemErro =
+    error?.response?.data?.message ||
+    'Erro ao criar marca. Tente novamente.';
+
+  this.snackbarTexto = mensagemErro;
+  this.snackbarTipo = 'error';
+  this.snackbar = true;
       } finally {
- this.isLoading = false;
+        this.isLoading = false;
       }
     },
   },
@@ -84,9 +91,9 @@ export default defineComponent({
     />
 
     <CreateFormCard
-     v-if="!isLoading"
+      v-if="!isLoading"
       submitLabel="Criar fornecedor"
-      :disabled="!form.nome || !form.cargo || !form.email"
+      :disabled="!form.nome || !form.email"
       @submit="enviarForm"
     >
       <v-col cols="12" md="6">
@@ -96,17 +103,6 @@ export default defineComponent({
           variant="outlined"
           required
           :rules="[(v) => !!v || 'Nome é obrigatório']"
-        />
-      </v-col>
-
-      <v-col cols="12" md="6">
-        <v-select
-          v-model="form.cargo"
-          :items="cargos"
-          label="Cargo"
-          variant="outlined"
-          required
-          :rules="[(v) => !!v || 'Cargo é obrigatório']"
         />
       </v-col>
 
@@ -130,8 +126,8 @@ export default defineComponent({
       </v-col>
     </CreateFormCard>
 
-        <div v-else class="text-center pa-4">
-      <v-progress-circular indeterminate/>
+    <div v-else class="text-center pa-4">
+      <v-progress-circular indeterminate />
       <p>Carregando fornecedores...</p>
     </div>
 

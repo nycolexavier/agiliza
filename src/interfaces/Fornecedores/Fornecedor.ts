@@ -11,7 +11,6 @@ export interface Fornecedor {
 
 export interface FornecedorPostDTO {
   nome: string;
-  cargo: string;
   email: string;
   status: Status;
   telefone: string;
@@ -19,7 +18,6 @@ export interface FornecedorPostDTO {
 
 export interface FornecedorPatchDTO {
   nome: string;
-  cargo: string;
   email: string;
   telefone: string;
 }

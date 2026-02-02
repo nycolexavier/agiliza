@@ -71,12 +71,12 @@ export default defineComponent({
       :items="[
         { label: 'Nome', value: lote?.id },
         { label: 'Código Lote', value: lote?.codigoLote },
-        { label: 'Marca', value: lote?.marca },
-        { label: 'Produto', value: lote?.produto.produtoId },
+        // { label: 'Marca', value: lote?.marca },
+        // { label: 'Produto', value: lote?.produto },
         { label: 'Status', value: lote?.status },
         { label: 'Data de validade', value: lote?.dataValidade },
         { label: 'Quantidade', value: lote?.quantidade },
-        { label: 'Corredor', value: lote?.corredor },
+        // { label: 'Corredor', value: lote?. },
       ]"
     />
 

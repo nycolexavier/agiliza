@@ -27,11 +27,13 @@ export default defineComponent({
       emailRules,
       form: {
         nome: '',
-        cargo: '',
         email: '',
-        status: 'ativo',
         telefone: '',
       },
+
+            snackbar: false,
+      snackbarTexto: '',
+      snackbarTipo: 'success',
     };
   },
 
@@ -54,15 +56,23 @@ export default defineComponent({
           this.fornecedor = response.data;
 
           this.form.nome = response.data.nome;
-          this.form.cargo = response.data.cargo;
           this.form.email = response.data.email;
-          this.form.status = response.data.status;
           this.form.telefone = response.data.telefone;
         }
       } catch (error) {
         console.error('Erro ao buscar fornecedores', error);
+
+                        console.error('Erro ao editar fornecedor', error);
+
+          const mensagemErro =
+    error?.response?.data?.message ||
+    'Erro ao editar fornecedor. Tente novamente.';
+
+  this.snackbarTexto = mensagemErro;
+  this.snackbarTipo = 'error';
+  this.snackbar = true;
       } finally {
-this.isLoading = false;
+        this.isLoading = false;
       }
     },
 
@@ -95,16 +105,12 @@ this.isLoading = false;
     <FormCard
      v-if="!isLoading"
       submitLabel="Salvar alterações"
-      :disabled="!form?.nome || !form?.email || !form?.cargo"
+      :disabled="!form?.nome || !form?.email"
       showCancel
       @submit="enviarForm"
     >
       <v-col cols="12" md="6">
         <v-text-field v-model="form.nome" label="Nome" variant="outlined" />
-      </v-col>
-
-      <v-col cols="12" md="6">
-        <v-text-field v-model="form.cargo" label="Cargo" variant="outlined" />
       </v-col>
 
       <v-col cols="12" md="6">

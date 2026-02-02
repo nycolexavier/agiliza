@@ -90,7 +90,7 @@ export default defineComponent({
     async buscarLotes() {
 
       try{
-
+this.isLoading = true;
         const response = await LoteList();
   
         this.lotes = response.data;
