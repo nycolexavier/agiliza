@@ -55,7 +55,7 @@ export default defineComponent({
 <template>
   <BaseFormContainer>
     <PageHeader
-      :title="`Usuário: ${usuario?.nome}`"
+      :title="`Usuário: ${usuario?.name}`"
       showBack
       backLabel="Voltar para usuarios"
       actionLabel="Editar usuario"
@@ -66,8 +66,7 @@ export default defineComponent({
 
     <DetailsCard
       :items="[
-        { label: 'ID', value: usuario?.id },
-        { label: 'Nome', value: usuario?.nome },
+        { label: 'Nome', value: usuario?.name },
         { label: 'Status', value: usuario?.status },
         { label: 'Telefone', value: usuario?.telefone },
       ]"

@@ -24,10 +24,8 @@ export default defineComponent({
       emailRules,
 
       form: {
-        nome: '',
-        cargo: '',
+        name: '',
         email: '',
-        status: 'ativo',
         telefone: '',
       },
 
@@ -55,10 +53,8 @@ export default defineComponent({
           const response = await UsuariosListID(id);
           this.usuario = response.data;
 
-          this.form.nome = response.data.nome;
-          this.form.cargo = response.data.cargo;
+          this.form.name = response.data.name;
           this.form.email = response.data.email;
-          this.form.status = response.data.status;
           this.form.telefone = response.data.telefone;
 
           console.log(response.data);
@@ -93,7 +89,7 @@ export default defineComponent({
 <template>
   <BaseFormContainer>
     <PageHeader
-      :title="`Editar usário: ${usuario?.nome}`"
+      :title="`Editar usário: ${usuario?.name}`"
       showBack
       backLabel="Voltar para ver o usário"
       @back="irParaOUsuario"
@@ -102,11 +98,7 @@ export default defineComponent({
     <FormCard submitLabel="Salvar alterações" @submit="enviarForm">
       <v-row>
         <v-col cols="12" md="6">
-          <v-text-field v-model="form.nome" label="Nome" variant="outlined" />
-        </v-col>
-
-        <v-col cols="12" md="6">
-          <v-text-field v-model="form.cargo" label="Cargo" variant="outlined" />
+          <v-text-field v-model="form.name" label="Nome" variant="outlined" />
         </v-col>
 
         <v-col cols="12">

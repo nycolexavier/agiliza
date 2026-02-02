@@ -27,7 +27,6 @@ export default defineComponent({
       marca: [] as Marca[],
       busca: '',
       headers: [
-        { title: 'ID', key: 'id' },
         { title: 'Nome', key: 'nome' },
         { title: 'Criado em', key: 'criadoEm' },
         // { title: 'Criado por', key: 'criadoPor' },
@@ -114,7 +113,7 @@ export default defineComponent({
        v-if="!isLoading"
       :headers="headers"
       :items="produtosPaginados"
-      actionLabel="Ver"
+      actionLabel="Ver +"
       @action="(item) => irParaProdutosVer(item.id)"
     />
 

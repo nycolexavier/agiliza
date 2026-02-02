@@ -27,7 +27,6 @@ export default defineComponent({
       movimentacoes: [] as Movimentacao[],
       busca: '',
       headers: [
-        { title: 'ID', key: 'id' },
         { title: 'Lote', key: 'idlote' },
         { title: 'Tipo', key: 'tipomovimentacao' },
         { title: 'Quantidade', key: 'quantidade' },
@@ -115,7 +114,7 @@ export default defineComponent({
      v-if="!isLoading"
       :headers="headers"
       :items="movimentacoesPaginadas"
-      actionLabel="Ver"
+      actionLabel="Ver +"
       @action="(item) => irParaMovimentacaoVer(item.id)"
     />
 

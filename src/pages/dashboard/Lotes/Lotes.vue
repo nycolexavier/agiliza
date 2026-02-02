@@ -29,10 +29,9 @@ export default defineComponent({
       lotes: [] as Lote[],
       busca: '',
       headers: [
-        { title: 'ID', key: 'id' },
         { title: 'Código do lote', key: 'codigoLote' },
-        { title: 'Marca', key: 'marca' },
-        { title: 'Produto', key: 'produto' },
+        { title: 'Marca', key: 'marca.nome' },
+        { title: 'Produto', key: 'produto.nome' },
         { title: 'Status', key: 'status' },
         { title: 'Data de validade', key: 'dataValidade' },
         { title: 'Ações', key: 'actions' },
@@ -119,7 +118,7 @@ this.isLoading = true;
      v-if="!isLoading"
       :headers="headers"
       :items="lotesPaginados"
-      actionLabel="Ver"
+      actionLabel="Ver +"
       @action="(item) => irParaOLotesEditar(item.id)"
     />
 

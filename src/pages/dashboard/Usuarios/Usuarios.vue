@@ -32,7 +32,6 @@ export default defineComponent({
       itensPorPagina: 10,
 
       headers: [
-        { title: 'ID', key: 'id' },
         { title: 'Nome', key: 'name' },
         { title: 'Cargo', key: 'cargo' },
         { title: 'E-mail', key: 'email' },
@@ -118,7 +117,7 @@ export default defineComponent({
       v-if="!isLoading"
       :headers="headers"
       :items="usuariosPaginados"
-      actionLabel="Editar"
+      actionLabel="Ver +"
       @action="(item) => irParaVerUsuarios(item.id)"
     />
 

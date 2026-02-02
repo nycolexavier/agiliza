@@ -15,7 +15,6 @@ export interface Usuario {
 
 export interface UsuarioPatchDTO {
   nome: string;
-  cargo: string;
   email: string;
   telefone: string;
 }

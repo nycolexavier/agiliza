@@ -23,16 +23,13 @@ export default defineComponent({
 
   data() {
     return {
-
       isLoading: false,
 
       deposito: [] as Deposito[],
       busca: '',
       headers: [
         { title: 'Corredor', key: 'corredor' },
-        { title: 'Prateleira', key: 'prateleira' },
-        { title: 'Sessão', key: 'sessao' },
-        { title: 'Qtd. Máxima', key: 'quantidadeMaxima' },
+        { title: 'Tem produto?', key: 'temProduto' },
         { title: 'Ações', key: 'actions' },
       ],
 
@@ -91,7 +88,10 @@ export default defineComponent({
       this.isLoading = true;
       const response = await DepositoList();
 
-      this.deposito = response.data;
+     this.deposito = response.data.map((item : Deposito) => ({
+      ...item,
+      temProduto: item.temProduto ? "Sim" : "Não"
+     }))
       }
       catch(error){
         console.error("Erro ao buscar depósito")
@@ -117,7 +117,7 @@ export default defineComponent({
       v-if="!isLoading"
       :headers="headers"
       :items="depositoPaginados"
-      actionLabel="Ver mais"
+      actionLabel="Ver +"
       @action="(item) => irParaDepositoVer(item.id)"
     />
 

@@ -25,7 +25,6 @@ export default defineComponent({
       produto: [] as Produto[],
       busca: '',
       headers: [
-        { title: 'ID', key: 'id' },
         { title: 'Nome', key: 'nome' },
         { title: 'SKU', key: 'sku' },
         { title: 'Descrição', key: 'descricao' },

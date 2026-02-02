@@ -27,7 +27,7 @@ export default defineComponent({
       emailRules,
 
       form: {
-        nome: '',
+        name: '',
         cargo: '' as Cargo,
         email: '',
         status: 'ativo' as Usuario['status'],
@@ -49,8 +49,8 @@ export default defineComponent({
       try {
         const payload = {
           ...this.form,
-          nome: this.form.nome.toLocaleLowerCase().trim(),
-          email: this.form.nome.toLocaleLowerCase().trim(),
+          name: this.form.name.toLocaleLowerCase().trim(),
+          email: this.form.name.toLocaleLowerCase().trim(),
         };
 
         await UsuariosPost(payload);
@@ -83,7 +83,7 @@ export default defineComponent({
       <v-row>
         <v-col cols="12" md="6">
           <v-text-field
-            v-model="form.nome"
+            v-model="form.name"
             label="Nome completo"
             variant="outlined"
             required
@@ -134,7 +134,7 @@ export default defineComponent({
         <v-btn
           type="submit"
           color="primary"
-          :disabled="!form.nome || !form.email || !form.cargo"
+          :disabled="!form.name || !form.email || !form.cargo"
         >
           Criar Usuário
         </v-btn>
