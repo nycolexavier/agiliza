@@ -50,6 +50,13 @@ export const ROUTES = {
     editar: (id: string) => `/dashboard/marca/${id}/editar`,
   },
 
+    categoria: {
+    list: '/dashboard/categoria',
+    new: '/dashboard/categoria/new',
+    ver: (id: string) => `/dashboard/categoria/${id}`,
+    editar: (id: string) => `/dashboard/categoria/${id}/editar`,
+  },
+
   relatorio: {
     list: '/dashboard/relatorio',
     new: '/dashboard/relatorio/new',

@@ -83,6 +83,11 @@ export default defineComponent({
           @click="irParaMarca"
         />
         <v-list-item
+          title="Marcas"
+          prepend-icon="mdi-tag"
+          @click="irParaMarca"
+        />
+        <v-list-item
           title="Relatório"
           prepend-icon="mdi-file-chart"
           @click="irParaRelatorio"
