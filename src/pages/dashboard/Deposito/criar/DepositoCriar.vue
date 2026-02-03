@@ -19,19 +19,17 @@ export default defineComponent({
 
   data() {
     return {
-
-       isLoading: false,
+      isLoading: false,
 
       form: {
         corredor: '',
-        prateleira: '',
-        sessao: '',
-        quantidadeMaxima: '',
+        temProduto: false,
       },
 
       snackbar: false,
       snackbarTexto: '',
-      snackbarCor: 'success',
+      snackbarCor: '',
+      snackbarTipo: '',
     };
   },
 
@@ -42,11 +40,11 @@ export default defineComponent({
 
     async enviarForm() {
       try {
-         this.isLoading = true;
+        this.isLoading = true;
         const response = await DepositoPost(this.form);
 
-        (this.snackbarTexto = 'Depósito criado com sucesso'),
-          (this.snackbarCor = 'success');
+        ((this.snackbarTexto = 'Depósito criado com sucesso'),
+          (this.snackbarCor = 'success'));
         this.snackbar = true;
 
         setTimeout(() => {
@@ -54,6 +52,15 @@ export default defineComponent({
         }, 1000);
       } catch (error) {
         console.error('Erro ao criar um depósito');
+
+        const mensagemErro =
+          error?.response?.data?.message ||
+          'Erro ao criar depósito. Tente novamente.';
+
+        this.snackbarTexto = mensagemErro;
+        this.snackbarCor = 'error';
+        this.snackbarTipo = 'error';
+        this.snackbar = true;
       } finally {
         this.isLoading = false;
       }
@@ -72,43 +79,22 @@ export default defineComponent({
     />
 
     <CreateFormCard
-     v-if="!isLoading"
+      v-if="!isLoading"
       submitLabel="Criar depósito"
-      :disabled="
-        !form.corredor ||
-        !form.prateleira ||
-        !form.sessao ||
-        !form.quantidadeMaxima
-      "
+      :disabled="!form.corredor"
       @submit="enviarForm"
     >
       <v-row>
         <v-col cols="12" md="6">
           <v-text-field v-model="form.corredor" label="Corredor" required />
         </v-col>
-
-        <v-col cols="12" md="6">
-          <v-text-field v-model="form.prateleira" label="Prateleira" required />
-        </v-col>
-
-        <v-col cols="12" md="6">
-          <v-text-field v-model="form.sessao" label="Sessão" required />
-        </v-col>
-
-        <v-col cols="12" md="6">
-          <v-text-field
-            v-model="form.quantidadeMaxima"
-            label="Quantidade máxima"
-            required
-          />
-        </v-col>
       </v-row>
     </CreateFormCard>
 
-        <div v-else class="text-center pa-4">
-          <v-progress-circular indeterminate/>
-          <p>Carregando depósitos...</p>
-        </div>
+    <div v-else class="text-center pa-4">
+      <v-progress-circular indeterminate />
+      <p>Carregando depósitos...</p>
+    </div>
 
     <Footer />
 

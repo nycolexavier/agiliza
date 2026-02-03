@@ -25,7 +25,15 @@ export default defineComponent({
 
 <template>
   <v-card variant="outlined">
-    <v-data-table :headers="headers" :items="items" hide-default-footer>
+   <v-data-table :headers="headers" :items="items" hide-default-footer>
+      
+      <template
+        v-for="(_, slotName) in $slots"
+        #[slotName]="slotProps"
+      >
+        <slot :name="slotName" v-bind="slotProps" />
+      </template>
+
       <template #item.actions="{ item }">
         <v-btn size="small" variant="outlined" @click="$emit('action', item)">
           {{ actionLabel }}

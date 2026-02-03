@@ -9,12 +9,14 @@ import PageHeader from '@/components/layouts/PageHeader.vue';
 import SearchInput from '@/components/form/SearchInput.vue';
 import BaseTable from '@/components/base/BaseTable.vue';
 import BasePagination from '@/components/base/BasePagination.vue';
+import DateBadge from '@/components/base/DateBadge.vue';
 
 export default defineComponent({
   name: 'ProdutosPage',
 
   components: {
     Footer,
+    DateBadge,
     PageHeader,
     SearchInput,
     BaseTable,
@@ -23,7 +25,6 @@ export default defineComponent({
 
   data() {
     return {
-
       isLoading: false,
 
       lotes: [] as Lote[],
@@ -58,7 +59,7 @@ export default defineComponent({
       const buscaNormalizada = removerAcentos(this.busca);
 
       return this.lotes.filter((lote) =>
-        removerAcentos(lote.codigoLote).includes(buscaNormalizada)
+        removerAcentos(lote.codigoLote).includes(buscaNormalizada),
       );
     },
   },
@@ -87,18 +88,16 @@ export default defineComponent({
     },
 
     async buscarLotes() {
-
-      try{
-this.isLoading = true;
+      try {
+        this.isLoading = true;
         const response = await LoteList();
-  
+
         this.lotes = response.data;
-      } catch(error){
-        console.error("Erro ao buscar lote")
-      } finally{
+      } catch (error) {
+        console.error('Erro ao buscar lote');
+      } finally {
         this.isLoading = false;
       }
-
     },
   },
 });
@@ -115,15 +114,19 @@ this.isLoading = true;
     <SearchInput v-model="busca" label="Buscar por código do lote" />
 
     <BaseTable
-     v-if="!isLoading"
+      v-if="!isLoading"
       :headers="headers"
       :items="lotesPaginados"
       actionLabel="Ver +"
       @action="(item) => irParaOLotesEditar(item.id)"
-    />
+    >
+      <template #item.dataValidade="{ item }">
+        <DateBadge :date="item.dataValidade" />
+      </template>
+    </BaseTable>
 
-        <div v-else class="text-center pa-4">
-      <v-progress-circular indeterminate/>
+    <div v-else class="text-center pa-4">
+      <v-progress-circular indeterminate />
       <p>Carregando lotes...</p>
     </div>
 

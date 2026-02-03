@@ -1,14 +1,14 @@
 export interface Deposito {
   id: string;
   corredor: string;
-   temProduto: string;
+  temProduto: string;
   criadoPor: string;
   atualizadoEm: string;
 }
 
 export interface DepositoPostDTO {
   corredor: string;
-  temProduto: string;
+  temProduto: boolean;
 }
 
 export interface DepositoPatchDTO {

@@ -276,13 +276,10 @@ export default defineComponent({
       <v-col cols="12" md="6">
         <v-text-field
           v-model="form.dataValidade"
-          label="Data da validade"
+          label="Data de validade"
           type="date"
           required
-          :max="hoje"
-          :rules="[(v) => !!v || 'Data é obrigatória', dataNaoFutura]"
-          ,
-          dataNaoFutura
+          
         />
       </v-col>
     </CreateFormCard>
