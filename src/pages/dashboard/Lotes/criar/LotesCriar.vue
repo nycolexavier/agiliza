@@ -17,7 +17,7 @@ import {
   precoCustoMenorOuIgualVenda,
   precoVendaMaiorOuIgualCusto,
 } from '@/utils/validators/priceRules';
-import { DepositoList } from '@/services/deposito.services';
+import { DepositoListDisponiveis } from '@/services/deposito.services';
 import { FornecedoresList } from '@/services/fornecedores';
 
 export default defineComponent({
@@ -79,7 +79,7 @@ export default defineComponent({
 
     async enviarForm() {
       try {
-         this.isLoading = true;
+        this.isLoading = true;
         await LotePost(this.form);
 
         ((this.snackbarTexto = 'Lotes criado com sucesso'),
@@ -91,8 +91,8 @@ export default defineComponent({
         }, 1000);
       } catch (error) {
         console.error('Erro ao criar lotes', error);
-      } finally{
- this.isLoading = false;
+      } finally {
+        this.isLoading = false;
       }
     },
   },
@@ -113,7 +113,7 @@ export default defineComponent({
     }
 
     try {
-      const response = await DepositoList();
+      const response = await DepositoListDisponiveis();
       this.corredor = response.data;
     } catch (error) {
       console.error('Erro ao buscar deposito', error);
@@ -139,7 +139,7 @@ export default defineComponent({
     />
 
     <CreateFormCard
-    v-if="!isLoading"
+      v-if="!isLoading"
       submitLabel="Criar lotes"
       :disabled="
         !form.codigoLote ||
@@ -176,8 +176,7 @@ export default defineComponent({
           required
         />
       </v-col>
-
-      <!-- todo ver o que coloca esse: item-value="id"  ou item-value="nome"  -->
+      
       <v-col cols="12" md="6">
         <v-select
           v-model="form.marcaId"
@@ -227,7 +226,8 @@ export default defineComponent({
           :rules="[
             (v) => !!v || 'Campo é obrigatório',
             (v) => v >= 0 || 'Valor deve ser positivo',
-            (v) => precoCustoMenorOuIgualVenda(Number(v), Number(form.precoVenda)),
+            (v) =>
+              precoCustoMenorOuIgualVenda(Number(v), Number(form.precoVenda)),
           ]"
         />
       </v-col>
@@ -243,7 +243,8 @@ export default defineComponent({
         :rules="[
           (v) => !!v || 'Campo é obrigatório',
           (v) => v >= 0 || 'Valor deve ser positivo',
-          (v) => precoVendaMaiorOuIgualCusto(Number(v), Number(form.precoCusto)),
+          (v) =>
+            precoVendaMaiorOuIgualCusto(Number(v), Number(form.precoCusto)),
         ]"
       />
 
@@ -279,16 +280,14 @@ export default defineComponent({
           label="Data de validade"
           type="date"
           required
-          
         />
       </v-col>
     </CreateFormCard>
 
-        <div v-else class="text-center pa-4">
-          <v-progress-circular indeterminate/>
-          <p>Carregando lotes...</p>
-        </div>
-    
+    <div v-else class="text-center pa-4">
+      <v-progress-circular indeterminate />
+      <p>Carregando lotes...</p>
+    </div>
 
     <BaseSnackbar
       v-model="snackbar"

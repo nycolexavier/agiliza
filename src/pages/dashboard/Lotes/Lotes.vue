@@ -33,7 +33,6 @@ export default defineComponent({
         { title: 'Código do lote', key: 'codigoLote' },
         { title: 'Marca', key: 'marca.nome' },
         { title: 'Produto', key: 'produto.nome' },
-        { title: 'Status', key: 'status' },
         { title: 'Data de validade', key: 'dataValidade' },
         { title: 'Ações', key: 'actions' },
       ],

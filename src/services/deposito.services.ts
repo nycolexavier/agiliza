@@ -9,6 +9,10 @@ export function DepositoList() {
   return api.get<Deposito[]>('/deposito');
 }
 
+export function DepositoListDisponiveis() {
+  return api.get<Deposito[]>('/deposito/disponiveis');
+}
+
 export function DepositoListID(id: string) {
   return api.get(`/deposito/${id}`);
 }
