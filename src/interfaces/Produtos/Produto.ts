@@ -15,8 +15,10 @@ export interface Produto {
 export interface ProdutosPostDTO {
   nome: string;
   sku: string;
-  status: Status;
-  categoria: string;
+  descricao?: string;
+  status?: Status;
+  categoria?: string;
+  isPerecivel: boolean;
 }
 
 export interface ProdutosPatchDTO {

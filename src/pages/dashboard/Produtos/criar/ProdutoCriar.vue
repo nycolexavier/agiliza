@@ -23,9 +23,10 @@ export default defineComponent({
       form: {
         nome: '',
         sku: '',
-        quantidadeMedida: '',
         status: 'ativo' as Status,
         categoria: '',
+        isPerecivel: false,
+        descricao: ''
       },
       snackbar: false,
       snackbarTexto: '',
@@ -44,8 +45,10 @@ export default defineComponent({
         await ProdutosPost({
           nome: this.form.nome,
           sku: this.form.sku,
-          status: this.form.status,
-          categoria: this.form.categoria,
+          descricao: 'tenho que arrumar isso',
+          // status: this.form.status,
+          // categoria: this.form.categoria,
+          isPerecivel: this.form.isPerecivel
         });
 
         this.snackbarTexto = 'Produto criado com sucesso';
@@ -75,14 +78,9 @@ export default defineComponent({
     />
 
     <CreateFormCard
-     v-if="!isLoading"
+      v-if="!isLoading"
       submitLabel="Criar produto"
-      :disabled="
-        !form.nome ||
-        !form.categoria ||
-        !form.quantidadeMedida ||
-        !form.sku
-      "
+      :disabled="!form.nome || !form.categoria || !form.sku"
       @submit="enviarForm"
     >
       <v-col cols="12" md="6">
@@ -101,12 +99,23 @@ export default defineComponent({
           :rules="[(v) => !!v || 'Categoria é obrigatório']"
         />
       </v-col>
+
+      <v-col cols="12" md="6">
+        <p class="mb-2 font-weight-medium">É perecível?</p>
+
+        <v-switch
+          v-model="form.isPerecivel"
+          color="primary"
+          inset
+          :label="form.isPerecivel ? 'Sim' : 'Não'"
+        />
+      </v-col>
     </CreateFormCard>
 
-        <div v-else class="text-center pa-4">
-          <v-progress-circular indeterminate/>
-          <p>Carregando usuários...</p>
-        </div>
+    <div v-else class="text-center pa-4">
+      <v-progress-circular indeterminate />
+      <p>Carregando usuários...</p>
+    </div>
 
     <v-snackbar
       v-model="snackbar"
