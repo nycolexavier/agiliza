@@ -34,7 +34,12 @@ export default defineComponent({
     return {
       isLoading: false,
       marcas: [] as { id: string; nome: string }[],
-      produto: [] as { id: string; nome: string }[],
+      produto: [] as { id: string; nome: string; isPerecivel: boolean }[],
+      produtoSelecionado: null as {
+        id: string;
+        nome: string;
+        isPerecivel: boolean;
+      } | null,
       corredor: [] as { id: string; corredor: string }[],
       fornecedor: [] as { id: string; nome: string }[],
 
@@ -75,6 +80,15 @@ export default defineComponent({
 
     irParalotes() {
       this.$router.push(ROUTES.lotes.list);
+    },
+
+    onProdutoSelecionado(produtoId: string) {
+      this.produtoSelecionado =
+        this.produto.find((p) => p.id === produtoId) || null;
+
+      if (this.produtoSelecionado && !this.produtoSelecionado.isPerecivel) {
+        this.form.dataValidade = '';
+      }
     },
 
     async enviarForm() {
@@ -147,7 +161,7 @@ export default defineComponent({
         !form.produtoId ||
         !form.depositoId ||
         !form.fornecedorId ||
-        !form.dataValidade ||
+        (produtoSelecionado?.isPerecivel && !form.dataValidade) ||
         !form.precoCusto ||
         !form.precoVenda ||
         !form.codigoBarra ||
@@ -176,7 +190,7 @@ export default defineComponent({
           required
         />
       </v-col>
-      
+
       <v-col cols="12" md="6">
         <v-select
           v-model="form.marcaId"
@@ -198,7 +212,7 @@ export default defineComponent({
           item-title="nome"
           item-value="id"
           variant="outlined"
-          required
+          @update:modelValue="onProdutoSelecionado"
         />
       </v-col>
 
@@ -274,7 +288,7 @@ export default defineComponent({
         />
       </v-col>
 
-      <v-col cols="12" md="6">
+      <v-col cols="12" md="6" v-if="produtoSelecionado?.isPerecivel">
         <v-text-field
           v-model="form.dataValidade"
           label="Data de validade"

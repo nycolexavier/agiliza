@@ -4,9 +4,10 @@ export interface Produto {
   id: string;
   nome: string;
   sku: number;
+  isPerecivel: boolean;
   status: Status;
-  categoria: string;
-  descricao: string;
+  categoria?: string;
+  descricao?: string;
   criadoEm: string;
   criadoPor: string;
   atualizadoEm: string;
