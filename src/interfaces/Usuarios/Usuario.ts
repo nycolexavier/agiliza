@@ -1,9 +1,9 @@
-import type { Cargo } from "../Cargo";
-import type { Status } from "../Status";
+import type { Cargo } from '../Cargo';
+import type { Status } from '../Status';
 
 export interface Usuario {
   id: string;
-  nome: string;
+  name: string;
   cargo: Cargo[];
   email: string;
   status: Status;
@@ -14,14 +14,13 @@ export interface Usuario {
 }
 
 export interface UsuarioPatchDTO {
-  nome: string;
+  name: string;
   email: string;
   telefone: string;
 }
 
 export interface UsuariosPostDTO {
-  nome: string;
+  name: string;
   cargo: string;
   email: string;
-  telefone: string;
 }

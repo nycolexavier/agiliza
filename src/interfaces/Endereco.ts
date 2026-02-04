@@ -1,11 +1,12 @@
-export interface Endereco {
+export interface EnderecoDto {
+  userId: string;
   cep: string;
-  rua: string;
-  numero: string;
+  logradouro: string;
+  complemento: string;
   bairro: string;
-  cidade: string;
+  localidade: string;
   estado: string;
-  AtualizadoEm: string;
-  criadoEm: string;
-  criadoPor: string;
+  atualizadoEm?: string;
+  criadoEm?: string;
+  criadoPor?: string;
 }

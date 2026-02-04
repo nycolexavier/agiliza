@@ -8,6 +8,7 @@ import { CARGOS, type Cargo } from '@/interfaces/Cargo';
 import FormCard from '@/components/form/FormCard.vue';
 import { emailRules } from '@/utils/validators/emailRules';
 import type { Usuario } from '@/interfaces/Usuarios/Usuario';
+import { EnderecosPost } from '@/services/enderecos.services';
 
 export default defineComponent({
   name: 'UsuarioCriarPage',
@@ -32,6 +33,13 @@ export default defineComponent({
         email: '',
         status: 'ativo' as Usuario['status'],
         telefone: '',
+
+        cep: '',
+        logradouro: '',
+        complemento: '',
+        bairro: '',
+        cidade: '',
+        estado: '',
       },
 
       snackbar: false,
@@ -47,13 +55,29 @@ export default defineComponent({
 
     async enviarForm() {
       try {
-        const payload = {
-          ...this.form,
-          name: this.form.name.toLocaleLowerCase().trim(),
-          email: this.form.name.toLocaleLowerCase().trim(),
+        const usuarioPayload = {
+          name: this.form.name.toLowerCase().trim(),
+          email: this.form.email.toLowerCase().trim(),
+          cargo: this.form.cargo,
+          status: this.form.status,
+          telefone: this.form.telefone,
         };
 
-        await UsuariosPost(payload);
+        const usuarioCriado = await UsuariosPost(usuarioPayload);
+
+        const userId: string = usuarioCriado.data.id;
+
+        const enderecoPayload = {
+          userId,
+          cep: this.form.cep,
+          logradouro: this.form.logradouro,
+          complemento: this.form.complemento,
+          bairro: this.form.bairro,
+          localidade: this.form.cidade,
+          estado: this.form.estado,
+        };
+
+        await EnderecosPost(enderecoPayload);
 
         this.snackbarTexto = 'Usuário criado com sucesso';
         this.snackbarCor = 'success';
@@ -64,6 +88,23 @@ export default defineComponent({
         }, 1000);
       } catch (error) {
         console.error('Erro ao criar usuário', error);
+      }
+    },
+  },
+
+  watch: {
+    async 'form.cep'(cep: string) {
+      if (cep.length === 8 || cep.length === 9) {
+        const res = await fetch(`https://viacep.com.br/ws/${cep}/json`);
+        const data = await res.json();
+
+        if (!data.erro) {
+          this.form.logradouro = data.logradouro;
+          this.form.bairro = data.bairro;
+          this.form.cidade = data.localidade;
+          this.form.estado = data.estado;
+          this.form.complemento = data.complemento;
+        }
       }
     },
   },
@@ -125,6 +166,50 @@ export default defineComponent({
           <v-text-field
             v-model="form.telefone"
             label="Telefone"
+            variant="outlined"
+          />
+        </v-col>
+
+        <v-col cols="12" md="6">
+          <v-text-field v-model="form.cep" label="Cep" variant="outlined" />
+        </v-col>
+
+        <v-col cols="12" md="6">
+          <v-text-field
+            v-model="form.logradouro"
+            label="Rua"
+            variant="outlined"
+          />
+        </v-col>
+
+        <v-col cols="12" md="6">
+          <v-text-field
+            v-model="form.complemento"
+            label="Complemento"
+            variant="outlined"
+          />
+        </v-col>
+
+        <v-col cols="12" md="6">
+          <v-text-field
+            v-model="form.bairro"
+            label="Bairro"
+            variant="outlined"
+          />
+        </v-col>
+
+        <v-col cols="12" md="6">
+          <v-text-field
+            v-model="form.cidade"
+            label="Cidade"
+            variant="outlined"
+          />
+        </v-col>
+
+        <v-col cols="12" md="6">
+          <v-text-field
+            v-model="form.estado"
+            label="Estado"
             variant="outlined"
           />
         </v-col>
