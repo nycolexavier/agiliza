@@ -4,7 +4,7 @@ import { ROUTES } from '@/router/utils/routes';
 import { UsuariosPost } from '@/services/usuarios.services';
 import { defineComponent } from 'vue';
 import PageHeader from '@/components/layouts/PageHeader.vue';
-import { CARGOS, type Cargo } from '@/interfaces/Cargo';
+import { CARGOSSemFornecedor } from '@/interfaces/Cargo';
 import FormCard from '@/components/form/FormCard.vue';
 import { emailRules } from '@/utils/validators/emailRules';
 import type { Usuario } from '@/interfaces/Usuarios/Usuario';
@@ -23,13 +23,13 @@ export default defineComponent({
     return {
       usuario: null as Usuario | null,
 
-      cargos: CARGOS,
+      cargos: CARGOSSemFornecedor,
 
       emailRules,
 
       form: {
         name: '',
-        cargo: '' as Cargo,
+        cargo: '' as CARGOSSemFornecedor,
         email: '',
         status: 'ativo' as Usuario['status'],
         telefone: '',

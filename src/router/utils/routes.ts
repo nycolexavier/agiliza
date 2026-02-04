@@ -50,7 +50,7 @@ export const ROUTES = {
     editar: (id: string) => `/dashboard/marca/${id}/editar`,
   },
 
-    categoria: {
+  categoria: {
     list: '/dashboard/categoria',
     new: '/dashboard/categoria/new',
     ver: (id: string) => `/dashboard/categoria/${id}`,

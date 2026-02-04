@@ -35,6 +35,9 @@ export default defineComponent({
     irParaMarca() {
       this.$router.push(ROUTES.marca.list);
     },
+    irParaCategoria() {
+      this.$router.push(ROUTES.categoria.list);
+    },
     irParaRelatorio() {
       this.$router.push(ROUTES.relatorio.list);
     },
@@ -83,9 +86,9 @@ export default defineComponent({
           @click="irParaMarca"
         />
         <v-list-item
-          title="Marcas"
+          title="Categoria"
           prepend-icon="mdi-tag"
-          @click="irParaMarca"
+          @click="irParaCategoria"
         />
         <v-list-item
           title="Relatório"

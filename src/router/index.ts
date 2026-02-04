@@ -32,6 +32,10 @@ import MovimentacaoVer from '@/pages/dashboard/Movimentacao/ver/MovimentacaoVer.
 import MenuLayout from '@/components/layouts/MenuLayout.vue';
 import LotesCriar from '@/pages/dashboard/Lotes/criar/LotesCriar.vue';
 import MarcaEditar from '@/pages/dashboard/Marca/editar/MarcaEditar.vue';
+import Categoria from '@/pages/dashboard/Categoria/Categoria.vue';
+import CategoriaCriar from '@/pages/dashboard/Categoria/criar/CategoriaCriar.vue';
+import CategoriaVer from '@/pages/dashboard/Categoria/ver/CategoriaVer.vue';
+import CategoriaEditar from '@/pages/dashboard/Categoria/editar/CategoriaEditar.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -93,6 +97,12 @@ const router = createRouter({
         { path: 'marca/new', component: MarcaCriar },
         { path: 'marca/:id', component: MarcaVer },
         { path: 'marca/:id/editar', component: MarcaEditar },
+
+        // CATEGORIA
+        { path: 'categoria', component: Categoria },
+        { path: 'categoria/new', component: CategoriaCriar },
+        { path: 'categoria/:id', component: CategoriaVer },
+        { path: 'categoria/:id/editar', component: CategoriaEditar },
 
         // RELATÓRIO
         { path: 'relatorio', component: Relatorio },
