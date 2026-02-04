@@ -9,6 +9,7 @@ import PageHeader from '@/components/layouts/PageHeader.vue';
 import SearchInput from '@/components/form/SearchInput.vue';
 import BaseTable from '@/components/base/BaseTable.vue';
 import BasePagination from '@/components/base/BasePagination.vue';
+import DataFormatada from '@/components/formatters/DataFormatada.vue';
 
 export default defineComponent({
   name: 'MovimentacoesPage',
@@ -19,11 +20,12 @@ export default defineComponent({
     PageHeader,
     SearchInput,
     BasePagination,
+    DataFormatada,
   },
 
   data() {
     return {
-       isLoading: false,
+      isLoading: false,
       movimentacoes: [] as Movimentacao[],
       busca: '',
       headers: [
@@ -85,12 +87,12 @@ export default defineComponent({
     },
 
     async buscarMovimentacoes() {
-      try{
-      const response = await MovimentacaoList();
-      this.movimentacoes = response.data;}
-      catch(error){
-        console.error("Erro ao buscar movimentação")
-      } finally{
+      try {
+        const response = await MovimentacaoList();
+        this.movimentacoes = response.data;
+      } catch (error) {
+        console.error('Erro ao buscar movimentação');
+      } finally {
         this.isLoading = false;
       }
     },
@@ -111,15 +113,19 @@ export default defineComponent({
     <SearchInput v-model="busca" label="Buscar por tipo de movimentação" />
 
     <BaseTable
-     v-if="!isLoading"
+      v-if="!isLoading"
       :headers="headers"
       :items="movimentacoesPaginadas"
       actionLabel="Ver +"
       @action="(item) => irParaMovimentacaoVer(item.id)"
-    />
+    >
+      <template #item.dataMovimentacao="{ item }">
+        <DataFormatada :value="item.dataMovimentacao" />
+      </template>
+    </BaseTable>
 
-            <div v-else class="text-center pa-4">
-      <v-progress-circular indeterminate/>
+    <div v-else class="text-center pa-4">
+      <v-progress-circular indeterminate />
       <p>Carregando movimentações...</p>
     </div>
 

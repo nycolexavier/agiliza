@@ -87,7 +87,7 @@ export default defineComponent({
         />
         <v-list-item
           title="Categoria"
-          prepend-icon="mdi-tag"
+          prepend-icon="mdi-shape-outline"
           @click="irParaCategoria"
         />
         <v-list-item

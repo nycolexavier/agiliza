@@ -106,7 +106,6 @@ export default defineComponent({
      v-if="!isLoading"
       submitLabel="Salvar alterações"
       :disabled="!form?.nome || !form?.email"
-      showCancel
       @submit="enviarForm"
     >
       <v-col cols="12" md="6">

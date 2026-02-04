@@ -9,6 +9,7 @@ import PageHeader from '@/components/layouts/PageHeader.vue';
 import BaseTable from '@/components/base/BaseTable.vue';
 import SearchInput from '@/components/form/SearchInput.vue';
 import BasePagination from '@/components/base/BasePagination.vue';
+import TelefoneFormatado from '@/components/formatters/TelefoneFormatado.vue';
 
 export default defineComponent({
   name: 'FornecedoresPage',
@@ -19,11 +20,11 @@ export default defineComponent({
     SearchInput,
     BaseTable,
     BasePagination,
+    TelefoneFormatado,
   },
 
   data() {
     return {
-
       isLoading: false,
 
       fornecedores: [] as Fornecedor[],
@@ -59,7 +60,7 @@ export default defineComponent({
       const buscaNormalizada = removerAcentos(this.busca);
 
       return this.fornecedores.filter((fornecedor) =>
-        removerAcentos(fornecedor.nome).includes(buscaNormalizada)
+        removerAcentos(fornecedor.nome).includes(buscaNormalizada),
       );
     },
   },
@@ -88,14 +89,13 @@ export default defineComponent({
     },
 
     async buscarFornecedores() {
-      try{
-      const response = await FornecedoresList();
+      try {
+        const response = await FornecedoresList();
 
-      this.fornecedores = response.data;
-      } catch(error){
-        console.error("Erro ao buscar fornecedores")
-      }
-      finally{
+        this.fornecedores = response.data;
+      } catch (error) {
+        console.error('Erro ao buscar fornecedores');
+      } finally {
         this.isLoading = false;
       }
     },
@@ -114,15 +114,19 @@ export default defineComponent({
     <SearchInput v-model="busca" label="Buscar fornecedor pelo nome" />
 
     <BaseTable
-     v-if="!isLoading"
+      v-if="!isLoading"
       :headers="headers"
       :items="fornecedoresPaginados"
       actionLabel="Editar"
       @action="(item) => irParaFornecedoresEdicao(item.id)"
-    />
+    >
+      <template #item.telefone="{ item }">
+        <TelefoneFormatado :telefone="item.telefone" />
+      </template>
+    </BaseTable>
 
-        <div v-else class="text-center pa-4">
-      <v-progress-circular indeterminate/>
+    <div v-else class="text-center pa-4">
+      <v-progress-circular indeterminate />
       <p>Carregando fornecedores...</p>
     </div>
 

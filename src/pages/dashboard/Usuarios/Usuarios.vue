@@ -9,6 +9,7 @@ import PageHeader from '@/components/layouts/PageHeader.vue';
 import SearchInput from '@/components/form/SearchInput.vue';
 import BasePagination from '@/components/base/BasePagination.vue';
 import BaseTable from '@/components/base/BaseTable.vue';
+import TelefoneFormatado from '@/components/formatters/TelefoneFormatado.vue';
 
 export default defineComponent({
   name: 'UsuariosPage',
@@ -19,6 +20,7 @@ export default defineComponent({
     PageHeader,
     SearchInput,
     BasePagination,
+    TelefoneFormatado,
   },
 
   data() {
@@ -59,7 +61,7 @@ export default defineComponent({
 
       return this.usuarios.filter((usuario) => {
         const texto = removerAcentos(
-          `${usuario.nome} ${usuario.email} ${usuario.cargo} ${usuario.telefone} ${usuario.status} ${usuario.id} `
+          `${usuario.name} ${usuario.email} ${usuario.cargo} ${usuario.telefone} ${usuario.status} ${usuario.id} `,
         );
         return texto.includes(buscaNormalizada);
       });
@@ -119,10 +121,14 @@ export default defineComponent({
       :items="usuariosPaginados"
       actionLabel="Ver +"
       @action="(item) => irParaVerUsuarios(item.id)"
-    />
+    >
+      <template #item.telefone="{ item }">
+        <TelefoneFormatado :telefone="item.telefone" />
+      </template>
+    </BaseTable>
 
     <div v-else class="text-center pa-4">
-      <v-progress-circular indeterminate/>
+      <v-progress-circular indeterminate />
       <p>Carregando usuários...</p>
     </div>
 
