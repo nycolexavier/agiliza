@@ -10,7 +10,7 @@ import SearchInput from '@/components/form/SearchInput.vue';
 import BaseTable from '@/components/base/BaseTable.vue';
 import BasePagination from '@/components/base/BasePagination.vue';
 import DataFormatada from '@/components/formatters/DataFormatada.vue';
-
+// todo colocar o criadoPor
 export default defineComponent({
   name: 'ProdutosPage',
 
