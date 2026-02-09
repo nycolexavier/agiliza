@@ -67,8 +67,11 @@ export default defineComponent({
     <DetailsCard
       :items="[
         { label: 'Nome', value: usuario?.name },
+        { label: 'Email', value: usuario?.email },
+        { label: 'Status', value: usuario?.status },
         { label: 'Status', value: usuario?.status },
         { label: 'Telefone', value: usuario?.telefone },
+        { label: 'Cargo', value: usuario?.cargo },
       ]"
     />
 

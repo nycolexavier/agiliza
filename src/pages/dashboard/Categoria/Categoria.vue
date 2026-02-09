@@ -31,7 +31,7 @@ export default defineComponent({
       headers: [
         { title: 'Nome', key: 'nome' },
         { title: 'Criado em', key: 'criadoEm' },
-        // { title: 'Criado por', key: 'criadoPor' },
+        // { title: 'Criado por', key: 'criadoPor' }, // todo fazer isso
         { title: 'Atualizado em', key: 'atualizadoEm' },
         { title: 'Ações', key: 'actions' },
       ],
@@ -87,9 +87,11 @@ export default defineComponent({
 
     async buscarProdutos() {
       try {
+        this.isLoading = true; // todo ver a questão de carregamento
         const response = await CategoriaList();
 
         this.categoria = response.data;
+        console.log('categoria', this.categoria);
       } catch (error) {
         console.error('Erro ao buscar categorias');
       } finally {
@@ -136,6 +138,9 @@ export default defineComponent({
       :itensPorPagina="itensPorPagina"
       :totalItens="categoriaFiltrada.length"
     />
+
+
+    // todo parece que esta carregando tudo de uma vez e não está filtando
 
     <Footer />
   </BaseFormContainer>

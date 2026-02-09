@@ -28,7 +28,7 @@ export default defineComponent({
         { title: 'Nome', key: 'nome' },
         { title: 'SKU', key: 'sku' },
         { title: 'Descrição', key: 'descricao' },
-        { title: 'Categoria', key: 'categoria' },
+        { title: 'Categoria', key: 'categoria.nome' },
         { title: 'Status', key: 'status' },
         { title: 'Ações', key: 'actions' },
       ],

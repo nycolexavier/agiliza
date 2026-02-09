@@ -103,8 +103,8 @@ export default defineComponent({
 <template>
   <BaseFormContainer>
     <PageHeader
-      title="Movimentações"
-      actionLabel="Nova movimentação"
+      title="Saídas"
+      actionLabel="- saída de lote"
       secondaryLabel="Dashboard"
       @action="irParaCriarMovimentacao"
       @secondary="irParaODashboard"

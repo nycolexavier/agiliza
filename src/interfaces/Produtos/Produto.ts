@@ -11,6 +11,7 @@ export interface Produto {
   criadoEm: string;
   criadoPor: string;
   atualizadoEm: string;
+  categoriaId: string;
 }
 
 export interface ProdutosPostDTO {
@@ -20,10 +21,12 @@ export interface ProdutosPostDTO {
   status?: Status;
   categoria?: string;
   isPerecivel: boolean;
+  categoriaId: string;
 }
 
 export interface ProdutosPatchDTO {
   nome: string;
   sku: string;
   categoria: string;
+  categoriaId: string;
 }

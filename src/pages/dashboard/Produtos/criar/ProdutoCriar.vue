@@ -6,6 +6,9 @@ import { defineComponent } from 'vue';
 import PageHeader from '@/components/layouts/PageHeader.vue';
 import CreateFormCard from '@/components/form/CreateFormCard.vue';
 import type { Status } from '@/interfaces/Status';
+import type { Categoria } from '@/interfaces/Categoria';
+import { CategoriaList } from '@/services/categoria';
+import CategoriaDialog from '@/components/categoria/CategoriaDialog.vue';
 
 export default defineComponent({
   name: 'ProdutoCriarPage',
@@ -14,19 +17,22 @@ export default defineComponent({
     Footer,
     PageHeader,
     CreateFormCard,
+    CategoriaDialog,
   },
 
   data() {
     return {
       isLoading: false,
+      categorias: [] as Categoria[],
+      dialogCategoria: false,
 
       form: {
         nome: '',
         sku: '',
         status: 'ativo' as Status,
-        categoria: '',
+        categoriaId: null as string | null,
         isPerecivel: false,
-        descricao: ''
+        descricao: '',
       },
       snackbar: false,
       snackbarTexto: '',
@@ -45,10 +51,10 @@ export default defineComponent({
         await ProdutosPost({
           nome: this.form.nome,
           sku: this.form.sku,
-          descricao: 'tenho que arrumar isso',
+          descricao: 'tenho que arrumar isso', // todo isso
           // status: this.form.status,
-          // categoria: this.form.categoria,
-          isPerecivel: this.form.isPerecivel
+          categoriaId: this.form.categoriaId!,
+          isPerecivel: this.form.isPerecivel,
         });
 
         this.snackbarTexto = 'Produto criado com sucesso';
@@ -64,6 +70,16 @@ export default defineComponent({
         this.isLoading = false;
       }
     },
+
+    async categoriaCriada(novaCategoria: Categoria) {
+      this.categorias.push(novaCategoria);
+      this.form.categoriaId = novaCategoria.id;
+    },
+  },
+
+  async mounted() {
+    const response = await CategoriaList();
+    this.categorias = response.data;
   },
 });
 </script>
@@ -80,7 +96,7 @@ export default defineComponent({
     <CreateFormCard
       v-if="!isLoading"
       submitLabel="Criar produto"
-      :disabled="!form.nome || !form.categoria || !form.sku"
+      :disabled="!form.nome || !form.categoriaId || !form.sku"
       @submit="enviarForm"
     >
       <v-col cols="12" md="6">
@@ -92,12 +108,24 @@ export default defineComponent({
       </v-col>
 
       <v-col cols="12" md="6">
-        <v-text-field
-          v-model="form.categoria"
+        <v-autocomplete
+          v-model="form.categoriaId"
+          :items="categorias"
+          :item-title="(item) => item.nome"
+          item-value="id"
           label="Categoria"
+          clearable
           required
-          :rules="[(v) => !!v || 'Categoria é obrigatório']"
         />
+
+        <v-btn
+          variant="text"
+          color="primary"
+          class="mt-2"
+          @click="dialogCategoria = true"
+        >
+          + Criar nova categoria
+        </v-btn>
       </v-col>
 
       <v-col cols="12" md="6">
@@ -114,8 +142,10 @@ export default defineComponent({
 
     <div v-else class="text-center pa-4">
       <v-progress-circular indeterminate />
-      <p>Carregando usuários...</p>
+      <p>Carregando produtos...</p>
     </div>
+
+    <CategoriaDialog v-model="dialogCategoria" @created="categoriaCriada" />
 
     <v-snackbar
       v-model="snackbar"
