@@ -91,7 +91,6 @@ export default defineComponent({
         const response = await CategoriaList();
 
         this.categoria = response.data;
-        console.log('categoria', this.categoria);
       } catch (error) {
         console.error('Erro ao buscar categorias');
       } finally {

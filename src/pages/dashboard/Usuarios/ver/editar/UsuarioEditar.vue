@@ -56,8 +56,6 @@ export default defineComponent({
           this.form.name = response.data.name;
           this.form.email = response.data.email;
           this.form.telefone = response.data.telefone;
-
-          console.log(response.data);
         }
       } catch (error) {
         console.error('Erro ao buscar usuários', error);

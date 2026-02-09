@@ -10,7 +10,7 @@ import BaseTable from '@/components/base/BaseTable.vue';
 import SearchInput from '@/components/form/SearchInput.vue';
 import BasePagination from '@/components/base/BasePagination.vue';
 import TelefoneFormatado from '@/components/formatters/TelefoneFormatado.vue';
-
+// todo add cnpj e endereço
 export default defineComponent({
   name: 'FornecedoresPage',
 

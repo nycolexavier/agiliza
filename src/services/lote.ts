@@ -5,6 +5,10 @@ export function LoteList() {
   return api.get<Lote[]>('/lotes');
 }
 
+export function LoteListDisponiveis() {
+  return api.get<Lote[]>('/lotes/disponiveis');
+}
+
 export function LoteListID(id: string) {
   return api.get(`/lotes/${id}`);
 }

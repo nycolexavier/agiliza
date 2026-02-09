@@ -7,7 +7,7 @@ import PageHeader from '@/components/layouts/PageHeader.vue';
 import CreateFormCard from '@/components/form/CreateFormCard.vue';
 import type { Status } from '@/interfaces/Status';
 import { TipoMovimentacao } from '@/interfaces/Movimentacao';
-import { LoteList } from '@/services/lote';
+import { LoteList, LoteListDisponiveis } from '@/services/lote';
 import { dataNaoFutura } from '@/utils/validators/dateRules';
 import {
   precoCustoMenorOuIgualVenda,
@@ -102,9 +102,8 @@ export default defineComponent({
 
   async mounted() {
     try {
-      const response = await LoteList();
+      const response = await LoteListDisponiveis();
       this.lotes = response.data;
-      console.log(this.lotes);
     } catch (error) {
       console.error('Erro ao buscar a movimentação', error);
     }
@@ -113,13 +112,10 @@ export default defineComponent({
   watch: {
     'form.loteId'(novoId) {
       const loteSelecionado = this.lotes.find((l) => l.id === novoId);
-      console.log('loteSelecionado', loteSelecionado);
-      console.log('novoId', novoId);
       this.quantidadeDisponivel = loteSelecionado
         ? Number(loteSelecionado.quantidade)
         : 0;
 
-      console.log('quantidadeDisponivel', this.quantidadeDisponivel);
       this.form.quantidade = 0;
     },
   },

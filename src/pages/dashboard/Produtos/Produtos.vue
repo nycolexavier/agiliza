@@ -87,7 +87,6 @@ export default defineComponent({
 
         const response = await ProdutosList();
   
-        console.log(response.data);
         this.produto = response.data;
       }
       catch(error){
