@@ -9,6 +9,7 @@ import PageHeader from '@/components/layouts/PageHeader.vue';
 import SearchInput from '@/components/form/SearchInput.vue';
 import BaseTable from '@/components/base/BaseTable.vue';
 import BasePagination from '@/components/base/BasePagination.vue';
+import DataFormatada from '@/components/formatters/DataFormatada.vue';
 
 export default defineComponent({
   name: 'CategoriaPage',
@@ -19,6 +20,7 @@ export default defineComponent({
     PageHeader,
     SearchInput,
     BasePagination,
+    DataFormatada,
   },
 
   data() {
@@ -55,7 +57,7 @@ export default defineComponent({
       const buscaNormalizada = removerAcentos(this.busca);
 
       return this.categoria.filter((categoria) =>
-        removerAcentos(categoria.nome).includes(buscaNormalizada)
+        removerAcentos(categoria.nome).includes(buscaNormalizada),
       );
     },
   },
@@ -84,14 +86,13 @@ export default defineComponent({
     },
 
     async buscarProdutos() {
-      try{
-      const response = await CategoriaList();
+      try {
+        const response = await CategoriaList();
 
-      this.categoria = response.data;
-      }
-      catch(error){
-        console.error("Erro ao buscar categorias")
-      } finally{
+        this.categoria = response.data;
+      } catch (error) {
+        console.error('Erro ao buscar categorias');
+      } finally {
         this.isLoading = false;
       }
     },
@@ -110,15 +111,23 @@ export default defineComponent({
     <SearchInput v-model="busca" label="Buscar categoria pelo nome" />
 
     <BaseTable
-       v-if="!isLoading"
+      v-if="!isLoading"
       :headers="headers"
       :items="produtosPaginados"
       actionLabel="Ver +"
       @action="(item) => irParaProdutosVer(item.id)"
-    />
+    >
+      <template #item.criadoEm="{ item }">
+        <DataFormatada :value="item.criadoEm" />
+      </template>
 
-            <div v-else class="text-center pa-4">
-      <v-progress-circular indeterminate/>
+      <template #item.atualizadoEm="{ item }">
+        <DataFormatada :value="item.atualizadoEm" />
+      </template>
+    </BaseTable>
+
+    <div v-else class="text-center pa-4">
+      <v-progress-circular indeterminate />
       <p>Carregando categorias...</p>
     </div>
 

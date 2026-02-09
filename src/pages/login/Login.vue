@@ -1,13 +1,40 @@
 <script lang="ts">
 import { ROUTES } from '@/router/utils/routes';
+import api from '@/services/api';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'LoginPage',
 
+  data() {
+    return {
+      email: '',
+      senha: '',
+      loading: false,
+    };
+  },
+
   methods: {
-    irParaODashboard() {
-      this.$router.push(ROUTES.dashboard);
+
+    async login() {
+      try {
+        this.loading = true;
+
+        const response = await api.post('/auth/login', {
+          email: this.email,
+          senha: this.senha,
+        });
+
+        const { access_token } = response.data;
+
+        localStorage.setItem('token', access_token);
+
+        this.$router.push(ROUTES.dashboard);
+      } catch (error) {
+        alert('E-mail ou senha inválidos');
+      } finally {
+        this.loading = false;
+      }
     },
   },
 });
@@ -25,6 +52,7 @@ export default defineComponent({
           <v-card-text>
             <v-form>
               <v-text-field
+                v-model="email"
                 label="E-mail"
                 type="email"
                 variant="outlined"
@@ -36,6 +64,7 @@ export default defineComponent({
               />
 
               <v-text-field
+                v-model="senha"
                 label="Senha"
                 type="password"
                 variant="outlined"
@@ -46,12 +75,12 @@ export default defineComponent({
           </v-card-text>
 
           <v-card-actions>
-            <v-btn @click="irParaODashboard" block color="primary">
+            <v-btn @click="login" block color="primary">
               Entrar
             </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
- </BaseFormContainer>
+  </BaseFormContainer>
 </template>

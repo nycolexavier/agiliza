@@ -11,6 +11,10 @@ export default defineComponent({
   },
 
   methods: {
+    logout() {
+      localStorage.removeItem('token');
+      this.$router.push(ROUTES.login);
+    },
     irParaODashboard() {
       this.$router.push(ROUTES.dashboard);
     },
@@ -47,7 +51,7 @@ export default defineComponent({
 
 <template>
   <v-layout style="height: 100vh">
-   <!-- menu lateral -->
+    <!-- menu lateral -->
     <v-navigation-drawer permanent width="280" border>
       <v-list density="comfortable">
         <v-list-item
@@ -71,7 +75,8 @@ export default defineComponent({
           @click="irParaDeposito"
         />
         <v-list-item
-          title="Entradas" Lote
+          title="Entradas"
+          Lote
           prepend-icon="mdi-layers"
           @click="irParaLotes"
         />
@@ -103,6 +108,16 @@ export default defineComponent({
       <v-app-bar-title class="cursor-pointer" @click="irParaODashboard">
         Agiliza
       </v-app-bar-title>
+      <v-spacer />
+
+      <v-btn
+        color="error"
+        variant="text"
+        prepend-icon="mdi-logout"
+        @click="logout"
+      >
+        Sair
+      </v-btn>
     </v-app-bar>
 
     <!-- CONTEÚDO -->
