@@ -51,7 +51,7 @@ export default defineComponent({
         await ProdutosPost({
           nome: this.form.nome,
           sku: this.form.sku,
-          descricao: 'tenho que arrumar isso', // todo isso
+          descricao: '',
           // status: this.form.status,
           categoriaId: this.form.categoriaId!,
           isPerecivel: this.form.isPerecivel,

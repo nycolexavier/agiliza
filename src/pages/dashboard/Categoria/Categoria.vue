@@ -137,10 +137,6 @@ export default defineComponent({
       :itensPorPagina="itensPorPagina"
       :totalItens="categoriaFiltrada.length"
     />
-
-
-    // todo parece que esta carregando tudo de uma vez e não está filtando
-
     <Footer />
   </BaseFormContainer>
 </template>

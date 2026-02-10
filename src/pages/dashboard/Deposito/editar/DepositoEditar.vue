@@ -91,8 +91,6 @@ export default defineComponent({
       submitLabel="Salvar alterações"
       :disabled="
         !form.corredor ||
-        !form.prateleira ||
-        !form.sessao ||
         !form.quantidadeMaxima
       "
       @submit="enviarForm"

@@ -28,7 +28,6 @@ export default defineComponent({
       form: {
         nome: '',
         email: '',
-        status: 'ativo' as Status,
         telefone: '',
       },
 

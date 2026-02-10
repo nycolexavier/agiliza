@@ -88,6 +88,7 @@ export default defineComponent({
 
     async buscarMovimentacoes() {
       try {
+        this.isLoading = true;
         const response = await MovimentacaoList();
         this.movimentacoes = response.data;
       } catch (error) {
