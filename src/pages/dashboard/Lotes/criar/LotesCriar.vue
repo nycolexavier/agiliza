@@ -21,7 +21,6 @@ import { DepositoListDisponiveis } from '@/services/deposito.services';
 import { FornecedoresList } from '@/services/fornecedores';
 // todo ver a questão da data de validade quando o produto não é pericivel
 // não deixar adicionar lote que já venceu
-// todo fazer o markdown
 export default defineComponent({
   name: 'LoteCriarPage',
 

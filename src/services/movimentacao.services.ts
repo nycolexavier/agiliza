@@ -9,6 +9,10 @@ export function MovimentacaoListID(id: string) {
   return api.get(`/movimentacoes/${id}`);
 }
 
+export function MovimentacoesPorLote(id: string) {
+  return api.get(`/movimentacoes/lote/${id}`);
+}
+
 export function MovimentacaoPost( payload: MovimentacaoPostDTO) {
   return api.post(`/movimentacoes`, payload);
 }

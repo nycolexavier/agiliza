@@ -18,8 +18,8 @@ export default defineComponent({
 
   data(vm) {
     return {
-            isLoading: false,
-      
+      isLoading: false,
+
       lote: null as Lote | null,
     };
   },
@@ -39,14 +39,14 @@ export default defineComponent({
     },
 
     async buscarLote() {
-      try{
-  this.isLoading = true;
+      try {
+        this.isLoading = true;
         const id = this.$route.params.id;
         if (typeof id === 'string') {
           const response = await LoteListID(id);
           this.lote = response.data;
         }
-      }finally{
+      } finally {
         this.isLoading = false;
       }
     },
@@ -67,7 +67,7 @@ export default defineComponent({
     />
 
     <DetailsCard
-    v-if="!isLoading"
+      v-if="!isLoading"
       :items="[
         { label: 'Nome', value: lote?.id },
         { label: 'Código Lote', value: lote?.codigoLote },
@@ -80,10 +80,10 @@ export default defineComponent({
       ]"
     />
 
-        <div v-else class="text-center pa-4">
-          <v-progress-circular indeterminate/>
-          <p>Carregando lotes...</p>
-        </div>
+    <div v-else class="text-center pa-4">
+      <v-progress-circular indeterminate />
+      <p>Carregando lotes...</p>
+    </div>
 
     <Footer class="mt-6" />
   </BaseFormContainer>

@@ -3,7 +3,10 @@ import Footer from '@/components/footer/Footer.vue';
 import { defineComponent } from 'vue';
 import type { Movimentacao } from '@/interfaces/Movimentacao';
 import { ROUTES } from '@/router/utils/routes';
-import { MovimentacaoListID } from '@/services/movimentacao.services';
+import {
+  MovimentacaoListID,
+  MovimentacoesPorLote,
+} from '@/services/movimentacao.services';
 import PageHeader from '@/components/layouts/PageHeader.vue';
 import SearchInput from '@/components/form/SearchInput.vue';
 import DetailsCard from '@/components/card/DetailsCard.vue';
@@ -20,9 +23,10 @@ export default defineComponent({
 
   data() {
     return {
-       isLoading: false,
+      isLoading: false,
 
       movimentacoes: null as Movimentacao | null,
+      historico: [] as Movimentacao[],
       busca: '',
 
       paginaAtual: 1,
@@ -55,20 +59,25 @@ export default defineComponent({
     },
 
     async buscarMovimentacoes() {
-      try{
-this.isLoading = true;
+      try {
+        this.isLoading = true;
         const id = this.$route.params.id;
         if (typeof id === 'string') {
           const response = await MovimentacaoListID(id);
           this.movimentacoes = response.data;
+
+          const loteId = response.data.lote?.id;
+          if (loteId) {
+            const historicoResponse = await MovimentacoesPorLote(loteId);
+            this.historico = historicoResponse.data;
+          }
         }
-      }
-      catch(error){
+      } catch (error) {
         console.error('Erro ao buscar usuários', error);
       } finally {
         this.isLoading = false;
       }
-      }
+    },
   },
 });
 </script>
@@ -98,6 +107,43 @@ this.isLoading = true;
       <v-progress-circular indeterminate />
       <p>Carregando movimentações...</p>
     </div>
+
+    <v-card
+      v-if="!isLoading && historico.length"
+      class="mt-6"
+      variant="outlined"
+    >
+      <v-card-title> Histórico do lote </v-card-title>
+
+      <v-table>
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Tipo</th>
+            <th>Quantidade</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr
+            v-for="mov in historico"
+            :key="mov.id"
+            :class="{ 'bg-grey-lighten-4': mov.id === movimentacoes?.id }"
+          >
+            <td>{{ mov.dataMovimentacao }}</td>
+            <td>
+              <v-chip
+                :color="mov.tipo === 'entrada' ? 'success' : 'error'"
+                variant="outlined"
+              >
+                {{ mov.tipo }}
+              </v-chip>
+            </td>
+            <td>{{ mov.quantidade }}</td>
+          </tr>
+        </tbody>
+      </v-table>
+    </v-card>
 
     <Footer />
   </BaseFormContainer>

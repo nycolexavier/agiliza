@@ -57,7 +57,7 @@ export default defineComponent({
       const buscaNormalizada = removerAcentos(this.busca);
 
       return this.movimentacoes.filter((mov: Movimentacao) => {
-        const codigoLote = mov?.loteId ?? '';
+        const codigoLote = mov?.lote.codigoLote ?? '';
         return removerAcentos(codigoLote).includes(buscaNormalizada);
       });
     },
