@@ -15,7 +15,6 @@ export default defineComponent({
   },
 
   methods: {
-
     async login() {
       try {
         this.loading = true;
@@ -42,10 +41,7 @@ export default defineComponent({
 
 <template>
   <BaseFormContainer>
-    <v-container
-      fluid
-      class="fill-height d-flex align-center justify-center"
-    >
+    <v-container fluid class="fill-height d-flex align-center justify-center">
       <v-row align="center" justify="center">
         <v-col cols="12" sm="8" md="4">
           <v-card variant="outlined">
@@ -54,7 +50,7 @@ export default defineComponent({
             </v-card-title>
 
             <v-card-text>
-              <v-form>
+              <v-form >
                 <v-text-field
                   v-model="email"
                   label="E-mail"
@@ -79,8 +75,22 @@ export default defineComponent({
             </v-card-text>
 
             <v-card-actions>
-              <v-btn @click="login" block color="primary">
-                Entrar
+              <v-btn
+                block
+                color="primary"
+                :loading="loading"
+                :disabled="loading"
+                @click="login"
+              >
+                <template v-if="!loading"> Entrar </template>
+                <template v-else>
+                  <v-progress-circular
+                    indeterminate
+                    size="20"
+                    width="2"
+                    color="white"
+                  ></v-progress-circular>
+                </template>
               </v-btn>
             </v-card-actions>
           </v-card>
