@@ -45,10 +45,10 @@ export default defineComponent({
       this.$router.push(ROUTES.dashboard);
     },
 
-    irParaEditarMovimentacao() {
-      if (!this.movimentacoes) return;
-      this.$router.push(ROUTES.movimentacao.editar(this.movimentacoes.id));
-    },
+    // irParaEditarMovimentacao() {
+    //   if (!this.movimentacoes) return;
+    //   this.$router.push(ROUTES.movimentacao.editar(this.movimentacoes.id));
+    // },
 
     irParaMovimentacao(id: string) {
       this.$router.push(ROUTES.movimentacao.list);
@@ -79,10 +79,8 @@ this.isLoading = true;
       :title="`Movimentação: ${movimentacoes?.id}`"
       showback
       backLabel="Voltar para movimentações"
-      actionLabel="Editar"
       :actionDisabled="!movimentacoes"
       @back="irParaMovimentacao"
-      @action="irParaEditarMovimentacao"
     />
 
     <DetailsCard

@@ -29,11 +29,10 @@ export default defineComponent({
       movimentacoes: [] as Movimentacao[],
       busca: '',
       headers: [
-        { title: 'Lote', key: 'idlote' },
-        { title: 'Tipo', key: 'tipomovimentacao' },
+        { title: 'Lote', key: 'lote.codigoLote' },
+        { title: 'Tipo', key: 'tipo' },
         { title: 'Quantidade', key: 'quantidade' },
         { title: 'Data', key: 'dataMovimentacao' },
-        { title: 'Status', key: 'status' },
         { title: 'Ações', key: 'actions' },
       ],
 
