@@ -121,7 +121,7 @@ export default defineComponent({
     v-if="!isLoading"
       :headers="headers"
       :items="produtosPaginados"
-      actionLabel="Editar"
+      actionLabel="ver +"
       @action="(item) => irParaProdutosVer(item.id)"
     />
 
