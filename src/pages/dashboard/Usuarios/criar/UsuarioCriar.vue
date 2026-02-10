@@ -31,6 +31,7 @@ export default defineComponent({
         name: '',
         cargo: '' as CARGOSSemFornecedor,
         email: '',
+        senha: '',
         status: 'ativo' as Usuario['status'],
         telefone: '',
 
@@ -42,6 +43,7 @@ export default defineComponent({
         estado: '',
       },
 
+      showSenha: false,
       snackbar: false,
       snackbarTexto: '',
       snackbarCor: 'success',
@@ -58,6 +60,7 @@ export default defineComponent({
         const usuarioPayload = {
           name: this.form.name.toLowerCase().trim(),
           email: this.form.email.toLowerCase().trim(),
+          senha: this.form.senha,
           cargo: this.form.cargo,
           status: this.form.status,
           telefone: this.form.telefone,
@@ -152,7 +155,23 @@ export default defineComponent({
           />
         </v-col>
 
-        <!-- to-do: arrumar isso (status) -->
+        <v-col cols="12" md="6">
+          <v-text-field
+            v-model="form.senha"
+            label="Senha"
+            variant="outlined"
+            :append-icon="showSenha ? 'mdi-eye-off' : 'mdi-eye'"
+            @click:append="showSenha = !showSenha"
+            :type="showSenha ? 'text' : 'password'"
+            :rules="[
+              (v) => !!v || 'Senha é obrigatória',
+              (v) => v.length >= 6 || 'Senha deve ter no mínimo 6 caracteres',
+            ]"
+            required
+          />
+        </v-col>
+
+        <!-- todo: arrumar isso (status) -->
         <v-col cols="12" md="6">
           <v-select
             v-model="form.status"

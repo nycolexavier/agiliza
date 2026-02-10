@@ -27,8 +27,10 @@ export default defineComponent({
         name: '',
         email: '',
         telefone: '',
+        senha: '',
       },
 
+      showSenha: false,
       snackbar: false,
       snackbarTexto: '',
       snackbarCor: 'success',
@@ -65,18 +67,26 @@ export default defineComponent({
     async enviarForm() {
       try {
         const id = this.$route.params.id;
-
         if (typeof id === 'string') {
-          const response = await UsuariosIDPatch(id, this.form);
+          const payload: any = {
+            name: this.form.name,
+            email: this.form.email,
+            telefone: this.form.telefone,
+          };
 
-          (this.snackbarTexto = 'Usuario editado com sucesso'),
-            (this.snackbarCor = 'success');
+          if (this.form.senha && this.form.senha.length >= 6) {
+            payload.senha = this.form.senha;
+          }
+
+          await UsuariosIDPatch(id, payload);
+
+          ((this.snackbarTexto = 'Usuario editado com sucesso'),
+            (this.snackbarCor = 'success'));
           this.snackbar = true;
 
           setTimeout(() => {
             this.$router.push(ROUTES.usuarios.list);
           }, 1000);
-          return response;
         }
       } catch (error) {}
     },
@@ -113,6 +123,22 @@ export default defineComponent({
             v-model="form.telefone"
             label="Telefone"
             variant="outlined"
+          />
+        </v-col>
+
+        <v-col cols="12" md="6">
+          <v-text-field
+            v-model="form.senha"
+            label="Nova senha"
+            variant="outlined"
+            :append-icon="showSenha ? 'mdi-eye-off' : 'mdi-eye'"
+            @click:append="showSenha = !showSenha"
+            :type="showSenha ? 'text' : 'password'"
+            :rules="[
+              (v) =>
+                !v || v.length >= 6 || 'Senha deve ter no mínimo 6 caracteres',
+            ]"
+            placeholder="Deixe vazio para manter a senha atual"
           />
         </v-col>
       </v-row>
