@@ -154,7 +154,6 @@ export default defineComponent({
           v-model="form.tipo"
           label="Tipo de movimentação"
           :items="[
-            { title: 'Entrada', value: TipoMovimentacao.ENTRADA },
             { title: 'Saída', value: TipoMovimentacao.SAIDA },
           ]"
           required

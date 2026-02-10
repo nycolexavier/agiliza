@@ -56,9 +56,10 @@ export default defineComponent({
 
       const buscaNormalizada = removerAcentos(this.busca);
 
-      return this.movimentacoes.filter((mov: Movimentacao) =>
-        removerAcentos(mov.tipo).includes(buscaNormalizada),
-      );
+      return this.movimentacoes.filter((mov: Movimentacao) => {
+        const codigoLote = mov?.loteId ?? '';
+        return removerAcentos(codigoLote).includes(buscaNormalizada);
+      });
     },
   },
 
@@ -102,14 +103,14 @@ export default defineComponent({
 <template>
   <BaseFormContainer>
     <PageHeader
-      title="Saídas"
+      title="Movimentações"
       actionLabel="- saída de lote"
       secondaryLabel="Dashboard"
       @action="irParaCriarMovimentacao"
       @secondary="irParaODashboard"
     />
 
-    <SearchInput v-model="busca" label="Buscar por tipo de movimentação" />
+    <SearchInput v-model="busca" label="Buscar por código do lote" />
 
     <BaseTable
       v-if="!isLoading"

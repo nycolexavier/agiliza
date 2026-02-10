@@ -28,6 +28,7 @@ export default defineComponent({
         email: '',
         telefone: '',
         senha: '',
+        status: null as 'ativo' | 'inativo' | null,
       },
 
       showSenha: false,
@@ -58,6 +59,7 @@ export default defineComponent({
           this.form.name = response.data.name;
           this.form.email = response.data.email;
           this.form.telefone = response.data.telefone;
+          this.form.status = response.data.status;
         }
       } catch (error) {
         console.error('Erro ao buscar usuários', error);
@@ -107,6 +109,16 @@ export default defineComponent({
       <v-row>
         <v-col cols="12" md="6">
           <v-text-field v-model="form.name" label="Nome" variant="outlined" />
+        </v-col>
+
+        <v-col cols="12" md="6">
+          <v-select
+            v-model="form.status"
+            :items="['ativo', 'inativo']"
+            label="Status"
+            variant="outlined"
+            required
+          />
         </v-col>
 
         <v-col cols="12">

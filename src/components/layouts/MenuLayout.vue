@@ -42,9 +42,9 @@ export default defineComponent({
     irParaCategoria() {
       this.$router.push(ROUTES.categoria.list);
     },
-    irParaRelatorio() {
-      this.$router.push(ROUTES.relatorio.list);
-    },
+    // irParaRelatorio() {
+    //   this.$router.push(ROUTES.relatorio.list);
+    // },
   },
 });
 </script>
@@ -95,11 +95,11 @@ export default defineComponent({
           prepend-icon="mdi-shape-outline"
           @click="irParaCategoria"
         />
-        <v-list-item
+        <!-- <v-list-item
           title="Relatório"
           prepend-icon="mdi-file-chart"
           @click="irParaRelatorio"
-        />
+        /> -->
       </v-list>
     </v-navigation-drawer>
 
